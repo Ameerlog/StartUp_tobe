@@ -1,1 +1,73 @@
 @import "tailwindcss";
+
+
+
+.marquee {
+  --marquee-inset: 80px;
+  --gap: 8px;
+  position: relative;
+}
+
+.marquee__line {
+  position: absolute;
+  top: 50%;
+  width: 72px;
+  height: 2px;
+  background: rgba(247, 246, 247, 0.45);
+  transform: translateY(-50%);
+  z-index: 10; /* lines above blur */
+  pointer-events: none;
+}
+
+.marquee__line--left { left: 0; }
+.marquee__line--right { right: 0; }
+
+.marquee__viewport {
+  margin-left: var(--marquee-inset);
+  margin-right: var(--marquee-inset);
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-x 22s linear infinite;
+}
+
+.marquee__group {
+  display: flex;
+  gap: var(--gap);
+}
+
+@keyframes marquee-x {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Transparent blur edges behind the lines */
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 0; /* behind lines */
+  pointer-events: none;
+  backdrop-filter: blur(14px);
+  border-radius: 90px;
+  background: transparent;
+}
+
+.marquee::before { left: 0; 
+}
+.marquee::after { right: 0; }
