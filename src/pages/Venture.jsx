@@ -4,7 +4,7 @@ import Divider from "../components/Divider";
 import ReserveDomainForm from "../components/Form";
 import JVBenefitsSection from "../components/JVBenefits";
 import JVProcess from "../components/JVProcess";
-import VentureHero from "../components/VeNtureHero";
+import VentureHero from "../components/VentureHero";
 
 
 const Venture = () => {
