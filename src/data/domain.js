@@ -10,7 +10,7 @@ export const domainCards = [
     id: "30mbps",
     title: "30 Mbps.com",
     src: Mbps30,
-    price: "₹1",
+    price: "₹1 cr",
     theme: {
       cardBg: "bg-indigo-50",
       border: "border-indigo-200",
@@ -22,7 +22,7 @@ export const domainCards = [
     id: "batteryfy",
     title: "Batteryfy",
     src: Batteryfy,
-    price: "₹0.5",
+    price: "₹55 lakhs",
     theme: {
       cardBg: "bg-emerald-50",
       border: "border-emerald-200",
@@ -34,7 +34,7 @@ export const domainCards = [
     id: "cosistister",
     title: "Cosistister",
     src: Cosistister,
-    price: "₹10",
+    price: "₹10 cr",
     theme: {
       cardBg: "bg-orange-50",
       border: "border-orange-200",
@@ -46,7 +46,7 @@ export const domainCards = [
     id: "drychilli",
     title: "Dry Chilli",
     src: DryChilli,
-    price: "₹7",
+    price: "₹7 Cr",
     theme: {
       cardBg: "bg-rose-50",
       border: "border-rose-200",
@@ -58,7 +58,7 @@ export const domainCards = [
     id: "drygrains",
     title: "Dry Grains",
     src: DryGrains,
-    price: "₹8",
+    price: "₹8 lakhs",
     theme: {
       cardBg: "bg-orange-50",
       border: "border-orange-200",
@@ -70,7 +70,7 @@ export const domainCards = [
     id: "pregadays",
     title: "Pregadays",
     src: Pregadays,
-    price: "₹100",
+    price: "₹10 lakhs",
     theme: {
       cardBg: "bg-fuchsia-50",
       border: "border-fuchsia-200",

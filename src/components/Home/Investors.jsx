@@ -1,12 +1,13 @@
 import React from "react";
 import MarqueeRow from "../../components/Marquee";
 import { investorCards } from "../../data/investors";
+import { ArrowRight } from "lucide-react";
 
 export default function Investors() {
   return (
     <section className="w-full bg-black py-5 relative">
 
-      <h2 className="ml-10 text-[28px] md:text-[32px] text-white px-6 max-w-[1400px] mx-auto">
+      <h2 className="ml-10 text-[28px] md:text-[32px] text-white px-6 max-w-[1400px] mx-auto font-bold">
        Investors
       </h2>
 
@@ -79,7 +80,30 @@ export default function Investors() {
               </div>
             )}
           />
-
+         <div className="mt-14 flex justify-center">
+            <button
+              className="
+                group flex items-center gap-2
+                rounded-full
+                border border-white/30
+                bg-white/10
+                
+                px-8 py-3
+                text-sm font-bold text-white
+                backdrop-blur-xl
+                transition-all duration-300
+                hover:border-red-400
+                hover:text-red-400
+                hover:bg-white/20
+              "
+            >
+              View All
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </section>

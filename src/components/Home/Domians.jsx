@@ -1,12 +1,13 @@
 import React from "react";
 import MarqueeRow from "../../components/Marquee";
 import { domainCards } from "../../data/domain";
+import { ArrowRight } from "lucide-react";
 
 export default function Domains() {
   return (
     <section className="w-full bg-black pt-8 pb-16 relative">
-      <h2 className="m-0 text-[28px] md:text-[32px] text-white px-6">
-        Domains
+      <h2 className="m-0 text-[28px] md:text-[32px] text-white px-6 font-bold">
+        Domains for Sale
       </h2>
 
       <div className="relative mt-4">
@@ -60,6 +61,30 @@ export default function Domains() {
             );
           }}
         />
+            <div className="mt-14 flex justify-center">
+            <button
+              className="
+                group flex items-center gap-2
+                rounded-full
+                border border-white/30
+                bg-white/10
+                
+                px-8 py-3
+                text-sm font-bold text-white
+                backdrop-blur-xl
+                transition-all duration-300
+                hover:border-red-400
+                hover:text-red-400
+                hover:bg-white/20
+              "
+            >
+              View All
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </button>
+          </div>
       </div>
     </section>
   );

@@ -2,12 +2,13 @@
 import React from "react";
 import MarqueeRow from "../Marquee";
 import { vipNumbers } from "../../data/number";
+import { ArrowRight } from "lucide-react";
 
 export default function Numbers() {
   return (
     <section className="w-full bg-black pt-8 pb-16 relative">
      
-      <h2 className="ml-10 text-[28px] md:text-[32px] text-white">
+      <h2 className="ml-10 text-[28px] md:text-[32px] text-white font-bold">
         VIP Numbers
       </h2>
       
@@ -39,7 +40,32 @@ export default function Numbers() {
             </div>
           )}
         />
+          <div className="mt-14 flex justify-center">
+            <button
+              className="
+                group flex items-center gap-2
+                rounded-full
+                border border-white/30
+                bg-white/10
+                
+                px-8 py-3
+                text-sm font-bold text-white
+                backdrop-blur-xl
+                transition-all duration-300
+                hover:border-red-400
+                hover:text-red-400
+                hover:bg-white/20
+              "
+            >
+              View All
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </button>
+          </div>
       </div>
+      
     </section>
   );
 }
