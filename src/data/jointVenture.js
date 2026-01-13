@@ -1,9 +1,9 @@
 import Batteryfy from "../assets/domain/batteryfy.svg";
 import Mbps30 from "../assets/domain/30mbps.svg";
-// import Checkdam from "../assets/domain/checkdam.svg";
+
 import Pregadays from "../assets/domain/pregadays.svg";
 import Cosister from "../assets/domain/cosister.svg";
-// import Cobrother from "../assets/domain/cobrother.svg";
+
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
 
