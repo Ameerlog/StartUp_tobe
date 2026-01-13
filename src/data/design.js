@@ -1,5 +1,5 @@
 import Mbps30 from "../assets/domain/30mbps.svg";
-import Batteryfy from "../assets/domain/Batteryfy.svg";
+import Batteryfy from "../assets/domain/batteryfy.svg";
 import Cosistister from "../assets/domain/cosister.svg";
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
