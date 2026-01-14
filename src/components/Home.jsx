@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/30Logo.png";
-import BackgroundImage from "../assets/domain/Joint Venture.png";
+import BackgroundImage from "../assets/domain/jointventure.png";
 
 import Joint from "../assets/domain/joint.png";
 import Branding from "../assets/domain/branding.png";
