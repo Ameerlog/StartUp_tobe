@@ -6,7 +6,7 @@ import FeaturesSection from "../components/Featuredsection";
 import HowItWorksSection from "../components/HowitWorks";
 import BentoGrid from "../components/BentoGrid";
 import FAQ from "../components/Faq";
-import HeroImage from  "../assets/domain/joint"
+import HeroImage from  "../assets/domain/jointventure.png";
 const Marketing = () => {
   return (
     <div className="min-h-screen bg-[#faf7ff] px-1.5 sm:px-2 lg:px-3 py-1.5 sm:py-2">
