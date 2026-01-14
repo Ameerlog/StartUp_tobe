@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import B from "../assets/domain/Batteryfy.svg";
+import B from "../assets/domain/batteryfy.svg";
 import P from "../assets/domain/pregadays.svg";
 import DC from "../assets/domain/drychilli.svg";
 import DG from "../assets/domain/drygrains.svg";
