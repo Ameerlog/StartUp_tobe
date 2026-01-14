@@ -27,7 +27,7 @@ export default function Branding() {
 
       <section className="relative overflow-hidden pb-0 pt-16">
  
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-fuchsia-500/18 via-indigo-500/10 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-fuchsia-500/18 via-indigo-500/10 to-transparent blur-3xl" />
 
      
         <div
@@ -63,7 +63,7 @@ export default function Branding() {
               </p>
 
               <div className="mt-10 flex justify-center">
-                <div className="h-px w-72 bg-gradient-to-r from-transparent via-zinc-200 to-transparent" />
+                <div className="h-px w-72 bg-linear-to-r from-transparent via-zinc-200 to-transparent" />
               </div>
             </div>
           </div>

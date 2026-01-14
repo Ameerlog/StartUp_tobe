@@ -10,7 +10,7 @@ import HeroImage from  "../assets/domain/jointventure.png";
 const Marketing = () => {
   return (
     <div className="min-h-screen bg-[#faf7ff] px-1.5 sm:px-2 lg:px-3 py-1.5 sm:py-2">
-     <div className="relative mx-auto max-w-[90rem] min-h-[calc(90vh-1rem)] rounded-[24px] sm:rounded-[36px] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+     <div className="relative mx-auto max-w-360 min-h-[calc(90vh-1rem)] rounded-3xl sm:rounded-[36px] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
      
       <img
         src={HeroImage}
@@ -36,7 +36,7 @@ const Marketing = () => {
         <div className="mt-8 sm:mt-10 w-full max-w-2xl flex flex-col items-center gap-4 sm:gap-6">
           <Link
             to="/get-started"
-            className="inline-flex h-12 sm:h-14 min-w-[140px] items-center justify-center rounded-4xl bg-white text-black px-5 sm:px-8 text-sm sm:text-base font-bold shadow-lg shadow-black/30 transition hover:scale-[1.02] hover:shadow-black/40"
+            className="inline-flex h-12 sm:h-14 min-w-35 items-center justify-center rounded-4xl bg-white text-black px-5 sm:px-8 text-sm sm:text-base font-bold shadow-lg shadow-black/30 transition hover:scale-[1.02] hover:shadow-black/40"
           >
             Get Started
             <ArrowRight className="ml-2 w-4 h-4" />
@@ -49,7 +49,7 @@ const Marketing = () => {
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-4 -bottom-12 mx-auto h-40 sm:h-56 max-w-6xl rounded-[36px] bg-gradient-to-r from-white/5 via-white/10 to-white/5 blur-2xl"
+          className="pointer-events-none absolute inset-x-4 -bottom-12 mx-auto h-40 sm:h-56 max-w-6xl rounded-[36px] bg-linear-to-r from-white/5 via-white/10 to-white/5 blur-2xl"
         />
       </div>
     </div>

@@ -78,7 +78,7 @@ export default function DomainDetailsLayout() {
                 </div>
               </div>
               <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50">
-                <div className="aspect-[590/360] flex items-center justify-center">
+                <div className="aspect-590/360 flex items-center justify-center">
                   <img
                     src={item.image}
                     alt={domain}

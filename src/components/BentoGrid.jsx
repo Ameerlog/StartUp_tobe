@@ -71,7 +71,7 @@ function Muted({ children, className = "" }) {
 function CheckRow({ children }) {
   return (
     <div className="flex items-start gap-2 text-sm text-black/70">
-      <span className="mt-[3px] inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700">
+      <span className="mt-0.75 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700">
         ✓
       </span>
       <span className="leading-relaxed">{children}</span>
@@ -90,8 +90,8 @@ function Badge({ children }) {
 function FadeTopBottom() {
   return (
     <>
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-linear-to-b from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-t from-white to-transparent" />
     </>
   );
 }
@@ -107,7 +107,7 @@ function VerticalMarquee({ rows }) {
             className="flex items-center justify-between gap-3 border-b border-black/10 px-3 py-2"
           >
             <div className="flex min-w-0 items-center gap-2">
-              <div className="grid h-6 w-6 place-items-center rounded-full border border-black/10 bg-black/[0.02] text-[10px] font-extrabold text-black/60">
+              <div className="grid h-6 w-6 place-items-center rounded-full border border-black/10 bg-black/2 text-[10px] font-extrabold text-black/60">
                 {typeof r.icon === "string" ? (
                   <img src={r.icon} alt="" className="h-4 w-4 scale-150" />
                 ) : (
@@ -138,7 +138,7 @@ function EmailList() {
       <div className="space-y-0">
         {rows.map((r) => (
           <div key={r.title} className="flex items-start gap-3 border-b border-black/10 px-4 py-3">
-            <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-black/10 bg-black/[0.02] text-xs text-black/60">
+            <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-black/10 bg-black/2 text-xs text-black/60">
               •
             </div>
             <div className="min-w-0">
@@ -149,14 +149,14 @@ function EmailList() {
               <div
                 className={[
                   "mt-1 h-5 w-5 rounded-full border",
-                  r.done ? "border-emerald-600/20 bg-emerald-500/15" : "border-black/10 bg-black/[0.02]",
+                  r.done ? "border-emerald-600/20 bg-emerald-500/15" : "border-black/10 bg-black/2",
                 ].join(" ")}
               />
             </div>
           </div>
         ))}
       </div>
-      <div className="pointer-events-none absolute bottom-2 left-0 right-0 mx-auto h-[2px] w-[70%] rounded-full bg-black/10" />
+      <div className="pointer-events-none absolute bottom-2 left-0 right-0 mx-auto h-0.5 w-[70%] rounded-full bg-black/10" />
     </div>
   );
 }
@@ -164,7 +164,7 @@ function EmailList() {
 function HelpDeskChat() {
   return (
     <div className="space-y-3">
-      <div className="rounded-xl border border-black/10 bg-black/[0.02] px-3 py-2 text-xs text-black/70">
+      <div className="rounded-xl border border-black/10 bg-black/2 px-3 py-2 text-xs text-black/70">
      09876556789
       </div>
       <div className="text-center text-[11px] font-semibold text-black/55">StartupToBe mapped the next step</div>
@@ -182,10 +182,10 @@ function AuthPreview() {
       <div className="rounded-2xl border border-black/10 bg-white p-4">
         <div className="flex items-center justify-between">
           <div className="text-xs font-semibold text-black/60">Register your company</div>
-          <div className="h-7 w-20 rounded-lg border border-black/10 bg-black/[0.02]" />
+          <div className="h-7 w-20 rounded-lg border border-black/10 bg-black/2" />
         </div>
 
-        <div className="mt-4 rounded-xl border border-black/10 bg-black/[0.02] p-4">
+        <div className="mt-4 rounded-xl border border-black/10 bg-black/2 p-4">
           
           <div className="mt-3 space-y-2">
             <div className="h-9 rounded-lg border border-black/10 bg-white" />
@@ -201,7 +201,7 @@ function AuthPreview() {
           </div>
           <div className="mt-3 grid grid-cols-3 gap-2">
             {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} className="h-8 rounded-lg border border-black/10 bg-black/[0.02]" />
+              <div key={i} className="h-8 rounded-lg border border-black/10 bg-black/2" />
             ))}
           </div>
 
@@ -216,7 +216,7 @@ function AuthPreview() {
         <div className="text-xs font-semibold text-black/60">Tools you can add</div>
         <div className="mt-3 grid grid-cols-2 gap-2">
           {Array.from({ length: 10 }).map((_, i) => (
-            <div key={i} className="h-8 rounded-lg border border-black/10 bg-black/[0.02]" />
+            <div key={i} className="h-8 rounded-lg border border-black/10 bg-black/2" />
           ))}
         </div>
         <div className="mt-4 rounded-xl border border-[#635BFF]/25 bg-[#635BFF]/10 p-3 text-[11px] font-semibold text-[#4a42ff]">
@@ -246,8 +246,8 @@ function ReportingCard() {
 
       <div className="mt-3 text-lg font-extrabold text-black">Stay compliant</div>
 
-      <div className="mt-3 rounded-xl border border-black/10 bg-black/[0.02] p-4">
-        <div className="h-[140px] w-full rounded-lg bg-gradient-to-b from-black/10 to-transparent" />
+      <div className="mt-3 rounded-xl border border-black/10 bg-black/2 p-4">
+        <div className="h-35 w-full rounded-lg bg-linear-to-b from-black/10 to-transparent" />
       </div>
 
       <div className="mt-3 grid gap-2">
@@ -259,8 +259,8 @@ function ReportingCard() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 -bottom-4 h-12 bg-gradient-to-t from-white to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 -top-4 h-10 bg-gradient-to-b from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 -bottom-4 h-12 bg-linear-to-t from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 -top-4 h-10 bg-linear-to-b from-white to-transparent" />
     </div>
   );
 }
@@ -299,7 +299,7 @@ export default function BentoGrid() {
             <Card as="a" href="/" className="p-4 sm:p-6">
               <div className="flex flex-wrap items-center gap-3">
                 <Title>Trade Mark and IP Protection</Title>
-                <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.02] px-3 py-1 text-xs text-black/60">
+                <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/2 px-3 py-1 text-xs text-black/60">
                   <span className="font-semibold">Paperwork handled</span>
                 </span>
               </div>

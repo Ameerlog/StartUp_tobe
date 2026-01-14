@@ -22,7 +22,7 @@ export default function MarketPlace() {
     <main className="min-h-screen bg-white text-zinc-950">
 
       <section className="relative overflow-hidden border-b border-zinc-200">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-fuchsia-500/15 via-indigo-500/10 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-fuchsia-500/15 via-indigo-500/10 to-transparent blur-3xl" />
 
         <div className="relative mx-auto max-w-6xl px-4 py-12 sm:py-16 text-center">
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
@@ -94,7 +94,7 @@ export default function MarketPlace() {
 
                 <h3 className="text-lg sm:text-xl font-semibold">Cloneable designs coming soon!</h3>
                 <p className="mx-auto mt-3 max-w-2xl text-sm text-zinc-600">
-                  We’re currently working on some fabulous designs using custom CSS and animations.
+                  Were currently working on some fabulous designs using custom CSS and animations.
                 </p>
               </motion.div>
             ) : (
