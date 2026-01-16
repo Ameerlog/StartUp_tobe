@@ -61,6 +61,7 @@ export default function MarketPlace() {
                     {t}
                   </button>
                 );
+                  
               })}
             </div>
 
@@ -118,7 +119,7 @@ export default function MarketPlace() {
                     />
 
                     <div className="border-b border-zinc-200 bg-zinc-50 p-3">
-                      <div className="aspect-[4/3] overflow-hidden rounded-xl bg-white flex items-center justify-center">
+                      <div className="aspect-4/3 overflow-hidden rounded-xl bg-white flex items-center justify-center">
                         <img
                           src={item.image}
                           alt={item.title}

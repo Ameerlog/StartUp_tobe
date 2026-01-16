@@ -11,10 +11,6 @@ export default function FeaturesSection() {
           <h2 className="text-4xl font-medium tracking-tight text-zinc-900 sm:text-5xl md:text-6xl">
            Includes 
           </h2>
-
-          {/* <p className="mt-6 text-xl leading-8 text-zinc-600 ]">
-            Includes 
-          </p> */}
         </div>
 
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 sm:grid-cols-2 lg:max-w-none lg:grid-cols-4 lg:gap-8">

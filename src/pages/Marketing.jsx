@@ -55,6 +55,7 @@ const Marketing = () => {
     </div>
 
       <FeaturesSection />
+      
       <HowItWorksSection/>
       <BentoGrid/>
       <FAQ/>

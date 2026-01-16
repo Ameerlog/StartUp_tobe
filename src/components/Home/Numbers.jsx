@@ -8,9 +8,36 @@ export default function Numbers() {
   return (
     <section className="w-full bg-black pt-8 pb-16 relative">
      
-      <h2 className="ml-10 text-[28px] md:text-[32px] text-white font-bold">
-        VIP Numbers
-      </h2>
+       <div className="text-center px-4 flex flex-col items-center gap-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
+       Business Numbers
+        </h2>
+      
+      <button
+            className="
+              group
+              flex items-center gap-2
+              rounded-full
+              border border-white
+              bg-white/10
+              px-5 sm:px-6 md:px-8
+              py-2.5 sm:py-3
+              text-xs sm:text-sm
+              font-bold text-white
+              backdrop-blur-xl
+              transition-all duration-300
+              hover:border-red-400
+              hover:text-red-400
+              hover:bg-white/20
+              active:scale-[0.98]
+              mt-4 
+            "
+          >
+            List  Numbers for Resell
+            
+          </button>
+      
+      </div>
       
       <div className="relative mt-4">
    
@@ -33,7 +60,7 @@ export default function Numbers() {
 
                 <div className="flex justify-end">
                   <button className="rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
-                    Buy Now
+                    Explore now
                   </button>
                 </div>
               </div>

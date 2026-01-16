@@ -16,7 +16,7 @@ export const jvMarqueeCards = [
     details: [
       "Electric Vehicles / Clean Mobility",
       "Conversion Services + B2B Contracts",
-      "Buy or JV (70/30)",
+      "Get venture",
     ],
   },
 
@@ -28,7 +28,7 @@ export const jvMarqueeCards = [
     details: [
       "Data Infrastructure / Cloud Services",
       "Extraction, Compression & Storage",
-      "Buy or JV (70/30)",
+      "Get venture",
     ],
   },
 
@@ -42,7 +42,7 @@ export const jvMarqueeCards = [
     details: [
       "Women’s Essentials / Wellness",
       "D2C Products + Retail Distribution",
-      "Buy or JV (70/30)",
+      "Get venture",
     ],
   },
 
@@ -54,7 +54,7 @@ export const jvMarqueeCards = [
     details: [
       "Women’s Essentials / Lifestyle",
       "D2C Products + Community-Driven Brand",
-      "Buy or JV (70/30)",
+      "Get venture (70/30)",
     ],
   },
 
@@ -68,7 +68,7 @@ export const jvMarqueeCards = [
     details: [
       "Agri Trade / Food Exports",
       "Domestic Supply + Global Export Markets",
-      "Buy or JV (70/30)",
+      "Get venture (70/30)",
     ],
   },
 
@@ -80,7 +80,7 @@ export const jvMarqueeCards = [
     details: [
       "Agri Trade / Food Exports",
       "Domestic Supply + Global Distribution",
-      "Buy or JV (70/30)",
+      "Get venture (70/30)",
     ],
   },
 ];

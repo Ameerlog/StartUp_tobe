@@ -14,11 +14,14 @@ import DomainDetailsLayout from './pages/DetailsPage'
 import ReserveDomainPage from './pages/ReserveDomain'
 import Success from './pages/Success'
 import ReserveDomainForm from './components/Form'
+import Navbar from './components/Navbar'
+
 
 
 const App = () => {
   return (
    <BrowserRouter>
+   <Navbar/>
    <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/marketing' element={<Marketing/>}/>
@@ -35,6 +38,7 @@ const App = () => {
       <Route path="/marketplace/:slug" element={<DomainDetailsLayout />} />
       <Route path="/marketplace/:slug/payment" element={<ReserveDomainPage />} />
       <Route path="/marketplace/:slug/payment/success" element={<Success />} />
+   
    </Routes>
 
    </BrowserRouter> 
