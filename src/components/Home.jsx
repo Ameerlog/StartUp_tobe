@@ -18,6 +18,7 @@ import Market from "./Home/Marketing";
 import Merchandise from "./Home/Merchandise";
 import AIRobotics from "./Home/AIRobotics";
 import Footer from "./Footer";
+import ComplianceCards from "./ComplianceCards";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -120,7 +121,6 @@ const Home = () => {
                     />
                   </div>
 
-                  {/* Text Content - Responsive */}
                   <div className="text-white text-center 
                                   mt-0.5 sm:mt-1 md:mt-1.5 
                                   w-full px-0.5 sm:px-1">
@@ -165,6 +165,7 @@ const Home = () => {
       <Numbers />
       <Merchandise/>
       <Market/>
+      <ComplianceCards/>
       <AIRobotics/>
       <Investors />
       <Footer/>
