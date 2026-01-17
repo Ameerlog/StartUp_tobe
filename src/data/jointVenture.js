@@ -6,6 +6,7 @@ import Cosister from "../assets/domain/cosister.svg";
 // import Cobrother from "../assets/domain/cobrother.svg";
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
+import GigMic from "../assets/domain/GIG (2).png";
 
 /* 
   👉 For new brands:
@@ -192,6 +193,18 @@ export const jvMarqueeCards = [
       "Mining / Industrial Tech / Infrastructure Services",
       "B2B Services + Tech Solutions + Long-Term Contracts",
       "Get Venture (70/30)",
+    ],
+  },
+    {
+    id: 18,
+    logo:GigMic,
+    desc:
+      "Artist, Gig & Open Mic Discovery Platform",
+    details: [
+      "Connect artists, venues & audiences",
+      "List and promote live gigs & mic events",
+      "Enable collaborations and bookings",
+      "Build a unified live music community",
     ],
   },
 ];

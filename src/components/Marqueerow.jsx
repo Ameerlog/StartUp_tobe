@@ -3,10 +3,10 @@ function Badge({ children }) {
     <span
       className="
         whitespace-nowrap rounded-full
-        border border-white/20 bg-white/15
+        border border-black/40 bg-black/15
         px-3 py-1.5 sm:px-4 sm:py-2
         text-xs sm:text-sm
-        text-white
+        text-black
         backdrop-blur-xl
       "
     >

@@ -8,7 +8,7 @@ export default function FeaturesSection() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
 
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-medium tracking-tight text-zinc-900 sm:text-5xl md:text-6xl">
+          <h2 className="text-4xl font-medium tracking-tight text-zinc-900 ">
            Includes 
           </h2>
         </div>

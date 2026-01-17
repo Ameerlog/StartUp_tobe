@@ -3,32 +3,41 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const FAQS = [
   {
-    question: "What exactly do I get when I start?",
+    question: "Is AULTUM a ready-made CRM or custom built?",
     answer:
-      "You receive a complete startup foundation. This includes a brand name and domain, majority ownership of the brand, and access to an integrated platform for sales, operations, and management. Accounting and compliance support are included, with everything set up to work together from day one.",
+      "AULTUM is a ready-to-use, highly customizable CRM platform built on a scalable white-label infrastructure.",
   },
   {
-    question: "Who owns the brand and domain?",
+    question: "Can I use AULTUM for my own business?",
     answer:
-      "You retain 70% ownership of the brand and full operational control. The ownership structure is designed to give founders long-term flexibility while still benefiting from ongoing platform support.",
+      "Yes. AULTUM is designed for startups, SMEs, agencies, and service businesses to manage leads, customers, and operations.",
   },
   {
-    question: "Is this a software platform or a service?",
+    question: "Can I resell AULTUM as my own CRM?",
     answer:
-      "It is both. The platform provides the core systems and tools, while our team supports setup, coordination, and early-stage operations. You don’t just get access to software — you start with a working system.",
+      "Yes. AULTUM supports full white-labeling, allowing you to sell CRM services under your own brand.",
   },
   {
-    question: "How is this different from using multiple SaaS tools?",
+    question: "Does AULTUM support WhatsApp & Email automation?",
     answer:
-      "Using individual tools requires setup, integrations, and constant decisions. This platform delivers a pre-aligned foundation that reduces fragmentation, saves time, and avoids rebuilding systems as the startup grows.",
+      "Yes. AULTUM supports WhatsApp, Email, and SMS automation depending on the plan and integrations.",
   },
   {
-    question: "Who is this best suited for?",
+    question: "Is there any setup or onboarding support?",
     answer:
-      "This is designed for early-stage founders, solopreneurs, and small teams who want to start with clarity, ownership, and structure. It is not intended for large enterprises or late-stage companies.",
+      "Yes. We provide onboarding support, system setup, and guidance based on your selected plan.",
+  },
+  {
+    question: "Is AULTUM AI-powered?",
+    answer:
+      "AULTUM is AI-ready, meaning it supports advanced automation and can integrate with AI tools for smart workflows.",
+  },
+  {
+    question: "Can I upgrade or downgrade plans?",
+    answer:
+      "Yes. Plans are flexible and can be upgraded or adjusted based on your business needs.",
   },
 ];
-
 
 export default function FAQ() {
   return (
