@@ -113,7 +113,7 @@ export default function Marketing() {
                       flex items-center justify-center gap-2
                     "
                   >
-                    Explore Now
+                    Schedule a Visit
                     <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>

@@ -4,6 +4,9 @@ import { jvMarqueeCards } from "../../data/jointVenture";
 import { ArrowRight } from "lucide-react";
 
 export default function JointVenture() {
+
+
+  
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
  

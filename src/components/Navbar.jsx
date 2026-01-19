@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/30Logo.png";
+import Logo from "../assets/domain/pre.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const Navbar = () => {
           <div className="ml-auto flex items-center gap-2 sm:gap-3 md:gap-4">
             <button
               onClick={() => navigate("/login")}
-              className="px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 text-xs sm:text-sm md:text-base font-semibold text-white border border-white/30 bg-white/10 backdrop-blur-md rounded-full transition-all duration-300 hover:bg-white/20 active:scale-95"
+              className="px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 text-xs sm:text-sm md:text-base font-semibold text-black border border-white/30 bg-white/30 backdrop-blur-md rounded-full transition-all duration-300 hover:bg-white/20 active:scale-95"
             >
               Login
             </button>

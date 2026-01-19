@@ -14,8 +14,8 @@ export const complianceServices = [
   },
   {
     id: 3,
-    name: "DIN & Director Services",
-    price: "₹499",
+    name: "DIN & DSC",
+    price: "₹2500",
     points: ["DIN Application", "DIN KYC", "Director Change", "Director Resignation"],
   },
   {

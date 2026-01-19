@@ -1,7 +1,7 @@
 import React from "react";
 import { Twitter, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
-import Logo from "../assets/30Logo.png";
-import { href } from "react-router-dom";
+import Logo from "../assets/domain/pre.png";
+
 
 
 
@@ -43,7 +43,7 @@ export default function Footer() {
                   </a>
                 </div>
                 <div className="text-sm text-neutral-400">
-                  Before the launch, there's <span className="text-red-500 font-semibold">StartupToBe</span>.
+                  Before the launch, there's <span className="text-red-500 font-semibold">PreUnicorns</span>.
                 </div>
               </div>
 
@@ -86,7 +86,7 @@ export default function Footer() {
   
           <div className="mt-10 border-t border-neutral-800 pt-6 flex flex-col items-center justify-center gap-1 text-center">
             <div className="text-sm text-neutral-500">
-              © 2026 <span className="text-red-500">StartupToBe</span>. All rights reserved.
+              © 2026 <span className="text-red-500">PreUnicorns</span>. All rights reserved.
             </div>
             <div className="text-sm text-neutral-400">
               Built for founders, startups-to-be, and dreamers.

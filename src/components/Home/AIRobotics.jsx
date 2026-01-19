@@ -13,72 +13,8 @@ import {
   Bot, 
   Puzzle 
 } from "lucide-react";
+import { aiRoboticsData } from "../../data/aiRobotics";
 
-const aiRoboticsCards = [
-  {
-    id: 1,
-    title: "SMART ACCESS",
-    subtitle: "AI-enabled wireless systems",
-    desc: "for handles & touch points",
-    icon: Wifi,
-  },
-  {
-    id: 2,
-    title: "INTELLIGENT LAUNDRY",
-    subtitle: "AI logic for washing systems",
-    desc: "sorting · detection · efficiency",
-    icon: WashingMachine,
-  },
-  {
-    id: 3,
-    title: "AI-POWERED MANUFACTURING",
-    subtitle: "Color accuracy through vision",
-    desc: "detection · correction · control",
-    icon: Palette,
-  },
-  {
-    id: 4,
-    title: "AUTOMATED COOKING",
-    subtitle: "AI control for kitchen systems",
-    desc: "timing · temperature · process",
-    icon: ChefHat,
-  },
-  {
-    id: 5,
-    title: "SMART DISHWASHING",
-    subtitle: "AI-driven wash intelligence",
-    desc: "sense · adapt · optimize",
-    icon: Sparkles,
-  },
-  {
-    id: 6,
-    title: "AI COFFEE SYSTEMS",
-    subtitle: "Precision intelligence for brewers",
-    desc: "consistency · control · quality",
-    icon: Coffee,
-  },
-  {
-    id: 7,
-    title: "EMBEDDED INTELLIGENCE",
-    subtitle: "AI inside existing hardware",
-    desc: "no redesign required",
-    icon: Cpu,
-  },
-  {
-    id: 8,
-    title: "HARDWARE + SOFTWARE",
-    subtitle: "We integrate. Not manufacture.",
-    desc: "",
-    icon: Layers,
-  },
-  {
-    id: 9,
-    title: "EVERYDAY ROBOTICS",
-    subtitle: "Practical automation for real life",
-    desc: "",
-    icon: Bot,
-  }
-];
 
 export default function AIRobotics() {
   return (
@@ -144,7 +80,7 @@ export default function AIRobotics() {
           pauseOnHover
           pauseOnClick
         >
-          {aiRoboticsCards.map((card) => {
+          {aiRoboticsData.map((card) => {
             const IconComponent = card.icon;
             return (
               <div

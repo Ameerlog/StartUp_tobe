@@ -15,6 +15,7 @@ import ReserveDomainPage from './pages/ReserveDomain'
 import Success from './pages/Success'
 import ReserveDomainForm from './components/Form'
 import Navbar from './components/Navbar'
+import AIRoboticsPage from './pages/AiRobotics'
 
 
 
@@ -27,7 +28,7 @@ const App = () => {
     <Route path='/marketing' element={<Marketing/>}/>
     <Route path='/branding' element={<Branding/>}/>
     <Route path='/compliance' element={<Compliance/>}/>
-    <Route path='/funding' element={<Funding/>}/>
+    <Route path='/funding' element={<AIRoboticsPage/>}/>
     <Route path='/community' element={<Community/>}/>
     <Route path='/venture' element={<Venture/>}/>
     {/* joint venture apply button */}
@@ -40,7 +41,7 @@ const App = () => {
       <Route path="/marketplace/:slug/payment/success" element={<Success />} />
    
    </Routes>
-
+<Footer/>
    </BrowserRouter> 
   )
 

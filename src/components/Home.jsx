@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/30Logo.png";
-import BackgroundImage from "../assets/domain/bg.jpeg";
+import Logo from "../assets/domain/pre.png";
+import BackgroundImage from "../assets/domain/bg1.svg";
 
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
@@ -35,12 +35,12 @@ const Home = () => {
   return (
     <>
       <section className="min-h-screen w-full relative overflow-hidden">
-        {/* Responsive Background Image */}
-        <div className="absolute inset-0 w-full h-full">
+
+        <div className="absolute inset-0 w-full h-full ">
           <img
             src={BackgroundImage}
             alt="Background"
-            className="w-full h-full object-cover object-center
+            className="w-full bg-black h-full object-cover object-center
                        sm:object-cover md:object-cover lg:object-cover"
           />
         </div>
@@ -167,8 +167,8 @@ const Home = () => {
       <Market/>
       <ComplianceCards/>
       <AIRobotics/>
-      <Investors />
-      <Footer/>
+      {/* <Investors /> */}
+      
     </>
   );
 };

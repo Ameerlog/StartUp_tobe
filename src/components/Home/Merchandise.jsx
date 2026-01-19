@@ -13,7 +13,7 @@ export default function Merchandise() {
 
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
-      {/* Simple Text Heading */}
+   
       <div className="text-center px-4 flex flex-col items-center gap-4 mb-6 sm:mb-8 md:mb-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
           Merchandise

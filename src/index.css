@@ -13,7 +13,7 @@
   top: 50%;
   width: 72px;
   height: 2px;
-  background: rgba(247, 246, 247, 0.45);
+  background: rgba(13, 11, 13, 0.45);
   transform: translateY(-50%);
   z-index: 10; /* lines above blur */
   pointer-events: none;
@@ -53,7 +53,6 @@
   }
 }
 
-/* Transparent blur edges behind the lines */
 .marquee::before,
 .marquee::after {
   content: "";
