@@ -1,20 +1,25 @@
 import Batteryfy from "../assets/domain/batteryfy.svg";
 import Mbps30 from "../assets/domain/30mbps.svg";
-// import Checkdam from "../assets/domain/checkdam.svg";
+
 import Pregadays from "../assets/domain/pregadays.svg";
 import Cosister from "../assets/domain/cosister.svg";
-// import Cobrother from "../assets/domain/cobrother.svg";
+
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
 
-/* 
-  👉 For new brands:
-  You can add logos later.
-  For now, we’ll use null so UI doesn’t break.
-*/
 
+import Bedtolet from  "../assets/domain/Bedtolet.svg"
+import Nopivot from "../assets/domain/nopivot.svg"
+import Oldmedal from "../assets/domain/oldmedal.svg"
+import Reelshost from "../assets/domain/reelshost.svg"
+import Coastaldew from '../assets/domain/coastaldew.svg'
+import Girij from '../assets/domain/girij.svg'
+import Submines from  "../assets/domain/submines.svg"
+import  Gotwellsoon from  "../assets/domain/gotwellsoon.svg"
+import Checkdam from "../assets/domain/checkdam.svg"
+import Cobrother from "../assets/domain/cobrother.svg"                                                                                                                                         
 export const jvMarqueeCards = [
-  /* ================= EXISTING JV BRANDS ================= */
+  
 
   {
     id: 1,
@@ -63,7 +68,17 @@ export const jvMarqueeCards = [
       "Get Venture (70/30)",
     ],
   },
-
+ {
+    id: 6,
+    logo: Checkdam,
+    desc:
+      "Mining & subsurface technology platform for infrastructure and industry",
+    details: [
+      "Mining / Industrial Tech / Infrastructure Services",
+      "B2B Services + Tech Solutions + Long-Term Contracts",
+      "Get Venture (70/30)",
+    ],
+  },
   {
     id: 7,
     logo: DryChilli,
@@ -89,7 +104,7 @@ export const jvMarqueeCards = [
   },
   {
     id: 9,
-    logo: null,
+    logo: Cobrother,
     desc:
       "Startup marketing company driving brand visibility, traction & growth",
     details: [
@@ -101,7 +116,7 @@ export const jvMarqueeCards = [
 
   {
     id: 10,
-    logo: null,
+    logo: Gotwellsoon,
     desc:
       "Healthcare & wellness services platform connecting users to care",
     details: [
@@ -113,7 +128,7 @@ export const jvMarqueeCards = [
 
   {
     id: 11,
-    logo: null,
+    logo: Bedtolet,
     desc:
       "PG & shared accommodation discovery platform for students & professionals",
     details: [
@@ -125,7 +140,7 @@ export const jvMarqueeCards = [
 
   {
     id: 12,
-    logo: null,
+    logo: Nopivot,
     desc:
       "Startup strategy & pivot advisory for early and growth-stage founders",
     details: [
@@ -137,7 +152,7 @@ export const jvMarqueeCards = [
 
   {
     id: 13,
-    logo: null,
+    logo: Oldmedal,
     desc:
       "Heritage & vintage-inspired lifestyle and fashion brand",
     details: [
@@ -149,7 +164,7 @@ export const jvMarqueeCards = [
 
   {
     id: 14,
-    logo: null,
+    logo: Reelshost,
     desc:
       "Short-form video hosting and creator growth platform",
     details: [
@@ -161,7 +176,7 @@ export const jvMarqueeCards = [
 
   {
     id: 15,
-    logo: null,
+    logo: Coastaldew,
     desc:
       "Coastal resort & hospitality brand offering curated travel experiences",
     details: [
@@ -173,7 +188,7 @@ export const jvMarqueeCards = [
 
   {
     id: 16,
-    logo: null,
+    logo: Girij,
     desc:
       "Natural wellness and heritage-led brand rooted in traditional practices",
     details: [
@@ -185,7 +200,7 @@ export const jvMarqueeCards = [
 
   {
     id: 17,
-    logo: null,
+    logo: Submines,
     desc:
       "Mining & subsurface technology platform for infrastructure and industry",
     details: [

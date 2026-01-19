@@ -2,6 +2,7 @@
 
 import Divider from "../components/Divider";
 import ReserveDomainForm from "../components/Form";
+import JointVentureGrid from "../components/JointVentureGrid";
 import JVBenefitsSection from "../components/JVBenefits";
 import JVProcess from "../components/JVProcess";
 import VentureHero from "../components/VentureHero";
@@ -17,7 +18,9 @@ const Venture = () => {
   You need naming clarity before buying a domain, designing a logo,
   filing a trademark, and going public with your startup.
 </p> */}
+<JointVentureGrid/>
 <JVProcess/>
+
 <Divider/>
 <JVBenefitsSection/>
     </main>

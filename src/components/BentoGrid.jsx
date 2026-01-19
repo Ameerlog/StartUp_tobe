@@ -195,7 +195,6 @@ export default function BentoGrid() {
             </Card>
           </motion.div>
 
-          {/* 4. Advanced Automation */}
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
             <Card className="p-6">
               <Title>Advanced Automation & AI-Ready</Title>
@@ -260,7 +259,7 @@ export default function BentoGrid() {
   variants={item}
   className="mt-16 px-4 sm:px-6"
 >
-  {/* Heading */}
+
   <div className="mx-auto max-w-4xl text-center">
     <h3 className="text-xl sm:text-2xl font-semibold text-black">
       Why Choose AULTUM?
@@ -270,7 +269,6 @@ export default function BentoGrid() {
     </p>
   </div>
 
-  {/* Dynamic Data */}
   {(() => {
     const whyChooseData = [
       { text: "Replace 5–7 tools with one platform", icon: Layers },

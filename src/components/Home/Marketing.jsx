@@ -2,8 +2,9 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import { Market } from "../../data/marketing";
 import { ArrowRight } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 export default function Marketing() {
+  const navigate = useNavigate();
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
       <div className="text-center px-4 flex flex-col items-center gap-4">
@@ -142,6 +143,7 @@ export default function Marketing() {
             hover:bg-white/20
             active:scale-[0.98]
           "
+          onClick={()=>navigate('/marketing')}
         >
           View All
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

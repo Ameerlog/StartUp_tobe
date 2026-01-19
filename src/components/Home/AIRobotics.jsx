@@ -14,21 +14,20 @@ import {
   Puzzle 
 } from "lucide-react";
 import { aiRoboticsData } from "../../data/aiRobotics";
-
+import { useNavigate } from "react-router-dom";
 
 export default function AIRobotics() {
+  const navigate = useNavigate();
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
-      {/* Header */}
+
       <div className="text-center px-4 flex flex-col items-center gap-4">
         <div className="flex items-center gap-2 sm:gap-3">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
             AI & Robotics
           </h2>
         </div>
-        <p className="text-gray-400 text-xs sm:text-sm md:text-base font-medium tracking-widest uppercase">
-          Enablement Only
-        </p>
+      
 
         <button
           className="
@@ -200,25 +199,10 @@ export default function AIRobotics() {
                       shrink-0
                     "
                   >
-                    <button 
-                      className="
-                        w-full sm:flex-1 
-                        rounded-full 
-                        border border-white/40 
-                        bg-white/5 
-                        px-3 sm:px-4 
-                        py-2 sm:py-2.5 
-                        text-[10px] sm:text-xs md:text-sm 
-                        font-medium text-white 
-                        hover:bg-white/10 hover:border-white/60 
-                        active:scale-[0.98]
-                        transition-all duration-200
-                      "
-                    >
-                      Learn More
-                    </button>
+                    
 
                     <button 
+                    onClick={()=> navigate('/ai')}
                       className="
                         w-full sm:flex-1 
                         rounded-full 
@@ -232,7 +216,7 @@ export default function AIRobotics() {
                         transition-all duration-200
                       "
                     >
-                      Get Started
+                      Schedule a Visit
                     </button>
                   </div>
 
@@ -257,6 +241,7 @@ export default function AIRobotics() {
       {/* Bottom CTA */}
       <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
         <button
+        onClick={()=> navigate("/ai")}
           className="
             group 
             flex items-center gap-2
@@ -275,7 +260,7 @@ export default function AIRobotics() {
             active:scale-[0.98]
           "
         >
-          View All Capabilities
+          View All 
           <ArrowRight
             className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1"
           />

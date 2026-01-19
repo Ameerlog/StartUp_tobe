@@ -4,6 +4,7 @@ import Cosistister from "../assets/domain/cosister.svg";
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
 import Pregadays from "../assets/domain/pregadays.svg";
+
 export const DESIGNS = [
   {
     title: "30 Mbps",

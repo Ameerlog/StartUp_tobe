@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 function FeaturedIcon({ Icon }) {
   return (
@@ -7,7 +7,7 @@ function FeaturedIcon({ Icon }) {
     </div>
   );
 }
-const Card = ({ Icon, title, desc }) => {
+const Card = ({ Icon, title, desc,price }) => {
   return (
     <div className="group relative flex h-full flex-col rounded-[2rem] border border-zinc-200 bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-zinc-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
       <div className="mb-6">
@@ -18,6 +18,9 @@ const Card = ({ Icon, title, desc }) => {
       </h3>
       <p className="text-base leading-relaxed text-zinc-600 antialiased">
         {desc}
+      </p>
+      <p className="text-base leading-relaxed text-zinc-600 antialiased">
+      {price}
       </p>
     </div>
   );

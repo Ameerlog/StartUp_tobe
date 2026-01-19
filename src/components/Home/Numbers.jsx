@@ -3,8 +3,9 @@ import React from "react";
 import MarqueeRow from "../Marquee";
 import { vipNumbers } from "../../data/number";
 import { ArrowRight } from "lucide-react";
-
+import  { useNavigate } from "react-router-dom";
 export default function Numbers() {
+  const navigate = useNavigate();
   return (
     <section className="w-full bg-black pt-8 pb-16 relative">
      
@@ -59,8 +60,9 @@ export default function Numbers() {
 
 
                 <div className="flex justify-end">
-                  <button className="rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
-                    Explore now
+                  <button onClick={()=> navigate('/branding')} 
+                  className="rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
+                   Buy Now
                   </button>
                 </div>
               </div>
@@ -69,6 +71,7 @@ export default function Numbers() {
         />
           <div className="mt-14 flex justify-center">
             <button
+            onClick={()=> navigate('/branding')}
               className="
                 group flex items-center gap-2
                 rounded-full

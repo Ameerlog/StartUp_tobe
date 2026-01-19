@@ -16,19 +16,21 @@ import Success from './pages/Success'
 import ReserveDomainForm from './components/Form'
 import Navbar from './components/Navbar'
 import AIRoboticsPage from './pages/AiRobotics'
+import ScrolltoTop from './components/ScrolltoTop'
 
 
 
 const App = () => {
   return (
    <BrowserRouter>
+   <ScrolltoTop/>
    <Navbar/>
    <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/marketing' element={<Marketing/>}/>
     <Route path='/branding' element={<Branding/>}/>
     <Route path='/compliance' element={<Compliance/>}/>
-    <Route path='/funding' element={<AIRoboticsPage/>}/>
+    <Route path='/ai' element={<AIRoboticsPage/>}/>
     <Route path='/community' element={<Community/>}/>
     <Route path='/venture' element={<Venture/>}/>
     {/* joint venture apply button */}
@@ -42,6 +44,7 @@ const App = () => {
    
    </Routes>
 <Footer/>
+
    </BrowserRouter> 
   )
 

@@ -2,10 +2,10 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import { jvMarqueeCards } from "../../data/jointVenture";
 import { ArrowRight } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 export default function JointVenture() {
 
-
+const navigate =useNavigate();
   
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
@@ -96,7 +96,7 @@ export default function JointVenture() {
                     <img
                       src={card.logo}
                       alt="JV Brand Logo"
-                      className="h-full max-w-full object-contain"
+                      className="h-25   max-w-full object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -148,25 +148,10 @@ export default function JointVenture() {
                     shrink-0
                   "
                 >
-                  <button 
-                    className="
-                      w-full sm:flex-1 
-                      rounded-full 
-                      border border-white/40 
-                      bg-white/5 
-                      px-3 sm:px-4 
-                      py-2 sm:py-2.5 
-                      text-[10px] sm:text-xs md:text-sm 
-                      font-medium text-white 
-                      hover:bg-white/10 hover:border-white/60 
-                      active:scale-[0.98]
-                      transition-all duration-200
-                    "
-                  >
-                    View Details
-                  </button>
+                 
 
                   <button 
+                  onClick={()=> navigate("/venture")}
                     className="
                       w-full sm:flex-1 
                       rounded-full 
@@ -192,6 +177,7 @@ export default function JointVenture() {
 
       <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
         <button
+        onClick={()=>navigate("/venture")}
           className="
             group 
             flex items-center gap-2

@@ -4,7 +4,17 @@ import Cosistister from "../assets/domain/cosister.svg";
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
 import Pregadays from "../assets/domain/pregadays.svg";
-
+import Brandbunk from  "../assets/domain/Brandbunk.svg"
+import Bedtolet from  "../assets/domain/Bedtolet.svg"
+import Nopivot from "../assets/domain/nopivot.svg"
+import Oldmedal from "../assets/domain/oldmedal.svg"
+import Reelshost from "../assets/domain/reelshost.svg"
+import Coastaldew from '../assets/domain/coastaldew.svg'
+import Girij from '../assets/domain/girij.svg'
+import Submines from  "../assets/domain/submines.svg"
+import  Gotwellsoon from  "../assets/domain/gotwellsoon.svg"
+import Cobrother from "../assets/domain/cobrother.svg"
+import Checkdam from "../assets/domain/checkdam.svg"
 export const domainCards = [
   {
     id: "30mbps",
@@ -175,7 +185,7 @@ export const domainCards = [
     slug: "Brandbunk",
     description: "Creative branding and digital marketing agency style domain..",
     href: "/showcase/brandbunk",
-    src: null,
+    src: Brandbunk,
     price: "₹1,99,990",
     priceValue: 100,
     tags: ["Marketing", "Others"],
@@ -195,7 +205,7 @@ export const domainCards = [
     slug: "CheckDam",
     description: "Strong brand name for water conservation, civil projects, and infrastructure firms.",
     href: null,
-    src: null,
+    src: Checkdam,
     price: "₹2,05,55,790",
     priceValue: 100,
     tags: ["Infrastructure", "Others"],
@@ -215,7 +225,7 @@ export const domainCards = [
     slug: "CoBrother",
     description: "Community-driven brand suitable for coworking, startups, or collaboration platforms.",
     href: null,
-    src: null,
+    src: Cobrother,
     price: "₹2,05,55,790",
     priceValue: 100,
     tags: ["Community", "Others"],
@@ -235,7 +245,7 @@ export const domainCards = [
     slug: "GotWellSoon",
     description: "Health recovery, wellness, and hospital service brand.",
     href: null,
-    src: null,
+    src: Gotwellsoon,
     price: "₹2,05,55,790",
     priceValue: 100,
     tags: ["Healthcare", "Others"],
@@ -255,7 +265,7 @@ export const domainCards = [
     slug: "BedToLet",
     description: "Rental listings and property marketplace focused domain.",
     href: null,
-    src: null,
+    src: Bedtolet,
     price: "₹56,75,550",
     priceValue: 100,
     tags: ["Real Estate", "Others"],
@@ -275,7 +285,7 @@ export const domainCards = [
     slug: "NoPivot",
     description: "Bold startup-focused brand representing clarity and long-term vision.",
     href: null,
-    src: null,
+    src: Nopivot,
     price: "₹25,70,770",
     priceValue: 100,
     tags: ["Real Estate", "Others"],
@@ -295,7 +305,7 @@ export const domainCards = [
     slug: "OldMedal",
     description: "Vintage, antiques, medals, and historical collectibles brand.",
     href: null,
-    src: null,
+    src: Oldmedal,
     price: "₹46,77,850",
     priceValue: 100,
     tags: ["Collectibles", "Others"],
@@ -315,7 +325,7 @@ export const domainCards = [
     slug: "ReelsHost",
     description: "Video hosting, reels platform, or creator-focused SaaS brand.",
     href: null,
-    src: null,
+    src: Reelshost,
     price: "₹9,95,970",
     priceValue: 100,
     tags: ["Technology", "Others"],
@@ -335,7 +345,7 @@ export const domainCards = [
     slug: "Coastal Dew",
     description: "Fresh beverage or bottled water brand with coastal inspiration..",
     href: null,
-    src: null,
+    src: Coastaldew,
     price: "₹70,00,000",
     priceValue: 100,
     tags: ["Beverage", "Others"],
@@ -355,7 +365,7 @@ export const domainCards = [
     slug: "Girij",
     description: "Short, premium, and versatile brand name for multiple industries.",
     href: null,
-    src: null,
+    src: Girij,
     price: "₹10,90,950",
     priceValue: 100,
     tags: [ "Others"],
@@ -375,7 +385,7 @@ export const domainCards = [
     slug: "SubMines",
     description: "Industrial-grade brand for mining, minerals, and underground solutions.",
     href: null,
-    src: null,
+    src: Submines,
     price: "₹50,75,550",
     priceValue: 100,
     tags: [ "Others"],

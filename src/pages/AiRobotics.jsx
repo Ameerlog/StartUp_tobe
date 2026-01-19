@@ -23,12 +23,6 @@ export default function AIRoboticsPage() {
           </span>
         </p>
 
-        <div className="mt-8 flex justify-center">
-          <button className="group flex items-center gap-2 rounded-full bg-slate-900 text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-slate-900/20 hover:bg-red-600 hover:shadow-red-600/30 hover:scale-105 transition-all duration-300">
-        Get Started
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </button>
-        </div>
       </section>
 
     

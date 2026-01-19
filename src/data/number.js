@@ -1,4 +1,4 @@
-// data/vipNumbers.js
+
 export const vipNumbers = [
   {
     id: 1,

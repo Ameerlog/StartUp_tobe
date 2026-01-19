@@ -25,10 +25,7 @@ const StepCard = ({ step }) => {
               {step.description}
             </p>
 
-            <button className="group/btn inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 px-6 py-3 text-sm font-bold text-white transition-all hover:bg-zinc-800 hover:ring-2 hover:ring-zinc-900 hover:ring-offset-2">
-              {step.buttonText}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-            </button>
+           
           </div>
         </div>
 

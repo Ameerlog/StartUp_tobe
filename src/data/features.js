@@ -19,6 +19,7 @@ export const features = [
     title: "Shop Builder",
     desc: "Create a fully-featured online shop with unlimited listings, multiple CTAs, and integrated payment processing. Launch products quickly and professionally.",
     icon: ShoppingCart,
+    price: "₹99,99,990",
   },
   {
     title: "Form Builder",

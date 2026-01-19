@@ -21,7 +21,6 @@ export const steps = [
     icon: Target,
     image: Sales,
     align: "left",
-    buttonText: "Get Started",
   },
   {
     id: "02",
@@ -31,7 +30,7 @@ export const steps = [
     icon: Palette,
     image: Marketing,
     align: "right",
-    buttonText: "Get Started",
+  
   },
   {
     id: "03",
@@ -41,7 +40,7 @@ export const steps = [
     icon: Rocket,
     image: Operations,
     align: "left",
-    buttonText: "Get Started",
+   
   },
   {
     id: "04",
@@ -51,7 +50,7 @@ export const steps = [
     icon: DollarSign,
     image: Finance,
     align: "right",
-    buttonText: "Get Started",
+    
   },
   {
     id: "05",
@@ -61,6 +60,6 @@ export const steps = [
     icon: ArrowRight,
     image: HR,
     align: "left",
-    buttonText: "Get Started",
+   
   },
 ];

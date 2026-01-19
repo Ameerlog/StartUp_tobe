@@ -112,7 +112,7 @@ export default function Domains({ variant = "dark" }) {
                       <img
                         src={src}
                         alt={title}
-                        className="w-[120px] h-[60px] object-contain"
+                        className="w-[120px] h-[200px] object-contain"
                         draggable={false}
                         loading="lazy"
                       />
@@ -127,7 +127,7 @@ export default function Domains({ variant = "dark" }) {
                     {/* CTA */}
                     <div className="mt-6 flex justify-end">
                       <button
-                        onClick={() => navigate("/marketplace")}
+                        onClick={() => navigate("/branding")}
                         className="rounded-full bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-[0.98]"
                       >
                         Make it Yours →
@@ -143,6 +143,7 @@ export default function Domains({ variant = "dark" }) {
         {/* Bottom Button */}
         <div className="mt-10 flex justify-center px-4">
           <button
+          onClick={()=> navigate("/branding")}
             className={`
               group flex items-center gap-2 rounded-full
               border ${theme.bottomButton}

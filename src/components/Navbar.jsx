@@ -30,21 +30,7 @@ const Navbar = () => {
 
           </div>
 
-          <div className="ml-auto flex items-center gap-2 sm:gap-3 md:gap-4">
-            <button
-              onClick={() => navigate("/login")}
-              className="px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 text-xs sm:text-sm md:text-base font-semibold text-black border border-white/30 bg-white/30 backdrop-blur-md rounded-full transition-all duration-300 hover:bg-white/20 active:scale-95"
-            >
-              Login
-            </button>
-
-            <button
-              onClick={() => navigate("/signup")}
-              className="px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 text-xs sm:text-sm md:text-base font-bold text-white bg-linear-to-r from-red-600 to-red-500 rounded-full transition-all duration-300 hover:from-red-500 hover:to-red-400 active:scale-95"
-            >
-              Sign Up
-            </button>
-          </div>
+         
 
         </div>
       </div>

@@ -20,19 +20,12 @@ export default function FeaturesSection() {
               Icon={feature.icon}
               title={feature.title}
               desc={feature.desc}
+              price={feature.price}
             />
           ))}
         </div>
 
-        <div className="mt-20 flex justify-center">
-          <a
-            href="#how-it-works"
-            className="group inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:bg-zinc-800 hover:shadow-xl"
-          >
-         Get Started
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 " />
-          </a>
-        </div>
+       
       </div>
     </section>
   );

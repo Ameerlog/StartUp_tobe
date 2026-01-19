@@ -1,24 +1,12 @@
 import React from "react";
 import { Wallet, ShieldCheck, Zap, HeartHandshake, X } from "lucide-react";
 
-function CTAButtons() {
-  return (
-    <div className="mt-6 flex justify-center">
-      <a
-        href="/pricing"
-        className="group flex items-center gap-2 rounded-full bg-slate-900 px-8 py-3 text-sm font-bold text-white shadow-lg shadow-slate-900/20 hover:bg-red-600 hover:shadow-red-600/30 hover:scale-105 transition-all duration-300"
-      >
-        Get Started
-      </a>
-    </div>
-  );
-}
 
 export default function Compliance() {
   const complianceServices = [
     { id: "business", name: "Business Registration", price: "₹499", points: ["Proprietorship", "Partnership Firm", "LLP Registration", "Pvt Ltd / OPC"] },
     { id: "gst", name: "GST Services", price: "₹999", points: ["GST Registration", "GST Amendment", "GST Cancellation", "Return Filing"] },
-    { id: "din", name: "DIN & Director Services", price: "₹499", points: ["DIN Application", "DIN KYC", "Director Change", "Director Resignation"] },
+    { id: "din", name: "DIN & DSC", price: "₹2500", points: ["DIN Application", "DIN KYC", "Director Change", "Director Resignation"] },
     { id: "msme", name: "MSME / Udyam", price: "₹199", points: ["Udyam Registration", "Certificate Download", "Update Details"] },
     { id: "iec", name: "Import Export Code (IEC)", price: "₹999", points: ["IEC Registration", "IEC Modification", "IEC Renewal"] },
     { id: "licenses", name: "Trade & Local Licenses", price: "₹999", points: ["Shop & Establishment", "Trade License", "Gumasta License"] },
@@ -63,7 +51,7 @@ export default function Compliance() {
             PreUnicorns handles registrations, filings, and compliance so your startup stays legal and stress-free.
           </p>
 
-          <CTAButtons />
+       
 
           <div className="mt-8 flex justify-center">
             <div className="h-px w-64 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />

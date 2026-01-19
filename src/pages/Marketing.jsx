@@ -49,13 +49,7 @@ const Marketing = () => {
           </div>
 
           <div className="mt-8 sm:mt-10 flex flex-col items-center gap-3">
-            <Link
-              to="/get-started"
-              className="group inline-flex h-11 sm:h-12 items-center justify-center rounded-full bg-red-600 px-6 sm:px-8 text-sm sm:text-base font-bold text-white shadow-lg shadow-red-600/20 transition-all duration-200 hover:scale-[1.02] hover:bg-red-700"
-            >
-              Get Started
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+           
             <p className="text-xs sm:text-sm text-slate-400 font-medium">
               Start free ✦ Upgrade only when you&apos;re ready
             </p>
@@ -86,17 +80,12 @@ const Marketing = () => {
         </div>
       </div>
       <div className="mt-15 "><MarketPlace/></div>
-  
-
-
-  
-
 
 
       <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-8">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center">
     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900">
-      Get started with brands from ₹9999 per/month
+      Get started with brands from <br />₹9999 <span className=" text-xl"> per/Month</span>
     </h2>
   </div>
         <FeaturesSection />

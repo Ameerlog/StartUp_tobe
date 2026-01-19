@@ -28,7 +28,7 @@ const Home = () => {
     { Icon: Branding, title: "Branding", subtitle: "Identity Creation", path: "/branding" },
     { Icon: Marketing, title: "Marketing", subtitle: "Growth Strategies", path: "/marketing" },
     { Icon: Compliances, title: "Compliances", subtitle: "Regulatory Solutions", path: "/compliance" },
-    { Icon: Funding, title: "Ai & Robotics", subtitle: "Capital Access", path: "/funding" },
+    { Icon: Funding, title: "Ai & Robotics", subtitle: "Capital Access", path: "/ai" },
     { Icon: Community, title: "Community", subtitle: "Network Building", path: "/community" }
   ];
 

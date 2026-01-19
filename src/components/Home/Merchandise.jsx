@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
-import { merchandiseData, categories } from "../../data/merchandise";
-
+import { merchandiseData } from "../../data/merchandise";
+import { useNavigate } from "react-router-dom";
 export default function Merchandise() {
-  const [activeCategory, setActiveCategory] = useState("all");
-
-  const filteredProducts =
-    activeCategory === "all"
-      ? merchandiseData
-      : merchandiseData.filter((item) => item.category === activeCategory);
+  // const [activeCategory, setActiveCategory] = useState("all");
+const navigate = useNavigate();
+  // const filteredProducts =
+  //   activeCategory === "all"
+  //     ? merchandiseData
+  //     : merchandiseData.filter((item) => item.category === activeCategory);
 
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
@@ -43,8 +43,7 @@ export default function Merchandise() {
         </button>
       </div>
 
-      {/* Category Filter Buttons */}
-      <div className="px-4 mb-8 sm:mb-10">
+      {/* <div className="px-4 mb-8 sm:mb-10">
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
           {categories.map((category) => {
             const isActive = activeCategory === category.id;
@@ -73,29 +72,29 @@ export default function Merchandise() {
             );
           })}
         </div>
-      </div>
+      </div> */}
 
-      {/* Products Marquee */}
+
       <div className="relative">
-        {/* Left Gradient */}
+  
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
 
-        {/* Right Gradient */}
+
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
 
         <Marquee
-          key={activeCategory}
+
           speed={30}
           gradient={false}
           pauseOnHover
           pauseOnClick
         >
-          {filteredProducts.map((item) => (
+          {merchandiseData.map((item) => (
             <div
               key={item.id}
               className="shrink-0 w-56 sm:w-64 md:w-72 px-2 sm:px-3 md:px-4"
             >
-              {/* Product Card */}
+          
               <div
                 className="
                   rounded-xl sm:rounded-2xl 
@@ -111,7 +110,7 @@ export default function Merchandise() {
                   group
                 "
               >
-                {/* Category & Price */}
+             
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[10px] sm:text-xs font-semibold text-red-400 uppercase tracking-wider">
                     {item.category}
@@ -124,9 +123,9 @@ export default function Merchandise() {
                 {/* Product Image */}
                 <div className="relative h-40 sm:h-48 md:h-52 rounded-lg overflow-hidden mb-4 bg-gray-800">
                   <img
-                    src={item.image}
+                    src={item.icon}
                     alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 bg-white"
                     loading="lazy"
                   />
                 </div>
@@ -160,9 +159,9 @@ export default function Merchandise() {
         </Marquee>
       </div>
 
-      {/* View All Button */}
       <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center px-4">
         <button
+        onClick={()=> navigate("/branding")}
           className="
             group 
             flex items-center gap-2
