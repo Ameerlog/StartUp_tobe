@@ -9,6 +9,7 @@ import FAQ from "../components/Faq";
 
 import MarketingBg from "../assets/domain/marketingbg.svg";
 import MarketPlace  from "../pages/MarketPlace"
+import AultumLogo from  "../assets/domain/aultumlogo.png"
 const Marketing = () => {
   return (
     <div className="min-h-screen bg-[#F8F9FA] px-2 sm:px-3 lg:px-4 py-2 sm:py-3">
@@ -25,17 +26,30 @@ const Marketing = () => {
         
           
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter text-slate-900 max-w-4xl leading-[1.15] mt-10">
-               Aultum  <br className="hidden sm:block" />
-            <span className="relative inline-block text-red-600">
-               All in One CRM, Automation & AI Ready Platform 
+        <h1 className="flex flex-col items-center text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter text-slate-900 max-w-4xl leading-[1.15] mt-10">
+<img
+  src={AultumLogo}
+  alt="Aultum Logo"
+  className="w-20 h-20 object-contain scale-300"
+/>
 
-          
-              <svg className="absolute -bottom-1 left-0 w-full h-2 text-red-200 -z-10 block" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-              </svg>
-            </span>
-          </h1>
+  <span className="relative inline-block text-red-600 text-center">
+    All in One CRM, Automation & AI Ready Platform
+    <svg
+      className="absolute -bottom-1 left-0 w-full h-2 text-red-200 -z-10 block"
+      viewBox="0 0 100 10"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0 5 Q 50 10 100 5"
+        stroke="currentColor"
+        strokeWidth="8"
+        fill="none"
+      />
+    </svg>
+  </span>
+</h1>
+
 
           <p className="mt-4 sm:mt-6 max-w-xl text-base sm:text-lg text-slate-500 font-medium">
                Aultum combines marketing tools, CRM, communication, automation, and operations in one system.  
