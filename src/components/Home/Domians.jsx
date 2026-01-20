@@ -112,7 +112,7 @@ export default function Domains({ variant = "dark" }) {
                       <img
                         src={src}
                         alt={title}
-                        className="w-[120px] h-[200px] object-contain"
+                        className="w-[200px] h-[200px] object-contain"
                         draggable={false}
                         loading="lazy"
                       />

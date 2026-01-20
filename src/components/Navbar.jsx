@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/domain/pre.png";
+import Logo from "../assets/domain/aultumpre1.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Navbar = () => {
     lg:w-32 lg:h-32
     xl:w-36 xl:h-36
     scale-[2] sm:scale-[2] md:scale-[2] lg:scale-[1.8]
-    drop-shadow-2xl
+    drop-shadow-2xl mt-2
   "
 />
 

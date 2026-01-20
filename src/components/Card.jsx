@@ -19,9 +19,20 @@ const Card = ({ Icon, title, desc,price }) => {
       <p className="text-base leading-relaxed text-zinc-600 antialiased">
         {desc}
       </p>
-      <p className="text-base leading-relaxed text-zinc-600 antialiased">
-      {price}
-      </p>
+   
+    <div className="mt-auto">
+  <span className="
+    inline-flex items-center
+    rounded-full
+    bg-zinc-900
+    px-4 py-1.5
+    text-sm font-semibold
+    text-white
+  ">
+    {price}
+  </span>
+</div>
+
     </div>
   );
 }

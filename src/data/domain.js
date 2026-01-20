@@ -7,7 +7,7 @@ import Pregadays from "../assets/domain/pregadays.svg";
 import Brandbunk from  "../assets/domain/Brandbunk.svg"
 import Bedtolet from  "../assets/domain/Bedtolet.svg"
 import Nopivot from "../assets/domain/nopivot.svg"
-import Oldmedal from "../assets/domain/oldmedal.svg"
+import Oldmedal from "../assets/domain/oldmedal.png"
 import Reelshost from "../assets/domain/reelshost.svg"
 import Coastaldew from '../assets/domain/coastaldew.svg'
 import Girij from '../assets/domain/girij.svg'

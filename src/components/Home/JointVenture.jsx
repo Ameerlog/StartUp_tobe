@@ -92,13 +92,18 @@ const navigate =useNavigate();
             
                 <div className="flex-1 flex flex-col overflow-hidden">
       
-                  <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
+                  <div className="flex justify-between items-start shrink-0">
                     <img
                       src={card.logo}
                       alt="JV Brand Logo"
-                      className="h-25   max-w-full object-contain"
+                      className="h-8 sm:h-9 md:h-10 lg:h-11 object-contain mt-0.5"
                       loading="lazy"
                     />
+                     <span
+                        className="shrink-0 rounded-full border px-3 py-1 text-xs font-bold border-white/30 bg-white/10 text-zinc-700" 
+                      >
+                        {card.price}
+                      </span>
                   </div>
 
                

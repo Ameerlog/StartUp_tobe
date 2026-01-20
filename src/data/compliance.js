@@ -9,25 +9,25 @@ export const complianceServices = [
   {
     id: 2,
     name: "GST Services",
-    price: "₹999",
+    price: "₹499",
     points: ["GST Registration", "GST Amendment", "GST Cancellation", "Return Filing"],
   },
   {
     id: 3,
     name: "DIN & DSC",
-    price: "₹2500",
+    price: "₹1499",
     points: ["DIN Application", "DIN KYC", "Director Change", "Director Resignation"],
   },
   {
     id: 4,
     name: "MSME / Udyam",
-    price: "₹199",
+    price: "₹299",
     points: ["Udyam Registration", "Certificate Download", "Update Details"],
   },
   {
     id: 5,
     name: "Import Export Code (IEC)",
-    price: "₹999",
+    price: "₹499",
     points: ["IEC Registration", "IEC Modification", "IEC Renewal"],
   },
   {
@@ -38,14 +38,14 @@ export const complianceServices = [
   },
   {
     id: 7,
-    name: "Brand & Digital Compliance",
-    price: "₹1,499",
-    points: ["Trademark Filing", "Logo Ownership", "Domain Protection"],
+    name: "Brand Compliance",
+    price: "₹499",
+    points: ["Trademark Filing", "Trademark Commercialization","Patent filling"],
   },
   {
     id: 8,
     name: "Annual & Basic Filings",
-    price: "₹1,999",
-    points: ["Annual ROC Filing", "PAN / TAN", "Company Closure"],
+    price: "₹999",
+    points: ["Annual ROC Filing", "Company Closure","IT Filling"],
   },
 ];

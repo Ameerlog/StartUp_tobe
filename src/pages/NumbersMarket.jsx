@@ -75,9 +75,7 @@ export default function NumbersMarketplace() {
                         <span className="rounded-full bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold">
                           ₹{parseInt(item.price).toLocaleString()}
                         </span>
-                        <span className="text-xs text-slate-500">
-                          Sum: {item.sum}
-                        </span>
+                     
                       </div>
 
                

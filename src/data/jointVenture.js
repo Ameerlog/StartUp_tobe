@@ -10,7 +10,7 @@ import DryGrains from "../assets/domain/drygrains.svg";
 
 import Bedtolet from  "../assets/domain/Bedtolet.svg"
 import Nopivot from "../assets/domain/nopivot.svg"
-import Oldmedal from "../assets/domain/oldmedal.svg"
+import Oldmedal from "../assets/domain/oldmedal.png"
 import Reelshost from "../assets/domain/reelshost.svg"
 import Coastaldew from '../assets/domain/coastaldew.svg'
 import Girij from '../assets/domain/girij.svg'
@@ -31,6 +31,7 @@ export const jvMarqueeCards = [
       "Conversion Services + B2B Contracts",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -43,6 +44,7 @@ export const jvMarqueeCards = [
       "Extraction, Compression & Storage",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -55,6 +57,7 @@ export const jvMarqueeCards = [
       "D2C Products + Retail Distribution",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -67,6 +70,7 @@ export const jvMarqueeCards = [
       "D2C Products + Community-Driven Brand",
       "Get Venture (70/30)",
     ],
+price: "₹9999",
   },
  {
     id: 6,
@@ -78,6 +82,7 @@ export const jvMarqueeCards = [
       "B2B Services + Tech Solutions + Long-Term Contracts",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
   {
     id: 7,
@@ -89,6 +94,7 @@ export const jvMarqueeCards = [
       "Domestic Supply + Global Export Markets",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -101,6 +107,7 @@ export const jvMarqueeCards = [
       "Domestic Supply + Global Distribution",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
   {
     id: 9,
@@ -112,6 +119,7 @@ export const jvMarqueeCards = [
       "D2C Services + Retainer + Project-Based",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -124,6 +132,7 @@ export const jvMarqueeCards = [
       "D2C + B2B Marketplace & Service Enablement",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -136,6 +145,7 @@ export const jvMarqueeCards = [
       "D2C + B2B Marketplace + Property Partnerships",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -148,6 +158,7 @@ export const jvMarqueeCards = [
       "D2C Services + Retainers + Advisory Packages",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -160,6 +171,7 @@ export const jvMarqueeCards = [
       "D2C Products + Limited Retail + Marketplaces",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -172,6 +184,7 @@ export const jvMarqueeCards = [
       "D2C SaaS + B2B for Creators, Brands & Agencies",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -184,6 +197,7 @@ export const jvMarqueeCards = [
       "D2C Bookings + OTA + B2B Partnerships",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 
   {
@@ -195,7 +209,7 @@ export const jvMarqueeCards = [
       "Wellness / Natural Products / Heritage Brand",
       "D2C Products + Marketplace + Select Retail",
       "Get Venture (70/30)",
-    ],
+    ],price: "₹9999",
   },
 
   {
@@ -208,5 +222,6 @@ export const jvMarqueeCards = [
       "B2B Services + Tech Solutions + Long-Term Contracts",
       "Get Venture (70/30)",
     ],
+    price: "₹9999",
   },
 ];

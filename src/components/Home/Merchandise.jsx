@@ -120,7 +120,6 @@ const navigate = useNavigate();
                   </span>
                 </div>
 
-                {/* Product Image */}
                 <div className="relative h-40 sm:h-48 md:h-52 rounded-lg overflow-hidden mb-4 bg-gray-800">
                   <img
                     src={item.icon}
@@ -130,12 +129,10 @@ const navigate = useNavigate();
                   />
                 </div>
 
-                {/* Product Name */}
                 <h3 className="text-sm sm:text-base font-bold text-white mb-4 text-center">
                   {item.name}
                 </h3>
 
-                {/* Print Your Brand Button */}
                 <button
                   className="
                     w-full 

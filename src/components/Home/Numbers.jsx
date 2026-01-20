@@ -57,14 +57,22 @@ export default function Numbers() {
                   <span className="text-white">{item.prefix}</span>
                   <span className="text-red-400 ml-1">{item.highlight}</span>
                 </div>
+           
+                  
 
+               <div className="flex items-center justify-between gap-4">
+  <span className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-white border">
+    ₹ {item.price}
+  </span>
 
-                <div className="flex justify-end">
-                  <button onClick={()=> navigate('/branding')} 
-                  className="rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
-                   Buy Now
-                  </button>
-                </div>
+  <button
+    onClick={() => navigate("/branding")}
+    className="rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25"
+  >
+    Buy Now
+  </button>
+</div>
+
               </div>
             </div>
           )}

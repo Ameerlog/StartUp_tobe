@@ -184,8 +184,8 @@ export default function JointVentureGrid() {
 
                       {/* Buttons in Header */}
                       <div className="mt-3 flex items-center justify-between">
-                        <span className="rounded-full bg-slate-100 px-2 py-1 text-[11px] text-slate-700">
-                          Partnership
+                        <span className="rounded-full bg-slate-100 px-2 py-1 text-[15px] text-slate-700 font-bold">
+                         {card.price}
                         </span>
 
                         <motion.button
@@ -234,7 +234,7 @@ export default function JointVentureGrid() {
                         ))}
                       </motion.div>
 
-                      <motion.div
+                      {/* <motion.div
                         className="mt-3 flex flex-wrap gap-2"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -258,7 +258,7 @@ export default function JointVentureGrid() {
                         >
                           Partnership
                         </motion.span>
-                      </motion.div>
+                      </motion.div> */}
                     </div>
                   </motion.article>
                 ))}
