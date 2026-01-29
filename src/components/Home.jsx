@@ -64,7 +64,7 @@ const Home = () => {
                 src={Logo}
                 alt="Logo"
                 className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24
-                           scale-[2] sm:scale-[2] md:scale-[2.3] lg:scale-[3]
+                           scale-[2] sm:scale-[2] md:scale-[2.4] lg:scale-[4]
                            drop-shadow-2xl"
               />
             </div>

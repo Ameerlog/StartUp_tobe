@@ -86,7 +86,7 @@ export default function Footer() {
   
           <div className="mt-10 border-t border-neutral-800 pt-6 flex flex-col items-center justify-center gap-1 text-center">
             <div className="text-sm text-neutral-500">
-              © 2026 <span className="text-red-500">PreUnicorns</span>. All rights reserved.
+              © 2026 <span className="text-red-500">CoBrother &trade; </span>.  All rights reserved.
             </div>
             <div className="text-sm text-neutral-400">
               Built for founders, startups-to-be, and dreamers.

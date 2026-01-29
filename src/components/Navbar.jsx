@@ -25,6 +25,8 @@ const Navbar = () => {
     xl:w-36 xl:h-36
     scale-[2] sm:scale-[2] md:scale-[2] lg:scale-[1.8]
     drop-shadow-2xl
+   ml-8
+    
   "
 />
 
