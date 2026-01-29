@@ -6,7 +6,7 @@ export default function JVProcess() {
       step: "01",
       icon: FileText,
       title: "Apply Online",
-      desc: "Fill out a short joint venture application with basic startup details."
+      desc: "Fill out a short joint coventure application with basic startup details."
     },
     {
       step: "02",
@@ -17,7 +17,7 @@ export default function JVProcess() {
     {
       step: "03",
       icon: Grid,
-      title: "Access StartupToBe Ecosystem",
+      title: "Access Cobrother Ecosystem",
       desc: "Get domains, SaaS tools, compliance, and marketing support."
     },
     {
@@ -32,11 +32,11 @@ export default function JVProcess() {
     <section className="py-24 bg-white">
       <div className="mx-auto max-w-6xl px-4 text-center">
         <h2 className="text-4xl font-bold tracking-tight text-[#240029]">
-          How the JV Works
+          How the Coventre Works
         </h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-600">
-          A simple, transparent process designed for founders.
+          A simple, transparent process designed for Cofounders.
         </p>
 
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

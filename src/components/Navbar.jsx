@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/domain/pre.png";
+import Logo from "../assets/domain/cobrother_Logo.svg";
 
 const Navbar = () => {
   const navigate = useNavigate();

@@ -102,17 +102,17 @@ export const jvMarqueeCards = [
       "Get Venture (70/30)",
     ],
   },
-  {
-    id: 9,
-    logo: Cobrother,
-    desc:
-      "Startup marketing company driving brand visibility, traction & growth",
-    details: [
-      "Marketing Services / Startup Growth",
-      "D2C Services + Retainer + Project-Based",
-      "Get Venture (70/30)",
-    ],
-  },
+  // {
+  //   id: 9,
+  //   logo: Cobrother,
+  //   desc:
+  //     "Startup marketing company driving brand visibility, traction & growth",
+  //   details: [
+  //     "Marketing Services / Startup Growth",
+  //     "D2C Services + Retainer + Project-Based",
+  //     "Get Venture (70/30)",
+  //   ],
+  // },
 
   {
     id: 10,

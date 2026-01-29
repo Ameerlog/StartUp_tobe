@@ -47,10 +47,10 @@ export default function JVBenefitsSection() {
         {/* Heading */}
         <div className="mb-14 text-center">
           <h2 className="text-4xl font-medium tracking-tight text-zinc-900 sm:text-5xl">
-            JV Benefits for Founders
+            Coventre Benefits for Founders
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-600">
-            What startups gain by partnering with StartupToBe
+            What startups gain by partnering with Cobrother
           </p>
         </div>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/domain/pre.png";
+import Logo from "../assets/domain/cobrotheraultum_Logo.svg";
 import BackgroundImage from "../assets/domain/bg1.svg";
 
 import Joint from "../assets/domain/venture1.svg";

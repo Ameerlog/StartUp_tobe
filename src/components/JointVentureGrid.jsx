@@ -99,7 +99,7 @@ export default function JointVentureGrid() {
               animate="visible"
               className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900"
             >
-              Joint Venture
+              Joint Coventure
             </motion.h1>
             <motion.p
               variants={subtitleVariants}

@@ -33,10 +33,10 @@ const Marketing = () => {
   className="w-20 h-20 object-contain scale-300"
 />
 
-  <span className="relative inline-block text-red-600 text-center">
+  <span className="relative inline-block text-center bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_-7px_4px_rgba(192,192,192,1)]">
     All in One CRM, Automation & AI Ready Platform
     <svg
-      className="absolute -bottom-1 left-0 w-full h-2 text-red-200 -z-10 block"
+      className="absolute -bottom-3 left-0 w-full h-2 text-red-200 -z-10 block"
       viewBox="0 0 100 10"
       preserveAspectRatio="none"
     >

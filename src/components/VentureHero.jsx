@@ -11,11 +11,11 @@ const VentureHero = () => {
       <div className="relative mx-auto max-w-6xl px-4 pt-28 pb-20 text-center z-10">
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-slate-900">
-          Partner with PreUnicorns
+          Copartner with Cobrother
         </h1>
 
         <p className="mt-3 text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto font-medium">
-          Joint Venture opportunities for startups, founders, and innovators.
+          Joint Coventure opportunities for startups, founders, and innovators.
           <br className="hidden sm:block" />
           <span className="text-slate-900">
             Build, scale, and grow together with full support.

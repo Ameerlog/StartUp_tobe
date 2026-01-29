@@ -1,6 +1,6 @@
 import React from "react";
 import { Twitter, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
-import Logo from "../assets/domain/pre.png";
+import Logo from "../assets/domain/cobrother_Logo.svg";
 
 
 
@@ -15,10 +15,10 @@ const social = [
 
 const columns = [
   { title: "Product", links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"] },
-  { title: "Solutions", links: ["Company Registration", "GST & Tax Filing", "Trademark & IP", "Accounting & Compliance", "Startup Visibility"] },
-  { title: "Community", links: ["Founder Community", "Free Startup Guides", "Events & Webinars", "Partner Program"] },
+  { title: "Solutions", links: ["Company Registration", "GST & Tax Filing", "Trademark & IP", "Accounting & Compliance", "Startup Business"] },
+  { title: "Community", links: ["Co-Founder", "Co-Investor"] },
   { title: "Resources", links: ["Legal Basics for Founders", "Brand Naming Guide"] },
-  { title: "Company", links: ["About StartupToBe", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
+  { title: "Company", links: ["About Cobrother", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
   { title: "Trust & Security", links: ["Secure Payments", "Transparent Pricing", "Founder-First Approach", "India-Focused Compliance"] },
 ];
 
@@ -38,7 +38,7 @@ export default function Footer() {
                   <img 
   src={Logo} 
   alt="StartupToBe" 
-  className="h-16 w-auto scale-500 ml-5" 
+  className="h-16 w-auto scale-300 ml-14" 
 />
                   </a>
                 </div>
