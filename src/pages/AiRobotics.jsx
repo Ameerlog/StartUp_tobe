@@ -61,7 +61,7 @@ export default function AIRoboticsPage() {
                 </div>
 
                 <div className="mt-6 pt-5 border-t border-slate-100">
-                  <button className="w-full flex items-center justify-between text-sm font-bold hover:text-red-600 transition-colors">
+                  <button className="cursor-pointer w-full flex items-center justify-between text-sm font-bold hover:text-red-600 transition-colors">
                     Get Started
                     <span className="bg-slate-100 p-1.5 rounded-full group-hover:bg-red-50 transition-colors">
                       <ArrowRight className="w-4 h-4" />

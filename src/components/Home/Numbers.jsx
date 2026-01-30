@@ -61,7 +61,7 @@ export default function Numbers() {
 
                 <div className="flex justify-end">
                   <button onClick={()=> navigate('/branding')} 
-                  className="rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
+                  className="cursor-pointer rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
                    Buy Now
                   </button>
                 </div>
@@ -85,6 +85,7 @@ export default function Numbers() {
                 hover:border-red-400
                 hover:text-red-400
                 hover:bg-white/20
+                cursor-pointer
               "
             >
               View All

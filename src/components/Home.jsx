@@ -24,7 +24,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const iconData = [
-    { Icon: Joint, title: "Joint Venture", subtitle: "Strategic Partnerships", path: "/venture" },
+    { Icon: Joint, title: "Joint CoVenture", subtitle: "Strategic Partnerships", path: "/venture" },
     { Icon: Branding, title: "Branding", subtitle: "Identity Creation", path: "/branding" },
     { Icon: Marketing, title: "Marketing", subtitle: "Growth Strategies", path: "/marketing" },
     { Icon: Compliances, title: "Compliances", subtitle: "Regulatory Solutions", path: "/compliance" },
@@ -51,9 +51,11 @@ const Home = () => {
                         px-3 sm:px-4 md:px-6 lg:px-8 
                         py-6 sm:py-8 md:py-10 lg:py-12">
           
-          <div className="w-full max-w-xs sm:max-w-sm md:max-w-xl lg:max-w-2xl xl:max-w-3xl 
+          <div className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl 
                           mt-6 sm:mt-8 md:mt-10 lg:mt-12 
-                          relative">
+                          relative
+                          mx-4 sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16
+                          ">
 
        
             <div className="absolute 
@@ -63,9 +65,11 @@ const Home = () => {
               <img
                 src={Logo}
                 alt="Logo"
-                className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24
-                           scale-[2] sm:scale-[2] md:scale-[2.4] lg:scale-[4]
-                           drop-shadow-2xl"
+                className="w-19 h-26 sm:w-16 sm:h-16 md:w-20 md:h-28 lg:w-24 lg:h-24
+                          //  scale-[3] sm:scale-[2] md:scale-[2.4] lg:scale-[4]
+                          //  drop-shadow-2xl
+                           "
+                
               />
             </div>
 
@@ -73,14 +77,17 @@ const Home = () => {
               className="bg-white/8 backdrop-blur-sm 
                          border border-white/20 sm:border-white/25
                          shadow-lg sm:shadow-xl shadow-white/10 sm:shadow-white/15
-                         mt-10 sm:mt-12 md:mt-14 lg:mt-16
+                         mt-10 sm:mt-12 md:mt-14 lg:mt-10
                          p-3 sm:p-4 md:p-6 lg:p-8
-                         pt-10 sm:pt-12 md:pt-14 lg:pt-16
+                         pt-10 sm:pt-12 md:pt-6 lg:pt-12
                          rounded-lg sm:rounded-xl md:rounded-2xl
                          grid grid-cols-2 sm:grid-cols-3
-                         gap-2 sm:gap-3 md:gap-4 lg:gap-6
+                         gap-9 sm:gap-7 md:gap-9 lg:gap-14
                          place-items-center
-                         w-full"
+                         w-full
+                         
+
+                         "
             >
               {iconData.map(({ Icon, title, subtitle, path }, index) => (
                 <div
@@ -100,24 +107,27 @@ const Home = () => {
                                   sm:w-14 sm:h-14 
                                   md:w-16 md:h-16 
                                   lg:w-20 lg:h-20
-                                  xl:w-24 xl:h-24 scale-150">
+                                  xl:w-24 xl:h-24 scale-150
+                                  overflow-hidden ">
                     <img
                       src={Icon}
                       alt={title}
-                      className="w-full h-full object-contain 
-                                 scale-[2] 
-                                 sm:scale-[2] 
-                                 md:scale-125 
-                                 lg:scale-[2]
-                                 xl:scale-150
-                                 drop-shadow-lg
-                                 transition-all duration-500 ease-out
-                                 group-hover:scale-125 
-                                 sm:group-hover:scale-[1.35] 
-                                 md:group-hover:scale-150 
-                                 lg:group-hover:scale-[1.6]
-                                 xl:group-hover:scale-[1.75]
-                                 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+                      className="
+                      pointer         w-full h-full object-cover
+                      transform transition-all duration-500 ease-out
+                      scale-[2]
+                      sm:scale-[2]
+                      md:scale-125
+                      lg:scale-[2]
+                      xl:scale-150
+                      group-hover:scale-125
+                      sm:group-hover:scale-[1.35]
+                      md:group-hover:scale-150
+                      lg:group-hover:scale-[1.6]
+                      xl:group-hover:scale-[1.75]
+                      drop-shadow-lg
+                      group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]
+                      "
                     />
                   </div>
 

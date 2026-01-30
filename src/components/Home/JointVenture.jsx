@@ -12,7 +12,7 @@ const navigate =useNavigate();
  
       <div className="text-center px-4 flex flex-col items-center gap-4">
   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
-    Joint Venture
+    Joint CoVenture
   </h2>
 
 <button
@@ -35,7 +35,7 @@ const navigate =useNavigate();
         mt-4
       "
     >
-     List Your Venture
+     List Your CoVenture
    
     </button>
 </div>
@@ -145,7 +145,7 @@ const navigate =useNavigate();
                     mt-auto pt-4
                     flex flex-col sm:flex-row 
                     gap-2 sm:gap-2.5 md:gap-3
-                    shrink-0
+                    shrink-0 cursor-pointer
                   "
                 >
                  
@@ -163,6 +163,7 @@ const navigate =useNavigate();
                       shadow-lg hover:shadow-red-500/25
                       active:scale-[0.98]
                       transition-all duration-200
+                      cursor-pointer
                     "
                   >
                Get venture
@@ -194,6 +195,7 @@ const navigate =useNavigate();
             hover:text-red-400
             hover:bg-white/20
             active:scale-[0.98]
+            cursor-pointer
           "
         >
           View All

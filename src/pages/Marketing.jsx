@@ -33,10 +33,12 @@ const Marketing = () => {
   className="w-20 h-20 object-contain scale-300"
 />
 
-  <span className="relative inline-block text-center bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_-7px_4px_rgba(192,192,192,1)]">
-    All in One CRM, Automation & AI Ready Platform
+  <span className="relative inline-block text-center text-[50px]">
+    {/* All in One CRM, Automation & AI Ready Platform */}
+    {/* Everything your business needs, in one place. */}
+    AI-Powered operations for modern business.
     <svg
-      className="absolute -bottom-3 left-0 w-full h-2 text-red-200 -z-10 block"
+      className="absolute -bottom-3 left-0 w-full h-2 text-red-500 -z-10 block"
       viewBox="0 0 100 10"
       preserveAspectRatio="none"
     >
@@ -98,7 +100,7 @@ const Marketing = () => {
 
       <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-8">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center">
-    <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900">
+    <h2 className="cursor-pointer text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-900">
       Get started with brands from <br />₹9999 <span className=" text-xl"> per/Month</span>
     </h2>
   </div>

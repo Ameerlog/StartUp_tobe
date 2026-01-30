@@ -214,6 +214,7 @@ export default function AIRobotics() {
                         shadow-lg hover:shadow-red-500/25
                         active:scale-[0.98]
                         transition-all duration-200
+                        cursor-pointer
                       "
                     >
                       Schedule a Visit
@@ -258,6 +259,7 @@ export default function AIRobotics() {
             hover:text-red-400
             hover:bg-white/20
             active:scale-[0.98]
+            cursor-pointer
           "
         >
           View All 

@@ -114,7 +114,7 @@ export default function DomainDetailsLayout() {
                   Join our community for free
                 </h2>
                 <p className="mt-2 text-sm text-zinc-600">
-                  Find your partner and Co-founder and share idea's by just
+                  Find your partner and CoFounder and share idea's by just
                   filling the form
                 </p>
                 <button
@@ -150,7 +150,7 @@ export default function DomainDetailsLayout() {
                     ].join(" ")}
                   >
                     <div className="grid gap-1">
-                      <div className="text-sm font-semibold">Buy Now</div>
+                      <div className="text-sm font-semibold cursor-pointer">Buy Now</div>
                       <div className="text-xs text-zinc-600">
                         One-time payment
                       </div>

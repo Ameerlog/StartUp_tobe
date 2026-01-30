@@ -354,7 +354,7 @@ export default function MerchandiseMarket() {
                               backgroundColor: "#dc2626",
                             }}
                             whileTap={{ scale: 0.98 }}
-                            className="mt-4 w-full rounded-full bg-slate-900 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white transition-colors duration-300"
+                            className="cursor-pointer mt-4 w-full rounded-full bg-slate-900 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white transition-colors duration-300"
                           >
                             Print Your Brand
                           </motion.button>

@@ -112,6 +112,7 @@ export default function Marketing() {
                       active:scale-[0.98]
                       transition-all duration-200
                       flex items-center justify-center gap-2
+                      cursor-pointer
                     "
                   >
                     Schedule a Visit
@@ -142,6 +143,7 @@ export default function Marketing() {
             hover:text-red-400
             hover:bg-white/20
             active:scale-[0.98]
+            cursor-pointer
           "
           onClick={()=>navigate('/marketing')}
         >

@@ -128,7 +128,7 @@ export default function Domains({ variant = "dark" }) {
                     <div className="mt-6 flex justify-end">
                       <button
                         onClick={() => navigate("/branding")}
-                        className="rounded-full bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+                        className="rounded-full bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
                       >
                         Make it Yours →
                       </button>
@@ -151,6 +151,7 @@ export default function Domains({ variant = "dark" }) {
               backdrop-blur-xl transition-all duration-300
               hover:border-red-400 hover:text-red-400
               active:scale-[0.98]
+              cursor-pointer
             `}
           >
             View All

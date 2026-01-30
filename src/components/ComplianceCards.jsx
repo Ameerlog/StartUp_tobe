@@ -110,6 +110,7 @@ export default function ComplianceCards() {
                         text-sm font-medium text-white
                         transition-all
                         shadow-lg hover:shadow-red-500/25
+                        cursor-pointer
                       "
                     >
                       Get Started

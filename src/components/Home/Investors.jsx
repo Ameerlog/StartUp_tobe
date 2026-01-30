@@ -162,7 +162,10 @@ export default function Investors() {
                          hover:text-red-400
                          hover:bg-white/20
                          active:scale-[0.98]
-                         hover:shadow-lg hover:shadow-red-500/10"
+                         hover:shadow-lg hover:shadow-red-500/10
+                         cursor-pointer
+                         "
+                         
             >
               View All
               <ArrowRight

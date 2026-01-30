@@ -44,11 +44,11 @@ export default function Compliance() {
           </p>
 
           <h1 className="mt-2 text-4xl sm:text-5xl font-bold tracking-tighter">
-            Compliance made for PreUnicorns
+            Compliance made for CoBrother
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-slate-500 font-medium">
-            PreUnicorns handles registrations, filings, and compliance so your startup stays legal and stress-free.
+            CoBrother handles registrations, filings, and compliance so your startup stays legal and stress-free.
           </p>
 
        
@@ -79,7 +79,7 @@ export default function Compliance() {
 
               <button
                 onClick={() => setActiveService(service)}
-                className="mt-5 w-full rounded-full bg-slate-900 py-2.5 text-sm font-bold text-white hover:bg-red-600 transition"
+                className="cursor-pointer mt-5 w-full rounded-full bg-slate-900 py-2.5 text-sm font-bold text-white hover:bg-red-600 transition"
               >
                 Get Started
               </button>

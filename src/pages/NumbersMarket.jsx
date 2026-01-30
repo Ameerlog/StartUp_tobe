@@ -89,7 +89,7 @@ export default function NumbersMarketplace() {
                       </div>
 
                       <div className="mt-4 flex gap-2">
-                        <button className="flex-1 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
+                        <button className="cursor-pointer flex-1 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
                           Buy Now
                         </button>
                     

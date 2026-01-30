@@ -143,7 +143,7 @@ export default function JointVentureGrid() {
                   🤝
                 </motion.div>
                 <h3 className="text-lg font-semibold text-slate-900">
-                  No ventures available
+                  No Coventures available
                 </h3>
                 <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-500">
                   Check back soon for new partnership opportunities.
@@ -196,7 +196,7 @@ export default function JointVentureGrid() {
                           whileTap={{ scale: 0.95 }}
                           className="rounded-full bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300"
                         >
-                          Get Venture
+                          Get CoVenture
                         </motion.button>
                       </div>
                     </div>

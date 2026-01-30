@@ -1,14 +1,15 @@
 import React from "react";
 import { Twitter, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
-import Logo from "../assets/domain/cobrother_Logo.svg";
+import Logo from "../assets/domain/cobrotheraultum_Logo.svg";
+import { ArrowUp } from "lucide-react";
 
 
 
 
 const social = [
-  { href: "#", label: "X", Icon: Twitter },
-  {href:"#",label:"Instagram",Icon:Instagram},
-  {href:"#",label:"Facebook",Icon:Facebook},
+  { href: "https://x.com/CoBrother141506", label: "X", Icon: Twitter },
+  {href:"https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi",label:"Instagram",Icon:Instagram},
+  {href:"https://www.facebook.com/share/16vjEWTjHi/",label:"Facebook",Icon:Facebook},
   { href: "#", label: "LinkedIn", Icon: Linkedin },
   { href: "#", label: "YouTube", Icon: Youtube },
 ];
@@ -16,19 +17,24 @@ const social = [
 const columns = [
   { title: "Product", links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"] },
   { title: "Solutions", links: ["Company Registration", "GST & Tax Filing", "Trademark & IP", "Accounting & Compliance", "Startup Business"] },
-  { title: "Community", links: ["Co-Founder", "Co-Investor"] },
+  { title: "Community", links: ["CoFounder", "CoInvestor"] },
   { title: "Resources", links: ["Legal Basics for Founders", "Brand Naming Guide"] },
   { title: "Company", links: ["About Cobrother", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
   { title: "Trust & Security", links: ["Secure Payments", "Transparent Pricing", "Founder-First Approach", "India-Focused Compliance"] },
 ];
 
+  // back to top
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white">
       <section className="border-t border-neutral-800">
-        <div className="mx-auto max-w-6xl px-4 py-14">
+        <div className="mx-auto max-w-6xl px-2 py-6">
 
-          <div className="grid gap-y-10 gap-x-12 lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1">
+          <div className="grid gap-y-10 gap-x-18 lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1">
            
          
             <div className="flex flex-col justify-between gap-6">
@@ -37,26 +43,35 @@ export default function Footer() {
                   <a href="/">
                   <img 
   src={Logo} 
-  alt="StartupToBe" 
-  className="h-16 w-auto scale-300 ml-14" 
+  alt="CobrotherAultum" 
+  className="     h-18 sm:h-20 md:h-22 lg:h-24 xl:h-23
+      w-auto shrink-0
+      transform origin-left
+      scale-[1.8] sm:scale-[2.2] md:scale-[2.6] lg:scale-[3] xl:scale-[2.5]
+
+    " 
 />
                   </a>
                 </div>
                 <div className="text-sm text-neutral-400">
-                  Before the launch, there's <span className="text-red-500 font-semibold">PreUnicorns</span>.
+                  {/* Before the launch, there's  */}
+                  Everything your business needs, in oneplace. <br />
+                  <span className="text-red-500 font-semibold">CoBrother &trade; </span>
                 </div>
               </div>
 
              
-              <div className="flex  gap-1">
-                {social.map(({ label, Icon }) => (
+              <div className="flex  gap-2">
+                {social.map(({ label, Icon, href }) => (
                   <a
                     key={label}
-                    href="#"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-700 bg-black text-white transition hover:bg-red-600 hover:border-red-600 hover:text-white"
+                    className="inline-flex h-fit w-14 items-center justify-center rounded-full border border-neutral-700 bg-black text-white transition hover:bg-red-600 hover:border-red-600 hover:text-white"
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-6 w-6" />
                   </a>
                 ))}
               </div>
@@ -89,11 +104,21 @@ export default function Footer() {
               © 2026 <span className="text-red-500">CoBrother &trade; </span>.  All rights reserved.
             </div>
             <div className="text-sm text-neutral-400">
-              Built for founders, startups-to-be, and dreamers.
+             Everything your business needs, in oneplace.
             </div>
           </div>
         </div>
       </section>
+      {/* back to top button*/}
+        <div className="flex justify-end pb-4 pr-4">
+          <button
+            onClick={scrollToTop}
+            aria-label="Go to top"
+            className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition"
+          >
+            <ArrowUp className="h-8 w-8 text-white pb" />
+          </button>
+        </div>
     </footer>
   );
 }
