@@ -91,9 +91,10 @@ export default function Domains({ variant = "dark" }) {
                 key={id}
                 className="shrink-0 w-[260px] sm:w-[300px] md:w-[320px] px-3
                  border-white/30 
-                bg-gray-900/60 
+                bg-[#0e1422]
                 hover:border-white/30
                 hover:bg-gray-900/80
+                transition-shadow duration-300
                 "
               >
                 <div
@@ -124,8 +125,10 @@ export default function Domains({ variant = "dark" }) {
 
                     {/* Image */}
                     <div
-                      className={`mt-5 rounded-xl border 
-                        ${theme.imageBox} 
+                      className={`mt-5 rounded-xl 
+                        border 
+                        border-white/30
+                      bg-[#0e1422]
                         flex-1 flex 
                         items-center 
                         justify-center 
