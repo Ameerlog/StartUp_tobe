@@ -39,7 +39,7 @@ export default function Compliance() {
 
       <section className="relative pt-25  pb-10 text-center z-10">
         <div className="mx-auto max-w-4xl px-4">
-          <p className="text-sm font-bold text-slate-500">
+          <p className="text-sm font-bold text-slate-500 ">
             Filing and Compliance
           </p>
 
@@ -64,7 +64,7 @@ export default function Compliance() {
           {complianceServices.map((service) => (
             <div
               key={service.id}
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-red-200 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all"
+              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-gray-400 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all"
             >
               <h3 className="text-lg font-bold">{service.name}</h3>
               <p className="mt-1 text-sm font-medium text-slate-600">
@@ -79,7 +79,13 @@ export default function Compliance() {
 
               <button
                 onClick={() => setActiveService(service)}
-                className="cursor-pointer mt-5 w-full rounded-full bg-slate-900 py-2.5 text-sm font-bold text-white hover:bg-red-600 transition"
+                className="cursor-pointer mt-5 w-full rounded-full 
+                bg-gray-600 
+                py-2.5 text-sm font-bold
+                text-white 
+                hover:bg-gray-700 
+                hover:shadow-white-500/25
+                transition-all duration-200"
               >
                 Get Started
               </button>

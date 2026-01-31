@@ -89,17 +89,28 @@ export default function Domains({ variant = "dark" }) {
             return (
               <div
                 key={id}
-                className="shrink-0 w-[260px] sm:w-[300px] md:w-[320px] px-3"
+                className="shrink-0 w-[260px] sm:w-[300px] md:w-[320px] px-3
+                 border-white/30 
+                bg-gray-900/60 
+                hover:border-white/30
+                hover:bg-gray-900/80
+                "
               >
                 <div
                   className={`group h-[360px] rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
-                  backdrop-blur-sm shadow-xl transition-all duration-300 flex flex-col`}
+                  backdrop-blur-sm flex flex-col
+                  shadow-white
+                   hover:border-white/30
+                hover:bg-gray-900/80
+                  transition-all duration-300 `}
                 >
                   <div className="p-5 flex-1 flex flex-col">
                     {/* Title + Price */}
                     <div className="flex items-start justify-between gap-3">
                       <h3
-                        className={`text-lg font-bold leading-tight ${theme.cardTitle} group-hover:text-red-500 transition-colors`}
+                        className={`text-lg text-white/50 font-bold leading-tight ${theme.cardTitle} 
+                        group-hover:text-white
+                        transition-colors`}
                       >
                         {title}
                       </h3>
@@ -113,7 +124,13 @@ export default function Domains({ variant = "dark" }) {
 
                     {/* Image */}
                     <div
-                      className={`mt-5 rounded-xl border ${theme.imageBox} flex-1 flex items-center justify-center relative`}
+                      className={`mt-5 rounded-xl border 
+                        ${theme.imageBox} 
+                        flex-1 flex 
+                        items-center 
+                        justify-center 
+                        relative
+                        `}
                     >
                       <img
                         src={src}

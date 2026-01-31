@@ -34,7 +34,7 @@ export default function AIRoboticsPage() {
             return (
               <div
                 key={card.id}
-                className="group relative rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 flex flex-col shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-red-200 hover:-translate-y-1 transition-all duration-300"
+                className="group relative rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 flex flex-col shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-gray-400 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="absolute top-6 right-6 text-xs font-mono font-bold text-slate-200 group-hover:text-red-100">
                   {card.id.toString().padStart(2, "0")}

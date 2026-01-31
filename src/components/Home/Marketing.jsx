@@ -55,13 +55,13 @@ export default function Marketing() {
                     group
                     w-56 sm:w-64 md:w-72
                     rounded-xl sm:rounded-2xl
-                    border border-white/20
+                    border border-white/10
                     bg-gray-900/60
                     backdrop-blur-sm
                     p-4 sm:p-5 md:p-6
                     flex flex-col
                     transition-all duration-300
-                    hover:border-white/30   
+                    hover:border-white/30  
                     hover:bg-gray-900/80
                     hover:shadow-lg
                   "
@@ -73,14 +73,19 @@ export default function Marketing() {
                         w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18
                         rounded-xl sm:rounded-2xl
                         bg-white/10
-                        border border-white
+                        border border-white/30
                         flex items-center justify-center
-                        group-hover:border-white/30
-                  group-hover:text-white
+                        group-hover:border-white
+                      group-hover:text-white
                         transition-all duration-300
                       "
                     >
-                      <Icon className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-red-400 group-hover:text-red-300 transition-colors duration-300" />
+                      <Icon className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 
+                      text-white/70
+                      group-hover:border-white
+                      group-hover:text-white
+
+                      transition-colors duration-300" />
                     </div>
                   </div>
 

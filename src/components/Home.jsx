@@ -35,8 +35,9 @@ const Home = () => {
   return (
     <>
       <section className="min-h-screen w-full relative overflow-hidden">
-
+ {/* <h2>One platform for every stage of your business.</h2> */}
         <div className="absolute inset-0 w-full h-full ">
+         
           <img
             src={BackgroundImage}
             alt="Background"
@@ -74,9 +75,9 @@ const Home = () => {
             </div>
 
             <div
-              className="bg-white/8 backdrop-blur-sm 
+              className="bg-transparentbackdrop-blur-sm 
                          border border-white/20 sm:border-white/25
-                         shadow-lg sm:shadow-xl shadow-white/10 sm:shadow-white/15
+                        
                          mt-10 sm:mt-12 md:mt-14 lg:mt-10
                          p-3 sm:p-4 md:p-6 lg:p-8
                          pt-10 sm:pt-12 md:pt-6 lg:pt-12
@@ -113,21 +114,19 @@ const Home = () => {
                       src={Icon}
                       alt={title}
                       className="
-                      pointer         w-full h-full object-cover
-                      transform transition-all duration-500 ease-out
-                      scale-[2]
-                      sm:scale-[2]
-                      md:scale-125
-                      lg:scale-[2]
-                      xl:scale-150
-                      group-hover:scale-125
-                      sm:group-hover:scale-[1.35]
-                      md:group-hover:scale-150
-                      lg:group-hover:scale-[1.6]
-                      xl:group-hover:scale-[1.75]
-                      drop-shadow-lg
-                      group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]
-                      "
+                      cursor-pointer
+                      w-full h-full object-contain
+                      /* Responsive size (STATIC) */
+                      scale-150
+                      md:scale-180
+                      lg:scale-210
+                      /* Hover effect (FAST & CLEAN) */
+                      transition-transform duration-150 ease-out
+                      group-hover:scale-[1.15]
+                      /* Light glow */
+                      drop-shadow-md
+                      group-hover:drop-shadow-sm
+                    "
                     />
                   </div>
 

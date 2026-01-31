@@ -50,18 +50,20 @@ export default function ComplianceCards() {
                 {/* CARD */}
                 <div
                   className="
+                  group relative
+                  overflow-hidden
                     min-h-75
                     rounded-[20px]
                     border border-white/30
-                    bg-gray-900/50
-                    group-hover:border-white/30   
-                    group-hover:bg-gray-900/80
+                    bg-gray-900/60
+                    hover:border-white/30   
+                    hover:bg-gray-900/80
                     hover:shadow-lg
                     p-6
                     flex flex-col
                     backdrop-blur-sm
                     transition-transform duration-300
-                    
+                    overflow-hidden
                   "
                 >
                   {/* CONTENT */}
@@ -98,11 +100,19 @@ export default function ComplianceCards() {
                          border-white/30
                           flex 
                           items-center
-                           justify-center
-                            group-hover:border-white
-            group-hover:text-white">
-                          <Icon className="h-7 w-7 text-gray-500  group-hover:border-white
-            group-hover:text-white" />
+                          justify-center
+                        group-hover:border-white
+                        group-hover:text-white
+                        transition-all duration-300
+                        ">
+
+                          <Icon className="h-7 
+                          w-7 
+                         text-white/30
+                        group-hover:text-white
+                        transition-colors duration-300 
+                           
+            " />
                         </div>
                       </div>
                     )}

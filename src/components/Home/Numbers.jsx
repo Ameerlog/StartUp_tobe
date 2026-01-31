@@ -51,6 +51,8 @@ export default function Numbers() {
           renderItem={(item) => (
             <div className="shrink-0 w-[350px] px-5 h-[150px]">
               <div className="h-full 
+              group 
+              relative
               rounded-[20px] 
               border
               border-white/20
@@ -69,7 +71,7 @@ export default function Numbers() {
          
                 <div className="text-center text-[36px] font-bold">
                   <span className="text-white">{item.prefix}</span>
-                  <span className="text-white/30 hover:text-white">{item.highlight}</span>
+                  <span className="text-white/30 group-hover:text-white transition-colors duration-300">{item.highlight}</span>
                 </div>
 
 
