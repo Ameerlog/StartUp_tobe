@@ -12,7 +12,7 @@ const navigate =useNavigate();
  
       <div className="text-center px-4 flex flex-col items-center gap-4">
   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
-    Joint CoVenture
+     CoVenture
   </h2>
 
 <button
@@ -28,8 +28,8 @@ const navigate =useNavigate();
         font-bold text-white
         backdrop-blur-xl
         transition-all duration-300
-        hover:border-red-400
-        hover:text-red-400
+        hover:border-white/30
+        hover:text-white
         hover:bg-white/20
         active:scale-[0.98]
         mt-4
@@ -86,6 +86,9 @@ const navigate =useNavigate();
                   flex flex-col
                   backdrop-blur-sm
                   hover:border-white/30
+                  hover:bg-gray-900/80
+                    hover:shadow-lg
+
                   transition-all duration-300
                 "
               >
@@ -130,7 +133,7 @@ const navigate =useNavigate();
                           className="
                             mt-1 sm:mt-1.5 
                             h-1 w-1 sm:h-1.5 sm:w-1.5 
-                            rounded-full bg-red-400 
+                            rounded-full bg-white/60 
                             shrink-0
                           " 
                         />
@@ -155,18 +158,18 @@ const navigate =useNavigate();
                     className="
                       w-full sm:flex-1 
                       rounded-full 
-                      bg-red-600 hover:bg-red-500 
+                      bg-gray-600 hover:bg-gray-500
                       px-3 sm:px-4 
                       py-2 sm:py-2.5 
                       text-[10px] sm:text-xs md:text-sm 
                       font-medium text-white 
-                      shadow-lg hover:shadow-red-500/25
+                      shadow-lg hover:shadow-white-500/25
                       active:scale-[0.98]
                       transition-all duration-200
                       cursor-pointer
                     "
                   >
-               Get venture
+               Get Coventure
                   </button>
                 </div>
               </div>
@@ -183,7 +186,7 @@ const navigate =useNavigate();
             group 
             flex items-center gap-2
             rounded-full
-            border border-white/30
+            border border-white
             bg-white/10
             px-5 sm:px-6 md:px-8 
             py-2.5 sm:py-3
@@ -191,9 +194,9 @@ const navigate =useNavigate();
             font-semibold text-white
             backdrop-blur-xl
             transition-all duration-300
-            hover:border-red-400
-            hover:text-red-400
-            hover:bg-white/20
+             hover:border-white/30
+        hover:text-white
+        hover:bg-white/20
             active:scale-[0.98]
             cursor-pointer
           "

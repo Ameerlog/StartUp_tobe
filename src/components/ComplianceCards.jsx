@@ -52,13 +52,16 @@ export default function ComplianceCards() {
                   className="
                     min-h-75
                     rounded-[20px]
-                    border border-white/20
+                    border border-white/30
                     bg-gray-900/50
+                    group-hover:border-white/30   
+                    group-hover:bg-gray-900/80
+                    hover:shadow-lg
                     p-6
                     flex flex-col
                     backdrop-blur-sm
                     transition-transform duration-300
-                    hover:-translate-y-1
+                    
                   "
                 >
                   {/* CONTENT */}
@@ -79,7 +82,7 @@ export default function ComplianceCards() {
                             key={index}
                             className="text-[13px] text-gray-400 flex items-start gap-2"
                           >
-                            <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                            <span className="mt-[8px] h-1.5 w-1.5 rounded-full bg-white/60 shrink-0" />
                             {point}
                           </p>
                         ))}
@@ -89,8 +92,17 @@ export default function ComplianceCards() {
                     {/* ICON */}
                     {Icon && (
                       <div className="flex items-start justify-center pt-1">
-                        <div className="h-14 w-14 rounded-full bg-red-500/10 flex items-center justify-center">
-                          <Icon className="h-7 w-7 text-red-400" />
+                        <div className="h-14 w-14 rounded-full
+                         bg-white/10 
+                         border 
+                         border-white/30
+                          flex 
+                          items-center
+                           justify-center
+                            group-hover:border-white
+            group-hover:text-white">
+                          <Icon className="h-7 w-7 text-gray-500  group-hover:border-white
+            group-hover:text-white" />
                         </div>
                       </div>
                     )}
@@ -105,11 +117,11 @@ export default function ComplianceCards() {
                       className="
                         flex-1
                         rounded-full
-                        bg-red-600 hover:bg-red-500
+                        bg-gray-600 hover:bg-gray-500
                         px-4 py-2
                         text-sm font-medium text-white
                         transition-all
-                        shadow-lg hover:shadow-red-500/25
+                      
                         cursor-pointer
                       "
                     >

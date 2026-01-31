@@ -305,7 +305,7 @@ export default function MarketPlace() {
                                 backgroundColor: "#dc2626",
                               }}
                               whileTap={{ scale: 0.95 }}
-                              className="cursor-pointer relative z-20 rounded-full bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300"
+                              className="cursor-pointer relative z-20 rounded-full bg-gray-600 hover:bg-gray-500 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300"
                             >
                               Buy now
                             </motion.button>

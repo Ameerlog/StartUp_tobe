@@ -15,7 +15,7 @@ const VentureHero = () => {
         </h1>
 
         <p className="mt-3 text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto font-medium">
-          Joint Coventure opportunities for startups, founders, and innovators.
+          Coventure opportunities for startups, founders, and innovators.
           <br className="hidden sm:block" />
           <span className="text-slate-900">
             Build, scale, and grow together with full support.

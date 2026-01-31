@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MarketPlace from "./MarketPlace";
 import NumbersMarketplace from "./NumbersMarket";
-import MerchandiseMarket from "./MerchandiseMarket";
+// import MerchandiseMarket from "./MerchandiseMarket";
 
 
 // function MerchandiseMarketplace() {
@@ -32,7 +32,7 @@ export default function Branding() {
   const tabs = [
     { id: "domains", label: "Domains" },
     { id: "numbers", label: "Business Numbers" },
-    { id: "merchandise", label: "Merchandise" },
+    // { id: "merchandise", label: "Merchandise" },
   ];
 
   const contentVariants = {
@@ -84,7 +84,7 @@ export default function Branding() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mx-auto mt-4 max-w-2xl text-slate-500 font-medium leading-relaxed"
           >
-            We provide premium domains, branded merchandise, and memorable numbers
+            We provide premium domains, and memorable numbers
             to help businesses and individuals build a strong, unique identity.
           </motion.p>
 
@@ -158,7 +158,7 @@ export default function Branding() {
             </motion.div>
           )}
 
-          {activeTab === "merchandise" && (
+          {/* {activeTab === "merchandise" && (
             <motion.div
               key="merchandise"
               variants={contentVariants}
@@ -166,9 +166,9 @@ export default function Branding() {
               animate="visible"
               exit="exit"
             >
-              <MerchandiseMarket />
-            </motion.div>
-          )}
+              <MerchandiseMarket /> */}
+            {/* </motion.div> */}
+          {/* )} */}
         </AnimatePresence>
       </section>
     </main>

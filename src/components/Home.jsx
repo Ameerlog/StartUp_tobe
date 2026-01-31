@@ -15,7 +15,7 @@ import Numbers from "./Home/Numbers";
 import Domains from "./Home/Domians";
 import Investors from "./Home/Investors";
 import Market from "./Home/Marketing";
-import Merchandise from "./Home/Merchandise";
+// import Merchandise from "./Home/Merchandise";
 import AIRobotics from "./Home/AIRobotics";
 import Footer from "./Footer";
 import ComplianceCards from "./ComplianceCards";
@@ -24,12 +24,12 @@ const Home = () => {
   const navigate = useNavigate();
 
   const iconData = [
-    { Icon: Joint, title: "Joint CoVenture", subtitle: "Strategic Partnerships", path: "/venture" },
-    { Icon: Branding, title: "Branding", subtitle: "Identity Creation", path: "/branding" },
-    { Icon: Marketing, title: "Marketing", subtitle: "Growth Strategies", path: "/marketing" },
+    { Icon: Joint, title: "Co-Venture", subtitle: "Strategic Partnerships", path: "/venture" },
+    { Icon: Branding, title: "Co-Branding", subtitle: "Identity Creation", path: "/branding" },
+    { Icon: Marketing, title: "Co-Marketing", subtitle: "Growth Strategies", path: "/marketing" },
     { Icon: Compliances, title: "Compliances", subtitle: "Regulatory Solutions", path: "/compliance" },
-    { Icon: Funding, title: "Ai & Robotics", subtitle: "Capital Access", path: "/ai" },
-    { Icon: Community, title: "Community", subtitle: "Network Building", path: "/community" }
+    { Icon: Funding, title: "Co-Operation", subtitle: "Capital Access", path: "/ai" },
+    { Icon: Community, title: "Co-Working", subtitle: "Network Building", path: "/community" }
   ];
 
   return (
@@ -131,7 +131,7 @@ const Home = () => {
                     />
                   </div>
 
-                  <div className="text-white text-center 
+                  <div className="text-gray-300 text-center 
                                   mt-0.5 sm:mt-1 md:mt-1.5 
                                   w-full px-0.5 sm:px-1">
                     <h4 className="text-[9px] 
@@ -140,7 +140,7 @@ const Home = () => {
                                    lg:text-sm
                                    xl:text-base
                                    font-bold 
-                                   group-hover:text-red-500 
+                                   group-hover:text-white   
                                    transition-colors duration-300
                                    line-clamp-2 sm:line-clamp-1
                                    leading-tight 
@@ -173,7 +173,7 @@ const Home = () => {
       <JointVenture />
       <Domains />
       <Numbers />
-      <Merchandise/>
+      {/* <Merchandise/> */}
       <Market/>
       <ComplianceCards/>
       <AIRobotics/>

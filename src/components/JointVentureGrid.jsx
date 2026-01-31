@@ -99,7 +99,7 @@ export default function JointVentureGrid() {
               animate="visible"
               className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900"
             >
-              Joint Coventure
+               Coventure
             </motion.h1>
             <motion.p
               variants={subtitleVariants}
@@ -196,7 +196,7 @@ export default function JointVentureGrid() {
                           whileTap={{ scale: 0.95 }}
                           className="rounded-full bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300"
                         >
-                          Get CoVenture
+                          Get Coventure
                         </motion.button>
                       </div>
                     </div>

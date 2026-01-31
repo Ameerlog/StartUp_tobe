@@ -89,7 +89,7 @@ export default function NumbersMarketplace() {
                       </div>
 
                       <div className="mt-4 flex gap-2">
-                        <button className="cursor-pointer flex-1 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600 transition">
+                        <button className="cursor-pointer flex-1 rounded-full bg-gray-600 hover:bg-gray-500 px-4 py-2 text-sm font-semibold text-white transition">
                           Buy Now
                         </button>
                     
@@ -108,7 +108,9 @@ export default function NumbersMarketplace() {
             >
               <button
                 onClick={() => setShowAll(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-red-300 transition shadow-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50
+                 hover:border-white/30
+            hover:text-white transition shadow-sm"
               >
                 View All ({vipNumbers.length - INITIAL_COUNT} more)
                 <svg

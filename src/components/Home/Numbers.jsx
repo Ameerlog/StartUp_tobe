@@ -27,8 +27,8 @@ export default function Numbers() {
               font-bold text-white
               backdrop-blur-xl
               transition-all duration-300
-              hover:border-red-400
-              hover:text-red-400
+               hover:border-white/30
+            hover:text-white
               hover:bg-white/20
               active:scale-[0.98]
               mt-4 
@@ -50,18 +50,32 @@ export default function Numbers() {
           speed={25}
           renderItem={(item) => (
             <div className="shrink-0 w-[350px] px-5 h-[150px]">
-              <div className="h-full rounded-[20px] border border-white/20 bg-gray-900/50 p-6 flex flex-col justify-between backdrop-blur-sm">
+              <div className="h-full 
+              rounded-[20px] 
+              border
+              border-white/20
+              bg-gray-900/60
+               hover:border-white/30
+            hover:text-white
+            hover:bg-gray-900/80
+              
+            hover:shadow-lg
+              p-6 
+              flex 
+              flex-col 
+              justify-between 
+              backdrop-blur-sm">
                 
          
                 <div className="text-center text-[36px] font-bold">
                   <span className="text-white">{item.prefix}</span>
-                  <span className="text-red-400 ml-1">{item.highlight}</span>
+                  <span className="text-white/30 hover:text-white">{item.highlight}</span>
                 </div>
 
 
                 <div className="flex justify-end">
                   <button onClick={()=> navigate('/branding')} 
-                  className="cursor-pointer rounded-full bg-red-600 hover:bg-red-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg hover:shadow-red-500/25 w-fit">
+                  className="cursor-pointer rounded-full bg-gray-600 hover:bg-gray-500 px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-all shadow-lg  w-fit">
                    Buy Now
                   </button>
                 </div>
@@ -75,15 +89,15 @@ export default function Numbers() {
               className="
                 group flex items-center gap-2
                 rounded-full
-                border border-white/30
+                border border-white
                 bg-white/10
                 
                 px-8 py-3
                 text-sm font-bold text-white
                 backdrop-blur-xl
                 transition-all duration-300
-                hover:border-red-400
-                hover:text-red-400
+                hover:border-white/30
+            hover:text-white
                 hover:bg-white/20
                 cursor-pointer
               "

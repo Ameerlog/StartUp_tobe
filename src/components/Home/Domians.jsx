@@ -46,17 +46,23 @@ export default function Domains({ variant = "dark" }) {
         <h2
           className={`text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold ${theme.heading}`}
         >
-          Domains
+          Co-Brandings
+          
         </h2>
 
         <button
           className={`
             group flex items-center gap-2 rounded-full
-            border ${theme.topButton}
+            border border-white
+            bg-white/10
+             ${theme.topButton}
             px-5 sm:px-6 md:px-8 py-2.5 sm:py-3
             text-xs sm:text-sm font-bold
             backdrop-blur-xl transition-all duration-300
-            hover:border-red-400 hover:text-red-400
+            hover:border-white/30
+            hover:text-white
+            hover:bg-white/20
+
             active:scale-[0.98]
           `}
         >
@@ -128,7 +134,10 @@ export default function Domains({ variant = "dark" }) {
                     <div className="mt-6 flex justify-end">
                       <button
                         onClick={() => navigate("/branding")}
-                        className="rounded-full bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
+                        className="
+                        rounded-full 
+                        bg-linear-to-r 
+                            bg-gray-600 hover:bg-gray-500 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
                       >
                         Make it Yours →
                       </button>
@@ -146,10 +155,12 @@ export default function Domains({ variant = "dark" }) {
           onClick={()=> navigate("/branding")}
             className={`
               group flex items-center gap-2 rounded-full
+              border-white
               border ${theme.bottomButton}
               px-6 py-3 text-sm font-bold
               backdrop-blur-xl transition-all duration-300
-              hover:border-red-400 hover:text-red-400
+              hover:border-white/30
+               hover:text-white
               active:scale-[0.98]
               cursor-pointer
             `}

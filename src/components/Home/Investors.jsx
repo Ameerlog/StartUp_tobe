@@ -150,7 +150,7 @@ export default function Investors() {
               className="group flex items-center 
                          gap-1.5 sm:gap-2
                          rounded-full
-                         border border-white/30
+                         border border-white
                          bg-white/10
                          px-5 xs:px-6 sm:px-7 md:px-8 
                          py-2 xs:py-2.5 sm:py-3
@@ -158,11 +158,11 @@ export default function Investors() {
                          font-bold text-white
                          backdrop-blur-xl
                          transition-all duration-300
-                         hover:border-red-400
-                         hover:text-red-400
+                         hover:border-white/30
+            hover:text-white
                          hover:bg-white/20
                          active:scale-[0.98]
-                         hover:shadow-lg hover:shadow-red-500/10
+                         hover:shadow-lg
                          cursor-pointer
                          "
                          

@@ -22,8 +22,8 @@ export default function Marketing() {
             font-bold text-white
             backdrop-blur-xl
             transition-all duration-300
-            hover:border-red-400
-            hover:text-red-400
+             hover:border-white/30
+            hover:text-white
             hover:bg-white/20
             active:scale-[0.98]
           "
@@ -61,10 +61,9 @@ export default function Marketing() {
                     p-4 sm:p-5 md:p-6
                     flex flex-col
                     transition-all duration-300
-                    hover:border-red-400/50
+                    hover:border-white/30   
                     hover:bg-gray-900/80
                     hover:shadow-lg
-                    hover:shadow-red-500/10
                   "
                 >
                   {/* Icon */}
@@ -73,11 +72,11 @@ export default function Marketing() {
                       className="
                         w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18
                         rounded-xl sm:rounded-2xl
-                        bg-gradient-to-br from-red-500/20 to-red-600/10
-                        border border-red-500/20
+                        bg-white/10
+                        border border-white
                         flex items-center justify-center
-                        group-hover:border-red-400/40
-                        group-hover:from-red-500/30
+                        group-hover:border-white/30
+                  group-hover:text-white
                         transition-all duration-300
                       "
                     >
@@ -102,13 +101,13 @@ export default function Marketing() {
                     className="
                       w-full
                       rounded-full
-                      bg-gradient-to-r from-red-600 to-red-500
-                      hover:from-red-500 hover:to-red-400
+                      bg-gray-600 
+                      hover:bg-gray-500
                       px-4 sm:px-5
                       py-2.5 sm:py-3
                       text-xs sm:text-sm
                       font-bold text-white
-                      shadow-lg hover:shadow-red-500/25
+                      shadow-lg
                       active:scale-[0.98]
                       transition-all duration-200
                       flex items-center justify-center gap-2
@@ -131,7 +130,7 @@ export default function Marketing() {
             group
             flex items-center gap-2
             rounded-full
-            border border-white/30
+            border border-white
             bg-white/10
             px-6 md:px-8
             py-2.5 md:py-3
@@ -139,8 +138,8 @@ export default function Marketing() {
             font-semibold text-white
             backdrop-blur-xl
             transition-all duration-300
-            hover:border-red-400
-            hover:text-red-400
+            hover:border-white/30
+            hover:text-white
             hover:bg-white/20
             active:scale-[0.98]
             cursor-pointer

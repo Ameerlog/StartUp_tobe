@@ -6,7 +6,7 @@ export default function JVProcess() {
       step: "01",
       icon: FileText,
       title: "Apply Online",
-      desc: "Fill out a short joint coventure application with basic startup details."
+      desc: "Fill out a short coventure application with basic startup details."
     },
     {
       step: "02",

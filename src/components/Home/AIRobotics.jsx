@@ -24,7 +24,7 @@ export default function AIRobotics() {
       <div className="text-center px-4 flex flex-col items-center gap-4">
         <div className="flex items-center gap-2 sm:gap-3">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
-            AI & Robotics
+            Co-Operation
           </h2>
         </div>
       
@@ -42,8 +42,8 @@ export default function AIRobotics() {
             font-bold text-white
             backdrop-blur-xl
             transition-all duration-300
-            hover:border-red-400
-            hover:text-red-400
+             hover:border-white/30
+            hover:text-white
             hover:bg-white/20
             active:scale-[0.98]
             mt-4
@@ -95,12 +95,12 @@ export default function AIRobotics() {
                     group
                     h-64 sm:h-72 md:h-80 lg:h-88
                     rounded-xl sm:rounded-2xl 
-                    border border-white/20 
+                    border border-white/30 
                     bg-gray-900/60 
                     p-4 sm:p-5 md:p-6 
                     flex flex-col
                     backdrop-blur-sm
-                    hover:border-red-400/50
+                    hover:border-white/30
                     hover:bg-gray-900/80
                     transition-all duration-300
                     relative
@@ -113,14 +113,14 @@ export default function AIRobotics() {
                       absolute top-3 right-3 sm:top-4 sm:right-4
                       w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8
                       rounded-full
-                      bg-white/5
-                      border border-white/10
+                      bg-white/10
+                      border border-white/30
                       flex items-center justify-center
                       text-[9px] sm:text-[10px] md:text-xs
                       text-gray-500
                       font-mono
-                      group-hover:border-red-400/30
-                      group-hover:text-red-400/70
+                     group-hover:border-white
+            group-hover:text-white
                       transition-all duration-300
                     "
                   >
@@ -132,20 +132,19 @@ export default function AIRobotics() {
                     className="
                       w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16
                       rounded-xl sm:rounded-2xl
-                      bg-gradient-to-br from-red-500/20 to-red-600/10
-                      border border-red-500/20
+                      bg-white/10
+                      border border-white/30
                       flex items-center justify-center
                       mb-4 sm:mb-5 md:mb-6
-                      group-hover:border-red-400/40
-                      group-hover:from-red-500/30
+                      group-hover:border-white
                       transition-all duration-300
                     "
                   >
                     <IconComponent 
                       className="
                         w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7
-                        text-red-400
-                        group-hover:text-red-300
+                        text-white/30
+                        group-hover:text-white
                         transition-colors duration-300
                       " 
                     />
@@ -206,12 +205,13 @@ export default function AIRobotics() {
                       className="
                         w-full sm:flex-1 
                         rounded-full 
-                        bg-red-600 hover:bg-red-500 
+                        bg-gray-600
+                         hover:bg-gray-500
                         px-3 sm:px-4 
                         py-2 sm:py-2.5 
                         text-[10px] sm:text-xs md:text-sm 
                         font-medium text-white 
-                        shadow-lg hover:shadow-red-500/25
+                        shadow-lg
                         active:scale-[0.98]
                         transition-all duration-200
                         cursor-pointer
@@ -247,7 +247,7 @@ export default function AIRobotics() {
             group 
             flex items-center gap-2
             rounded-full
-            border border-white/30
+            border border-white
             bg-white/10
             px-5 sm:px-6 md:px-8 
             py-2.5 sm:py-3
@@ -255,8 +255,8 @@ export default function AIRobotics() {
             font-semibold text-white
             backdrop-blur-xl
             transition-all duration-300
-            hover:border-red-400
-            hover:text-red-400
+             hover:border-white/30
+            hover:text-white
             hover:bg-white/20
             active:scale-[0.98]
             cursor-pointer
