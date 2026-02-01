@@ -30,11 +30,11 @@ const StepCard = ({ step }) => {
         </div>
 
         <div className="w-full lg:w-1/2">
-          <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-200">
+          <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-200">
             <img
               src={step.image}
               alt={step.title}
-              className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+              className="h-full w-full object-contain grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
             />
           </div>
         </div>

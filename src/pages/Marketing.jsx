@@ -38,7 +38,7 @@ const Marketing = () => {
     {/* Everything your business needs, in one place. */}
     AI-Powered operations for modern business.
     <svg
-      className="absolute -bottom-3 left-0 w-full h-2 text-red-500 -z-10 block"
+      className="absolute -bottom-3 left-0 w-full h-1 text-transparent -z-10 block shadow-[0_6px_16px_rgba(0,0,0,0.4)]"
       viewBox="0 0 100 10"
       preserveAspectRatio="none"
     >

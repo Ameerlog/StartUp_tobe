@@ -24,7 +24,9 @@ const App = () => {
   return (
    <BrowserRouter>
    <ScrolltoTop/>
+    <div className="min-h-screen flex flex-col bg-black"> 
    <Navbar/>
+   <div className="flex-1"> 
    <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/marketing' element={<Marketing/>}/>
@@ -43,7 +45,9 @@ const App = () => {
       <Route path="/marketplace/:slug/payment/success" element={<Success />} />
    
    </Routes>
+     </div>
 <Footer/>
+  </div>
 
    </BrowserRouter> 
   )

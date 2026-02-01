@@ -66,7 +66,7 @@ export default function NumbersMarketplace() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.25 }}
-                    className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white hover:border-red-200 hover:shadow-md transition"
+                    className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white hover:border-gray-300 hover:shadow-md transition"
                   >
          
                     <div className="p-4">
@@ -84,7 +84,7 @@ export default function NumbersMarketplace() {
                       <div className="bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
                         <div className="text-2xl sm:text-3xl font-bold tracking-wider">
                           <span className="text-slate-600">{item.prefix}</span>
-                          <span className="text-red-500">{item.highlight}</span>
+                          <span className="text-black/90">{item.highlight}</span>
                         </div>
                       </div>
 
@@ -139,7 +139,7 @@ export default function NumbersMarketplace() {
             >
               <button
                 onClick={() => setShowAll(false)}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-red-300 transition shadow-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-gray-300 transition shadow-sm"
               >
                 Show Less
                 <svg

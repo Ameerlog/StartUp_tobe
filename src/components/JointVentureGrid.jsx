@@ -163,7 +163,12 @@ export default function JointVentureGrid() {
                     whileHover="hover"
                     whileTap="tap"
                     layout
-                    className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white hover:border-red-200 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                    className="group relative overflow-hidden rounded-2xl border 
+                    border-slate-200 
+                    bg-white 
+                    hover:border-black/20
+                    hover:shadow-lg 
+                    transition-all duration-100 cursor-pointer"
                   >
               
                     <div className="border-b border-slate-200 bg-slate-50 p-4">
@@ -191,10 +196,12 @@ export default function JointVentureGrid() {
                         <motion.button
                           whileHover={{
                             scale: 1.05,
-                            backgroundColor: "#dc2626",
+                          
                           }}
                           whileTap={{ scale: 0.95 }}
-                          className="rounded-full bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300"
+                          className="rounded-full bg-gray-900 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300
+                           
+                          "
                         >
                           Get Coventure
                         </motion.button>
@@ -228,7 +235,7 @@ export default function JointVentureGrid() {
                             }}
                             className="text-xs text-slate-500 flex gap-2"
                           >
-                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-400 shrink-0" />
+                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gray-400 shrink-0" />
                             <span className="line-clamp-1">{item}</span>
                           </motion.p>
                         ))}
@@ -243,7 +250,7 @@ export default function JointVentureGrid() {
                         <motion.span
                           whileHover={{
                             scale: 1.1,
-                            backgroundColor: "#fee2e2",
+                           
                           }}
                           className="rounded-full border border-slate-200 px-2 py-1 text-xs text-slate-600 transition-colors"
                         >
@@ -252,7 +259,7 @@ export default function JointVentureGrid() {
                         <motion.span
                           whileHover={{
                             scale: 1.1,
-                            backgroundColor: "#fee2e2",
+                           
                           }}
                           className="rounded-full border border-slate-200 px-2 py-1 text-xs text-slate-600 transition-colors"
                         >

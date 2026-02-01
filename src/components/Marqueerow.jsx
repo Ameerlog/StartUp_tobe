@@ -39,6 +39,7 @@ export default function MarqueeRow() {
                 <Badge>IT</Badge>
                 <Badge>Operations</Badge>
                 <Badge>Product</Badge>
+                <br />
               </div>
 
               <div className="marquee__group" aria-hidden="true">

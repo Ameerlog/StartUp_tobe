@@ -56,7 +56,7 @@ export default function Footer() {
                 <div className="text-sm text-neutral-400">
                   {/* Before the launch, there's  */}
                   Everything your business needs, in oneplace. <br />
-                  <span className="text-red-500 font-semibold">CoBrother &trade; </span>
+                  <span className="text-white font-semibold">CoBrother &trade; </span>
                 </div>
               </div>
 
@@ -69,9 +69,9 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="inline-flex h-fit w-14 items-center justify-center rounded-full border border-neutral-700 bg-black text-white transition hover:bg-red-600 hover:border-red-600 hover:text-white"
+                    className="inline-flex h-8 w-12 items-center justify-center border rounded-xl bg-black text-white/50 transition  hover:text-white"
                   >
-                    <Icon className="h-6 w-6" />
+                    <Icon className="h-5 w-5 " />
                   </a>
                 ))}
               </div>
@@ -81,14 +81,14 @@ export default function Footer() {
             <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-3 sm:grid-cols-1 gap-y-10 gap-x-8">
               {columns.map((col) => (
                 <div key={col.title} className="flex flex-col gap-2">
-                  <div className="text-sm font-semibold text-white mb-2">
+                  <div className="text-sm font-semibold text-white/90 mb-2">
                     {col.title}
                   </div>
                   {col.links.map((label, idx) => (
                     <a
                       key={label + idx}
                       href="#"
-                      className="text-sm text-neutral-400 hover:text-red-500 transition-colors duration-200"
+                      className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
                     >
                       {label}
                     </a>
@@ -101,7 +101,7 @@ export default function Footer() {
   
           <div className="mt-10 border-t border-neutral-800 pt-6 flex flex-col items-center justify-center gap-1 text-center">
             <div className="text-sm text-neutral-500">
-              © 2026 <span className="text-red-500">CoBrother &trade; </span>.  All rights reserved.
+              © 2026 <span className="text-white">CoBrother &trade; </span>.  All rights reserved.
             </div>
             <div className="text-sm text-neutral-400">
              Everything your business needs, in oneplace.
@@ -116,7 +116,7 @@ export default function Footer() {
             aria-label="Go to top"
             className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition"
           >
-            <ArrowUp className="h-8 w-8 text-white pb" />
+            <ArrowUp className="h-7 w-7 text-white pb" />
           </button>
         </div>
     </footer>

@@ -12,7 +12,7 @@ export default function AIRoboticsPage() {
    
       <section className="relative px-4 pt-30 pb-14 text-center max-w-4xl mx-auto z-10">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter">
-          AI & Robotics
+          Co-Operation
         </h1>
 
         <p className="mt-4 text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto font-medium">
@@ -34,18 +34,36 @@ export default function AIRoboticsPage() {
             return (
               <div
                 key={card.id}
-                className="group relative rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 flex flex-col shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-gray-400 hover:-translate-y-1 transition-all duration-300"
+                className="group relative rounded-2xl border 
+                border-slate-200
+                 bg-white p-6 sm:p-8 flex flex-col 
+                 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]
+                  hover:border-gray-400 
+                  hover:-translate-y-1 
+                  transition-all duration-300"
               >
-                <div className="absolute top-6 right-6 text-xs font-mono font-bold text-slate-200 group-hover:text-red-100">
+                <div className="absolute top-6 right-6 text-xs font-mono font-bold
+                 text-slate-200 
+
+                 group-hover:text-black">
                   {card.id.toString().padStart(2, "0")}
                 </div>
 
-                <div className="w-14 h-14 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:border-red-600 transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl  flex items-center justify-center mb-6
+                border 
+                bg-slate-50 
+                border-gray-200
+                 group-hover:bg-black 
+                 group-hover:border-white
+                 transition-all duration-300">
                   <Icon className="w-6 h-6 text-slate-600 group-hover:text-white transition-colors" />
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-red-600 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 
+                  text-gray-600
+                  group-hover:text-black
+                  transition-colors">
                     {card.title}
                   </h3>
 
@@ -60,10 +78,13 @@ export default function AIRoboticsPage() {
                   )}
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-slate-100">
-                  <button className="cursor-pointer w-full flex items-center justify-between text-sm font-bold hover:text-red-600 transition-colors">
+                <div className="  mt-6 pt-5 border-t border-slate-100">
+                  <button className="cursor-pointer w-full flex items-center justify-between text-sm font-bold 
+                 text-gray-600
+                 group-hover:text-black
+                  transition-colors duration-300">
                     Get Started
-                    <span className="bg-slate-100 p-1.5 rounded-full group-hover:bg-red-50 transition-colors">
+                    <span className="bg-slate-100 p-1.5 rounded-full transition-colors">
                       <ArrowRight className="w-4 h-4" />
                     </span>
                   </button>
@@ -73,7 +94,11 @@ export default function AIRoboticsPage() {
           })}
         </div>
         <div className="mt-8 flex justify-center">
-          <button className="group flex items-center gap-2 rounded-full bg-slate-900 text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-slate-900/20 hover:bg-red-600 hover:scale-105 transition-all duration-300">
+          <button className="group flex items-center gap-2 rounded-full 
+            bg-gray-800
+           text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-slate-900/20
+            hover:bg-gray-900
+            hover:scale-105 transition-all duration-300">
             Partner With Us
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>

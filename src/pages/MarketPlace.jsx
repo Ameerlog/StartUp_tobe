@@ -253,7 +253,11 @@ export default function MarketPlace() {
                         whileTap="tap"
                         layout
                         layoutId={item.slug}
-                        className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white hover:border-red-200 transition-colors duration-300 cursor-pointer"
+                        className="group relative overflow-hidden rounded-2xl border 
+                        border-slate-200 
+                        bg-white 
+                        hover:border-gray-300
+                        transition-colors duration-300 cursor-pointer"
                         style={{ perspective: 1000 }}
                       >
                         <motion.button
@@ -302,7 +306,7 @@ export default function MarketPlace() {
                               transition={{ delay: index * 0.1 + 0.2 }}
                               whileHover={{
                                 scale: 1.1,
-                                backgroundColor: "#dc2626",
+                                
                               }}
                               whileTap={{ scale: 0.95 }}
                               className="cursor-pointer relative z-20 rounded-full bg-gray-600 hover:bg-gray-500 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors duration-300"
@@ -378,7 +382,10 @@ export default function MarketPlace() {
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap="tap"
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:border-red-300 transition-colors duration-300 shadow-sm"
+                    className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold
+                     text-slate-700 
+                     hover:border-gray-300 
+                     transition-colors duration-300 shadow-sm"
                   >
                     {showAll ? "Show Less" : `View All (${domainCards.length - INITIAL_COUNT} more)`}
                     <motion.svg

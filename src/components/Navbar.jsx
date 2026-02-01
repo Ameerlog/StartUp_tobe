@@ -17,19 +17,19 @@ const Navbar = () => {
 
           <div
             onClick={() => navigate("/")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 hover:scale-110"
+            className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
           >
            <img
   src={isHome ? Logo_white : Logo_black}
   // <img src={isHome ? "/logo-white.svg" : "/logo-black.svg"} />
   alt="Logo"
   className="
-    w-20 h-18
+    w-full h-full
     sm:w-24 sm:h-24
     md:w-28 md:h-28
     lg:w-32 lg:h-32
     xl:w-36 xl:h-36
-    scale-[2] sm:scale-[2] md:scale-[2] lg:scale-[1.8]
+    scale-[2] sm:scale-[1.2] md:scale-[1.5] lg:scale-[1.8]
     drop-shadow-2xl
     ml-8"
 />
