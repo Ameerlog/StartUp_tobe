@@ -24,20 +24,49 @@ const Home = () => {
   const navigate = useNavigate();
 
   const iconData = [
-    { Icon: Joint, title: "Co-Venture", subtitle: "Strategic Partnerships", path: "/venture" },
-    { Icon: Branding, title: "Co-Branding", subtitle: "Identity Creation", path: "/branding" },
-    { Icon: Marketing, title: "Co-Marketing", subtitle: "Growth Strategies", path: "/marketing" },
-    { Icon: Compliances, title: "Compliances", subtitle: "Regulatory Solutions", path: "/compliance" },
-    { Icon: Funding, title: "Co-Operation", subtitle: "Capital Access", path: "/ai" },
-    { Icon: Community, title: "Co-Working", subtitle: "Network Building", path: "/community" }
+    {
+      Icon: Joint,
+      title: "Co-Venture",
+      subtitle: "Strategic Partnerships",
+      path: "/venture",
+    },
+    {
+      Icon: Branding,
+      title: "Co-Branding",
+      subtitle: "Identity Creation",
+      path: "/branding",
+    },
+    {
+      Icon: Marketing,
+      title: "Co-Marketing",
+      subtitle: "Growth Strategies",
+      path: "/marketing",
+    },
+    {
+      Icon: Compliances,
+      title: "Compliances",
+      subtitle: "Regulatory Solutions",
+      path: "/compliance",
+    },
+    {
+      Icon: Funding,
+      title: "Co-Operation",
+      subtitle: "Capital Access",
+      path: "/ai",
+    },
+    {
+      Icon: Community,
+      title: "Co-Working",
+      subtitle: "Network Building",
+      path: "/community",
+    },
   ];
 
   return (
     <>
       <section className="min-h-screen w-full relative overflow-hidden">
- {/* <h2>One platform for every stage of your business.</h2> */}
+        {/* <h2>One platform for every stage of your business.</h2> */}
         <div className="absolute inset-0 w-full h-full ">
-         
           <img
             src={BackgroundImage}
             alt="Background"
@@ -48,21 +77,24 @@ const Home = () => {
 
         <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/75 to-black/95" />
 
-        <div className="relative z-20 flex items-center justify-center min-h-screen 
+        <div
+          className="relative z-20 flex items-center justify-center min-h-screen 
                         px-3 sm:px-4 md:px-6 lg:px-8 
-                        py-6 sm:py-8 md:py-10 lg:py-12">
-          
-          <div className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl 
+                        py-6 sm:py-8 md:py-10 lg:py-12"
+        >
+          <div
+            className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl 
                           mt-6 sm:mt-8 md:mt-10 lg:mt-12 
                           relative
                           mx-4 sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16
-                          ">
-
-       
-            <div className="absolute 
+                          "
+          >
+            <div
+              className="absolute 
                             -top-10 sm:-top-12 md:-top-14 lg:-top-16 
                             left-1/2 -translate-x-1/2 
-                            pointer-events-none z-30">
+                            pointer-events-none z-30"
+            >
               <img
                 src={Logo}
                 alt="Logo"
@@ -70,7 +102,6 @@ const Home = () => {
                           //  scale-[3] sm:scale-[2] md:scale-[2.4] lg:scale-[4]
                           //  drop-shadow-2xl
                            "
-                
               />
             </div>
 
@@ -102,14 +133,15 @@ const Home = () => {
                              p-1 sm:p-1.5 md:p-2 lg:p-3
                              w-full max-w-30 sm:max-w-35 md:max-w-40 lg:max-w-45"
                 >
-    
-                  <div className="relative flex items-center justify-center
+                  <div
+                    className="relative flex items-center justify-center
                                   w-12 h-12 
                                   sm:w-14 sm:h-14 
                                   md:w-16 md:h-16 
                                   lg:w-20 lg:h-20
                                   xl:w-24 xl:h-24 scale-150
-                                  overflow-hidden ">
+                                  overflow-hidden "
+                  >
                     <img
                       src={Icon}
                       alt={title}
@@ -130,10 +162,13 @@ const Home = () => {
                     />
                   </div>
 
-                  <div className="text-gray-300 text-center 
+                  <div
+                    className="text-gray-300 text-center 
                                   mt-0.5 sm:mt-1 md:mt-1.5 
-                                  w-full px-0.5 sm:px-1">
-                    <h4 className="text-[9px] 
+                                  w-full px-0.5 sm:px-1"
+                  >
+                    <h4
+                      className="text-[9px] 
                                    sm:text-[10px] 
                                    md:text-xs 
                                    lg:text-sm
@@ -143,10 +178,12 @@ const Home = () => {
                                    transition-colors duration-300
                                    line-clamp-2 sm:line-clamp-1
                                    leading-tight 
-                                   min-h-4 sm:min-h-4.5 md:min-h-5">
+                                   min-h-4 sm:min-h-4.5 md:min-h-5"
+                    >
                       {title}
                     </h4>
-                    <p className="text-[7px] 
+                    <p
+                      className="text-[7px] 
                                   sm:text-[8px] 
                                   md:text-[9px] 
                                   lg:text-[10px]
@@ -157,14 +194,14 @@ const Home = () => {
                                   mt-0.5
                                   line-clamp-1 
                                   leading-tight
-                                  hidden xs:block">
+                                  hidden xs:block"
+                    >
                       {subtitle}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </section>
@@ -173,11 +210,11 @@ const Home = () => {
       <Domains />
       {/* <Numbers /> */}
       {/* <Merchandise/> */}
-      <Market/>
-      <ComplianceCards/>
-      <AIRobotics/>
+      <ComplianceCards />
+      <Market />
+      {/* Below It is Compliance */}
+      <AIRobotics />
       {/* <Investors /> */}
-      
     </>
   );
 };

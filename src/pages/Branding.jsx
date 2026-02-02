@@ -5,7 +5,6 @@ import Compliance from "./Compliance";
 // import NumbersMarketplace from "./NumbersMarket";
 // import MerchandiseMarket from "./MerchandiseMarket";
 
-
 // function MerchandiseMarketplace() {
 //   return (
 //     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -24,8 +23,6 @@ import Compliance from "./Compliance";
 //     </div>
 //   );
 // }
-
-
 
 export default function Branding() {
   const [activeTab, setActiveTab] = useState("domains");
@@ -65,7 +62,6 @@ export default function Branding() {
 
   return (
     <main className="relative min-h-screen bg-[#F8F9FA] text-slate-900">
-
       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]" />
 
       <section className="relative pt-25 pb-10 text-center z-10">
@@ -85,11 +81,9 @@ export default function Branding() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mx-auto mt-4 max-w-2xl text-slate-500 font-medium leading-relaxed"
           >
-            We provide premium domains, and Compliance
-            to help businesses and individuals build a strong, unique identity.
+            We provide premium domains, and Compliance to help businesses and
+            individuals build a strong, unique identity.
           </motion.p>
-
-     
 
           <div className="mt-8 flex justify-center">
             <div className="h-px w-64 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
@@ -141,7 +135,6 @@ export default function Branding() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              
             >
               <MarketPlace />
             </motion.div>
@@ -168,7 +161,7 @@ export default function Branding() {
               exit="exit"
             >
               <MerchandiseMarket /> */}
-            {/* </motion.div> */}
+          {/* </motion.div> */}
           {/* )} */}
         </AnimatePresence>
       </section>
