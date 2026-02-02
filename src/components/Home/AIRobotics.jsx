@@ -44,7 +44,7 @@ export default function AIRobotics() {
             transition-all duration-300
              hover:border-white/30
             hover:text-white
-            hover:bg-white/20
+            hover:bg-gray-800
             active:scale-[0.98]
             mt-4
           "
@@ -257,7 +257,7 @@ export default function AIRobotics() {
             transition-all duration-300
              hover:border-white/30
             hover:text-white
-            hover:bg-white/20
+            hover:bg-gray-800
             active:scale-[0.98]
             cursor-pointer
           "

@@ -2,6 +2,7 @@ import React from "react";
 import { Twitter, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
 import Logo from "../assets/domain/cobrotheraultum_Logo.svg";
 import { ArrowUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 
 
@@ -17,7 +18,7 @@ const social = [
 const columns = [
   { title: "Product", links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"] },
   { title: "Solutions", links: ["Company Registration", "GST & Tax Filing", "Trademark & IP", "Accounting & Compliance", "Startup Business"] },
-  { title: "Community", links: ["CoFounder", "CoInvestor"] },
+  { title: "Co-Working", links: ["CoFounder", "CoInvestor"] },
   { title: "Resources", links: ["Legal Basics for Founders", "Brand Naming Guide"] },
   { title: "Company", links: ["About Cobrother", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
   { title: "Trust & Security", links: ["Secure Payments", "Transparent Pricing", "Founder-First Approach", "India-Focused Compliance"] },
@@ -84,7 +85,9 @@ export default function Footer() {
                   <div className="text-sm font-semibold text-white/90 mb-2">
                     {col.title}
                   </div>
-                  {col.links.map((label, idx) => (
+
+                  {/* {col.links.map((label, idx) => (
+                    
                     <a
                       key={label + idx}
                       href="#"
@@ -92,7 +95,31 @@ export default function Footer() {
                     >
                       {label}
                     </a>
-                  ))}
+                  ))} */}
+                  {/* To redirect Cofounder and Coinvestor */}
+                    {col.links.map((label, idx) => {
+  const isCommunityLink =
+    label === "CoFounder" || label === "CoInvestor";
+
+  return isCommunityLink ? (
+    <Link
+      key={label + idx}
+      to="/community"
+      className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
+    >
+      {label}
+    </Link>
+  ) : (
+    <span
+      key={label + idx}
+      className="text-sm text-gray-500 cursor-default"
+    >
+      {label}
+    </span>
+  );
+})}
+
+
                 </div>
               ))}
             </div>

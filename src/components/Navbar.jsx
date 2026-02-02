@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation(); // get current path
-  const isHome = location.pathname === "/";
+  const isHome = location.pathname === "/" || location.pathname === "/compliance";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-20 sm:h-24 w-full">
@@ -29,8 +29,11 @@ const Navbar = () => {
     md:w-28 md:h-28
     lg:w-32 lg:h-32
     xl:w-36 xl:h-36
-    scale-[2] sm:scale-[1.2] md:scale-[1.5] lg:scale-[1.8]
-    drop-shadow-2xl
+   scale-[1] -translate-x-[80px]
+sm:translate-x-0 sm:scale-[1.2]
+md:scale-[2.8]
+lg:scale-[3.3]
+drop-shadow-2xl
     ml-8"
 />
 

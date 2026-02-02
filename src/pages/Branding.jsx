@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MarketPlace from "./MarketPlace";
-import NumbersMarketplace from "./NumbersMarket";
+import Compliance from "./Compliance";
+// import NumbersMarketplace from "./NumbersMarket";
 // import MerchandiseMarket from "./MerchandiseMarket";
 
 
@@ -31,7 +32,7 @@ export default function Branding() {
 
   const tabs = [
     { id: "domains", label: "Domains" },
-    { id: "numbers", label: "Business Numbers" },
+    // { id: "compliance", label: "Compliance" },
     // { id: "merchandise", label: "Merchandise" },
   ];
 
@@ -75,7 +76,7 @@ export default function Branding() {
             transition={{ duration: 0.5 }}
             className="mt-2 text-5xl sm:text-6xl font-bold tracking-tighter"
           >
-            Branding
+            Co-Branding
           </motion.h1>
 
           <motion.p
@@ -84,7 +85,7 @@ export default function Branding() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mx-auto mt-4 max-w-2xl text-slate-500 font-medium leading-relaxed"
           >
-            We provide premium domains, and memorable numbers
+            We provide premium domains, and Compliance
             to help businesses and individuals build a strong, unique identity.
           </motion.p>
 
@@ -154,7 +155,7 @@ export default function Branding() {
               animate="visible"
               exit="exit"
             >
-              <NumbersMarketplace />
+              <Compliance />
             </motion.div>
           )}
 

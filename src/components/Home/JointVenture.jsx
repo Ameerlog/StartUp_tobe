@@ -15,7 +15,8 @@ const navigate =useNavigate();
      CoVenture
   </h2>
 
-<button
+{/* <buttonList Your CoVenture
+      onClick={() => navigate("/coventure-form")}
       className="
         group
         flex items-center gap-2
@@ -30,14 +31,37 @@ const navigate =useNavigate();
         transition-all duration-300
         hover:border-white/30
         hover:text-white
-        hover:bg-white/20
+        hover:bg-gray-800
         active:scale-[0.98]
         mt-4
       "
     >
      List Your CoVenture
    
-    </button>
+    </buttonList> */}
+    <button
+  onClick={() => navigate("/coventure-form")}
+  className="
+    group
+    flex items-center gap-2
+    rounded-full
+    border border-white
+    bg-white/10
+    px-5 sm:px-6 md:px-8
+    py-2.5 sm:py-3
+    text-xs sm:text-sm
+    font-bold text-white
+    backdrop-blur-xl
+    transition-all duration-300
+    hover:border-white/30
+    hover:text-white
+    hover:bg-gray-800
+    active:scale-[0.98]
+    mt-4
+  "
+>
+  List Your CoVenture
+</button>
 </div>
 
       <div className="relative mt-6 sm:mt-8 md:mt-10">
@@ -196,7 +220,7 @@ const navigate =useNavigate();
             transition-all duration-300
              hover:border-white/30
         hover:text-white
-        hover:bg-white/20
+        hover:bg-gray-800
             active:scale-[0.98]
             cursor-pointer
           "

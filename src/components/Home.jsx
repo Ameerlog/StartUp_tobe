@@ -11,7 +11,7 @@ import Funding from "../assets/domain/ai.svg";
 import Community from "../assets/domain/community.svg";
 
 import JointVenture from "./Home/JointVenture";
-import Numbers from "./Home/Numbers";
+// import Numbers from "./Home/Numbers";
 import Domains from "./Home/Domians";
 import Investors from "./Home/Investors";
 import Market from "./Home/Marketing";
@@ -171,7 +171,7 @@ const Home = () => {
 
       <JointVenture />
       <Domains />
-      <Numbers />
+      {/* <Numbers /> */}
       {/* <Merchandise/> */}
       <Market/>
       <ComplianceCards/>

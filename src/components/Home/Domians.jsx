@@ -61,7 +61,7 @@ export default function Domains({ variant = "dark" }) {
             backdrop-blur-xl transition-all duration-300
             hover:border-white/30
             hover:text-white
-            hover:bg-white/20
+            hover:bg-gray-800
 
             active:scale-[0.98]
           `}
@@ -170,7 +170,7 @@ export default function Domains({ variant = "dark" }) {
         />
 
         {/* Bottom Button */}
-        <div className="mt-10 flex justify-center px-4">
+        <div className="group relative mt-10 flex justify-center px-4">
           <button
           onClick={()=> navigate("/branding")}
             className={`
@@ -179,8 +179,10 @@ export default function Domains({ variant = "dark" }) {
               border ${theme.bottomButton}
               px-6 py-3 text-sm font-bold
               backdrop-blur-xl transition-all duration-300
-              hover:border-white/30
-               hover:text-white
+              group-hover:border-white/30
+               group-hover:text-white
+               hover:bg-gray-800
+
               active:scale-[0.98]
               cursor-pointer
             `}

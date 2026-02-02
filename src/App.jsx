@@ -17,6 +17,10 @@ import ReserveDomainForm from './components/Form'
 import Navbar from './components/Navbar'
 import AIRoboticsPage from './pages/AiRobotics'
 import ScrolltoTop from './components/ScrolltoTop'
+import Investors from "../src/components/Home/Investors";
+import CoventureForm from "../src/pages/CoVentureForm"
+
+
 
 
 
@@ -33,7 +37,7 @@ const App = () => {
     <Route path='/branding' element={<Branding/>}/>
     <Route path='/compliance' element={<Compliance/>}/>
     <Route path='/ai' element={<AIRoboticsPage/>}/>
-    <Route path='/community' element={<Community/>}/>
+    {/* <Route path='/community' element={<Community/>}/> */}
     <Route path='/venture' element={<Venture/>}/>
     {/* joint venture apply button */}
     <Route path="/apply" element={<ReserveDomainForm/>}/>
@@ -44,6 +48,13 @@ const App = () => {
       <Route path="/marketplace/:slug/payment" element={<ReserveDomainPage />} />
       <Route path="/marketplace/:slug/payment/success" element={<Success />} />
    
+   {/* FooterCofounder and Coinvestor */}
+      <Route path="/community" element={<Investors />} />
+
+    {/* Forms */}
+      {/* Coventure listing form  */}
+      <Route path="/coventure-form" element={<CoventureForm />} />
+
    </Routes>
      </div>
 <Footer/>

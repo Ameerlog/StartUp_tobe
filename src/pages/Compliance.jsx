@@ -143,7 +143,7 @@ export default function Compliance() {
               <input name="phone" placeholder="Phone Number" onChange={handleChange} required className="w-full rounded-lg border px-4 py-2" />
               <input value={formData.service} readOnly className="w-full rounded-lg border bg-slate-100 px-4 py-2" />
 
-              <button className="w-full rounded-full bg-slate-900 py-3 text-sm font-bold text-white hover:bg-red-600 transition">
+              <button className="w-full rounded-full bg-slate-900 py-3 text-sm font-bold text-white hover:bg-green-800 transition">
                 Submit Request
               </button>
             </form>
