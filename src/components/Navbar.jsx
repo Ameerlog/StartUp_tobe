@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo_white from "../assets/domain/cobrother_Logo_white.png";
-import Logo_black from "../assets/domain/cobrother_Logo_black.png";
+// import Logo_black from "../assets/domain/cobrother_Logo_black.png";
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation(); // get current path
   const isWhiteLogo =
-    location.pathname === "/" || location.pathname === "/community";
+    location.pathname === "/";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-20 sm:h-24 w-full">
@@ -19,7 +19,7 @@ const Navbar = () => {
             className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
           >
             <img
-              src={isWhiteLogo ? Logo_white : Logo_black}
+              src={isWhiteLogo ? Logo_white :null}
               // <img src={isHome ? "/logo-white.svg" : "/logo-black.svg"} />
               alt="Logo"
               className="

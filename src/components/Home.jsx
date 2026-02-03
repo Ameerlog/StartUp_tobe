@@ -6,7 +6,7 @@ import BackgroundImage from "../assets/domain/bg1.svg";
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
 import Marketing from "../assets/domain/market.svg";
-import Compliances from "../assets/domain/complian.svg";
+import Compliances from "../assets/domain/complian.png";
 import Funding from "../assets/domain/ai.svg";
 import Community from "../assets/domain/community.svg";
 
