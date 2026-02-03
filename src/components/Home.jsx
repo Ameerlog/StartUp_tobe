@@ -46,7 +46,7 @@ const Home = () => {
       Icon: Compliances,
       title: "Co-Creation",
       subtitle: "",
-      path: null,
+      path: "/co-creation",
     },
     {
       Icon: Funding,
