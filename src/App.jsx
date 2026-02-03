@@ -20,6 +20,7 @@ import ScrolltoTop from './components/ScrolltoTop'
 import Investors from "../src/components/Home/Investors";
 import CoventureForm from "../src/pages/CoVentureForm"
 import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 
 
 
@@ -51,6 +52,8 @@ const App = () => {
    {/* FooterCofounder and Coinvestor */}
       <Route path="/community" element={<Investors />} />
       <Route path="/about" element={<AboutUs />} />
+      <Route path="/contact" element={<ContactUs />} />
+
     {/* Forms */}
       {/* Coventure listing form  */}
       <Route path="/coventure-form" element={<CoventureForm />} />

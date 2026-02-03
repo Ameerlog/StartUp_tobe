@@ -10,12 +10,15 @@ export default function AboutUs() {
         <img
         src={logoo}
         alt="About Us Logo"
-        className=" fixed inset-0 pointer-events-none z--10 w-160 
-        bg-[radial-gradient(circle,#8080801a_1px,transparent_1px)] 
-        bg-[size:24px_24px]0
-
-        transform rotate-40 pt-40 ml-10
-        opacity-50
+        className=" 
+      fixed inset-0 pointer-events-none z-0
+    w-screen h-screen
+    bg-[radial-gradient(circle,#8080801a_1px,transparent_1px)]
+    bg-[size:20px_20px]
+    scale-90 lg:scale-55
+     -translate-x-20 lg:-translate-x-90 translate-y-40
+    rotate-[-65deg]
+    opacity-50
         "
       />
       {/* Main Content */}
