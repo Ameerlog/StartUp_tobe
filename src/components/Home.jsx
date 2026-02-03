@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/domain/cobrotheraultum_Logo.svg";
+import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
 import BackgroundImage from "../assets/domain/bg1.svg";
 
 import Joint from "../assets/domain/venture1.svg";
@@ -44,9 +44,9 @@ const Home = () => {
     },
     {
       Icon: Compliances,
-      title: "Compliances",
-      subtitle: "Regulatory Solutions",
-      path: "/compliance",
+      title: "Co-Creation",
+      subtitle: "",
+      path: null,
     },
     {
       Icon: Funding,
@@ -124,7 +124,7 @@ const Home = () => {
               {iconData.map(({ Icon, title, subtitle, path }, index) => (
                 <div
                   key={index}
-                  onClick={() => navigate(path)}
+                  onClick={() => path && navigate(path)}
                   className="flex flex-col items-center 
                              gap-1 sm:gap-1.5 md:gap-2 
                              cursor-pointer

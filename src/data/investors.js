@@ -3,7 +3,7 @@ import Batteryfy from "../assets/domain/batteryfy.svg";
 import Cosistister from "../assets/domain/cosister.svg";
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
-import Pregadays from "../assets/domain/pregadays.svg";
+import Pregadays from "../assets/domain/pregadays.png";
 
 export const investorCards = [
   {

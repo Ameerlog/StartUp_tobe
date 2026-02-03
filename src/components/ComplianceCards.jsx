@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 const serviceIcons = {
-  "Business Registration": Building2,
+  "Business Name Registration": Building2,
   "GST Services": Receipt,
   "DIN & Director Services": Factory,
   "MSME / Udyam": Factory,

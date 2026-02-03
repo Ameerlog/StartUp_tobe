@@ -1,7 +1,7 @@
 import Batteryfy from "../assets/domain/batteryfy.svg";
 import Mbps30 from "../assets/domain/30mbps.svg";
 
-import Pregadays from "../assets/domain/pregadays.svg";
+import Pregadays from "../assets/domain/pregadays.png";
 import Cosister from "../assets/domain/cosister.svg";
 
 import DryChilli from "../assets/domain/drychilli.svg";
@@ -10,13 +10,13 @@ import DryGrains from "../assets/domain/drygrains.svg";
 
 import Bedtolet from  "../assets/domain/Bedtolet.svg"
 import Nopivot from "../assets/domain/nopivot.svg"
-import Oldmedal from "../assets/domain/oldmedal.svg"
+import Oldmedal from "../assets/domain/oldmedal.png"
 import Reelshost from "../assets/domain/reelshost.svg"
-import Coastaldew from '../assets/domain/coastaldew.svg'
+import Coastaldew from '../assets/domain/coastaldew.png'
 import Girij from '../assets/domain/girij.svg'
-import Submines from  "../assets/domain/submines.svg"
+import Submines from  "../assets/domain/submines.png"
 import  Gotwellsoon from  "../assets/domain/gotwellsoon.svg"
-import Checkdam from "../assets/domain/checkdam.svg"
+import Checkdam from "../assets/domain/checkdam.png"
 import Cobrother from "../assets/domain/cobrother.svg"                                                                                                                                         
 export const jvMarqueeCards = [
   

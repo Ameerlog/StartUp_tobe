@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo_white from "../assets/domain/cobrother_Logo_white.svg";
-import Logo_black from "../assets/domain/cobrother_Logo_black.svg";
+import Logo_white from "../assets/domain/cobrother_Logo_white.png";
+import Logo_black from "../assets/domain/cobrother_Logo_black.png";
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {

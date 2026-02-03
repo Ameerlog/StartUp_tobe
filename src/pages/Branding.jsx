@@ -29,7 +29,7 @@ export default function Branding() {
 
   const tabs = [
     { id: "domains", label: "Domains" },
-    // { id: "compliance", label: "Compliance" },
+    { id: "compliance", label: "Compliance" },
     // { id: "merchandise", label: "Merchandise" },
   ];
 
@@ -140,7 +140,7 @@ export default function Branding() {
             </motion.div>
           )}
 
-          {activeTab === "numbers" && (
+          {/* {activeTab === "numbers" && (
             <motion.div
               key="numbers"
               variants={contentVariants}
@@ -148,6 +148,18 @@ export default function Branding() {
               animate="visible"
               exit="exit"
             >
+              <Compliance />
+            </motion.div>
+          )} */}
+
+              {activeTab === "compliance" && (
+  <motion.div
+    key="compliance"
+    variants={contentVariants}
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+  >
               <Compliance />
             </motion.div>
           )}

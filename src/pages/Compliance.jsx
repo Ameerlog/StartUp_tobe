@@ -4,7 +4,7 @@ import { Wallet, ShieldCheck, Zap, HeartHandshake, X } from "lucide-react";
 
 export default function Compliance() {
   const complianceServices = [
-    { id: "business", name: "Business Registration", price: "₹499", points: ["Proprietorship", "Partnership Firm", "LLP Registration", "Pvt Ltd / OPC"] },
+    { id: "business", name: "Business Name Registration", price: "₹499", points: ["Proprietorship", "Partnership Firm", "LLP Registration", "Pvt Ltd / OPC"] },
     { id: "gst", name: "GST Services", price: "₹999", points: ["GST Registration", "GST Amendment", "GST Cancellation", "Return Filing"] },
     { id: "din", name: "DIN & DSC", price: "₹2500", points: ["DIN Application", "DIN KYC", "Director Change", "Director Resignation"] },
     { id: "msme", name: "MSME / Udyam", price: "₹199", points: ["Udyam Registration", "Certificate Download", "Update Details"] },

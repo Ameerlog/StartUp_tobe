@@ -1,6 +1,6 @@
 import React from "react";
 import { Twitter, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
-import Logo from "../assets/domain/cobrotheraultum_Logo.svg";
+import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
 import { ArrowUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -11,8 +11,8 @@ const social = [
   { href: "https://x.com/CoBrother141506", label: "X", Icon: Twitter },
   {href:"https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi",label:"Instagram",Icon:Instagram},
   {href:"https://www.facebook.com/share/16vjEWTjHi/",label:"Facebook",Icon:Facebook},
-  { href: "#", label: "LinkedIn", Icon: Linkedin },
-  { href: "#", label: "YouTube", Icon: Youtube },
+  { href: "https://www.linkedin.com/in/co-brother-9921b03aa", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://www.youtube.com/channel/UCPq5njZ3e63myDvzfcoSDEQ", label: "YouTube", Icon: Youtube },
 ];
 
 const columns = [
@@ -20,7 +20,7 @@ const columns = [
   { title: "Solutions", links: ["Company Registration", "GST & Tax Filing", "Trademark & IP", "Accounting & Compliance", "Startup Business"] },
   { title: "Co-Working", links: ["CoFounder", "CoInvestor"] },
   { title: "Resources", links: ["Legal Basics for Founders", "Brand Naming Guide"] },
-  { title: "Company", links: ["About Cobrother", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
+  { title: "Company", links: ["About Us", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
   { title: "Trust & Security", links: ["Secure Payments", "Transparent Pricing", "Founder-First Approach", "India-Focused Compliance"] },
 ];
 
@@ -29,11 +29,41 @@ const columns = [
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+// Linkpath for the footer tags
+const linkPaths = {
+  "Marketplace": "/marketplace",
+  "Domains for Sale": "/domains",
+  "Startup Toolkit": "/toolkit",
+  "Pricing": "/pricing",
+  "Company Registration": "/company-registration",
+  "GST & Tax Filing": "/gst-tax-filing",
+  "Trademark & IP": "/trademark-ip",
+  "Accounting & Compliance": "/accounting-compliance",
+  "Startup Business": "/startup-business",
+  "CoFounder": "/community",
+  "CoInvestor": "/community",
+  "Legal Basics for Founders": "/legal-basics",
+  "Brand Naming Guide": "/brand-naming",
+  "About Us": "/about",
+  "How It Works": "/how-it-works",
+  "Careers": "/careers",
+  "Contact Us": "/contact",
+  "Privacy Policy": "/privacy-policy",
+  "Terms of Service": "/terms-of-service",
+  "Secure Payments": "/secure-payments",
+  "Transparent Pricing": "/transparent-pricing",
+  "Founder-First Approach": "/founder-first-approach",
+  "India-Focused Compliance": "/india-compliance",
+};
+
+
+
+
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-black text-white z-100">
       <section className="border-t border-neutral-800">
-        <div className="mx-auto max-w-6xl px-2 py-6">
+        <div className=" mx-auto max-w-6xl px-2 py-6">
 
           <div className="grid gap-y-10 gap-x-18 lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1">
            
@@ -70,7 +100,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="inline-flex h-8 w-12 items-center justify-center border rounded-xl bg-black text-white/50 transition  hover:text-white"
+                    className="inline-flex h-8 w-12 items-center justify-center border rounded-xl bg-black text-white/50 transition hover:text-white"
                   >
                     <Icon className="h-5 w-5 " />
                   </a>
@@ -97,27 +127,34 @@ export default function Footer() {
                     </a>
                   ))} */}
                   {/* To redirect Cofounder and Coinvestor */}
-                    {col.links.map((label, idx) => {
-  const isCommunityLink =
-    label === "CoFounder" || label === "CoInvestor";
+                   
+                  {col.links.map((label, idx) => {
+  // Determine the path only for active links
+  const linkPath =
+    label === "CoFounder" || label === "CoInvestor"
+      ? "/community"
+      : label === "About Us"
+      ? "/about"
+      : null;
 
-  return isCommunityLink ? (
+  return linkPath ? (
     <Link
       key={label + idx}
-      to="/community"
+      to={linkPath}
       className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
     >
       {label}
     </Link>
   ) : (
-    <span
+    <a
       key={label + idx}
-      className="text-sm text-gray-500 cursor-default"
+      className="text-sm text-gray-500 cursor-default hover:text-white transition-colors duration-200"
     >
       {label}
-    </span>
+    </a>
   );
 })}
+
 
 
                 </div>
