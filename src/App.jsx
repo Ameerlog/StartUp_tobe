@@ -18,7 +18,7 @@ import Navbar from './components/Navbar'
 import AIRoboticsPage from './pages/AiRobotics'
 import ScrolltoTop from './components/ScrolltoTop'
 import Investors from "../src/components/Home/Investors";
-import CoventureForm from "../src/pages/CoVentureForm"
+import CoventureForm from '../src/pages/CoventureForm'
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 
@@ -56,7 +56,7 @@ const App = () => {
 
     {/* Forms */}
       {/* Coventure listing form  */}
-      <Route path="/coventure-form" element={<CoventureForm />} />
+      <Route path="/coventure-form" element={<CoventureForm/>} />
 
    </Routes>
      </div>
