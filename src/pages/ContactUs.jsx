@@ -330,7 +330,7 @@ const ContactUs = () => {
               icon={<Phone className="w-6 h-6" />}
               title="Phone"
               value="+91 98765 43210"
-              description="Mon-Fri from 9am to 6pm IST"
+              description="Mon-Sat from 9am to 6pm IST"
               gradient="from-blue-500/20 to-blue-600/20"
               iconBg="from-blue-500/10 to-blue-600/10"
               iconColor="text-blue-400"
