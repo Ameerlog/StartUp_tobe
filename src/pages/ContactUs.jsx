@@ -229,7 +229,7 @@ const ContactUs = () => {
                       label="Phone Number"
                       name="phone"
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 8085758575"
                       register={register}
                       error={errors.phone}
                       focused={focused}
@@ -317,7 +317,7 @@ const ContactUs = () => {
             <InfoCard
               icon={<Mail className="w-6 h-6" />}
               title="Email"
-              value="contact@yourstartup.com"
+              value="cobrother.com@gmail.com"
               description="We'll respond within 24 hours"
               gradient="from-purple-500/20 to-purple-600/20"
               iconBg="from-purple-500/10 to-purple-600/10"
@@ -329,7 +329,7 @@ const ContactUs = () => {
             <InfoCard
               icon={<Phone className="w-6 h-6" />}
               title="Phone"
-              value="+91 98765 43210"
+              value="+91 8085758575"
               description="Mon-Fri from 9am to 6pm IST"
               gradient="from-blue-500/20 to-blue-600/20"
               iconBg="from-blue-500/10 to-blue-600/10"

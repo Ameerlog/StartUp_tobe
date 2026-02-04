@@ -41,16 +41,15 @@ export default function Domains({ variant = "dark" }) {
     <section
       className={`w-full py-10 sm:py-12 md:py-16 relative overflow-hidden ${theme.section}`}
     >
-      {/* Header */}
       <div className="text-center px-4 flex flex-col items-center gap-4">
         <h2
           className={`text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold ${theme.heading}`}
         >
           Co-Brandings
-          
         </h2>
 
         <button
+        onClick={() => navigate("/domain-form")}
           className={`
             group flex items-center gap-2 rounded-full
             border border-white
@@ -91,7 +90,7 @@ export default function Domains({ variant = "dark" }) {
                 key={id}
                 className="shrink-0 w-[260px] sm:w-[300px] md:w-[320px] px-3
                  border-white/30 
-                bg-[#0e1422]
+                
                 hover:border-white/30
                 hover:bg-gray-900/80
                 transition-shadow duration-300
@@ -105,19 +104,46 @@ export default function Domains({ variant = "dark" }) {
                 hover:bg-gray-900/80
                   transition-all duration-300 `}
                 >
-                  <div className="p-5 flex-1 flex flex-col">
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col">
                     {/* Title + Price */}
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start justify-between gap-2 sm:gap-3">
                       <h3
-                        className={`text-lg text-white/50 font-bold leading-tight ${theme.cardTitle} 
+                        className={`text-base sm:text-lg text-white/50 font-bold leading-tight ${theme.cardTitle} 
                         group-hover:text-white
-                        transition-colors`}
+                        transition-colors flex-1 min-w-0`}
                       >
                         {title}
                       </h3>
 
+                      {/* Responsive Price Pill */}
                       <span
-                        className={`shrink-0 rounded-full border px-3 py-1 text-xs font-bold ${theme.priceBadge}`}
+                        className={`
+                          shrink-0 
+                          rounded-full 
+                          border 
+                          font-bold 
+                          ${theme.priceBadge}
+                          
+                          /* Mobile - smaller */
+                          px-2 py-0.5 text-[10px]
+                          
+                          /* Small screens */
+                          sm:px-2.5 sm:py-1 sm:text-xs
+                          
+                          /* Medium screens and up */
+                          md:px-3 md:py-1 md:text-xs
+                          
+                          /* Large screens */
+                          lg:px-4 lg:py-1.5 lg:text-sm
+                          
+                          /* Ensure text doesn't wrap */
+                          whitespace-nowrap
+                          
+                          /* Optional: add max-width for very long prices */
+                          max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-none
+                          truncate
+                        `}
+                        title={price} /* Show full price on hover if truncated */
                       >
                         {price}
                       </span>
@@ -125,7 +151,7 @@ export default function Domains({ variant = "dark" }) {
 
                     {/* Image */}
                     <div
-                      className={`mt-5 rounded-xl 
+                      className={`mt-4 sm:mt-5 rounded-xl 
                         border 
                         border-white/30
                       bg-[#0e1422]
@@ -138,26 +164,37 @@ export default function Domains({ variant = "dark" }) {
                       <img
                         src={src}
                         alt={title}
-                        className="w-full h-[200px] object-contain"
+                        className="w-full h-[180px] sm:h-[200px] object-contain"
                         draggable={false}
                         loading="lazy"
                       />
 
                       <span
-                        className={`absolute bottom-3 right-3 text-xs font-bold ${theme.tld}`}
+                        className={`absolute bottom-2 sm:bottom-3 right-2 sm:right-3 text-[10px] sm:text-xs font-bold ${theme.tld}`}
                       >
                         .com
                       </span>
                     </div>
 
                     {/* CTA */}
-                    <div className="mt-6 flex justify-end">
+                    <div className="mt-4 sm:mt-6 flex justify-end">
                       <button
                         onClick={() => navigate("/branding")}
                         className="
                         rounded-full 
                         bg-linear-to-r 
-                            bg-gray-600 hover:bg-gray-500 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
+                        bg-gray-600 
+                        hover:bg-gray-500 
+                        px-4 sm:px-6 
+                        py-2 sm:py-2.5 
+                        text-xs sm:text-sm 
+                        font-bold 
+                        text-white 
+                        shadow-lg 
+                        transition-all 
+                        hover:-translate-y-0.5 
+                        active:scale-[0.98] 
+                        cursor-pointer"
                       >
                         Make it Yours →
                       </button>
@@ -172,7 +209,7 @@ export default function Domains({ variant = "dark" }) {
         {/* Bottom Button */}
         <div className="group relative mt-10 flex justify-center px-4">
           <button
-          onClick={()=> navigate("/branding")}
+            onClick={() => navigate("/branding")}
             className={`
               group flex items-center gap-2 rounded-full
               border-white

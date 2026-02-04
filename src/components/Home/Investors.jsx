@@ -128,7 +128,7 @@ export default function Investors() {
         </h2>
         
         <button
-        onClick={() => navigate("/co-creation")}
+        onClick={() => navigate("/coworker-form")}
           className="
             group
             flex items-center gap-2
