@@ -3,6 +3,10 @@ import MarqueeRow from "../../components/Marquee";
 import { investorCards } from "../../data/investors";
 import { ArrowRight } from "lucide-react";
 import BackgroundImage from "../../assets/domain/bg1.svg";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 // Reusable Card Component to avoid repetition
 const InvestorCard = ({ card }) => (
@@ -80,45 +84,82 @@ const InvestorCard = ({ card }) => (
   </div>
 );
 
+// Temporary placeholder data for Co-Founders (replace with real data later)
+const coFounderCards = [
+  {
+    src: "https://randomuser.me/api/portraits/men/32.jpg",
+    company: "John Smith",
+    founder: "Tech Entrepreneur"
+  },
+  {
+    src: "https://randomuser.me/api/portraits/women/44.jpg",
+    company: "Sarah Johnson",
+    founder: "Startup Founder"
+  },
+  {
+    src: "https://randomuser.me/api/portraits/men/52.jpg",
+    company: "Michael Chen",
+    founder: "Innovation Leader"
+  },
+  {
+    src: "https://randomuser.me/api/portraits/women/68.jpg",
+    company: "Emily Davis",
+    founder: "Business Strategist"
+  },
+  {
+    src: "https://randomuser.me/api/portraits/men/75.jpg",
+    company: "David Wilson",
+    founder: "Growth Expert"
+  },
+  {
+    src: "https://randomuser.me/api/portraits/women/80.jpg",
+    company: "Lisa Anderson",
+    founder: "Product Visionary"
+  },
+];
+
 export default function Investors() {
+  const navigate = useNavigate(); 
   return (
-    <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden"
-   >
-
-       <div className="text-center px-4 flex flex-col items-center gap-4">
-           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
+    <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
+      <div className="text-center px-4 flex flex-col items-center gap-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
           Co-Working
-           </h2>
-         
-          <button
-           className="
-             group
-             flex items-center gap-2
-             rounded-full
-             border border-white
-             bg-gray-800
-             px-5 sm:px-6 md:px-8
-             py-2.5 sm:py-3
-             text-xs sm:text-sm
-             font-bold text-white
-             backdrop-blur-xl
-             transition-all duration-300
-             hover:border-white
-             hover:text-white
-             hover:bg-white/20
-             active:scale-[0.98]
-             mt-4
-           "
-         >
-        Join our community
-           
-         </button>
-         
-         </div>
+        </h2>
+        
+        <button
+        onClick={() => navigate("/co-creation")}
+          className="
+            group
+            flex items-center gap-2
+            rounded-full
+            border border-white
+            bg-gray-800
+            px-5 sm:px-6 md:px-8
+            py-2.5 sm:py-3
+            text-xs sm:text-sm
+            font-bold text-white
+            backdrop-blur-xl
+            transition-all duration-300
+            hover:border-white
+            hover:text-white
+            hover:bg-white/20
+            active:scale-[0.98]
+            mt-4
+          "
+        >
+          Join our community
+        </button>
+      </div>
 
-      <div className="relative mt-4 sm:mt-6 md:mt-8 lg:mt-10">
-    {/* Left and right screen shade  */}
-         <div 
+      {/* CO-INVESTORS SECTION */}
+      <div className="relative mt-8 sm:mt-10 md:mt-12 lg:mt-14">
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[30px] text-white font-bold text-center mb-6 sm:mb-8 md:mb-10">
+          Co-Investors
+        </h3>
+
+        {/* Left and right screen shade */}
+        <div 
           className="pointer-events-none absolute left-0 top-0 z-10 
                      h-full 
                      w-8 xs:w-12 sm:w-20 md:w-28 lg:w-36 xl:w-40 
@@ -132,52 +173,74 @@ export default function Investors() {
                      bg-gradient-to-l from-black to-transparent" 
         />
 
-        <div className="mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 overflow-hidden space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10">
-
+        <div className="mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 overflow-hidden">
           <MarqueeRow
             data={investorCards}
             speed={25}
             renderItem={(card) => <InvestorCard card={card} />}
           />
+        </div>
+      </div>
 
+      {/* CO-FOUNDERS SECTION */}
+      <div className="relative mt-12 sm:mt-16 md:mt-20 lg:mt-24">
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[30px] text-white font-bold text-center mb-6 sm:mb-8 md:mb-10">
+          Co-Founders
+        </h3>
+
+        {/* Left and right screen shade */}
+        <div 
+          className="pointer-events-none absolute left-0 top-0 z-10 
+                     h-full 
+                     w-8 xs:w-12 sm:w-20 md:w-28 lg:w-36 xl:w-40 
+                     bg-gradient-to-r from-black to-transparent" 
+        />
+
+        <div 
+          className="pointer-events-none absolute right-0 top-0 z-10 
+                     h-full 
+                     w-8 xs:w-12 sm:w-20 md:w-28 lg:w-36 xl:w-40 
+                     bg-gradient-to-l from-black to-transparent" 
+        />
+
+        <div className="mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 overflow-hidden">
           <MarqueeRow
-            data={investorCards}
+            data={coFounderCards}
             speed={25}
             direction="right"
             renderItem={(card) => <InvestorCard card={card} />}
           />
-
-          <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
-            {/* <button
-              className="group flex items-center 
-                         gap-1.5 sm:gap-2
-                         rounded-full
-                         border border-white
-                         bg-white/10
-                         px-5 xs:px-6 sm:px-7 md:px-8 
-                         py-2 xs:py-2.5 sm:py-3
-                         text-xs sm:text-sm 
-                         font-bold text-white
-                         backdrop-blur-xl
-                         transition-all duration-300
-                         hover:border-white/30
-            hover:text-white
-                         hover:bg-gray-800
-                         active:scale-[0.98]
-                         hover:shadow-lg
-                         cursor-pointer
-                         "
-                         
-            >
-              View All
-              <ArrowRight
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4
-                           transition-transform duration-300 
-                           group-hover:translate-x-1"
-              />
-            </button> */}
-          </div>
         </div>
+      </div>
+
+      <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
+        {/* <button
+          className="group flex items-center 
+                     gap-1.5 sm:gap-2
+                     rounded-full
+                     border border-white
+                     bg-white/10
+                     px-5 xs:px-6 sm:px-7 md:px-8 
+                     py-2 xs:py-2.5 sm:py-3
+                     text-xs sm:text-sm 
+                     font-bold text-white
+                     backdrop-blur-xl
+                     transition-all duration-300
+                     hover:border-white/30
+                     hover:text-white
+                     hover:bg-gray-800
+                     active:scale-[0.98]
+                     hover:shadow-lg
+                     cursor-pointer
+                     "
+        >
+          View All
+          <ArrowRight
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4
+                       transition-transform duration-300 
+                       group-hover:translate-x-1"
+          />
+        </button> */}
       </div>
     </section>
   );

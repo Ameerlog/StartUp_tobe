@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
-
-
+html {
+  scroll-behavior: smooth;
+}
 .marquee {
   --marquee-inset: 80px;
   --gap: 8px;
@@ -19,8 +20,12 @@
   pointer-events: none;
 }
 
-.marquee__line--left { left: 0; }
-.marquee__line--right { right: 0; }
+.marquee__line--left {
+  left: 0;
+}
+.marquee__line--right {
+  right: 0;
+}
 
 .marquee__viewport {
   margin-left: var(--marquee-inset);
@@ -42,8 +47,12 @@
 }
 
 @keyframes marquee-x {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -67,10 +76,12 @@
   background: transparent;
 }
 
-.marquee::before { left: 0; 
+.marquee::before {
+  left: 0;
 }
-.marquee::after { right: 0; }
-
+.marquee::after {
+  right: 0;
+}
 
 .input {
   @apply w-full rounded-full px-5 py-3 text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#7fa9ad];
