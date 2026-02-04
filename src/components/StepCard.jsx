@@ -24,8 +24,6 @@ const StepCard = ({ step }) => {
             <p className="mb-8 text-lg leading-relaxed text-zinc-500">
               {step.description}
             </p>
-
-           
           </div>
         </div>
 

@@ -229,7 +229,7 @@ const ContactUs = () => {
                       label="Phone Number"
                       name="phone"
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 8085758575"
                       register={register}
                       error={errors.phone}
                       focused={focused}
@@ -329,7 +329,7 @@ const ContactUs = () => {
             <InfoCard
               icon={<Phone className="w-6 h-6" />}
               title="Phone"
-              value="+91 98765 43210"
+              value="+91 8085758575"
               description="Mon-Sat from 9am to 6pm IST"
               gradient="from-blue-500/20 to-blue-600/20"
               iconBg="from-blue-500/10 to-blue-600/10"
