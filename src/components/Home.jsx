@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios"; //For API
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import cobrotheraultum_Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
+import { motion } from "framer-motion";
+import { Search, Sparkles, ArrowRight, Check, X, Loader2 } from "lucide-react";
+
 import BackgroundImage from "../assets/domain/bg1.svg";
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
@@ -9,28 +11,21 @@ import Marketing from "../assets/domain/market.svg";
 import Compliances from "../assets/domain/complian.png";
 import Funding from "../assets/domain/ai.svg";
 import Community from "../assets/domain/community.svg";
+
 import JointVenture from "./Home/JointVenture";
-// import Numbers from "./Home/Numbers";
 import Domains from "./Home/Domians";
-import Investors from "./Home/Investors";
 import Market from "./Home/Marketing";
-// import Merchandise from "./Home/Merchandise";
 import AIRobotics from "./Home/AIRobotics";
-import Footer from "./Footer";
 import ComplianceCards from "./ComplianceCards";
 
 const Home = () => {
   const navigate = useNavigate();
-
-  // API fetch axios
-  // ADD THIS ENTIRE SECTION ⬇️
-  // API Search logic from godaddy:
   const [domainQuery, setDomainQuery] = useState("");
   const [searchStatus, setSearchStatus] = useState("idle");
+  const [focused, setFocused] = useState(false);
 
   const searchDomain = async () => {
     if (!domainQuery.trim()) return;
-
     setSearchStatus("loading");
 
     try {
@@ -38,7 +33,7 @@ const Home = () => {
         `https://api.godaddy.com/v1/domains/available?domain=${domainQuery}`,
         {
           headers: {
-            Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`, // REPLACE THIS LATER
+            Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
             "Content-Type": "application/json",
           },
         },
@@ -60,7 +55,6 @@ const Home = () => {
       searchDomain();
     }
   };
-  // END OF LOGIC SECTION ⬆️
 
   const iconData = [
     {
@@ -68,252 +62,358 @@ const Home = () => {
       title: "Co-Venture",
       subtitle: "Strategic Partnerships",
       path: "/venture",
+      gradient: "from-purple-500/20 to-indigo-500/20",
+      glowColor: "from-purple-600/30 to-indigo-600/30",
+      iconColor: "text-purple-400",
     },
     {
       Icon: Branding,
       title: "Co-Branding",
       subtitle: "Identity Creation",
       path: "/branding",
+      gradient: "from-blue-500/20 to-cyan-500/20",
+      glowColor: "from-blue-600/30 to-cyan-600/30",
+      iconColor: "text-blue-400",
     },
     {
       Icon: Marketing,
       title: "Co-Marketing",
       subtitle: "Growth Strategies",
       path: "/marketing",
+      gradient: "from-pink-500/20 to-rose-500/20",
+      glowColor: "from-pink-600/30 to-rose-600/30",
+      iconColor: "text-pink-400",
     },
     {
       Icon: Compliances,
       title: "Co-Creation",
-      subtitle: "",
+      subtitle: "Innovative Solutions",
       path: "/co-creation",
+      gradient: "from-orange-500/20 to-amber-500/20",
+      glowColor: "from-orange-600/30 to-amber-600/30",
+      iconColor: "text-orange-400",
     },
     {
       Icon: Funding,
       title: "Co-Operation",
       subtitle: "Capital Access",
       path: "/ai",
+      gradient: "from-green-500/20 to-emerald-500/20",
+      glowColor: "from-green-600/30 to-emerald-600/30",
+      iconColor: "text-green-400",
     },
     {
       Icon: Community,
       title: "Co-Working",
       subtitle: "Network Building",
       path: "/community",
+      gradient: "from-violet-500/20 to-purple-500/20",
+      glowColor: "from-violet-600/30 to-purple-600/30",
+      iconColor: "text-violet-400",
     },
   ];
 
   return (
     <>
-      <section className="min-h-screen w-full relative overflow-hidden">
-        {/* <h2>One platform for every stage of your business.</h2> */}
-        <div className="absolute inset-0 w-full h-full ">
-          <img
-            src={BackgroundImage}
-            alt="Background"
-            className="w-full bg-black h-full object-cover object-center
-                       sm:object-cover md:object-cover lg:object-cover"
+      {/* HERO SECTION WITH ANIMATED BACKGROUND */}
+      <section className="min-h-screen w-full relative overflow-hidden bg-black">
+        {/* ANIMATED GRADIENT ORBS */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+            animate={{
+              x: [0, 50, -30, 0],
+              y: [0, -60, 30, 0],
+              scale: [1, 1.2, 0.8, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+            animate={{
+              x: [0, -40, 40, 0],
+              y: [0, 50, -30, 0],
+              scale: [1, 0.9, 1.1, 1],
+            }}
+            transition={{
+              duration: 8,
+              delay: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/15 rounded-full blur-3xl"
+            animate={{
+              x: [0, 30, -40, 0],
+              y: [0, -40, 40, 0],
+              scale: [1, 1.1, 0.9, 1],
+            }}
+            transition={{
+              duration: 8,
+              delay: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
         </div>
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/75 to-black/95" />
+        {/* BACKGROUND IMAGE WITH OVERLAY */}
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src={BackgroundImage}
+            alt="Background"
+            className="w-full h-full object-cover object-center opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
+        </div>
 
-        <div
-          className="relative z-20 flex items-center justify-center min-h-screen 
-                        px-3 sm:px-4 md:px-6 lg:px-8 
-                        py-6 sm:py-8 md:py-10 lg:py-12"
-        >
-          <div
-            className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl 
-                          mt-6 sm:mt-8 md:mt-10 lg:mt-12 
-                          relative mx-4 sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16
-                          "
+        {/* MAIN CONTENT */}
+        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+          {/* HERO TEXT */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16 max-w-4xl"
           >
-            {/* Logo cobrother aultum  */}
-            {/* <div
-              className="absolute 
-                            -top-10 sm:-top-12 md:-top-14 lg:-top-16 
-                            left-1/2 -translate-x-1/2 
-                            pointer-events-none z-30"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full mb-6"
             >
-              <img
-                src={cobrotheraultum_Logo}
-                alt="Logo"
-                className="w-19 h-26 sm:w-16 sm:h-16 md:w-20 md:h-28 lg:w-24 lg:h-24
-                          //  scale-[3] sm:scale-[2] md:scale-[2.4] lg:scale-[4]
-                          //  drop-shadow-2xl
-                           "
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                One Platform for Every Stage
+              </span>
+            </motion.div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+              <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+                Build Your
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+                Business Empire
+              </span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-neutral-400 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
+            >
+              From domain registration to business operations, we provide
+              everything you need to launch and grow your startup
+            </motion.p>
+          </motion.div>
+
+          {/* DOMAIN SEARCH BAR - Dark with Gradient on Hover/Focus */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="w-full max-w-3xl mb-16 px-4"
+          >
+            <div className="relative group">
+              {/* Rainbow Gradient Border - Shows on Hover or Focus */}
+              <div
+                className={`absolute -inset-[2px] bg-gradient-to-r from-green-400 via-blue-500 via-purple-500 to-pink-500 rounded-full transition-opacity duration-500 ${
+                  focused ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                }`}
               />
-            </div> */}
-            {/* Domain Search Bar */}
-            <div
-              className="absolute 
-    -top-10 sm:-top-12 md:-top-14 lg:-top-16 
-    left-1/2 -translate-x-1/2 
-    z-30 w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl px-4"
-            >
-              <div className="search-container bg-white/10 backdrop-blur-md flex px-1 py-1 rounded-full border border-white/30 ">
-                <svg
-                  className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 pointer-events-none"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+
+              {/* Glow Effect on Hover/Focus */}
+              <div
+                className={`absolute -inset-[3px] bg-gradient-to-r from-green-400 via-blue-500 via-purple-500 to-pink-500 rounded-full blur-md transition-opacity duration-500 ${
+                  focused ? "opacity-40" : "opacity-0 group-hover:opacity-30"
+                }`}
+              />
+
+              {/* Search Bar Container */}
+              <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full p-2 flex items-center gap-3">
+                {/* Input Field with Icon */}
+                <div className="relative flex-1 flex items-center">
+                  <Search className="absolute left-5 w-5 h-5 text-neutral-400 pointer-events-none" />
+                  <input
+                    type="text"
+                    placeholder="Search your perfect domain..."
+                    value={domainQuery}
+                    onChange={(e) => setDomainQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
+                    className="w-full pl-14 pr-4 py-4 bg-transparent text-white placeholder-neutral-500 focus:outline-none text-base"
                   />
-                </svg>
+                </div>
 
-                <input
-                  type="text"
-                  placeholder="Search your domain..."
-                  value={domainQuery}
-                  onChange={(e) => setDomainQuery(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  className="w-full outline-none bg-transparent pl-12 pr-4 text-sm text-white placeholder-white/60"
-                />
-
-                <button
+                {/* Search Button - Purple Gradient */}
+                <motion.button
                   type="button"
                   onClick={searchDomain}
-                  className="bg-white/20 hover:bg-white/30 transition-all text-white text-sm rounded-full px-5 py-2.5 whitespace-nowrap backdrop-blur-sm border border-white/20"
+                  disabled={searchStatus === "loading"}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative overflow-hidden rounded-full disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Search
-                </button>
+                  {/* Gradient Background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 hover:opacity-100 blur transition duration-500" />
+
+                  {/* Button Content */}
+                  <div className="relative px-8 py-4 flex items-center gap-2">
+                    {searchStatus === "loading" ? (
+                      <>
+                        <Loader2 className="w-5 h-5 text-white animate-spin" />
+                        <span className="font-semibold text-white text-base">
+                          Searching...
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <Search className="w-5 h-5 text-white" />
+                        <span className="font-semibold text-white text-base">
+                          Search
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </motion.button>
               </div>
 
-              {/* Message Display Area */}
-              <div className="mt-3 text-center text-sm">
-                {searchStatus === "available" && (
-                  <p className="text-green-400 font-semibold">
-                    ✓ Domain is available!
-                  </p>
-                )}
-
-                {searchStatus === "unavailable" && (
-                  <p className="text-red-400 font-semibold">
-                    ✗ Domain is not available
-                  </p>
-                )}
-
-                {searchStatus === "loading" && (
-                  <div className="flex justify-center items-center">
-                    <div className="spinner">
-                      <div className="spinnerin"></div>
+              {/* Search Status Messages */}
+              {searchStatus !== "idle" && searchStatus !== "loading" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4"
+                >
+                  {searchStatus === "available" && (
+                    <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-xl backdrop-blur-sm">
+                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Check className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-green-400 font-semibold">
+                          Domain is available!
+                        </p>
+                        <p className="text-green-400/70 text-sm">
+                          Ready to register your perfect domain
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+
+                  {searchStatus === "unavailable" && (
+                    <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-xl backdrop-blur-sm">
+                      <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <X className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-red-400 font-semibold">
+                          Domain is not available
+                        </p>
+                        <p className="text-red-400/70 text-sm">
+                          Try a different name or extension
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )}
             </div>
+          </motion.div>
 
-            <div
-              className="bg-transparentbackdrop-blur-sm 
-                         border border-white/20 sm:border-white/25                        
-                         mt-10 sm:mt-12 md:mt-14 lg:mt-10
-                         p-3 sm:p-4 md:p-6 lg:p-8
-                         pt-10 sm:pt-12 md:pt-6 lg:pt-12
-                         rounded-lg sm:rounded-xl md:rounded-2xl
-                         grid grid-cols-2 sm:grid-cols-3
-                         gap-9 sm:gap-7 md:gap-9 lg:gap-14
-                         place-items-center
-                         w-full"
-            >
-              {iconData.map(({ Icon, title, subtitle, path }, index) => (
-                <div
+          {/* SERVICES GRID */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="w-full max-w-6xl px-4"
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 scale">
+              {iconData.map((item, index) => (
+                <ServiceCard
                   key={index}
-                  onClick={() => path && navigate(path)}
-                  className="flex flex-col items-center 
-                             gap-1 sm:gap-1.5 md:gap-2 
-                             cursor-pointer
-                             group transition-all duration-300 
-                             hover:scale-105 active:scale-95
-                             p-1 sm:p-1.5 md:p-2 lg:p-3
-                             w-full max-w-30 sm:max-w-35 md:max-w-40 lg:max-w-45"
-                >
-                  <div
-                    className="relative flex items-center justify-center
-                                  w-12 h-12 
-                                  sm:w-14 sm:h-14 
-                                  md:w-16 md:h-16 
-                                  lg:w-20 lg:h-20
-                                  xl:w-24 xl:h-24 scale-150
-                                  overflow-hidden "
-                  >
-                    <img
-                      src={Icon}
-                      alt={title}
-                      className="
-                      cursor-pointer
-                      w-full h-full object-contain
-                      /* Responsive size (STATIC) */
-                      scale-150
-                      md:scale-180
-                      lg:scale-210
-                      /* Hover effect (FAST & CLEAN) */
-                      transition-transform duration-150 ease-out
-                      group-hover:scale-[1.15]
-                      /* Light glow */
-                      drop-shadow-md
-                      group-hover:drop-shadow-sm
-                    "
-                    />
-                  </div>
-
-                  <div
-                    className="text-gray-300 text-center 
-                                  mt-0.5 sm:mt-1 md:mt-1.5 
-                                  w-full px-0.5 sm:px-1"
-                  >
-                    <h4
-                      className="text-[9px] 
-                                   sm:text-[10px] 
-                                   md:text-xs 
-                                   lg:text-sm
-                                   xl:text-base
-                                   font-bold 
-                                   group-hover:text-white   
-                                   transition-colors duration-300
-                                   line-clamp-2 sm:line-clamp-1
-                                   leading-tight 
-                                   min-h-4 sm:min-h-4.5 md:min-h-5"
-                    >
-                      {title}
-                    </h4>
-                    <p
-                      className="text-[7px] 
-                                  sm:text-[8px] 
-                                  md:text-[9px] 
-                                  lg:text-[10px]
-                                  xl:text-xs
-                                  opacity-70 
-                                  group-hover:opacity-100
-                                  transition-opacity duration-300
-                                  mt-0.5
-                                  line-clamp-1 
-                                  leading-tight
-                                  hidden xs:block"
-                    >
-                      {subtitle}
-                    </p>
-                  </div>
-                </div>
+                  item={item}
+                  index={index}
+                  navigate={navigate}
+                />
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* OTHER SECTIONS */}
       <JointVenture />
       <Domains />
-      {/* <Numbers /> */}
-      {/* <Merchandise/> */}
       <ComplianceCards />
       <Market />
-      {/* Below It is Compliance */}
       <AIRobotics />
-      {/* <Investors /> */}
     </>
+  );
+};
+
+// SERVICE CARD COMPONENT
+const ServiceCard = ({ item, index, navigate }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9 + index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => item.path && navigate(item.path)}
+      className="relative group cursor-pointer"
+    >
+      {/* Glow Effect */}
+      <div
+        className={`absolute -inset-0.5 bg-gradient-to-r ${item.glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
+      />
+
+      {/* Card Content */}
+      <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-6 sm:p-8 hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center">
+        {/* Icon Container */}
+        <div
+          className={`relative w-20 h-20 sm:w-24 sm:h-24 mb-4 bg-gradient-to-br ${item.gradient} rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 overflow-visible flex items-center justify-center`}
+        >
+          <img
+            src={item.Icon}
+            alt={item.title}
+            className="w-32 h-32 sm:w-36 sm:h-36 object-contain drop-shadow-lg"
+          />
+        </div>
+
+        {/* Text Content */}
+        <h3
+          className={`text-base sm:text-lg font-bold mb-2 transition-colors duration-300 ${isHovered ? item.iconColor : "text-white"}`}
+        >
+          {item.title}
+        </h3>
+        <p className="text-xs sm:text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 mb-4">
+          {item.subtitle}
+        </p>
+
+        {/* Arrow Icon */}
+        <motion.div
+          initial={{ x: 0 }}
+          animate={{ x: isHovered ? 5 : 0 }}
+          transition={{ duration: 0.3 }}
+          className={`mt-auto ${item.iconColor} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+        >
+          <ArrowRight className="w-5 h-5" />
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 
