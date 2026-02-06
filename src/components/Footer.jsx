@@ -6,19 +6,68 @@ import { Link } from "react-router-dom";
 
 const social = [
   { href: "https://x.com/CoBrother141506", label: "X", Icon: Twitter },
-  { href: "https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi", label: "Instagram", Icon: Instagram },
-  { href: "https://www.facebook.com/share/16vjEWTjHi/", label: "Facebook", Icon: Facebook },
-  { href: "https://www.linkedin.com/in/co-brother-9921b03aa", label: "LinkedIn", Icon: Linkedin },
-  { href: "https://www.youtube.com/channel/UCPq5njZ3e63myDvzfcoSDEQ", label: "YouTube", Icon: Youtube },
+  {
+    href: "https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi",
+    label: "Instagram",
+    Icon: Instagram,
+  },
+  {
+    href: "https://www.facebook.com/share/16vjEWTjHi/",
+    label: "Facebook",
+    Icon: Facebook,
+  },
+  {
+    href: "https://www.linkedin.com/in/co-brother-9921b03aa",
+    label: "LinkedIn",
+    Icon: Linkedin,
+  },
+  {
+    href: "https://www.youtube.com/channel/UCPq5njZ3e63myDvzfcoSDEQ",
+    label: "YouTube",
+    Icon: Youtube,
+  },
 ];
 
 const columns = [
-  { title: "Product", links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"] },
-  { title: "Solutions", links: ["Company Registration", "GST & Tax Filing", "Trademark & IP", "Accounting & Compliance", "Startup Business"] },
+  {
+    title: "Product",
+    links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"],
+  },
+  {
+    title: "Solutions",
+    links: [
+      "Company Registration",
+      "GST & Tax Filing",
+      "Trademark & IP",
+      "Accounting & Compliance",
+      "Startup Business",
+    ],
+  },
   { title: "Co-Working", links: ["CoFounder", "CoInvestor"] },
-  { title: "Resources", links: ["Legal Basics for Founders", "Brand Naming Guide"] },
-  { title: "Company", links: ["About Us", "How It Works", "Careers", "Contact Us", "Privacy Policy", "Terms of Service"] },
-  { title: "Trust & Security", links: ["Secure Payments", "Transparent Pricing", "Founder-First Approach", "India-Focused Compliance"] },
+  {
+    title: "Resources",
+    links: ["Legal Basics for Founders", "Brand Naming Guide"],
+  },
+  {
+    title: "Company",
+    links: [
+      "About Us",
+      "How It Works",
+      "Careers",
+      "Contact Us",
+      "Privacy Policy",
+      "Terms of Service",
+    ],
+  },
+  {
+    title: "Trust & Security",
+    links: [
+      "Secure Payments",
+      "Transparent Pricing",
+      "Founder-First Approach",
+      "India-Focused Compliance",
+    ],
+  },
 ];
 
 // back to top
@@ -28,22 +77,22 @@ const scrollToTop = () => {
 
 // Linkpath for the footer tags
 const linkPaths = {
-  "Marketplace": "/marketplace",
+  Marketplace: "/marketplace",
   "Domains for Sale": "/domains",
   "Startup Toolkit": "/toolkit",
-  "Pricing": "/pricing",
+  Pricing: "/pricing",
   "Company Registration": "/compliance",
   "GST & Tax Filing": "/compliance",
   "Trademark & IP": "/compliance",
   "Accounting & Compliance": "/accounting-compliance",
   "Startup Business": "/startup-business",
-  "CoFounder": "/community",
-  "CoInvestor": "/community",
+  CoFounder: "/community",
+  CoInvestor: "/community",
   "Legal Basics for Founders": "/legal-basics",
   "Brand Naming Guide": "/brand-naming",
   "About Us": "/about",
   "How It Works": "/how-it-works",
-  "Careers": "/careers",
+  Careers: "/careers",
   "Contact Us": "/contact",
   "Privacy Policy": "/privacy-policy",
   "Terms of Service": "/terms-of-service",
@@ -75,7 +124,9 @@ export default function Footer() {
                 </div>
                 <div className="text-sm text-neutral-400">
                   Everything your business needs, in oneplace. <br />
-                  <span className="text-white font-semibold">CoBrother &trade;</span>
+                  <span className="text-white font-semibold">
+                    CoBrother &trade;
+                  </span>
                 </div>
               </div>
 
@@ -130,7 +181,8 @@ export default function Footer() {
 
           <div className="mt-10 border-t border-neutral-800 pt-6 flex flex-col items-center justify-center gap-1 text-center">
             <div className="text-sm text-neutral-500">
-              © 2026 <span className="text-white">CoBrother &trade;</span>. All rights reserved.
+              © 2026 <span className="text-white">CoBrother&trade;</span>. All
+              rights reserved.
             </div>
             <div className="text-sm text-neutral-400">
               Everything your business needs, in oneplace.
@@ -153,15 +205,11 @@ export default function Footer() {
   );
 }
 
-
 // import React from "react";
 // import { Twitter, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
 // import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
 // import { ArrowUp } from "lucide-react";
 // import { Link } from "react-router-dom";
-
-
-
 
 // const social = [
 //   { href: "https://x.com/CoBrother141506", label: "X", Icon: Twitter },
@@ -212,9 +260,6 @@ export default function Footer() {
 //   "India-Focused Compliance": "/india-compliance",
 // };
 
-
-
-
 // export default function Footer() {
 //   return (
 //     <footer className="bg-black text-white z-100">
@@ -222,21 +267,20 @@ export default function Footer() {
 //         <div className=" mx-auto max-w-6xl px-2 py-6">
 
 //           <div className="grid gap-y-10 gap-x-18 lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1">
-           
-         
+
 //             <div className="flex flex-col justify-between gap-6">
 //               <div>
 //                 <div className="mb-6">
 //                   <a href="/">
-//                   <img 
-//   src={Logo} 
-//   alt="CobrotherAultum" 
+//                   <img
+//   src={Logo}
+//   alt="CobrotherAultum"
 //   className="     h-18 sm:h-20 md:h-22 lg:h-24 xl:h-23
 //       w-auto shrink-0
 //       transform origin-left
 //       scale-[1.8] sm:scale-[2.2] md:scale-[2.6] lg:scale-[3] xl:scale-[2.5]
 
-//     " 
+//     "
 // />
 //                   </a>
 //                 </div>
@@ -247,7 +291,6 @@ export default function Footer() {
 //                 </div>
 //               </div>
 
-             
 //               <div className="flex  gap-2">
 //                 {social.map(({ label, Icon, href }) => (
 //                   <a
@@ -273,7 +316,7 @@ export default function Footer() {
 //                   </div>
 
 //                   {/* {col.links.map((label, idx) => (
-                    
+
 //                     <a
 //                       key={label + idx}
 //                       href="#"
@@ -283,7 +326,7 @@ export default function Footer() {
 //                     </a>
 //                   ))} */}
 //                   {/* To redirect Cofounder and Coinvestor */}
-                   
+
 //                   {col.links.map((label, idx) => {
 //   // Determine the path only for active links
 //   // const linkPath =
@@ -318,14 +361,11 @@ export default function Footer() {
 //   );
 // })}
 
-
-
 //                 </div>
 //               ))}
 //             </div>
 //           </div>
 
-  
 //           <div className="mt-10 border-t border-neutral-800 pt-6 flex flex-col items-center justify-center gap-1 text-center">
 //             <div className="text-sm text-neutral-500">
 //               © 2026 <span className="text-white">CoBrother &trade; </span>.  All rights reserved.

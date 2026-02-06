@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios"; //For API
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
+// import cobrotheraultum_Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
 import BackgroundImage from "../assets/domain/bg1.svg";
-
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
 import Marketing from "../assets/domain/market.svg";
 import Compliances from "../assets/domain/complian.png";
 import Funding from "../assets/domain/ai.svg";
 import Community from "../assets/domain/community.svg";
-
 import JointVenture from "./Home/JointVenture";
 // import Numbers from "./Home/Numbers";
 import Domains from "./Home/Domians";
@@ -22,6 +21,46 @@ import ComplianceCards from "./ComplianceCards";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  // API fetch axios
+  // ADD THIS ENTIRE SECTION ⬇️
+  // API Search logic from godaddy:
+  const [domainQuery, setDomainQuery] = useState("");
+  const [searchStatus, setSearchStatus] = useState("idle");
+
+  const searchDomain = async () => {
+    if (!domainQuery.trim()) return;
+
+    setSearchStatus("loading");
+
+    try {
+      const response = await axios.get(
+        `https://api.godaddy.com/v1/domains/available?domain=${domainQuery}`,
+        {
+          headers: {
+            Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`, // REPLACE THIS LATER
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.data.available) {
+        setSearchStatus("available");
+      } else {
+        setSearchStatus("unavailable");
+      }
+    } catch (error) {
+      console.error("Error checking domain:", error);
+      setSearchStatus("idle");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchDomain();
+    }
+  };
+  // END OF LOGIC SECTION ⬆️
 
   const iconData = [
     {
@@ -85,30 +124,92 @@ const Home = () => {
           <div
             className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl 
                           mt-6 sm:mt-8 md:mt-10 lg:mt-12 
-                          relative
-                          mx-4 sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16
+                          relative mx-4 sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16
                           "
           >
-            <div
+            {/* Logo cobrother aultum  */}
+            {/* <div
               className="absolute 
                             -top-10 sm:-top-12 md:-top-14 lg:-top-16 
                             left-1/2 -translate-x-1/2 
                             pointer-events-none z-30"
             >
               <img
-                src={Logo}
+                src={cobrotheraultum_Logo}
                 alt="Logo"
                 className="w-19 h-26 sm:w-16 sm:h-16 md:w-20 md:h-28 lg:w-24 lg:h-24
                           //  scale-[3] sm:scale-[2] md:scale-[2.4] lg:scale-[4]
                           //  drop-shadow-2xl
                            "
               />
+            </div> */}
+            {/* Domain Search Bar */}
+            <div
+              className="absolute 
+    -top-10 sm:-top-12 md:-top-14 lg:-top-16 
+    left-1/2 -translate-x-1/2 
+    z-30 w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl px-4"
+            >
+              <div className="search-container bg-white/10 backdrop-blur-md flex px-1 py-1 rounded-full border border-white/30 ">
+                <svg
+                  className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 pointer-events-none"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+
+                <input
+                  type="text"
+                  placeholder="Search your domain..."
+                  value={domainQuery}
+                  onChange={(e) => setDomainQuery(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="w-full outline-none bg-transparent pl-12 pr-4 text-sm text-white placeholder-white/60"
+                />
+
+                <button
+                  type="button"
+                  onClick={searchDomain}
+                  className="bg-white/20 hover:bg-white/30 transition-all text-white text-sm rounded-full px-5 py-2.5 whitespace-nowrap backdrop-blur-sm border border-white/20"
+                >
+                  Search
+                </button>
+              </div>
+
+              {/* Message Display Area */}
+              <div className="mt-3 text-center text-sm">
+                {searchStatus === "available" && (
+                  <p className="text-green-400 font-semibold">
+                    ✓ Domain is available!
+                  </p>
+                )}
+
+                {searchStatus === "unavailable" && (
+                  <p className="text-red-400 font-semibold">
+                    ✗ Domain is not available
+                  </p>
+                )}
+
+                {searchStatus === "loading" && (
+                  <div className="flex justify-center items-center">
+                    <div className="spinner">
+                      <div className="spinnerin"></div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div
               className="bg-transparentbackdrop-blur-sm 
-                         border border-white/20 sm:border-white/25
-                        
+                         border border-white/20 sm:border-white/25                        
                          mt-10 sm:mt-12 md:mt-14 lg:mt-10
                          p-3 sm:p-4 md:p-6 lg:p-8
                          pt-10 sm:pt-12 md:pt-6 lg:pt-12
@@ -116,10 +217,7 @@ const Home = () => {
                          grid grid-cols-2 sm:grid-cols-3
                          gap-9 sm:gap-7 md:gap-9 lg:gap-14
                          place-items-center
-                         w-full
-                         
-
-                         "
+                         w-full"
             >
               {iconData.map(({ Icon, title, subtitle, path }, index) => (
                 <div
