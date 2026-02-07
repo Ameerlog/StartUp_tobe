@@ -57,7 +57,7 @@ export default function AboutUs() {
         {/* Team / Story Section */}
         <section>
           <h2 className="text-3xl sm:text-4xl font-semibold mb-4 text-center">
-            Story
+            Vision
           </h2>
           <p className="text-gray-800 leading-relaxed mb-4 text-xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur

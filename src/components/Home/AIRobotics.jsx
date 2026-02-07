@@ -1,17 +1,17 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
-import { 
-  Wifi, 
-  WashingMachine, 
-  Palette, 
-  ChefHat, 
-  Sparkles, 
-  Coffee, 
-  Cpu, 
-  Layers, 
-  Bot, 
-  Puzzle 
+import {
+  Wifi,
+  WashingMachine,
+  Palette,
+  ChefHat,
+  Sparkles,
+  Coffee,
+  Cpu,
+  Layers,
+  Bot,
+  Puzzle,
 } from "lucide-react";
 import { aiRoboticsData } from "../../data/aiRobotics";
 import { useNavigate } from "react-router-dom";
@@ -20,16 +20,15 @@ export default function AIRobotics() {
   const navigate = useNavigate();
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
-
       <div className="text-center px-4 flex flex-col items-center gap-4">
         <div className="flex items-center gap-2 sm:gap-3">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
             Co-Operation
           </h2>
         </div>
-      
 
-        <button
+        {/* partner with us button */}
+        {/* <button
           className="
             group
             flex items-center gap-2
@@ -50,35 +49,30 @@ export default function AIRobotics() {
           "
         >
           Partner With Us
-        </button>
+        </button> */}
       </div>
 
       {/* Marquee Section */}
       <div className="relative mt-6 sm:mt-8 md:mt-10">
         {/* Left fade */}
-        <div 
+        <div
           className="
             pointer-events-none absolute left-0 top-0 z-10 
             h-full w-10 sm:w-16 md:w-24 lg:w-32 
             bg-gradient-to-r from-black to-transparent
-          " 
+          "
         />
-        
+
         {/* Right fade */}
-        <div 
+        <div
           className="
             pointer-events-none absolute right-0 top-0 z-10 
             h-full w-10 sm:w-16 md:w-24 lg:w-32 
             bg-gradient-to-l from-black to-transparent
-          " 
+          "
         />
 
-        <Marquee
-          speed={24}
-          gradient={false}
-          pauseOnHover
-          pauseOnClick
-        >
+        <Marquee speed={24} gradient={false} pauseOnHover pauseOnClick>
           {aiRoboticsData.map((card) => {
             const IconComponent = card.icon;
             return (
@@ -90,7 +84,7 @@ export default function AIRobotics() {
                   px-2 sm:px-3 md:px-4
                 "
               >
-                <div 
+                <div
                   className="
                     group
                     h-64 sm:h-72 md:h-80 lg:h-88
@@ -108,7 +102,7 @@ export default function AIRobotics() {
                   "
                 >
                   {/* Grid number badge */}
-                  <div 
+                  <div
                     className="
                       absolute top-3 right-3 sm:top-4 sm:right-4
                       w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8
@@ -124,11 +118,11 @@ export default function AIRobotics() {
                       transition-all duration-300
                     "
                   >
-                    {card.id.toString().padStart(2, '0')}
+                    {card.id.toString().padStart(2, "0")}
                   </div>
 
                   {/* Icon */}
-                  <div 
+                  <div
                     className="
                       w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16
                       rounded-xl sm:rounded-2xl
@@ -140,18 +134,18 @@ export default function AIRobotics() {
                       transition-all duration-300
                     "
                   >
-                    <IconComponent 
+                    <IconComponent
                       className="
                         w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7
                         text-white/30
                         group-hover:text-white
                         transition-colors duration-300
-                      " 
+                      "
                     />
                   </div>
 
                   {/* Title */}
-                  <h3 
+                  <h3
                     className="
                       text-sm sm:text-base md:text-lg
                       font-bold text-white
@@ -165,7 +159,7 @@ export default function AIRobotics() {
                   </h3>
 
                   {/* Subtitle */}
-                  <p 
+                  <p
                     className="
                       text-xs sm:text-sm md:text-base
                       text-gray-300
@@ -178,7 +172,7 @@ export default function AIRobotics() {
 
                   {/* Description */}
                   {card.desc && (
-                    <p 
+                    <p
                       className="
                         text-[10px] sm:text-xs md:text-sm
                         text-gray-500
@@ -190,7 +184,7 @@ export default function AIRobotics() {
                   )}
 
                   {/* Buttons */}
-                  <div 
+                  <div
                     className="
                       mt-auto pt-4 sm:pt-5
                       flex flex-col sm:flex-row 
@@ -198,10 +192,8 @@ export default function AIRobotics() {
                       shrink-0
                     "
                   >
-                    
-
-                    <button 
-                    onClick={()=> navigate('/ai')}
+                    <button
+                      onClick={() => navigate("/ai")}
                       className="
                         w-full sm:flex-1 
                         rounded-full 
@@ -222,7 +214,7 @@ export default function AIRobotics() {
                   </div>
 
                   {/* Hover glow effect */}
-                  <div 
+                  <div
                     className="
                       absolute inset-0 
                       rounded-xl sm:rounded-2xl
@@ -242,7 +234,7 @@ export default function AIRobotics() {
       {/* Bottom CTA */}
       <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
         <button
-        onClick={()=> navigate("/ai")}
+          onClick={() => navigate("/ai")}
           className="
             group 
             flex items-center gap-2
@@ -262,10 +254,8 @@ export default function AIRobotics() {
             cursor-pointer
           "
         >
-          View All 
-          <ArrowRight
-            className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1"
-          />
+          View All
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>
     </section>

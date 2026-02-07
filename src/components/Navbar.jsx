@@ -9,31 +9,18 @@ const Navbar = () => {
   const location = useLocation();
 
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-  // Scroll detection - hide on scroll down, show on scroll up
+  // Scroll detection for background effect
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Show/hide based on scroll direction
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false); // Scrolling down - hide navbar
-      } else {
-        setIsVisible(true); // Scrolling up - show navbar
-      }
-
-      // Background effect
-      setIsScrolled(currentScrollY > 20);
-      setLastScrollY(currentScrollY);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -41,6 +28,12 @@ const Navbar = () => {
     setActiveDropdown(null);
   }, [location]);
 
+  const isHomePage = location.pathname === "/";
+
+  // Don't render navbar if not on home page
+  if (!isHomePage) {
+    return null;
+  }
   const navLinks = [
     {
       name: "Solutions",
@@ -55,141 +48,131 @@ const Navbar = () => {
     },
     { name: "Marketplace", path: "/marketplace" },
     { name: "Domains", path: "/domains" },
-    {
-      name: "Services",
-      dropdown: [
-        { name: "Compliance", path: "/compliance" },
-        { name: "Company Registration", path: "/compliance" },
-        { name: "GST & Tax Filing", path: "/compliance" },
-      ],
-    },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
   ];
 
   return (
     <>
-      {/* Main Navbar */}
-      <motion.nav
-        initial={{ y: 0 }}
-        animate={{ y: isVisible ? 0 : -100 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-black/95 backdrop-blur-xl border-b border-neutral-800/50 shadow-xl"
-            : "bg-black/80 backdrop-blur-md border-b border-neutral-800/30"
-        }`}
-      >
-        <div className="h-20 sm:h-24 px-4 sm:px-6 lg:px-8">
-          <div className="relative h-full flex items-center justify-between max-w-7xl mx-auto">
-            {/* Logo */}
-            <motion.div
-              onClick={() => navigate("/")}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative cursor-pointer z-50"
-            >
-              <img
-                src={Logo_white}
-                alt="CoBrother Aultum"
-                className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 w-auto scale-[1.8] sm:scale-[2.2] md:scale-[2.6] lg:scale-[3] xl:scale-[3.2] origin-left drop-shadow-2xl transition-transform duration-300 hover:scale-[1.9] sm:hover:scale-[2.3] md:hover:scale-[2.7] lg:hover:scale-[3.1] xl:hover:scale-[3.3]"
-              />
-            </motion.div>
+      {/* Glassmorphism Navbar - Fully Responsive */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 md:px-6 lg:px-8 pt-3 sm:pt-4">
+        <motion.nav
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className={`w-full max-w-[95vw] sm:max-w-[90vw] md:max-w-5xl lg:max-w-6xl xl:max-w-7xl transition-all duration-500 rounded-2xl sm:rounded-3xl lg:rounded-full ${
+            isScrolled
+              ? "bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50"
+              : "bg-black/20 backdrop-blur-md border border-white/5 shadow-xl shadow-black/30"
+          }`}
+        >
+          <div className="h-14 sm:h-16 md:h-18 lg:h-20 px-3 sm:px-4 md:px-6 lg:px-8">
+            <div className="relative h-full flex items-center justify-between">
+              {/* Logo - Responsive Scaling */}
+              <motion.div
+                onClick={() => navigate("/")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative cursor-pointer z-50 flex-shrink-0"
+              >
+                <img
+                  src={Logo_white}
+                  alt="CoBrother Aultum"
+                  className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18 w-auto drop-shadow-2xl transition-transform duration-300 hover:scale-105"
+                />
+              </motion.div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1 xl:gap-2">
-              {navLinks.map((link, index) => (
-                <div
-                  key={link.name}
-                  className="relative"
-                  onMouseEnter={() => link.dropdown && setActiveDropdown(index)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  {link.dropdown ? (
-                    // Dropdown Menu
-                    <>
-                      <button className="group relative px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white transition-colors duration-300 flex items-center gap-1">
-                        {link.name}
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
-                        />
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-300" />
-                      </button>
+              {/* Desktop Navigation - Hidden on Mobile/Tablet */}
+              <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+                {navLinks.map((link, index) => (
+                  <div
+                    key={link.name}
+                    className="relative"
+                    onMouseEnter={() =>
+                      link.dropdown && setActiveDropdown(index)
+                    }
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    {link.dropdown ? (
+                      // Dropdown Menu
+                      <>
+                        <button className="group relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium text-white/80 hover:text-white transition-colors duration-300 flex items-center gap-1">
+                          {link.name}
+                          <ChevronDown
+                            className={`w-3.5 xl:w-4 h-3.5 xl:h-4 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
+                          />
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 group-hover:w-full transition-all duration-300" />
+                        </button>
 
-                      {/* Dropdown Panel */}
-                      <AnimatePresence>
-                        {activeDropdown === index && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            transition={{ duration: 0.2 }}
-                            className="absolute top-full left-0 mt-2 w-56"
-                          >
-                            <div className="relative group/dropdown">
-                              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-xl blur opacity-50" />
-                              <div className="relative bg-neutral-950/98 backdrop-blur-xl border border-neutral-800/50 rounded-xl overflow-hidden shadow-2xl">
+                        {/* Dropdown Panel */}
+                        <AnimatePresence>
+                          {activeDropdown === index && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              transition={{ duration: 0.2 }}
+                              className="absolute top-full left-0 mt-2 w-52 xl:w-56"
+                            >
+                              <div className="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
                                 {link.dropdown.map((item) => (
                                   <Link
                                     key={item.name}
                                     to={item.path}
-                                    className="block px-4 py-3 text-sm text-neutral-300 hover:text-white hover:bg-neutral-800/50 transition-all duration-300"
+                                    className="block px-4 py-2.5 xl:py-3 text-sm xl:text-base text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
                                   >
                                     {item.name}
                                   </Link>
                                 ))}
                               </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    // Regular Link
-                    <Link
-                      to={link.path}
-                      className="group relative px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white transition-colors duration-300"
-                    >
-                      {link.name}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-300" />
-                    </Link>
-                  )}
-                </div>
-              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      // Regular Link
+                      <Link
+                        to={link.path}
+                        className="group relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium text-white/80 hover:text-white transition-colors duration-300 block"
+                      >
+                        {link.name}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 group-hover:w-full transition-all duration-300" />
+                      </Link>
+                    )}
+                  </div>
+                ))}
 
-              {/* CTA Button */}
+                {/* CTA Button - Desktop - Aultum Gradient */}
+                <motion.button
+                  onClick={() => navigate("/contact")}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative rounded-full ml-2 xl:ml-3 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400" />
+                  <span className="relative px-4 xl:px-5 py-2 xl:py-2.5 font-semibold text-white text-sm xl:text-base flex items-center gap-1.5">
+                    Get Started <span className="text-xs xl:text-sm">→</span>
+                  </span>
+                </motion.button>
+              </div>
+
+              {/* Mobile Menu Button - Visible on Mobile/Tablet */}
               <motion.button
-                onClick={() => navigate("/contact")}
-                whileHover={{ scale: 1.05 }}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 whileTap={{ scale: 0.95 }}
-                className="relative overflow-hidden rounded-full ml-4"
+                className="lg:hidden relative z-50 p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:border-white/40 transition-all duration-300"
+                aria-label="Toggle menu"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 hover:opacity-100 blur transition duration-500" />
-                <span className="relative px-6 py-2.5 font-semibold text-white text-sm block">
-                  Get Started
-                </span>
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                ) : (
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+                )}
               </motion.button>
             </div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              whileTap={{ scale: 0.95 }}
-              className="lg:hidden relative z-50 p-2 rounded-xl bg-neutral-900/80 backdrop-blur-sm border border-neutral-800/50 text-white hover:border-purple-500/50 transition-all duration-300"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </motion.button>
           </div>
-        </div>
-      </motion.nav>
+        </motion.nav>
+      </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Fully Responsive */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -203,29 +186,29 @@ const Navbar = () => {
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden"
             />
 
-            {/* Menu Panel */}
+            {/* Menu Panel - Responsive Width */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-full sm:w-80 bg-neutral-950 border-l border-neutral-800/50 z-50 lg:hidden overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 w-[85vw] sm:w-[70vw] md:w-96 bg-black/60 backdrop-blur-2xl border-l border-white/10 z-50 lg:hidden overflow-y-auto"
             >
               {/* Mobile Menu Header */}
-              <div className="flex items-center justify-between p-6 border-b border-neutral-800/50">
-                <h2 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10">
+                <h2 className="text-lg sm:text-xl font-bold text-white">
                   Menu
                 </h2>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-xl bg-neutral-900/80 border border-neutral-800/50 text-white hover:border-purple-500/50 transition-all duration-300"
+                  className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-white/10 border border-white/20 text-white hover:border-white/40 transition-all duration-300"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
               {/* Mobile Menu Links */}
-              <div className="p-6 space-y-2">
+              <div className="p-4 sm:p-6 space-y-1.5 sm:space-y-2">
                 {navLinks.map((link, index) => (
                   <div key={link.name}>
                     {link.dropdown ? (
@@ -237,11 +220,11 @@ const Navbar = () => {
                               activeDropdown === index ? null : index,
                             )
                           }
-                          className="w-full flex items-center justify-between px-4 py-3 text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-800/50 rounded-xl transition-all duration-300"
+                          className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg sm:rounded-xl transition-all duration-300"
                         >
                           {link.name}
                           <ChevronDown
-                            className={`w-5 h-5 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
+                            className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
                           />
                         </button>
 
@@ -253,13 +236,13 @@ const Navbar = () => {
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.3 }}
-                              className="overflow-hidden ml-4 mt-2 space-y-1"
+                              className="overflow-hidden ml-3 sm:ml-4 mt-1 sm:mt-2 space-y-1"
                             >
                               {link.dropdown.map((item) => (
                                 <Link
                                   key={item.name}
                                   to={item.path}
-                                  className="block px-4 py-2.5 text-sm text-neutral-400 hover:text-white hover:bg-neutral-800/50 rounded-lg transition-all duration-300"
+                                  className="block px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-white/70 hover:text-white hover:bg-white/10 rounded-md sm:rounded-lg transition-all duration-300"
                                 >
                                   {item.name}
                                 </Link>
@@ -272,7 +255,7 @@ const Navbar = () => {
                       // Regular Link
                       <Link
                         to={link.path}
-                        className="block px-4 py-3 text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-800/50 rounded-xl transition-all duration-300"
+                        className="block px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg sm:rounded-xl transition-all duration-300"
                       >
                         {link.name}
                       </Link>
@@ -280,15 +263,15 @@ const Navbar = () => {
                   </div>
                 ))}
 
-                {/* Mobile CTA Button */}
+                {/* Mobile CTA Button - Aultum Gradient */}
                 <motion.button
                   onClick={() => navigate("/contact")}
                   whileTap={{ scale: 0.95 }}
-                  className="relative w-full overflow-hidden rounded-xl mt-6"
+                  className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-4 sm:mt-6"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                  <span className="relative block px-6 py-3.5 font-semibold text-white text-base">
-                    Get Started
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400" />
+                  <span className="relative block px-4 sm:px-6 py-3 sm:py-3.5 font-semibold text-white text-sm sm:text-base">
+                    Get Started →
                   </span>
                 </motion.button>
               </div>

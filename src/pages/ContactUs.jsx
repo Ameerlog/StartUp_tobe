@@ -108,7 +108,7 @@ const ContactUs = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-block mb-6 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full"
+            className="inline-block mb-6 px-4 py-2 bg-gradient-to-r from-purple-400/10 to-blue-500/10 border border-purple-500/20 rounded-full"
           >
             <span className="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               We'd Love to Hear From You
@@ -154,7 +154,7 @@ const ContactUs = () => {
               <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8 md:p-12">
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="p-3 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-xl">
+                  <div className="p-3 bg-gradient-to-br from-purple-400/10 to-blue-500/10 rounded-xl">
                     <Send className="w-6 h-6 text-purple-400" />
                   </div>
                   <div>
@@ -319,8 +319,8 @@ const ContactUs = () => {
               title="Email"
               value="cobrother.com@gmail.com"
               description="We'll respond within 24 hours"
-              gradient="from-purple-500/20 to-purple-600/20"
-              iconBg="from-purple-500/10 to-purple-600/10"
+              gradient="from-purple-400/20 to-purple-600/20"
+              iconBg="from-purple-400/10 to-purple-600/10"
               iconColor="text-purple-400"
               delay={0.9}
             />

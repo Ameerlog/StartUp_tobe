@@ -1,7 +1,7 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  Twitter,
   Linkedin,
   Youtube,
   Instagram,
@@ -11,6 +11,16 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
+const XLogo = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className={className}
+    fill="currentColor" // This ensures it uses your hover text colors
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 import { Link } from "react-router-dom";
 import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
 
@@ -18,7 +28,7 @@ const social = [
   {
     href: "https://x.com/CoBrother141506",
     label: "X",
-    Icon: Twitter,
+    Icon: XLogo,
     color: "hover:text-blue-400",
   },
   {
@@ -78,15 +88,15 @@ const columns = [
       "Terms of Service",
     ],
   },
-  {
-    title: "Trust & Security",
-    links: [
-      "Secure Payments",
-      "Transparent Pricing",
-      "Founder-First Approach",
-      "India-Focused Compliance",
-    ],
-  },
+  // {
+  //   title: "Trust & Security",
+  //   links: [
+  //     "Secure Payments",
+  //     "Transparent Pricing",
+  //     "Founder-First Approach",
+  //     "India-Focused Compliance",
+  //   ],
+  // },
 ];
 
 const linkPaths = {
@@ -120,6 +130,16 @@ const scrollToTop = () => {
 };
 
 export default function Footer() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 600);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <footer className="relative bg-black text-white overflow-hidden">
       {/* Animated Gradient Orbs Background */}
@@ -273,7 +293,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter Section (Optional) */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -311,7 +331,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Bottom Section - Copyright */}
           <motion.div
@@ -321,7 +341,7 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             className="pt-8 border-t border-neutral-800/50"
           >
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
               <div className="text-xs sm:text-sm text-neutral-500">
                 © 2026{" "}
                 <span className="font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
@@ -337,26 +357,29 @@ export default function Footer() {
         </div>
       </section>
 
-      {/* Back to Top Button */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="fixed bottom-6 right-6 z-50"
-      >
-        <motion.button
-          onClick={scrollToTop}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Back to top"
-          className="group relative"
+      {/* Back to Top Button - Shows only after scrolling */}
+      {showBackToTop && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0, y: 20 }}
+          transition={{ duration: 0.8 }}
+          className="fixed bottom-6 right-6 z-50"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300" />
-          <div className="relative p-3 sm:p-3.5 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800/50 text-white hover:border-purple-500/50 transition-all duration-300">
-            <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6" />
-          </div>
-        </motion.button>
-      </motion.div>
+          <motion.button
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Back to top"
+            className="group relative"
+          >
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300" />
+            <div className="relative p-3 sm:p-3.5 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800/50 text-white hover:border-purple-500/50 transition-all duration-300">
+              <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6" />
+            </div>
+          </motion.button>
+        </motion.div>
+      )}
     </footer>
   );
 }

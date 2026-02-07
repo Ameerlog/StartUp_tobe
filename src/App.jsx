@@ -24,7 +24,10 @@ import ContactUs from "./pages/ContactUs";
 import Cocreation from "./pages/Create";
 import DomainlistingForm from "./pages/DomainlistingForm";
 import CoworkingForm from "./pages/Coworker";
-
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import HowItWorks from "./pages/HowItWorks";
+import Careers from "./pages/Careers";
 
 const App = () => {
   return (
@@ -60,16 +63,19 @@ const App = () => {
               element={<Success />}
             />
 
-            {/* FooterCofounder and Coinvestor */}
+            {/* Footer */}
             <Route path="/community" element={<Investors />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
-
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsAndConditions />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/careers" element={<Careers />} />
             {/* Forms */}
             {/* Coventure listing form  */}
             <Route path="/coventure-form" element={<CoventureForm />} />
-             <Route path="/domain-form" element={<DomainlistingForm/>} />
-              <Route path="/coworker-form" element={<CoworkingForm/>} />
+            <Route path="/domain-form" element={<DomainlistingForm />} />
+            <Route path="/coworker-form" element={<CoworkingForm />} />
           </Routes>
         </div>
         <Footer />
