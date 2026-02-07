@@ -1,234 +1,185 @@
-import React from "react";
-import Marquee from "react-fast-marquee";
+import React, { useRef, useState, useEffect } from "react";
 import { jvMarqueeCards } from "../../data/jointVenture";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-export default function JointVenture() {
 
-const navigate =useNavigate();
-  
+export default function JointVenture({ variant = "dark" }) {
+  const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const animationRef = useRef(null);
+  const idleTimerRef = useRef(null);
+
+  const isDark = variant === "dark";
+
+  const [isPaused, setIsPaused] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const scrollSpeed = 1;
+
+    const animate = () => {
+      if (!isPaused) {
+        container.scrollLeft += scrollSpeed;
+
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationRef.current);
+  }, [isPaused]);
+
+  const resetIdleTimer = () => {
+    clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+      setShowButtons(false);
+    }, 3000);
+  };
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    setShowButtons(true);
+    resetIdleTimer();
+  };
+
+  const handleMouseLeave = () => resetIdleTimer();
+
+  const handleScroll = (dir) => {
+    if (!scrollRef.current) return;
+
+    setIsPaused(true);
+    setShowButtons(true);
+    resetIdleTimer();
+
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -330 : 330,
+      behavior: "smooth",
+    });
+  };
+
+  const theme = {
+    section: isDark ? "bg-black" : "bg-white",
+    heading: isDark ? "text-white" : "text-zinc-900",
+    fadeFrom: isDark ? "from-black" : "from-white",
+    cardBg: isDark ? "bg-gray-900/60" : "bg-white",
+    cardBorder: isDark ? "border-white/20" : "border-zinc-200",
+    navButton: isDark
+      ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+      : "border-zinc-300 bg-white text-zinc-700",
+    bottomButton: isDark
+      ? "border-white/30 bg-white/10 text-white"
+      : "border-zinc-300 bg-zinc-100 text-zinc-700",
+  };
+
+  const duplicatedCards = [...jvMarqueeCards, ...jvMarqueeCards];
+
   return (
-    <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
- 
-      <div className="text-center px-4 flex flex-col items-center gap-4">
-  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
-     CoVenture
-  </h2>
-
-{/* <buttonList Your CoVenture
-      onClick={() => navigate("/coventure-form")}
-      className="
-        group
-        flex items-center gap-2
-        rounded-full
-        border border-white
-        bg-white/10
-        px-5 sm:px-6 md:px-8
-        py-2.5 sm:py-3
-        text-xs sm:text-sm
-        font-bold text-white
-        backdrop-blur-xl
-        transition-all duration-300
-        hover:border-white/30
-        hover:text-white
-        hover:bg-gray-800
-        active:scale-[0.98]
-        mt-4
-      "
+    <section
+      className={`w-full py-10 sm:py-12 md:py-16 relative overflow-hidden ${theme.section}`}
     >
-     List Your CoVenture
-   
-    </buttonList> */}
-    <button
-  onClick={() => navigate("/coventure-form")}
-  className="
-    group
-    flex items-center gap-2
-    rounded-full
-    border border-white
-    bg-white/10
-    px-5 sm:px-6 md:px-8
-    py-2.5 sm:py-3
-    text-xs sm:text-sm
-    font-bold text-white
-    backdrop-blur-xl
-    transition-all duration-300
-    hover:border-white/30
-    hover:text-white
-    hover:bg-gray-800
-    active:scale-[0.98]
-    mt-4
-  "
->
-  List Your CoVenture
-</button>
-</div>
+      <div className="text-center px-4 flex flex-col items-center gap-4">
+        <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold ${theme.heading}`}>
+          CoVenture
+        </h2>
+      </div>
 
-      <div className="relative mt-6 sm:mt-8 md:mt-10">
-   
-        <div 
-          className="
-            pointer-events-none absolute left-0 top-0 z-10 
-            h-full w-10 sm:w-16 md:w-24 lg:w-32 
-            bg-linear-to-r from-black to-transparent
-          " 
+      <div
+        className="relative mt-8"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div
+          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-r ${theme.fadeFrom} to-transparent`}
         />
-        
-
-        <div 
-          className="
-            pointer-events-none absolute right-0 top-0 z-10 
-            h-full w-10 sm:w-16 md:w-24 lg:w-32 
-            bg-linear-to-l from-black to-transparent
-          " 
+        <div
+          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-l ${theme.fadeFrom} to-transparent`}
         />
 
-        <Marquee
-          speed={24}
-          gradient={false}
-          pauseOnHover
-          pauseOnClick
-          scrollable
+        <button
+          onClick={() => handleScroll("left")}
+          className={`absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2
+            rounded-full border backdrop-blur-xl p-2 sm:p-3 transition-all
+            ${theme.navButton}
+            ${showButtons ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
         >
-          {jvMarqueeCards.map((card) => (
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        <button
+          onClick={() => handleScroll("right")}
+          className={`absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2
+            rounded-full border backdrop-blur-xl p-2 sm:p-3 transition-all
+            ${theme.navButton}
+            ${showButtons ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
+        >
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-hidden px-4 sm:px-8"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {duplicatedCards.map((card, index) => (
             <div
-              key={card.id}
-              className="
-                shrink-0 
-                w-65 sm:w-75 md:w-85 lg:w-95 
-                px-2 sm:px-3 md:px-4
-              "
+              key={`${card.id}-${index}`}
+              className="shrink-0 w-65 sm:w-75 md:w-85 px-2 sm:px-3"
             >
-       
-              <div 
-                className="
-                  h-70 sm:h-85 md:h-90 lg:h-95
-                  rounded-xl sm:rounded-2xl 
-                  border border-white/20 
-                  bg-gray-900/60 
-                  p-4 sm:p-5 md:p-6 
-                  flex flex-col
-                  backdrop-blur-sm
-                  hover:border-white/30
-                  hover:bg-gray-900/80
-                    hover:shadow-lg
-
-                  transition-all duration-300
-                "
+              <div
+                className={`h-85 rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
+                  backdrop-blur-sm p-4 sm:p-5 flex flex-col transition-all
+                  hover:border-white/30 hover:bg-gray-900/80`}
               >
-            
-                <div className="flex-1 flex flex-col overflow-hidden">
-      
-                  <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
-                    <img
-                      src={card.logo}
-                      alt="JV Brand Logo"
-                      className="h-25   max-w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-
-               
-                  <div className="h-[48px] sm:h-[54px] md:h-[60px] mt-3 sm:mt-4 overflow-hidden">
-                    <p 
-                      className="
-                        text-xs sm:text-[13px] md:text-sm 
-                        text-gray-300 
-                        leading-relaxed
-                        line-clamp-3
-                      "
-                    >
-                      {card.desc}
-                    </p>
-                  </div>
-
-          
-                  <div className="h-[80px] sm:h-[90px] md:h-[100px] mt-3 sm:mt-4 space-y-1 sm:space-y-1.5 overflow-hidden">
-                    {card.details.slice(0, 3).map((item, index) => (
-                      <p
-                        key={index}
-                        className="
-                          text-[10px] sm:text-[11px] md:text-xs 
-                          text-gray-400 
-                          flex gap-1.5 sm:gap-2
-                        "
-                      >
-                        <span 
-                          className="
-                            mt-1 sm:mt-1.5 
-                            h-1 w-1 sm:h-1.5 sm:w-1.5 
-                            rounded-full bg-white/60 
-                            shrink-0
-                          " 
-                        />
-                        <span className="line-clamp-1">{item}</span>
-                      </p>
-                    ))}
-                  </div>
+                <div className="h-14 flex items-center">
+                  <img
+                    src={card.logo}
+                    alt={card.title}
+                    className="h-full object-contain"
+                  />
                 </div>
 
-                <div 
-                  className="
-                    mt-auto pt-4
-                    flex flex-col sm:flex-row 
-                    gap-2 sm:gap-2.5 md:gap-3
-                    shrink-0 cursor-pointer
-                  "
-                >
-                 
+                <p className="mt-3 text-sm text-gray-300 line-clamp-3">
+                  {card.desc}
+                </p>
 
-                  <button 
-                  onClick={()=> navigate("/venture")}
-                    className="
-                      w-full sm:flex-1 
-                      rounded-full 
-                      bg-gray-600 hover:bg-gray-500
-                      px-3 sm:px-4 
-                      py-2 sm:py-2.5 
-                      text-[10px] sm:text-xs md:text-sm 
-                      font-medium text-white 
-                      shadow-lg hover:shadow-white-500/25
-                      active:scale-[0.98]
-                      transition-all duration-200
-                      cursor-pointer
-                    "
+                <div className="mt-4 space-y-1">
+                  {card.details.slice(0, 3).map((item, i) => (
+                    <p key={i} className="text-xs text-gray-400">
+                      • {item}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-4">
+                  <button
+                    onClick={() => navigate("/venture")}
+                    className="w-full rounded-full bg-gray-600 hover:bg-gray-500 px-4 py-2 text-xs font-bold text-white transition-all"
                   >
-               Get Coventure
+                    Get CoVenture
                   </button>
                 </div>
               </div>
             </div>
           ))}
-        </Marquee>
+        </div>
       </div>
 
-
-      <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
+      <div className="mt-10 flex justify-center">
         <button
-        onClick={()=>navigate("/venture")}
-          className="
-            group 
-            flex items-center gap-2
-            rounded-full
-            border border-white
-            bg-white/10
-            px-5 sm:px-6 md:px-8 
-            py-2.5 sm:py-3
-            text-xs sm:text-sm 
-            font-semibold text-white
-            backdrop-blur-xl
-            transition-all duration-300
-             hover:border-white/30
-        hover:text-white
-        hover:bg-gray-800
-            active:scale-[0.98]
-            cursor-pointer
-          "
+          onClick={() => navigate("/venture")}
+          className={`flex items-center gap-2 rounded-full border ${theme.bottomButton}
+            px-6 py-3 text-sm font-bold backdrop-blur-xl transition-all hover:bg-gray-800`}
         >
           View All
-          <ArrowRight
-            className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1"
-          />
+          <ArrowRight className="w-4 h-4" />
         </button>
       </div>
     </section>

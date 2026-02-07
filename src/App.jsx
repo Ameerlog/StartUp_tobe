@@ -21,6 +21,8 @@ import Investors from "../src/components/Home/Investors";
 import CoventureForm from '../src/pages/CoventureForm'
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import DomainlistingForm from './pages/DomainlistingForm'
+import CoworkingForm from './pages/CoWorker'
 
 
 
@@ -55,9 +57,10 @@ const App = () => {
       <Route path="/contact" element={<ContactUs />} />
 
     {/* Forms */}
-      {/* Coventure listing form  */}
+    
       <Route path="/coventure-form" element={<CoventureForm/>} />
-
+            <Route path="/domain-form" element={<DomainlistingForm/>} />
+                  <Route path="/coworker-form" element={<CoworkingForm/>} />
    </Routes>
      </div>
 <Footer/>

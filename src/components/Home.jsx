@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
 import BackgroundImage from "../assets/domain/bg1.svg";
@@ -19,9 +19,6 @@ import Market from "./Home/Marketing";
 import AIRobotics from "./Home/AIRobotics";
 import Footer from "./Footer";
 import ComplianceCards from "./ComplianceCards";
-
-const Home = () => {
-  const navigate = useNavigate();
 
   const iconData = [
     {
@@ -61,6 +58,14 @@ const Home = () => {
       path: "/community",
     },
   ];
+const Home = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = useCallback((path)=>{
+    if(path) navigate(path);
+
+  },[navigate])
+
 
   return (
     <>
@@ -71,11 +76,11 @@ const Home = () => {
             src={BackgroundImage}
             alt="Background"
             className="w-full bg-black h-full object-cover object-center
-                       sm:object-cover md:object-cover lg:object-cover"
+                       "
           />
         </div>
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/85 via-black/75 to-black/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/95" />
 
         <div
           className="relative z-20 flex items-center justify-center min-h-screen 
@@ -106,7 +111,7 @@ const Home = () => {
             </div>
 
             <div
-              className="bg-transparentbackdrop-blur-sm 
+              className="bg-transparent backdrop-blur-sm 
                          border border-white/20 sm:border-white/25
                         
                          mt-10 sm:mt-12 md:mt-14 lg:mt-10
@@ -121,10 +126,13 @@ const Home = () => {
 
                          "
             >
-              {iconData.map(({ Icon, title, subtitle, path }, index) => (
+              {iconData.map(({ Icon, title, subtitle, path }) => (
                 <div
-                  key={index}
-                  onClick={() => path && navigate(path)}
+                  key={title}
+                  onClick={() =>handleNavigate(path)}
+                  role={path ? "button" : undefined}
+                  tabIndex={path ? 0 : undefined}
+                  onKeyDown={(e) => e.key === "Enter" && handleNavigate(path)}
                   className="flex flex-col items-center 
                              gap-1 sm:gap-1.5 md:gap-2 
                              cursor-pointer
