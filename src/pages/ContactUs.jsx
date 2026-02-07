@@ -120,7 +120,7 @@ const ContactUs = () => {
               Let's Start a
             </span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">
               Conversation
             </span>
           </h1>

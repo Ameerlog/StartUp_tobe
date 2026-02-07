@@ -271,7 +271,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-purple-400 via-pink-400 to-fuchsia-400 bg-clip-text text-transparent"
+                className="text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent"
               >
                 Get a .com for only ₹1<span className="text-sm">*</span>/1st yr
                 <span className="align-super text-xs">^</span>
@@ -287,14 +287,14 @@ const Home = () => {
             >
               {/* Rainbow Gradient Border */}
               <div
-                className={`absolute -inset-[2px] bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 rounded-full transition-opacity duration-500 ${
+                className={`absolute -inset-[2px] bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 rounded-full transition-opacity duration-500 ${
                   focused ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                 }`}
               />
 
               {/* Glow Effect */}
               <div
-                className={`absolute -inset-[3px] bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 rounded-full blur-md transition-opacity duration-500 ${
+                className={`absolute -inset-[3px] bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 rounded-full blur-md transition-opacity duration-500 ${
                   focused ? "opacity-40" : "opacity-0 group-hover:opacity-30"
                 }`}
               />
@@ -329,8 +329,8 @@ const Home = () => {
                   whileTap={{ scale: searchStatus === "loading" ? 1 : 0.95 }}
                   className="relative overflow-hidden rounded-full disabled:cursor-not-allowed disabled:opacity-70 flex-shrink-0"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 opacity-0 hover:opacity-100 blur transition duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 opacity-0 hover:opacity-100 blur transition duration-500" />
 
                   <div className="relative px-4 sm:px-8 h-10 sm:h-14 flex items-center justify-center gap-2">
                     {searchStatus === "loading" ? (
@@ -371,7 +371,7 @@ const Home = () => {
                   transition={{ delay: 0.6 + index * 0.05 }}
                   className={`px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 ${
                     selectedExtension === ext.name
-                      ? "bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 text-white shadow-lg shadow-purple-500/30"
+                      ? "bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 text-white shadow-lg shadow-purple-500/30"
                       : "bg-white/10 text-white hover:bg-white/20 border border-white/10 hover:border-white/30"
                   }`}
                 >
@@ -494,7 +494,7 @@ const Home = () => {
                 Build Your
               </span>
               <br />
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.6)]">
+              <span className="bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.6)]">
                 Business Empire
               </span>
 
@@ -552,8 +552,8 @@ const Home = () => {
               whileTap={{ scale: 0.95 }}
               className="group relative overflow-hidden rounded-full inline-flex items-center gap-2 shadow-2xl shadow-purple-500/30"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400" />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
 
               <span className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2">
                 Book Your CoBrother

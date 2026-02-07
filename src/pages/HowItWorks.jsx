@@ -53,7 +53,7 @@ const HowItWorks = () => {
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
             How{" "}
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">
               CoBrother
             </span>{" "}
             Works
@@ -146,12 +146,12 @@ const HowItWorks = () => {
           className="mt-20 text-center"
         >
           <div className="relative inline-block">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 blur-2xl opacity-40 rounded-full" />
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 blur-2xl opacity-40 rounded-full" />
             <motion.button
               onClick={() => navigate("/contact")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative px-8 py-4 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 rounded-full text-white font-semibold text-lg flex items-center gap-2 mx-auto shadow-lg hover:shadow-purple-500/50 transition-shadow duration-300"
+              className="relative px-8 py-4 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 rounded-full text-white font-semibold text-lg flex items-center gap-2 mx-auto shadow-lg hover:shadow-purple-500/50 transition-shadow duration-300"
             >
               Get Started Today
               <ArrowRight className="w-5 h-5" />

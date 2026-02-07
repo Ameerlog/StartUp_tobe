@@ -184,7 +184,7 @@ html {
 
 /* top padding on nvabvr */
 main {
-  padding-top: 6rem; /* 96px for larger navbar */
+  /* padding-top: 6rem; 96px for larger navbar */
 }
 
 @media (max-width: 640px) {

@@ -99,7 +99,7 @@ const Navbar = () => {
                           <ChevronDown
                             className={`w-3.5 xl:w-4 h-3.5 xl:h-4 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
                           />
-                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 group-hover:w-full transition-all duration-300" />
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 group-hover:w-full transition-all duration-300" />
                         </button>
 
                         {/* Dropdown Panel */}
@@ -134,7 +134,7 @@ const Navbar = () => {
                         className="group relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium text-white/80 hover:text-white transition-colors duration-300 block"
                       >
                         {link.name}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 group-hover:w-full transition-all duration-300" />
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 group-hover:w-full transition-all duration-300" />
                       </Link>
                     )}
                   </div>
@@ -147,7 +147,7 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="relative rounded-full ml-2 xl:ml-3 overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
                   <span className="relative px-4 xl:px-5 py-2 xl:py-2.5 font-semibold text-white text-sm xl:text-base flex items-center gap-1.5">
                     Get Started <span className="text-xs xl:text-sm">→</span>
                   </span>
@@ -269,7 +269,7 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-4 sm:mt-6"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
                   <span className="relative block px-4 sm:px-6 py-3 sm:py-3.5 font-semibold text-white text-sm sm:text-base">
                     Get Started →
                   </span>
