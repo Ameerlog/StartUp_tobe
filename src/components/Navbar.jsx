@@ -148,7 +148,7 @@ const Navbar = () => {
                   className="relative rounded-full ml-2 xl:ml-3 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
-                  <span className="relative px-4 xl:px-5 py-2 xl:py-2.5 font-semibold text-white text-sm xl:text-base flex items-center gap-1.5">
+                  <span className="relative px-4 xl:px-5 py-2 xl:py-2.5 font-semibold text-white text-sm xl:text-base flex items-center gap-1.5 rounded-full border border-transparent hover:border-white/60 transition-colors duration-300">
                     Get Started <span className="text-xs xl:text-sm">→</span>
                   </span>
                 </motion.button>

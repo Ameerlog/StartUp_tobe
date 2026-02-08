@@ -258,23 +258,66 @@ const Home = () => {
             className="w-full max-w-4xl mb-12 sm:mb-16 px-2 sm:px-4"
           >
             {/* Title & Subtitle */}
-            <div className="text-center mb-6 sm:mb-8">
+            <div className="relative text-center mb-6 sm:mb-8">
+              {/* Floating white glowing particles behind heading */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-white rounded-full pointer-events-none"
+                  style={{
+                    left: `${15 + i * 12}%`,
+                    top: `${10 + (i % 3) * 8}%`,
+                    filter: "blur(0.5px)",
+                    boxShadow:
+                      "0 0 8px rgba(255,255,255,0.8), 0 0 16px rgba(255,255,255,0.4)",
+                  }}
+                  animate={{
+                    y: [0, -20, 0],
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 3 + i * 0.3,
+                    repeat: Infinity,
+                    delay: i * 2,
+                    ease: "easeInOut",
+                  }}
+                />
+              ))}
+
               <motion.h2
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl sm:text-2xl md:text-3xl font-semibold text-white mb-2 sm:mb-3"
+                className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
               >
-                Search and buy available domain names
+                <span className=" bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                  Search and buy available brand names
+                </span>
               </motion.h2>
+
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent"
+                className="relative text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent mb-2"
               >
-                Get a .com for only ₹1<span className="text-sm">*</span>/1st yr
+                Get a .com for only ₹1.00<span className="text-sm">*</span>/1st
+                yr
                 <span className="align-super text-xs">^</span>
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="relative text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto"
+              >
+                Included AI powered cobrother{" "}
+                <span className="font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  Aultum
+                </span>{" "}
+                with Add-on AI automation for your doorstep
               </motion.p>
             </div>
 
@@ -282,7 +325,7 @@ const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.5 }}
               className="relative group mb-4 sm:mb-6"
             >
               {/* Rainbow Gradient Border */}
@@ -294,7 +337,7 @@ const Home = () => {
 
               {/* Glow Effect */}
               <div
-                className={`absolute -inset-[3px] bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 rounded-full blur-md transition-opacity duration-500 ${
+                className={`absolute -inset-[5px] bg-gradient-to-r from-red-500 via-violet-500 to-red-500 rounded-full blur-md transition-opacity duration-500 ${
                   focused ? "opacity-40" : "opacity-0 group-hover:opacity-30"
                 }`}
               />
@@ -306,7 +349,7 @@ const Home = () => {
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
                     type="text"
-                    placeholder="Type the domain you want"
+                    placeholder="Search the brand name you want"
                     value={domainQuery}
                     onChange={(e) => {
                       setDomainQuery(e.target.value);
@@ -357,10 +400,15 @@ const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.6 }}
               className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4"
             >
-              {visibleExtensions.map((ext, index) => (
+              {[
+                { name: ".com", price: "₹100" },
+                { name: ".co", price: "₹250" },
+                { name: ".net", price: "₹150" },
+                { name: ".org", price: "₹200" },
+              ].map((ext, index) => (
                 <motion.button
                   key={ext.name}
                   onClick={() => handleExtensionClick(ext.name)}
@@ -368,7 +416,7 @@ const Home = () => {
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.05 }}
+                  transition={{ delay: 0.7 + index * 0.05 }}
                   className={`px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 ${
                     selectedExtension === ext.name
                       ? "bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 text-white shadow-lg shadow-purple-500/30"
@@ -381,16 +429,6 @@ const Home = () => {
                   </span>
                 </motion.button>
               ))}
-
-              {/* View More Button */}
-              <motion.button
-                onClick={() => setShowAllExtensions(!showAllExtensions)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm bg-white/10 text-white hover:bg-white/20 border border-white/10 hover:border-white/30 transition-all duration-300"
-              >
-                {showAllExtensions ? "- View Less" : "+ View More"}
-              </motion.button>
             </motion.div>
 
             {/* Search Status Messages */}
@@ -460,11 +498,12 @@ const Home = () => {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
+              transition={{ delay: 0.8 }}
               className="text-center text-xs sm:text-sm text-neutral-500 mt-4"
             >
-              *3-year purchase required. Additional years ₹1,599.00
-              <span className="align-super text-[10px]">^</span>
+              <span className="align-super text-[10px]">^</span>3-year purchase
+              required. Additional years ₹1,599.00
+              <span className="text-[10px]">*</span>
             </motion.p>
           </motion.div>
 
@@ -475,88 +514,43 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-center mb-12 sm:mb-16 max-w-4xl relative px-2 sm:px-4"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-400/10 to-blue-500/10 border border-purple-500/20 rounded-full mb-6 shadow-lg shadow-purple-500/20"
-            >
-              <Sparkles className="w-4 h-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
-              <span className="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                Your Business Bhai, Right Beside You
-              </span>
-            </motion.div>
-
-            {/* Main Title */}
-            <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-6sxl font-bold tracking-tight mb-6 relative">
-              <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                Build Your
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.6)]">
-                Business Empire
-              </span>
-
-              {/* Floating glow orbs */}
-              <motion.div
-                className="absolute -top-10 -left-10 w-40 h-40 bg-purple-500/30 rounded-full blur-3xl pointer-events-none"
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                  x: [0, 20, 0],
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-500/30 rounded-full blur-3xl pointer-events-none"
-                animate={{
-                  scale: [1.3, 1, 1.3],
-                  opacity: [0.6, 0.3, 0.6],
-                  x: [0, -20, 0],
-                  y: [0, 20, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 2,
-                }}
-              />
-            </h1>
-
             {/* Description */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="text-neutral-400 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-8"
+              transition={{ delay: 0.5 }}
+              className="tracking-[0.1em] text-neutral-300 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-3"
             >
               We don't just advise—we sit with you, work with you, and build
               with you. From registration to growth, your CoBrother handles it
               all.
             </motion.p>
 
+            {/* Tagline */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-purple-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-8"
+            >
+              Visit your cobrother at your doorstep
+            </motion.p>
+
             {/* CTA Button */}
             <motion.button
-              onClick={() => navigate("/contact")}
+              onClick={() => setShowBookingModal(true)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ delay: 0.7 }}
+              whileHover={{ null: true }}
               whileTap={{ scale: 0.95 }}
               className="group relative overflow-hidden rounded-full inline-flex items-center gap-2 shadow-2xl shadow-purple-500/30"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500 " />
 
-              <span className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2">
-                Book Your CoBrother
+              <span className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2 rounded-full border-2 border-transparent group-hover:border-white/60 transition-all duration-300">
+                Book a CoBrother
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </motion.button>
