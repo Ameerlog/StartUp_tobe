@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, Sparkles, ArrowRight, Check, X, Loader2 } from "lucide-react";
-// Assuming you have axios installed based on the original code
 import axios from "axios";
 
 import BackgroundImage from "../assets/domain/bg1.svg";
@@ -29,7 +28,6 @@ const Home = () => {
     setSearchStatus("loading");
 
     try {
-      // NOTE: Ensure you replace YOUR_API_KEY/SECRET with real environment variables in production
       const response = await axios.get(
         `https://api.godaddy.com/v1/domains/available?domain=${domainQuery}`,
         {
@@ -116,9 +114,7 @@ const Home = () => {
 
   return (
     <>
-      {/* HERO SECTION WITH ANIMATED BACKGROUND */}
       <section className="min-h-screen w-full relative overflow-hidden bg-black">
-        {/* ANIMATED GRADIENT ORBS */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
           <motion.div
             className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
@@ -163,7 +159,6 @@ const Home = () => {
           />
         </div>
 
-        {/* BACKGROUND IMAGE WITH OVERLAY */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src={BackgroundImage}
@@ -173,16 +168,14 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
         </div>
 
-        {/* MAIN CONTENT */}
         <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-20">
-          {/* HERO TEXT */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16 max-w-4xl relative"
           >
-            {/* Badge */}
+          
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -195,7 +188,6 @@ const Home = () => {
               </span>
             </motion.div>
 
-            {/* Main Title */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 relative">
               <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                 Build Your
@@ -205,7 +197,6 @@ const Home = () => {
                 Business Empire
               </span>
 
-              {/* Floating glow orbs */}
               <motion.div
                 className="absolute -top-10 -left-10 w-40 h-40 bg-purple-500/30 rounded-full blur-3xl pointer-events-none"
                 animate={{
@@ -237,7 +228,7 @@ const Home = () => {
               />
             </h1>
 
-            {/* Description */}
+          
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -249,7 +240,6 @@ const Home = () => {
               all.
             </motion.p>
 
-            {/* CTA Button */}
             <motion.button
               onClick={() => navigate("/contact")}
               initial={{ opacity: 0, y: 20 }}
@@ -268,7 +258,6 @@ const Home = () => {
               </span>
             </motion.button>
 
-            {/* Floating particles around the hero */}
             {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
@@ -293,7 +282,6 @@ const Home = () => {
             ))}
           </motion.div>
 
-          {/* DOMAIN SEARCH BAR - Fully Responsive */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -301,23 +289,20 @@ const Home = () => {
             className="w-full max-w-3xl mb-10 sm:mb-16 px-2 sm:px-4"
           >
             <div className="relative group">
-              {/* Rainbow Gradient Border */}
               <div
                 className={`absolute -inset-[2px] bg-gradient-to-r from-green-400 via-blue-500 via-purple-500 to-pink-500 rounded-full transition-opacity duration-500 ${
                   focused ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                 }`}
               />
 
-              {/* Glow Effect */}
               <div
                 className={`absolute -inset-[3px] bg-gradient-to-r from-green-400 via-blue-500 via-purple-500 to-pink-500 rounded-full blur-md transition-opacity duration-500 ${
                   focused ? "opacity-40" : "opacity-0 group-hover:opacity-30"
                 }`}
               />
 
-              {/* Search Bar Container */}
               <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full p-1.5 sm:p-2 flex items-center gap-2 sm:gap-3">
-                {/* Input Field with Icon */}
+
                 <div className="relative flex-1 flex items-center">
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
@@ -332,7 +317,7 @@ const Home = () => {
                   />
                 </div>
 
-                {/* Search Button - Responsive sizing */}
+              
                 <motion.button
                   type="button"
                   onClick={searchDomain}
@@ -365,7 +350,6 @@ const Home = () => {
                 </motion.button>
               </div>
 
-              {/* Search Status Messages */}
               {searchStatus !== "idle" && searchStatus !== "loading" && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
@@ -408,7 +392,6 @@ const Home = () => {
             </div>
           </motion.div>
 
-          {/* SERVICES GRID */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -429,7 +412,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* OTHER SECTIONS */}
       <JointVenture />
       <Domains />
       <ComplianceCards />
@@ -439,7 +421,6 @@ const Home = () => {
   );
 };
 
-// SERVICE CARD COMPONENT - OPTIMIZED FOR RESPONSIVENESS
 const ServiceCard = ({ item, index, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -453,23 +434,33 @@ const ServiceCard = ({ item, index, navigate }) => {
       onClick={() => item.path && navigate(item.path)}
       className="relative group cursor-pointer h-full"
     >
-      {/* Glow Effect */}
       <div
         className={`absolute -inset-0.5 bg-gradient-to-r ${item.glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
       />
 
-      {/* Card Content - Dynamic Padding */}
       <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-3 sm:p-6 lg:p-8 hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center">
-        {/* Icon Container - Dynamic Sizing */}
-        <div
-          className={`relative w-14 h-14 sm:w-20 sm:h-20 mb-3 sm:mb-4 bg-gradient-to-br ${item.gradient} rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 flex items-center justify-center p-2 sm:p-3`}
+          <div
+          className={`relative 
+            w-20 h-20 
+            sm:w-28 sm:h-28 
+            lg:w-32 lg:h-32 
+            mb-4 sm:mb-6
+            bg-gradient-to-br ${item.gradient}
+            rounded-2xl
+            flex items-center justify-center
+            transition-transform duration-300
+            group-hover:scale-110 group-hover:rotate-6
+          `}
         >
-          <img
-            src={item.Icon}
-            alt={item.title}
-            className="w-full h-full object-contain drop-shadow-lg"
-          />
-        </div>
+
+            <img
+          src={item.Icon}
+          alt={item.title}
+          className="w-full h-full scale-[1.15] object-contain drop-shadow-xl"
+        />
+
+      </div>
+
 
         {/* Text Content */}
         <h3

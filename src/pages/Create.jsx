@@ -1,150 +1,574 @@
-// Co-creation page :
+// // Co-creation page :
+// import React from "react";
+// import {
+//   Layout,
+//   PenTool,
+//   Globe,
+//   Trophy,
+//   Star,
+//   Medal,
+//   ArrowRight,
+//   Rocket,
+// } from "lucide-react";
+// import BackgroundImage from "../assets/domain/bg1_white.svg";
+
+// const templates = [
+//   {
+//     title: "Landing Page",
+//     desc: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+//     icon: <Globe size={24} />,
+//   },
+//   {
+//     title: "Dashboard",
+//     desc: "Ut enim ad minim veniam quis nostrud exercitation.",
+//     icon: <Layout size={24} />,
+//   },
+//   {
+//     title: "Blog Template",
+//     desc: "Duis aute irure dolor in reprehenderit voluptate.",
+//     icon: <PenTool size={24} />,
+//   },
+//   {
+//     title: "E-Commerce",
+//     desc: "Excepteur sint occaecat cupidatat non proident.",
+//     icon: <Rocket size={24} />,
+//   },
+// ];
+
+// const hallOfFame = [
+//   {
+//     title: "Best Design",
+//     desc: "Lorem ipsum dolor sit amet consectetur.",
+//     icon: <Trophy size={24} />,
+//   },
+//   {
+//     title: "Most Popular",
+//     desc: "Ut enim ad minim veniam quis nostrud.",
+//     icon: <Star size={24} />,
+//   },
+//   {
+//     title: "Top Rated",
+//     desc: "Duis aute irure dolor in reprehenderit.",
+//     icon: <Medal size={24} />,
+//   },
+// ];
+
+// const sideItems = [
+//   { title: "Getting Started", desc: "Lorem ipsum dolor sit amet." },
+//   { title: "Documentation", desc: "Ut enim ad minim veniam." },
+//   { title: "API Reference", desc: "Duis aute irure dolor." },
+//   { title: "Community", desc: "Excepteur sint occaecat." },
+//   { title: "Support", desc: "Sunt in culpa qui officia." },
+// ];
+
+// export default function Dashboard() {
+//   return (
+//     <div className="min-h-screen bg-white relative overflow-hidden">
+//       {/* BACKGROUND IMAGE */}
+//       <div className="absolute inset-0 w-full h-full">
+//         <img
+//           src={BackgroundImage}
+//           alt="Background"
+//           className="fixed w-full h-full object-cover object-center opacity-[0.06]"
+//         />
+//       </div>
+
+//       <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
+//         <div className="text-center mb-16">
+//           <h1 className="text-4xl font-bold text-slate-900 mb-4">
+//             Build Something Amazing
+//           </h1>
+//           <p className="text-slate-500 max-w-xl mx-auto mb-8">
+//             Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
+//             eiusmod tempor incididunt ut labore.
+//           </p>
+//           <button className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-slate-800">
+//             Get Started
+//             <ArrowRight size={18} />
+//           </button>
+//         </div>
+
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+//           <div className="lg:col-span-2 space-y-12">
+//             <section>
+//               <h2 className="text-xl font-semibold text-slate-900 mb-6">
+//                 Popular Templates
+//               </h2>
+//               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//                 {templates.map((item, i) => (
+//                   <Card key={i} item={item} />
+//                 ))}
+//               </div>
+//             </section>
+
+//             <section>
+//               <h2 className="text-xl font-semibold text-slate-900 mb-6">
+//                 Hall of Fame
+//               </h2>
+//               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+//                 {hallOfFame.map((item, i) => (
+//                   <Card key={i} item={item} />
+//                 ))}
+//               </div>
+//             </section>
+//           </div>
+
+//           <aside>
+//             <h2 className="text-xl font-semibold text-slate-900 mb-6">
+//               Quick Links
+//             </h2>
+//             <div className="space-y-3">
+//               {sideItems.map((item, i) => (
+//                 <SideCard key={i} item={item} />
+//               ))}
+//             </div>
+//           </aside>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// const Card = ({ item }) => (
+//   <div className="p-6 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all cursor-pointer flex flex-col items-center text-center">
+//     <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-4 text-slate-600">
+//       {item.icon}
+//     </div>
+//     <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
+//     <p className="text-sm text-slate-500">{item.desc}</p>
+//   </div>
+// );
+
+// const SideCard = ({ item }) => (
+//   <div className="flex items-center justify-between p-4 rounded-lg bg-slate-50 hover:bg-slate-100 cursor-pointer transition-colors">
+//     <div>
+//       <h4 className="font-medium text-slate-900">{item.title}</h4>
+//       <p className="text-sm text-slate-500">{item.desc}</p>
+//     </div>
+//     <ArrowRight size={16} className="text-slate-400" />
+//   </div>
+// );
+
+// import React from "react";
+// import {
+//   Layout,
+//   PenTool,
+//   Globe,
+//   Trophy,
+//   Star,
+//   Medal,
+//   ArrowRight,
+//   Rocket,
+// } from "lucide-react";
+// import { motion } from "framer-motion";
+
+// const templates = [
+//   {
+//     title: "Landing Page",
+//     desc: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+//     icon: <Globe size={24} />,
+//   },
+//   {
+//     title: "Dashboard",
+//     desc: "Ut enim ad minim veniam quis nostrud exercitation.",
+//     icon: <Layout size={24} />,
+//   },
+//   {
+//     title: "Blog Template",
+//     desc: "Duis aute irure dolor in reprehenderit voluptate.",
+//     icon: <PenTool size={24} />,
+//   },
+//   {
+//     title: "E-Commerce",
+//     desc: "Excepteur sint occaecat cupidatat non proident.",
+//     icon: <Rocket size={24} />,
+//   },
+// ];
+
+// const hallOfFame = [
+//   {
+//     title: "Best Design",
+//     desc: "Lorem ipsum dolor sit amet consectetur.",
+//     icon: <Trophy size={24} />,
+//   },
+//   {
+//     title: "Most Popular",
+//     desc: "Ut enim ad minim veniam quis nostrud.",
+//     icon: <Star size={24} />,
+//   },
+//   {
+//     title: "Top Rated",
+//     desc: "Duis aute irure dolor in reprehenderit.",
+//     icon: <Medal size={24} />,
+//   },
+// ];
+
+// const sideItems = [
+//   { title: "Getting Started", desc: "Lorem ipsum dolor sit amet." },
+//   { title: "Documentation", desc: "Ut enim ad minim veniam." },
+//   { title: "API Reference", desc: "Duis aute irure dolor." },
+//   { title: "Community", desc: "Excepteur sint occaecat." },
+//   { title: "Support", desc: "Sunt in culpa qui officia." },
+// ];
+
+// export default function CoCreation() {
+//   return (
+//     <div className="min-h-screen bg-black text-white relative overflow-hidden">
+     
+//       <div className="fixed inset-0 pointer-events-none">
+//         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+//         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+//         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-500" />
+//       </div>
+
+//       <motion.div
+//         initial={{ opacity: 0, y: 20 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.8 }}
+//         className="relative max-w-6xl mx-auto px-6 pt-36 pb-24 text-center z-10"
+//       >
+//         <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+//           <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+//             Build Something Together
+//           </span>
+//           <br />
+//           <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+//           Collaborate. Solve. Build.
+//           </span>
+//         </h1>
+
+//         <p className="text-neutral-400 max-w-2xl mx-auto mb-10 text-lg">
+//           Welcome to Cobrother’s Virtual Workspace — your hub to pick challenges, submit solutions, and collaborate with co-founders, investors, and experts. Your ideas turn into action here.
+//         </p>
+
+
+//         <button className="relative group overflow-hidden">
+//           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 rounded-xl" />
+//           <div className="relative px-8 py-4 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-xl flex items-center gap-3 font-semibold">
+//            Start Solving Challenges 
+//             <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+//           </div>
+//         </button>
+//       </motion.div>
+
+//       <div className="relative max-w-6xl mx-auto px-6 pb-24 z-10">
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+//           <div className="lg:col-span-2 space-y-14">
+//             <section>
+//               <h2 className="text-xl font-semibold mb-6">Popular Templates</h2>
+//               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+//                 {templates.map((item, i) => (
+//                   <DarkCard key={i} item={item} />
+//                 ))}
+//               </div>
+//             </section>
+
+//             <section>
+//               <h2 className="text-xl font-semibold mb-6">Hall of Fame</h2>
+//               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+//                 {hallOfFame.map((item, i) => (
+//                   <DarkCard key={i} item={item} />
+//                 ))}
+//               </div>
+//             </section>
+//           </div>
+
+//           <aside>
+//             <h2 className="text-xl font-semibold mb-6">Quick Links</h2>
+//             <div className="space-y-4">
+//               {sideItems.map((item, i) => (
+//                 <SideDarkCard key={i} item={item} />
+//               ))}
+//             </div>
+//           </aside>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// const DarkCard = ({ item }) => (
+//   <div className="group relative">
+//     <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-2xl blur opacity-0 group-hover:opacity-60 transition" />
+//     <div className="relative bg-neutral-900/90 border border-neutral-800/60 rounded-2xl p-6 text-center hover:border-neutral-700 transition">
+//       <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 flex items-center justify-center text-purple-400">
+//         {item.icon}
+//       </div>
+//       <h3 className="font-semibold mb-1">{item.title}</h3>
+//       <p className="text-sm text-neutral-400">{item.desc}</p>
+//     </div>
+//   </div>
+// );
+
+// const SideDarkCard = ({ item }) => (
+//   <div className="group relative cursor-pointer">
+//     <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-xl blur opacity-0 group-hover:opacity-50 transition" />
+//     <div className="relative flex items-center justify-between p-4 bg-neutral-900/80 border border-neutral-800/50 rounded-xl">
+//       <div>
+//         <h4 className="font-medium">{item.title}</h4>
+//         <p className="text-sm text-neutral-400">{item.desc}</p>
+//       </div>
+//       <ArrowRight size={16} className="text-neutral-400 group-hover:translate-x-1 transition-transform" />
+//     </div>
+//   </div>
+// );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React from "react";
 import {
-  Layout,
-  PenTool,
   Globe,
   Trophy,
   Star,
   Medal,
   ArrowRight,
-  Rocket,
+  Users,
+  UploadCloud,
+  CheckCircle2,
+  MessageSquare,
 } from "lucide-react";
-import BackgroundImage from "../assets/domain/bg1_white.svg";
+import { motion } from "framer-motion";
 
-const templates = [
+
+const challenges = [
   {
-    title: "Landing Page",
-    desc: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-    icon: <Globe size={24} />,
+    title: "Brand Identity Challenge",
+    desc: "Design a complete brand identity including logo, colors, and typography.",
+    category: "Design / Branding",
+    reward: "₹10,000",
   },
   {
-    title: "Dashboard",
-    desc: "Ut enim ad minim veniam quis nostrud exercitation.",
-    icon: <Layout size={24} />,
+    title: "Landing Page Concept",
+    desc: "Create a high-converting landing page concept for a startup idea.",
+    category: "Marketing / Design",
+    reward: "₹7,500",
   },
   {
-    title: "Blog Template",
-    desc: "Duis aute irure dolor in reprehenderit voluptate.",
-    icon: <PenTool size={24} />,
+    title: "Marketing Campaign Strategy",
+    desc: "Plan a digital marketing campaign to drive early traction and growth.",
+    category: "Marketing / Growth",
+    reward: "₹15,000",
   },
   {
-    title: "E-Commerce",
-    desc: "Excepteur sint occaecat cupidatat non proident.",
-    icon: <Rocket size={24} />,
+    title: "Product Feature Idea",
+    desc: "Suggest a valuable product feature that solves a real user problem.",
+    category: "Product / Tech",
+    reward: "₹12,000",
+  },
+  {
+    title: "Domain & Naming Suggestions",
+    desc: "Propose brandable domain names and naming ideas for a startup.",
+    category: "Brand / Naming",
+    reward: "₹5,000",
   },
 ];
 
-const hallOfFame = [
+const howItWorks = [
   {
-    title: "Best Design",
-    desc: "Lorem ipsum dolor sit amet consectetur.",
+    title: "Pick a Challenge ",
+    desc: "Explore open challenges from startups and brands.",
+    icon: <Globe size={24} />,
+  },
+  {
+    title: "Submit Your Solution",
+    desc: "Share your ideas, designs, or strategies.",
+    icon: <UploadCloud size={24} />,
+  },
+  {
+    title: "Collaborate",
+    desc: "Get feedback, refine, and discuss with the community.",
+    icon: <Users size={24} />,
+  },
+  {
+    title: "Get Rewarded",
+    desc: "Top solutions are recognized and showcased.",
+    icon: <CheckCircle2 size={24} />,
+  },
+];
+
+const highlights = [
+  {
+    title: "Top Contributors",
+    desc: "Builders delivering high-impact solutions.",
     icon: <Trophy size={24} />,
   },
   {
-    title: "Most Popular",
-    desc: "Ut enim ad minim veniam quis nostrud.",
+    title: "Most Loved Solutions",
+    desc: "Community-voted ideas with the highest engagement.",
     icon: <Star size={24} />,
   },
   {
-    title: "Top Rated",
-    desc: "Duis aute irure dolor in reprehenderit.",
+    title: "Hall of Fame",
+    desc: "Challenges that became funded startups.",
     icon: <Medal size={24} />,
   },
 ];
 
-const sideItems = [
-  { title: "Getting Started", desc: "Lorem ipsum dolor sit amet." },
-  { title: "Documentation", desc: "Ut enim ad minim veniam." },
-  { title: "API Reference", desc: "Duis aute irure dolor." },
-  { title: "Community", desc: "Excepteur sint occaecat." },
-  { title: "Support", desc: "Sunt in culpa qui officia." },
-];
 
-export default function Dashboard() {
+export default function CoCreation() {
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
-      {/* BACKGROUND IMAGE */}
-      <div className="absolute inset-0 w-full h-full">
-        <img
-          src={BackgroundImage}
-          alt="Background"
-          className="fixed w-full h-full object-cover object-center opacity-[0.06]"
-        />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">
-            Build Something Amazing
-          </h1>
-          <p className="text-slate-500 max-w-xl mx-auto mb-8">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
-            eiusmod tempor incididunt ut labore.
-          </p>
-          <button className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-slate-800">
-            Get Started
-            <ArrowRight size={18} />
+      
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative max-w-6xl mx-auto px-6 pt-36 pb-24 text-center z-10"
+      >
+        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+            Build Something Together
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+            Collaborate. Solve. Build.
+          </span>
+        </h1>
+
+        <p className="text-neutral-400 max-w-2xl mx-auto mb-10 text-lg">
+          Welcome to Cobrother’s Virtual Workspace — where challenges meet
+          collaborators and ideas turn into action.
+        </p>
+
+        <button className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-semibold inline-flex items-center gap-2">
+          Start Solving Challenges <ArrowRight />
+        </button>
+      </motion.div>
+
+      <section className="relative max-w-6xl mx-auto px-6 pb-24 z-10">
+        <SectionHeader
+          title="Challenges Waiting for Solutions"
+          subtitle="Pick a challenge, contribute your skills, and get recognized rewards, visibility, and real impact await."
+          center
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {challenges.map((item, i) => (
+            <ChallengeCard key={i} item={item} />
+          ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <button className="px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium">
+            Browse All Challenges →
           </button>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2 space-y-12">
-            <section>
-              <h2 className="text-xl font-semibold text-slate-900 mb-6">
-                Popular Templates
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {templates.map((item, i) => (
-                  <Card key={i} item={item} />
-                ))}
-              </div>
-            </section>
+      
+      <section className="relative max-w-6xl mx-auto px-6 pb-24 z-10">
+        <SectionHeader
+          title="Solve Challenges in 4 Easy Steps"
+          subtitle="From idea selection to real-world recognition"
+          center
+        />
 
-            <section>
-              <h2 className="text-xl font-semibold text-slate-900 mb-6">
-                Hall of Fame
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {hallOfFame.map((item, i) => (
-                  <Card key={i} item={item} />
-                ))}
-              </div>
-            </section>
-          </div>
-
-          <aside>
-            <h2 className="text-xl font-semibold text-slate-900 mb-6">
-              Quick Links
-            </h2>
-            <div className="space-y-3">
-              {sideItems.map((item, i) => (
-                <SideCard key={i} item={item} />
-              ))}
-            </div>
-          </aside>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {howItWorks.map((item, i) => (
+            <InfoCard key={i} item={item} />
+          ))}
         </div>
-      </div>
+
+        <div className="mt-12 flex justify-center">
+          <button className="px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium inline-flex items-center gap-2">
+            Start Solving <ArrowRight />
+          </button>
+        </div>
+      </section>
+
+      <section className="relative max-w-6xl mx-auto px-6 pb-24 z-10 text-center">
+        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Got a Problem? Let the Community Solve It
+          </h2>
+
+          <p className="text-neutral-400 max-w-2xl mx-auto mb-8">
+            Submit your business challenge and get actionable solutions from
+            co-founders, investors, and experts. Cobrother guides your challenge
+            to the right collaborators.
+          </p>
+
+          <button className="px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium inline-flex items-center gap-2">
+            Submit Challenge <MessageSquare size={18} />
+          </button>
+        </div>
+      </section>
+
+      <section className="relative max-w-6xl mx-auto px-6 pb-24 z-10">
+        <SectionHeader
+          title="Community Highlights"
+          subtitle="Connect with co-founders, investors, and expert collaborators."
+          center
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {highlights.map((item, i) => (
+            <InfoCard key={i} item={item} />
+          ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <button className="px-8 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium">
+            Join the Community →
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
 
-const Card = ({ item }) => (
-  <div className="p-6 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all cursor-pointer flex flex-col items-center text-center">
-    <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-4 text-slate-600">
-      {item.icon}
-    </div>
-    <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
-    <p className="text-sm text-slate-500">{item.desc}</p>
+
+const SectionHeader = ({ title, subtitle, center }) => (
+  <div className={`mb-12 ${center ? "text-center" : ""}`}>
+    <h2 className="text-3xl md:text-4xl font-bold mb-3">{title}</h2>
+    {subtitle && (
+      <p className="text-neutral-400 max-w-2xl mx-auto">{subtitle}</p>
+    )}
+    <div className={`mt-6 h-px w-24 bg-neutral-700 ${center ? "mx-auto" : ""}`} />
   </div>
 );
 
-const SideCard = ({ item }) => (
-  <div className="flex items-center justify-between p-4 rounded-lg bg-slate-50 hover:bg-slate-100 cursor-pointer transition-colors">
-    <div>
-      <h4 className="font-medium text-slate-900">{item.title}</h4>
-      <p className="text-sm text-slate-500">{item.desc}</p>
+const ChallengeCard = ({ item }) => (
+  <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+    <div className="flex justify-between mb-4">
+      <span className="text-xs px-3 py-1 rounded-full bg-neutral-800">
+        {item.category}
+      </span>
+      <span className="text-sm font-semibold text-purple-400">
+        {item.reward}
+      </span>
     </div>
-    <ArrowRight size={16} className="text-slate-400" />
+    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+    <p className="text-sm text-neutral-400 mb-6">{item.desc}</p>
+    <button className="px-6 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 text-sm mx-auto block">
+      Join Challenge →
+    </button>
   </div>
 );
+
+const InfoCard = ({ item }) => (
+  <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+    <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-neutral-800 flex items-center justify-center text-purple-400">
+      {item.icon}
+    </div>
+    <h3 className="font-semibold mb-2">{item.title}</h3>
+    <p className="text-sm text-neutral-400">{item.desc}</p>
+  </div>
+);
+

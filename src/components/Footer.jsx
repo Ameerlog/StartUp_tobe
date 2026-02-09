@@ -1,3 +1,367 @@
+// import React from "react";
+// import { motion } from "framer-motion";
+// import {
+//   Twitter,
+//   Linkedin,
+//   Youtube,
+//   Instagram,
+//   Facebook,
+//   ArrowUp,
+//   Mail,
+//   MapPin,
+//   Phone,
+// } from "lucide-react";
+// import { Link } from "react-router-dom";
+// import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
+
+// const social = [
+//   {
+//     href: "https://x.com/CoBrother141506",
+//     label: "X",
+//     Icon: Twitter,
+//     color: "hover:text-blue-400",
+//   },
+//   {
+//     href: "https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi",
+//     label: "Instagram",
+//     Icon: Instagram,
+//     color: "hover:text-pink-400",
+//   },
+//   {
+//     href: "https://www.facebook.com/share/16vjEWTjHi/",
+//     label: "Facebook",
+//     Icon: Facebook,
+//     color: "hover:text-blue-500",
+//   },
+//   {
+//     href: "https://www.linkedin.com/in/co-brother-9921b03aa",
+//     label: "LinkedIn",
+//     Icon: Linkedin,
+//     color: "hover:text-blue-600",
+//   },
+//   {
+//     href: "https://www.youtube.com/channel/UCPq5njZ3e63myDvzfcoSDEQ",
+//     label: "YouTube",
+//     Icon: Youtube,
+//     color: "hover:text-red-500",
+//   },
+// ];
+
+// const columns = [
+//   {
+//     title: "Product",
+//     links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"],
+//   },
+//   {
+//     title: "Solutions",
+//     links: [
+//       "Company Registration",
+//       "GST & Tax Filing",
+//       "Trademark & IP",
+//       "Accounting & Compliance",
+//       "Startup Business",
+//     ],
+//   },
+//   { title: "Co-Working", links: ["CoFounder", "CoInvestor"] },
+//   {
+//     title: "Resources",
+//     links: ["Legal Basics for Founders", "Brand Naming Guide"],
+//   },
+//   {
+//     title: "Company",
+//     links: [
+//       "About Us",
+//       "How It Works",
+//       "Careers",
+//       "Contact Us",
+//       "Privacy Policy",
+//       "Terms of Service",
+//     ],
+//   },
+//   {
+//     title: "Trust & Security",
+//     links: [
+//       "Secure Payments",
+//       "Transparent Pricing",
+//       "Founder-First Approach",
+//       "India-Focused Compliance",
+//     ],
+//   },
+// ];
+
+// const linkPaths = {
+//   Marketplace: "/marketplace",
+//   "Domains for Sale": "/domains",
+//   "Startup Toolkit": "/toolkit",
+//   Pricing: "/pricing",
+//   "Company Registration": "/compliance",
+//   "GST & Tax Filing": "/compliance",
+//   "Trademark & IP": "/compliance",
+//   "Accounting & Compliance": "/accounting-compliance",
+//   "Startup Business": "/startup-business",
+//   CoFounder: "/community",
+//   CoInvestor: "/community",
+//   "Legal Basics for Founders": "/legal-basics",
+//   "Brand Naming Guide": "/brand-naming",
+//   "About Us": "/about",
+//   "How It Works": "/how-it-works",
+//   Careers: "/careers",
+//   "Contact Us": "/contact",
+//   "Privacy Policy": "/privacy-policy",
+//   "Terms of Service": "/terms-of-service",
+//   "Secure Payments": "/secure-payments",
+//   "Transparent Pricing": "/transparent-pricing",
+//   "Founder-First Approach": "/founder-first-approach",
+//   "India-Focused Compliance": "/india-compliance",
+// };
+
+// const scrollToTop = () => {
+//   window.scrollTo({ top: 0, behavior: "smooth" });
+// };
+
+// export default function Footer() {
+//   return (
+//     <footer className="relative bg-black text-white overflow-hidden">
+//       {/* Animated Gradient Orbs Background */}
+//       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+//         <motion.div
+//           className="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+//           animate={{
+//             x: [0, 30, 0],
+//             y: [0, -30, 0],
+//             scale: [1, 1.1, 1],
+//           }}
+//           transition={{
+//             duration: 10,
+//             repeat: Infinity,
+//             ease: "easeInOut",
+//           }}
+//         />
+//         <motion.div
+//           className="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+//           animate={{
+//             x: [0, -30, 0],
+//             y: [0, 30, 0],
+//             scale: [1, 1.2, 1],
+//           }}
+//           transition={{
+//             duration: 10,
+//             delay: 3,
+//             repeat: Infinity,
+//             ease: "easeInOut",
+//           }}
+//         />
+//       </div>
+
+//       {/* Main Footer Content */}
+//       <section className="relative border-t border-neutral-600">
+//         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+//           {/* Top Section - Logo & Links Grid */}
+//           <div className="grid grid-cols-1 lg:grid-cols-6 gap-10 lg:gap-12 mb-12">
+//             {/* Logo & Description Column */}
+//             <motion.div
+//               initial={{ opacity: 0, y: 20 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ duration: 0.6 }}
+//               className="lg:col-span-2 flex flex-col gap-6"
+//             >
+//               {/* Logo */}
+//               <Link to="/" className="inline-block">
+//                 <img
+//                   src={Logo}
+//                   alt="CobrotherAultum"
+//                   className="h-16 sm:h-20 md:h-24 w-auto transform scale-150 sm:scale-[1.8] md:scale-[2] lg:scale-[2.2] origin-left transition-transform duration-300 hover:scale-[1.6] sm:hover:scale-[1.9] md:hover:scale-[2.1] lg:hover:scale-[2.3]"
+//                 />
+//               </Link>
+
+//               {/* Description */}
+//               <div className="space-y-3">
+//                 <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
+//                   Everything your business needs, in one place.
+//                 </p>
+//                 <p className="text-base sm:text-lg font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+//                   CoBrother™
+//                 </p>
+//               </div>
+
+//               {/* Contact Info */}
+//               <div className="space-y-2 text-sm text-neutral-400">
+//                 <div className="flex items-center gap-2 hover:text-purple-400 transition-colors duration-300">
+//                   <Mail className="w-4 h-4" />
+//                   <span>cobrother.com@gmail.com</span>
+//                 </div>
+//                 <div className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-300">
+//                   <Phone className="w-4 h-4" />
+//                   <span>+91 8085758575</span>
+//                 </div>
+//                 <div className="flex items-center gap-2 hover:text-pink-400 transition-colors duration-300">
+//                   <MapPin className="w-4 h-4" />
+//                   <span>Hubballi, Karnataka, India</span>
+//                 </div>
+//               </div>
+
+//               {/* Social Links */}
+//               <div className="flex flex-wrap gap-2 sm:gap-3">
+//                 {social.map(({ label, Icon, href, color }, index) => (
+//                   <motion.a
+//                     key={label}
+//                     href={href}
+//                     target="_blank"
+//                     rel="noopener noreferrer"
+//                     aria-label={label}
+//                     initial={{ opacity: 0, scale: 0 }}
+//                     whileInView={{ opacity: 1, scale: 1 }}
+//                     viewport={{ once: true }}
+//                     transition={{ delay: index * 0.1 }}
+//                     whileHover={{ scale: 1.1 }}
+//                     whileTap={{ scale: 0.95 }}
+//                     className={`group relative inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 border border-neutral-800/50 text-neutral-500 transition-all duration-300 ${color} hover:border-neutral-700/50`}
+//                   >
+//                     <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-xl blur opacity-0 group-hover:opacity-50 transition duration-300" />
+//                     <Icon className="relative h-5 w-5 sm:h-5 sm:w-5" />
+//                   </motion.a>
+//                 ))}
+//               </div>
+//             </motion.div>
+
+//             {/* Links Columns */}
+//             <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
+//               {columns.map((col, colIndex) => (
+//                 <motion.div
+//                   key={col.title}
+//                   initial={{ opacity: 0, y: 20 }}
+//                   whileInView={{ opacity: 1, y: 0 }}
+//                   viewport={{ once: true }}
+//                   transition={{ delay: colIndex * 0.1, duration: 0.6 }}
+//                   className="flex flex-col gap-4"
+//                 >
+//                   {/* Column Title */}
+//                   <h3 className="text-sm sm:text-base font-bold text-white/90 mb-1">
+//                     {col.title}
+//                   </h3>
+
+//                   {/* Column Links */}
+//                   <ul className="space-y-2.5">
+//                     {col.links.map((label, idx) => {
+//                       const path = linkPaths[label];
+
+//                       return path ? (
+//                         <li key={label + idx}>
+//                           <Link
+//                             to={path}
+//                             className="group inline-flex items-center text-xs sm:text-sm text-neutral-400 hover:text-white transition-colors duration-300"
+//                           >
+//                             <span className="relative">
+//                               {label}
+//                               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-300" />
+//                             </span>
+//                           </Link>
+//                         </li>
+//                       ) : (
+//                         <li key={label + idx}>
+//                           <span className="text-xs sm:text-sm text-neutral-500 cursor-default">
+//                             {label}
+//                           </span>
+//                         </li>
+//                       );
+//                     })}
+//                   </ul>
+//                 </motion.div>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Newsletter Section (Optional) */}
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 0.6 }}
+//             className="relative group mb-12"
+//           >
+//             <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-2xl blur opacity-0 group-hover:opacity-50 transition duration-500" />
+//             <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-6 sm:p-8">
+//               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+//                 <div>
+//                   <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+//                     Stay Updated
+//                   </h3>
+//                   <p className="text-sm text-neutral-400">
+//                     Subscribe to get the latest updates and startup resources
+//                   </p>
+//                 </div>
+//                 <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+//                   <input
+//                     type="email"
+//                     placeholder="Enter your email"
+//                     className="flex-1 sm:w-64 px-4 py-2.5 bg-neutral-950/50 border border-neutral-800/50 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 transition-all duration-300 text-sm"
+//                   />
+//                   <motion.button
+//                     whileHover={{ scale: 1.05 }}
+//                     whileTap={{ scale: 0.95 }}
+//                     className="relative overflow-hidden rounded-xl whitespace-nowrap"
+//                   >
+//                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+//                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 hover:opacity-100 blur transition duration-500" />
+//                     <span className="relative px-6 py-2.5 font-semibold text-white text-sm block">
+//                       Subscribe
+//                     </span>
+//                   </motion.button>
+//                 </div>
+//               </div>
+//             </div>
+//           </motion.div>
+
+//           {/* Bottom Section - Copyright */}
+//           <motion.div
+//             initial={{ opacity: 0 }}
+//             whileInView={{ opacity: 1 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 0.6 }}
+//             className="pt-8 border-t border-neutral-800/50"
+//           >
+//             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+//               <div className="text-xs sm:text-sm text-neutral-500">
+//                 © 2026{" "}
+//                 <span className="font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+//                   CoBrother™
+//                 </span>
+//                 . All rights reserved.
+//               </div>
+//               <div className="text-xs sm:text-sm text-neutral-400">
+//                 Made with ❤️ in India
+//               </div>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Back to Top Button */}
+//       <motion.div
+//         initial={{ opacity: 0, scale: 0 }}
+//         whileInView={{ opacity: 1, scale: 1 }}
+//         viewport={{ once: true }}
+//         className="fixed bottom-6 right-6 z-50"
+//       >
+//         <motion.button
+//           onClick={scrollToTop}
+//           whileHover={{ scale: 1.1 }}
+//           whileTap={{ scale: 0.9 }}
+//           aria-label="Back to top"
+//           className="group relative"
+//         >
+//           <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300" />
+//           <div className="relative p-3 sm:p-3.5 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800/50 text-white hover:border-purple-500/50 transition-all duration-300">
+//             <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6" />
+//           </div>
+//         </motion.button>
+//       </motion.div>
+//     </footer>
+//   );
+// }
+
+
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -7,112 +371,73 @@ import {
   Instagram,
   Facebook,
   ArrowUp,
-  Mail,
-  MapPin,
-  Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/domain/cobrotheraultum_Logo_white.png";
+import Logo from "../assets/Cobrother (6).png";
+
 
 const social = [
-  {
-    href: "https://x.com/CoBrother141506",
-    label: "X",
-    Icon: Twitter,
-    color: "hover:text-blue-400",
-  },
-  {
-    href: "https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi",
-    label: "Instagram",
-    Icon: Instagram,
-    color: "hover:text-pink-400",
-  },
-  {
-    href: "https://www.facebook.com/share/16vjEWTjHi/",
-    label: "Facebook",
-    Icon: Facebook,
-    color: "hover:text-blue-500",
-  },
-  {
-    href: "https://www.linkedin.com/in/co-brother-9921b03aa",
-    label: "LinkedIn",
-    Icon: Linkedin,
-    color: "hover:text-blue-600",
-  },
-  {
-    href: "https://www.youtube.com/channel/UCPq5njZ3e63myDvzfcoSDEQ",
-    label: "YouTube",
-    Icon: Youtube,
-    color: "hover:text-red-500",
-  },
+  { href: "https://x.com/CoBrother141506", Icon: Twitter },
+  { href: "https://www.instagram.com/cobrother__", Icon: Instagram },
+  { href: "https://www.facebook.com/share/16vjEWTjHi/", Icon: Facebook },
+  { href: "https://www.linkedin.com/in/co-brother-9921b03aa", Icon: Linkedin },
+  { href: "https://www.youtube.com/channel/UCPq5njZ3e63myDvzfcoSDEQ", Icon: Youtube },
 ];
 
-const columns = [
-  {
-    title: "Product",
-    links: ["Marketplace", "Domains for Sale", "Startup Toolkit", "Pricing"],
-  },
+
+const footerColumns = [
   {
     title: "Solutions",
     links: [
-      "Company Registration",
-      "GST & Tax Filing",
-      "Trademark & IP",
-      "Accounting & Compliance",
-      "Startup Business",
+      "Co-Creation Challenges",
+      "Co-Operation Setup",
+      "Co-Marketing Solutions",
+      "Co-Branding & Domains",
+      "Co-Working / Virtual Workspace",
     ],
   },
-  { title: "Co-Working", links: ["CoFounder", "CoInvestor"] },
   {
-    title: "Resources",
-    links: ["Legal Basics for Founders", "Brand Naming Guide"],
+    title: "Marketplace & Ventures",
+    links: [
+      "Domain Marketplace",
+      "Coventure / JV Opportunities",
+      "Premium Brands for Partnership",
+    ],
   },
   {
-    title: "Company",
+    title: "Company & Support",
     links: [
-      "About Us",
+      "About Cobrother",
       "How It Works",
       "Careers",
       "Contact Us",
       "Privacy Policy",
       "Terms of Service",
-    ],
-  },
-  {
-    title: "Trust & Security",
-    links: [
-      "Secure Payments",
-      "Transparent Pricing",
-      "Founder-First Approach",
-      "India-Focused Compliance",
+      "Trust & Security",
     ],
   },
 ];
 
+/* ================= PATHS ================= */
+
 const linkPaths = {
-  Marketplace: "/marketplace",
-  "Domains for Sale": "/domains",
-  "Startup Toolkit": "/toolkit",
-  Pricing: "/pricing",
-  "Company Registration": "/compliance",
-  "GST & Tax Filing": "/compliance",
-  "Trademark & IP": "/compliance",
-  "Accounting & Compliance": "/accounting-compliance",
-  "Startup Business": "/startup-business",
-  CoFounder: "/community",
-  CoInvestor: "/community",
-  "Legal Basics for Founders": "/legal-basics",
-  "Brand Naming Guide": "/brand-naming",
-  "About Us": "/about",
+  "Co-Creation Challenges": "/co-creation",
+  "Co-Operation Setup": "/co-operation",
+  "Co-Marketing Solutions": "/co-marketing",
+  "Co-Branding & Domains": "/domains",
+  "Co-Working / Virtual Workspace": "/workspace",
+
+  "Domain Marketplace": "/marketplace",
+  "Coventure / JV Opportunities": "/coventure",
+  "Premium Brands for Partnership": "/brands",
+
+  "About Cobrother": "/about",
   "How It Works": "/how-it-works",
   Careers: "/careers",
   "Contact Us": "/contact",
   "Privacy Policy": "/privacy-policy",
   "Terms of Service": "/terms-of-service",
-  "Secure Payments": "/secure-payments",
-  "Transparent Pricing": "/transparent-pricing",
-  "Founder-First Approach": "/founder-first-approach",
-  "India-Focused Compliance": "/india-compliance",
+  "Trust & Security": "/trust-security",
 };
 
 const scrollToTop = () => {
@@ -122,241 +447,100 @@ const scrollToTop = () => {
 export default function Footer() {
   return (
     <footer className="relative bg-black text-white overflow-hidden">
-      {/* Animated Gradient Orbs Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        <motion.div
-          className="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 10,
-            delay: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+      {/* Background Glow */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/20 blur-3xl rounded-full" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full" />
       </div>
 
-      {/* Main Footer Content */}
-      <section className="relative border-t border-neutral-600">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          {/* Top Section - Logo & Links Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-6 gap-10 lg:gap-12 mb-12">
-            {/* Logo & Description Column */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-2 flex flex-col gap-6"
-            >
-              {/* Logo */}
-              <Link to="/" className="inline-block">
-                <img
-                  src={Logo}
-                  alt="CobrotherAultum"
-                  className="h-16 sm:h-20 md:h-24 w-auto transform scale-150 sm:scale-[1.8] md:scale-[2] lg:scale-[2.2] origin-left transition-transform duration-300 hover:scale-[1.6] sm:hover:scale-[1.9] md:hover:scale-[2.1] lg:hover:scale-[2.3]"
-                />
+      {/* Main Footer */}
+      <section className="relative border-t border-neutral-800">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+
+          {/* TOP GRID */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
+
+            {/* BRAND COLUMN */}
+            <div className="lg:col-span-2 space-y-6">
+              <Link to="/">
+<img
+  src={Logo}
+  alt="Cobrother Aultum"
+  className="h-48 md:h-56 w-auto"
+/>
+
+
               </Link>
 
-              {/* Description */}
-              <div className="space-y-3">
-                <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
-                  Everything your business needs, in one place.
-                </p>
-                <p className="text-base sm:text-lg font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  CoBrother™
-                </p>
-              </div>
+              <p className="text-sm text-neutral-400">
+                Everything your business needs, in one place.
+              </p>
 
-              {/* Contact Info */}
-              <div className="space-y-2 text-sm text-neutral-400">
-                <div className="flex items-center gap-2 hover:text-purple-400 transition-colors duration-300">
-                  <Mail className="w-4 h-4" />
-                  <span>cobrother.com@gmail.com</span>
-                </div>
-                <div className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-300">
-                  <Phone className="w-4 h-4" />
-                  <span>+91 8085758575</span>
-                </div>
-                <div className="flex items-center gap-2 hover:text-pink-400 transition-colors duration-300">
-                  <MapPin className="w-4 h-4" />
-                  <span>Hubballi, Karnataka, India</span>
-                </div>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {social.map(({ label, Icon, href, color }, index) => (
-                  <motion.a
-                    key={label}
+              {/* SOCIAL */}
+              <div className="flex gap-3">
+                {social.map(({ href, Icon }, i) => (
+                  <a
+                    key={i}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={label}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`group relative inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 border border-neutral-800/50 text-neutral-500 transition-all duration-300 ${color} hover:border-neutral-700/50`}
+                    className="h-10 w-10 flex items-center justify-center rounded-xl bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-xl blur opacity-0 group-hover:opacity-50 transition duration-300" />
-                    <Icon className="relative h-5 w-5 sm:h-5 sm:w-5" />
-                  </motion.a>
+                    <Icon className="h-5 w-5 text-neutral-400 hover:text-white" />
+                  </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Links Columns */}
-            <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
-              {columns.map((col, colIndex) => (
-                <motion.div
-                  key={col.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: colIndex * 0.1, duration: 0.6 }}
-                  className="flex flex-col gap-4"
-                >
-                  {/* Column Title */}
-                  <h3 className="text-sm sm:text-base font-bold text-white/90 mb-1">
-                    {col.title}
-                  </h3>
-
-                  {/* Column Links */}
-                  <ul className="space-y-2.5">
-                    {col.links.map((label, idx) => {
-                      const path = linkPaths[label];
-
-                      return path ? (
-                        <li key={label + idx}>
-                          <Link
-                            to={path}
-                            className="group inline-flex items-center text-xs sm:text-sm text-neutral-400 hover:text-white transition-colors duration-300"
-                          >
-                            <span className="relative">
-                              {label}
-                              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-300" />
-                            </span>
-                          </Link>
-                        </li>
-                      ) : (
-                        <li key={label + idx}>
-                          <span className="text-xs sm:text-sm text-neutral-500 cursor-default">
-                            {label}
-                          </span>
-                        </li>
-                      );
-                    })}
+            {/* LINKS */}
+            <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-10">
+              {footerColumns.map((col) => (
+                <div key={col.title}>
+                  <h4 className="font-semibold mb-4">{col.title}</h4>
+                  <ul className="space-y-3">
+                    {col.links.map((label) => (
+                      <li key={label}>
+                        <Link
+                          to={linkPaths[label]}
+                          className="text-sm text-neutral-400 hover:text-white transition"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Newsletter Section (Optional) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative group mb-12"
-          >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-2xl blur opacity-0 group-hover:opacity-50 transition duration-500" />
-            <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-6 sm:p-8">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                    Stay Updated
-                  </h3>
-                  <p className="text-sm text-neutral-400">
-                    Subscribe to get the latest updates and startup resources
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 sm:w-64 px-4 py-2.5 bg-neutral-950/50 border border-neutral-800/50 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 transition-all duration-300 text-sm"
-                  />
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative overflow-hidden rounded-xl whitespace-nowrap"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 hover:opacity-100 blur transition duration-500" />
-                    <span className="relative px-6 py-2.5 font-semibold text-white text-sm block">
-                      Subscribe
-                    </span>
-                  </motion.button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          {/* CTA ACTIONS */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+            <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium">
+              Book a Cobrother Visit →
+            </button>
+            <button className="px-6 py-3 rounded-xl border border-neutral-700 hover:border-neutral-500 transition">
+              Get Aultum SaaS →
+            </button>
+          </div>
 
-          {/* Bottom Section - Copyright */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="pt-8 border-t border-neutral-800/50"
-          >
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-              <div className="text-xs sm:text-sm text-neutral-500">
-                © 2026{" "}
-                <span className="font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  CoBrother™
-                </span>
-                . All rights reserved.
-              </div>
-              <div className="text-xs sm:text-sm text-neutral-400">
-                Made with ❤️ in India
-              </div>
-            </div>
-          </motion.div>
+          {/* BOTTOM */}
+          <div className="pt-6 border-t border-neutral-800 text-center text-sm text-neutral-500">
+            © 2026{" "}
+            <span className="font-semibold text-white">Cobrother™</span>. All
+            rights reserved. Made with ❤️ in India.
+          </div>
         </div>
       </section>
 
-      {/* Back to Top Button */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="fixed bottom-6 right-6 z-50"
+      {/* BACK TO TOP */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 p-3 rounded-full bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition"
       >
-        <motion.button
-          onClick={scrollToTop}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Back to top"
-          className="group relative"
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300" />
-          <div className="relative p-3 sm:p-3.5 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800/50 text-white hover:border-purple-500/50 transition-all duration-300">
-            <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6" />
-          </div>
-        </motion.button>
-      </motion.div>
+        <ArrowUp className="h-5 w-5" />
+      </button>
     </footer>
   );
 }
+

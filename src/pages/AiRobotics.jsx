@@ -1,28 +1,147 @@
+// import React from "react";
+// import { ArrowRight } from "lucide-react";
+// import { aiRoboticsData } from "../data/aiRobotics";
+
+// export default function AIRoboticsPage() {
+//   return (
+//     <main className="w-full min-h-screen bg-[#F8F9FA] text-slate-900">
+
+  
+//       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+   
+//       <section className="relative px-4 pt-30 pb-14 text-center max-w-4xl mx-auto z-10">
+//         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter">
+//           Co-Operation
+//         </h1>
+
+//         <p className="mt-4 text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto font-medium">
+//           We enable intelligence inside everyday products.
+//           <br className="hidden sm:block" />
+//           <span className="text-slate-900">
+//             Hardware stays yours. Intelligence is ours.
+//           </span>
+//         </p>
+
+//       </section>
+
+    
+//       <section className="relative px-4 pb-20 max-w-7xl mx-auto z-10">
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+//           {aiRoboticsData.map((card) => {
+//             const Icon = card.icon;
+
+//             return (
+//               <div
+//                 key={card.id}
+//                 className="group relative rounded-2xl border 
+//                 border-slate-200
+//                  bg-white p-6 sm:p-8 flex flex-col 
+//                  shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]
+//                   hover:border-gray-400 
+//                   hover:-translate-y-1 
+//                   transition-all duration-300"
+//               >
+//                 <div className="absolute top-6 right-6 text-xs font-mono font-bold
+//                  text-slate-200 
+
+//                  group-hover:text-black">
+//                   {card.id.toString().padStart(2, "0")}
+//                 </div>
+
+//                 <div className="w-14 h-14 rounded-xl  flex items-center justify-center mb-6
+//                 border 
+//                 bg-slate-50 
+//                 border-gray-200
+//                  group-hover:bg-black 
+//                  group-hover:border-white
+//                  transition-all duration-300">
+//                   <Icon className="w-6 h-6 text-slate-600 group-hover:text-white transition-colors" />
+//                 </div>
+
+//                 <div className="flex-1">
+//                   <h3 className="text-xl font-bold mb-3 
+//                   text-gray-600
+//                   group-hover:text-black
+//                   transition-colors">
+//                     {card.title}
+//                   </h3>
+
+//                   <p className="text-sm font-medium text-slate-700 mb-2">
+//                     {card.subtitle}
+//                   </p>
+
+//                   {card.desc && (
+//                     <p className="text-sm text-slate-500 leading-relaxed">
+//                       {card.desc}
+//                     </p>
+//                   )}
+//                 </div>
+
+//                 <div className="  mt-6 pt-5 border-t border-slate-100">
+//                   <button className="cursor-pointer w-full flex items-center justify-between text-sm font-bold 
+//                  text-gray-600
+//                  group-hover:text-black
+//                   transition-colors duration-300">
+//                     Get Started
+//                     <span className="bg-slate-100 p-1.5 rounded-full transition-colors">
+//                       <ArrowRight className="w-4 h-4" />
+//                     </span>
+//                   </button>
+//                 </div>
+//               </div>
+//             );
+//           })}
+//         </div>
+//         <div className="mt-8 flex justify-center">
+//           <button className="group flex items-center gap-2 rounded-full 
+//             bg-gray-800
+//            text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-slate-900/20
+//             hover:bg-gray-900
+//             hover:scale-105 transition-all duration-300">
+//             Partner With Us
+//             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+//           </button>
+//         </div>
+//       </section>
+
+//     </main>
+//   );
+// }
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { aiRoboticsData } from "../data/aiRobotics";
 
 export default function AIRoboticsPage() {
   return (
-    <main className="w-full min-h-screen bg-[#F8F9FA] text-slate-900">
+    <main className="w-full min-h-screen bg-black text-white relative overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-500" />
+      </div>
 
-  
-      <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="fixed inset-0 pointer-events-none 
+        bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),
+        linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]
+        bg-[size:24px_24px]" />
 
-   
-      <section className="relative px-4 pt-30 pb-14 text-center max-w-4xl mx-auto z-10">
+    
+      <section className="relative px-4 pt-32 pb-14 text-center max-w-4xl mx-auto z-10">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter">
-          Co-Operation
+          <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+            Co-Operation
+          </span>
         </h1>
 
-        <p className="mt-4 text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto font-medium">
+        <p className="mt-4 text-lg sm:text-xl bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent leading-relaxed max-w-2xl mx-auto font-medium">
           We enable intelligence inside everyday products.
           <br className="hidden sm:block" />
-          <span className="text-slate-900">
+          <span className=" text-neutral-400">
             Hardware stays yours. Intelligence is ours.
           </span>
+              
         </p>
-
       </section>
 
     
@@ -34,57 +153,55 @@ export default function AIRoboticsPage() {
             return (
               <div
                 key={card.id}
-                className="group relative rounded-2xl border 
-                border-slate-200
-                 bg-white p-6 sm:p-8 flex flex-col 
-                 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]
-                  hover:border-gray-400 
-                  hover:-translate-y-1 
-                  transition-all duration-300"
+                className="group relative rounded-2xl p-6 sm:p-8 flex flex-col
+                bg-neutral-900/90 border border-neutral-800/60
+                hover:border-neutral-700
+                hover:-translate-y-1
+                transition-all duration-300"
               >
-                <div className="absolute top-6 right-6 text-xs font-mono font-bold
-                 text-slate-200 
+                
+                <div className="absolute -inset-0.5 rounded-2xl blur 
+                  bg-gradient-to-r from-purple-600/30 to-blue-600/30
+                  opacity-0 group-hover:opacity-60 transition" />
 
-                 group-hover:text-black">
+                
+                <div className="absolute top-6 right-6 text-xs font-mono font-bold
+                  text-neutral-500 group-hover:text-white">
                   {card.id.toString().padStart(2, "0")}
                 </div>
 
-                <div className="w-14 h-14 rounded-xl  flex items-center justify-center mb-6
-                border 
-                bg-slate-50 
-                border-gray-200
-                 group-hover:bg-black 
-                 group-hover:border-white
-                 transition-all duration-300">
-                  <Icon className="w-6 h-6 text-slate-600 group-hover:text-white transition-colors" />
+              
+                <div
+                  className="relative w-14 h-14 rounded-xl flex items-center justify-center mb-6
+                  bg-gradient-to-br from-purple-500/10 to-blue-500/10
+                  border border-neutral-800
+                  group-hover:border-white transition"
+                >
+                  <Icon className="w-6 h-6 text-purple-400 group-hover:text-white transition-colors" />
                 </div>
 
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-3 
-                  text-gray-600
-                  group-hover:text-black
-                  transition-colors">
+              
+                <div className="relative flex-1">
+                  <h3 className="text-xl font-bold mb-3 text-neutral-300 group-hover:text-white">
                     {card.title}
                   </h3>
 
-                  <p className="text-sm font-medium text-slate-700 mb-2">
+                  <p className="text-sm font-medium text-neutral-400 mb-2">
                     {card.subtitle}
                   </p>
 
                   {card.desc && (
-                    <p className="text-sm text-slate-500 leading-relaxed">
+                    <p className="text-sm text-neutral-500 leading-relaxed">
                       {card.desc}
                     </p>
                   )}
                 </div>
 
-                <div className="  mt-6 pt-5 border-t border-slate-100">
-                  <button className="cursor-pointer w-full flex items-center justify-between text-sm font-bold 
-                 text-gray-600
-                 group-hover:text-black
-                  transition-colors duration-300">
+                <div className="relative mt-6 pt-5 border-t border-neutral-800">
+                  <button className="w-full flex items-center justify-between text-sm font-bold
+                    text-neutral-400 group-hover:text-white transition">
                     Get Started
-                    <span className="bg-slate-100 p-1.5 rounded-full transition-colors">
+                    <span className="bg-neutral-800 p-1.5 rounded-full">
                       <ArrowRight className="w-4 h-4" />
                     </span>
                   </button>
@@ -93,18 +210,18 @@ export default function AIRoboticsPage() {
             );
           })}
         </div>
-        <div className="mt-8 flex justify-center">
-          <button className="group flex items-center gap-2 rounded-full 
-            bg-gray-800
-           text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-slate-900/20
-            hover:bg-gray-900
-            hover:scale-105 transition-all duration-300">
-            Partner With Us
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+
+        
+        <div className="mt-10 flex justify-center">
+          <button className="group relative overflow-hidden rounded-full">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600" />
+            <div className="relative flex items-center gap-2 px-8 py-3.5 text-sm font-bold text-white">
+              Partner With Us
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </div>
           </button>
         </div>
       </section>
-
     </main>
   );
 }
