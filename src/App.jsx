@@ -59,14 +59,11 @@ const App = () => {
               path="/marketplace/:slug/payment/success"
               element={<Success />}
             />
-
-            {/* FooterCofounder and Coinvestor */}
+]
             <Route path="/community" element={<Investors />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
 
-            {/* Forms */}
-            {/* Coventure listing form  */}
             <Route path="/coventure-form" element={<CoventureForm />} />
              <Route path="/domain-form" element={<DomainlistingForm/>} />
               <Route path="/coworker-form" element={<CoworkingForm/>} />

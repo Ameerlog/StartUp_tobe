@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";import {
+import { useEffect, useState } from "react";
+import {
   Layers,
   IndianRupee,
   Zap,
   Headphones,
   TrendingUp,
 } from "lucide-react";
-
 
 function useIsSmall() {
   const [isSmall, setIsSmall] = useState(false);
@@ -37,14 +37,13 @@ const item = {
   },
 };
 
-/* ------------------ UI Helpers ------------------ */
 function Card({ children, className = "" }) {
   return (
     <div
       className={[
-        "relative rounded-2xl border border-black/10 bg-white",
-        "shadow-[0_18px_50px_rgba(0,0,0,0.10)]",
-        "transition-shadow hover:shadow-[0_28px_70px_rgba(0,0,0,0.14)]",
+        "relative rounded-3xl border border-zinc-800/60 bg-zinc-900",
+        "shadow-[0_20px_60px_rgba(0,0,0,0.45)]",
+        "transition-all duration-300 hover:border-zinc-700 hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]",
         className,
       ].join(" ")}
     >
@@ -54,17 +53,23 @@ function Card({ children, className = "" }) {
 }
 
 function Title({ children }) {
-  return <h3 className="text-base font-extrabold text-black">{children}</h3>;
+  return (
+    <h3 className="text-base font-semibold tracking-tight text-white">
+      {children}
+    </h3>
+  );
 }
 
 function Muted({ children }) {
-  return <p className="text-sm leading-relaxed text-black/60">{children}</p>;
+  return (
+    <p className="text-sm leading-relaxed text-zinc-400">{children}</p>
+  );
 }
 
 function CheckRow({ children }) {
   return (
-    <div className="flex items-start gap-2 text-sm text-black/70">
-      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700">
+    <div className="flex items-start gap-2 text-sm text-zinc-300">
+      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">
         ✓
       </span>
       <span>{children}</span>
@@ -74,32 +79,28 @@ function CheckRow({ children }) {
 
 function Badge({ children }) {
   return (
-    <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-black/60">
+    <span className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-xs font-medium text-zinc-300">
       {children}
     </span>
   );
 }
 
-/* ------------------ Main Component ------------------ */
 export default function BentoGrid() {
   const isSmall = useIsSmall();
 
   return (
-    <section className="bg-[#F6F6FB] py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* ---------- Header ---------- */}
-        <div className="mb-12 text-center">
-          <h2 className="text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl lg:text-6xl">
+    <section className="bg-black py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-14 text-center">
+          <h2 className="text-balance text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-6xl">
             AULTUM – All-in-One CRM & Automation Platform
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-sm sm:text-base text-black/60">
-            AULTUM replaces multiple tools with one powerful system to manage
-            marketing, sales, communication, and operations — from lead capture
-            to customer retention.
+          <p className="mx-auto mt-4 max-w-3xl text-sm sm:text-base text-zinc-400">
+            Replace scattered tools with one unified platform for sales,
+            marketing, automation, and growth.
           </p>
         </div>
 
-        {/* ---------- Grid ---------- */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -108,88 +109,80 @@ export default function BentoGrid() {
           viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-12 gap-4"
         >
-          {/* 1. Overview */}
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
             <Card className="p-6">
               <Title>What is AULTUM?</Title>
               <Muted className="mt-3">
-                AULTUM is a centralized CRM and automation platform designed for
-                startups, agencies, and sales-driven teams.
+                A centralized CRM and automation engine built for startups,
+                agencies, and high-performance sales teams.
               </Muted>
 
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                <CheckRow>Centralized CRM & database</CheckRow>
+                <CheckRow>Centralized CRM</CheckRow>
                 <CheckRow>Marketing automation</CheckRow>
                 <CheckRow>WhatsApp, Email & SMS</CheckRow>
                 <CheckRow>AI-ready workflows</CheckRow>
-                <CheckRow>White-label infrastructure</CheckRow>
-                <CheckRow>Scalable team access</CheckRow>
+                <CheckRow>White-label setup</CheckRow>
+                <CheckRow>Scalable access</CheckRow>
               </div>
 
-              <div className="mt-6 rounded-xl border border-[#635BFF]/25 bg-[#635BFF]/10 p-4">
+              <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
                 <div className="flex flex-wrap justify-center gap-2">
-                  {[
-                    "Startups",
-                    "Service businesses",
-                    "Marketing agencies",
-                    "Sales teams",
-                  ].map((b) => (
-                    <Badge key={b}>{b}</Badge>
-                  ))}
+                  {["Startups", "Agencies", "Sales Teams", "Services"].map(
+                    (b) => (
+                      <Badge key={b}>{b}</Badge>
+                    )
+                  )}
                 </div>
               </div>
             </Card>
           </motion.div>
 
-          {/* 2. Core CRM */}
           <motion.div variants={item} className="col-span-12 lg:col-span-3">
             <Card className="p-6">
               <Title>Core CRM & Automation</Title>
               <Muted className="mt-2">
-                Manage leads, pipelines, and follow-ups in one place.
+                Track leads, pipelines, and follow-ups effortlessly.
               </Muted>
 
               <div className="mt-4 space-y-2">
-                <CheckRow>Lead & contact management</CheckRow>
+                <CheckRow>Lead management</CheckRow>
                 <CheckRow>Custom pipelines</CheckRow>
                 <CheckRow>Tasks & reminders</CheckRow>
                 <CheckRow>Basic automation</CheckRow>
                 <CheckRow>Role-based access</CheckRow>
               </div>
 
-              <div className="mt-4 rounded-lg border border-black/10 bg-black/5 p-3 text-xs">
-                <strong>Use case:</strong> Never lose leads from ads, calls, or
-                referrals.
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900 p-3 text-xs text-zinc-400">
+                Never lose leads again.
               </div>
 
-              <div className="mt-4 text-right text-sm font-semibold">
+              <div className="mt-4 text-right text-sm font-semibold text-white">
                 ₹9,999 / month
               </div>
             </Card>
           </motion.div>
 
-          {/* 3. Marketing Suite */}
           <motion.div variants={item} className="col-span-12 lg:col-span-3">
             <Card className="p-6">
               <Title>Marketing & Communication</Title>
               <Muted className="mt-2">
-                Capture, nurture, and close leads without multiple tools.
+                Capture and nurture leads without switching tools.
               </Muted>
 
               <div className="mt-4 space-y-2">
-                <CheckRow>Landing pages & forms</CheckRow>
+                <CheckRow>Landing pages</CheckRow>
                 <CheckRow>Email automation</CheckRow>
-                <CheckRow>WhatsApp & SMS campaigns</CheckRow>
-                <CheckRow>Central inbox</CheckRow>
+                <CheckRow>WhatsApp & SMS</CheckRow>
+                <CheckRow>Unified inbox</CheckRow>
                 <CheckRow>Campaign tracking</CheckRow>
               </div>
 
-              <div className="mt-4 rounded-lg border border-black/10 bg-black/5 p-3 text-xs">
-                <strong>Use case:</strong> Replace Mailchimp, WhatsApp tools &
-                CRMs.
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900 p-3 text-xs text-zinc-400">
+                Replace multiple marketing tools.
               </div>
 
-              <div className="mt-4 text-right text-sm font-semibold">
+              <div className="mt-4 text-right text-sm font-semibold text-white">
                 ₹14,999 / month
               </div>
             </Card>
@@ -197,10 +190,9 @@ export default function BentoGrid() {
 
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
             <Card className="p-6">
-              <Title>Advanced Automation & AI-Ready</Title>
+              <Title>Advanced Automation & AI</Title>
               <Muted className="mt-2">
-                Built for scale — automate operations without increasing
-                manpower.
+                Designed for scale with advanced workflows.
               </Muted>
 
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
@@ -209,103 +201,64 @@ export default function BentoGrid() {
                 <CheckRow>Lead scoring</CheckRow>
                 <CheckRow>Advanced dashboards</CheckRow>
                 <CheckRow>API access</CheckRow>
-                <CheckRow>Third-party integrations</CheckRow>
+                <CheckRow>Integrations</CheckRow>
               </div>
 
-              <div className="mt-4 rounded-lg border border-black/10 bg-black/5 p-3 text-xs">
-                <strong>Use case:</strong> Scale faster with automation & AI.
-              </div>
-
-              <div className="mt-4 text-right text-sm font-semibold">
+              <div className="mt-4 text-right text-sm font-semibold text-white">
                 ₹24,999 / month
               </div>
             </Card>
           </motion.div>
 
-          {/* 5. White Label */}
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6 border-[#635BFF]/30 bg-[#635BFF]/5">
+            <Card className="p-6">
               <Title>White-Label & Branding</Title>
               <Muted className="mt-2">
-                Run AULTUM under your own brand and sell it as your SaaS.
+                Launch AULTUM under your own brand.
               </Muted>
 
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 <CheckRow>Custom domain</CheckRow>
-                <CheckRow>Your logo & brand</CheckRow>
-                <CheckRow>Custom login URL</CheckRow>
-                <CheckRow>Branded dashboards</CheckRow>
-                <CheckRow>Client-level access</CheckRow>
-                <CheckRow>Reseller-ready</CheckRow>
-              </div>
-
-              <div className="mt-6 flex flex-wrap justify-center gap-2">
-                {[
-                  "Agencies",
-                  "Consultants",
-                  "Founders",
-                  "Resellers",
-                ].map((b) => (
-                  <Badge key={b}>{b}</Badge>
-                ))}
+                <CheckRow>Your branding</CheckRow>
+                <CheckRow>Branded login</CheckRow>
+                <CheckRow>Client access</CheckRow>
+                <CheckRow>Reseller ready</CheckRow>
+                <CheckRow>Agency friendly</CheckRow>
               </div>
             </Card>
           </motion.div>
         </motion.div>
+
+        <motion.section variants={item} className="mt-20 text-center">
+          <h3 className="text-xl sm:text-2xl font-medium text-white">
+            Why Choose AULTUM?
+          </h3>
+          <p className="mt-2 text-sm sm:text-base text-zinc-400">
+            One platform to reduce cost, simplify operations, and scale faster.
+          </p>
+
+          <div className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-4">
+            {[
+              { text: "Replace multiple tools", icon: Layers },
+              { text: "Lower operational cost", icon: IndianRupee },
+              { text: "Faster execution", icon: Zap },
+              { text: "Easy onboarding", icon: Headphones },
+              { text: "Scales with growth", icon: TrendingUp },
+            ].map(({ text, icon: Icon }) => (
+              <motion.div
+                key={text}
+                whileHover={{ y: -2 }}
+                className="flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900 px-5 py-3 text-sm text-zinc-300"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
+                  <Icon className="h-3.5 w-3.5 text-white" />
+                </span>
+                {text}
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
       </div>
-
-    
-<motion.section
-  variants={item}
-  className="mt-16 px-4 sm:px-6"
->
-
-  <div className="mx-auto max-w-4xl text-center">
-    <h3 className="text-xl sm:text-2xl font-semibold text-black">
-      Why Choose AULTUM?
-    </h3>
-    <p className="mt-2 text-sm sm:text-base text-black/50">
-      One platform built to simplify operations, reduce cost, and scale faster.
-    </p>
-  </div>
-
-  {(() => {
-    const whyChooseData = [
-      { text: "Replace 5–7 tools with one platform", icon: Layers },
-      { text: "Lower operational costs", icon: IndianRupee },
-      { text: "Faster execution & automation", icon: Zap },
-      { text: "Easy onboarding & support", icon: Headphones },
-      { text: "Scalable as your business grows", icon: TrendingUp },
-    ];
-
-    return (
-      <div className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-4">
-        {whyChooseData.map(({ text, icon: Icon }) => (
-          <motion.div
-            key={text}
-            whileHover={{ y: -2 }}
-            className="
-              flex items-center gap-3
-              rounded-full
-              border border-black/10
-              bg-white
-              px-5 py-3
-              text-sm text-black/70
-              shadow-sm
-            "
-          >
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#635BFF]/15">
-              <Icon className="h-3.5 w-3.5 text-[#635BFF]" />
-            </span>
-            {text}
-          </motion.div>
-        ))}
-      </div>
-    );
-  })()}
-</motion.section>
-
     </section>
-    
   );
 }

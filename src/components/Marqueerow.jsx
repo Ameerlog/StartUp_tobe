@@ -3,10 +3,10 @@ function Badge({ children }) {
     <span
       className="
         whitespace-nowrap rounded-full
-        border border-black/40 bg-black/15
+        border border-gray-700 bg-black/15
         px-3 py-1.5 sm:px-4 sm:py-2
         text-xs sm:text-sm
-        text-black
+        text-white
         backdrop-blur-xl
       "
     >
@@ -18,7 +18,7 @@ function Badge({ children }) {
 export default function MarqueeRow() {
   return (
     <div className="mt-5 sm:mt-2">
-      <p className="flex items-center justify-center gap-2 text-black font-bold mb-5">
+      <p className="flex items-center justify-center gap-2 text-white font-bold mb-5">
         What do you want to manage today?
       </p>
 

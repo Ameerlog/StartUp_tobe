@@ -1,130 +1,92 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import MarketPlace from "./MarketPlace";
-import Compliance from "./Compliance";
-// import NumbersMarketplace from "./NumbersMarket";
-// import MerchandiseMarket from "./MerchandiseMarket";
-
-// function MerchandiseMarketplace() {
-//   return (
-//     <div className="mx-auto max-w-6xl px-4 py-10">
-//       <motion.div
-//         initial={{ opacity: 0, scale: 0.95 }}
-//         animate={{ opacity: 1, scale: 1 }}
-//         className="rounded-2xl border border-slate-200 bg-white p-8 text-center"
-//       >
-//         <h3 className="text-xl font-semibold text-slate-900">
-//           Merchandise Coming Soon
-//         </h3>
-//         <p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
-//           We're working on exclusive branded merchandise. Stay tuned for premium apparel and accessories.
-//         </p>
-//       </motion.div>
-//     </div>
-//   );
-// }
 
 export default function Branding() {
   const [activeTab, setActiveTab] = useState("domains");
+  const navigate = useNavigate();
 
-  const tabs = [
-    { id: "domains", label: "Domains" },
-    { id: "compliance", label: "Compliance" },
-    // { id: "merchandise", label: "Merchandise" },
-  ];
+  const tabs = [{ id: "domains", label: "Domains" }];
 
   const contentVariants = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-      scale: 0.98,
-    },
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.4,
-      },
+      transition: { duration: 0.45, ease: "easeOut" },
     },
-    exit: {
-      opacity: 0,
-      y: -20,
-      scale: 0.98,
-      transition: {
-        duration: 0.2,
-      },
-    },
+    exit: { opacity: 0, y: -12, transition: { duration: 0.2 } },
   };
 
   return (
-    <main className="relative min-h-screen bg-[#F8F9FA] text-slate-900">
-      <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-      <section className="relative pt-25 pb-10 text-center z-10">
-        <div className="mx-auto max-w-4xl px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
+    <main className="relative min-h-screen bg-black text-white overflow-hidden">
+      <section className="relative z-10 pt-28 pb-16 text-center">
+        <div className="mx-auto max-w-5xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mt-2 text-5xl sm:text-6xl font-bold tracking-tighter"
+            transition={{ duration: 0.4 }}
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-zinc-300 backdrop-blur"
           >
-            Co-Branding
-          </motion.h1>
+            <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
+            Venture Branding
+          </motion.div>
+
+<motion.h1
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+  className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight"
+>
+  <span className="block bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+    Build Your Brand
+  </span>
+  <span className="block mt-2 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+    Cobrother Guides You.
+  </span>
+</motion.h1>
+
 
           <motion.p
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl text-slate-500 font-medium leading-relaxed"
+            transition={{ duration: 0.45, delay: 0.05 }}
+            className="mx-auto mt-5 max-w-xl text-sm sm:text-base text-zinc-400 leading-relaxed"
           >
-            We provide premium domains, and Compliance to help businesses and
-            individuals build a strong, unique identity.
+            Finding the perfect brand name isn’t easy. Cobrother makes it simple.
+            <br />
+            We help you discover unique, memorable names and instantly check
+            domain availability.
           </motion.p>
 
-          <div className="mt-8 flex justify-center">
-            <div className="h-px w-64 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mt-8"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/")}
+              className="group relative inline-flex items-center gap-2 rounded-full overflow-hidden
+              shadow-[0_0_40px_rgba(168,85,247,0.35)]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+
+              <span className="relative px-7 py-3 text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+                Find & Secure Your Domain
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </motion.button>
+          </motion.div>
         </div>
       </section>
 
-      <section className="relative z-10 border-b border-slate-200 bg-white/50 backdrop-blur-sm sticky top-0">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="flex items-center justify-center gap-1 sm:gap-2 py-3">
-            {tabs.map((tab) => (
-              <motion.button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`
-                  relative
-                  rounded-full px-4 sm:px-6 py-2 sm:py-2.5 
-                  text-xs sm:text-sm font-semibold 
-                  transition-all duration-300 cursor-pointer
-                  ${
-                    activeTab === tab.id
-                      ? "bg-slate-900 text-white shadow-lg shadow-slate-900/20"
-                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:border-slate-300"
-                  }
-                `}
-              >
-                {tab.label}
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-slate-900 rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
       <section className="relative z-10 ">
         <AnimatePresence mode="wait">
@@ -139,42 +101,6 @@ export default function Branding() {
               <MarketPlace />
             </motion.div>
           )}
-
-          {/* {activeTab === "numbers" && (
-            <motion.div
-              key="numbers"
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <Compliance />
-            </motion.div>
-          )} */}
-
-              {activeTab === "compliance" && (
-  <motion.div
-    key="compliance"
-    variants={contentVariants}
-    initial="hidden"
-    animate="visible"
-    exit="exit"
-  >
-              <Compliance />
-            </motion.div>
-          )}
-
-          {/* {activeTab === "merchandise" && (
-            <motion.div
-              key="merchandise"
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <MerchandiseMarket /> */}
-          {/* </motion.div> */}
-          {/* )} */}
         </AnimatePresence>
       </section>
     </main>

@@ -17,6 +17,7 @@ import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
 import AIRobotics from "./Home/AIRobotics";
 import ComplianceCards from "./ComplianceCards";
+import Investors from "./Home/Investors";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -237,7 +238,6 @@ const Home = () => {
               />
             </h1>
 
-            {/* Description */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -249,7 +249,7 @@ const Home = () => {
               all.
             </motion.p>
 
-            {/* CTA Button */}
+      
             <motion.button
               onClick={() => navigate("/contact")}
               initial={{ opacity: 0, y: 20 }}
@@ -268,7 +268,6 @@ const Home = () => {
               </span>
             </motion.button>
 
-            {/* Floating particles around the hero */}
             {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
@@ -315,9 +314,9 @@ const Home = () => {
                 }`}
               />
 
-              {/* Search Bar Container */}
+
               <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full p-1.5 sm:p-2 flex items-center gap-2 sm:gap-3">
-                {/* Input Field with Icon */}
+    
                 <div className="relative flex-1 flex items-center">
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
@@ -332,7 +331,6 @@ const Home = () => {
                   />
                 </div>
 
-                {/* Search Button - Responsive sizing */}
                 <motion.button
                   type="button"
                   onClick={searchDomain}
@@ -429,17 +427,17 @@ const Home = () => {
         </div>
       </section>
 
-      {/* OTHER SECTIONS */}
       <JointVenture />
       <Domains />
       <ComplianceCards />
       <Market />
       <AIRobotics />
+      <Investors/>
     </>
   );
 };
 
-// SERVICE CARD COMPONENT - OPTIMIZED FOR RESPONSIVENESS
+
 const ServiceCard = ({ item, index, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
 

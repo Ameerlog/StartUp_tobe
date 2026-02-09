@@ -1,5 +1,6 @@
 
 
+import CtaVenture from "../components/Ctaventure";
 import Divider from "../components/Divider";
 import ReserveDomainForm from "../components/Form";
 import JointVentureGrid from "../components/JointVentureGrid";
@@ -10,7 +11,7 @@ import VentureHero from "../components/VentureHero";
 
 const Venture = () => {
   return (
-    <main id="venture" className="bg-white text-zinc-900">
+    <main id="venture" >
       <VentureHero />
 
      
@@ -19,10 +20,11 @@ const Venture = () => {
   filing a trademark, and going public with your startup.
 </p> */}
 <JointVentureGrid/>
-<JVProcess/>
+{/* <JVProcess/> */}
 
-<Divider/>
-<JVBenefitsSection/>
+{/* <Divider/>
+<JVBenefitsSection/> */}
+<CtaVenture/>
     </main>
   );
 };

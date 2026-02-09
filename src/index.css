@@ -14,9 +14,9 @@ html {
   top: 50%;
   width: 72px;
   height: 2px;
-  background: rgba(13, 11, 13, 0.45);
+  background: white;
   transform: translateY(-50%);
-  z-index: 10; /* lines above blur */
+  z-index: 10; 
   pointer-events: none;
 }
 
