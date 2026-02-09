@@ -139,42 +139,6 @@ export default function Branding() {
               <MarketPlace />
             </motion.div>
           )}
-
-          {/* {activeTab === "numbers" && (
-            <motion.div
-              key="numbers"
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <Compliance />
-            </motion.div>
-          )} */}
-
-              {activeTab === "compliance" && (
-  <motion.div
-    key="compliance"
-    variants={contentVariants}
-    initial="hidden"
-    animate="visible"
-    exit="exit"
-  >
-              <Compliance />
-            </motion.div>
-          )}
-
-          {/* {activeTab === "merchandise" && (
-            <motion.div
-              key="merchandise"
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <MerchandiseMarket /> */}
-          {/* </motion.div> */}
-          {/* )} */}
         </AnimatePresence>
       </section>
     </main>
