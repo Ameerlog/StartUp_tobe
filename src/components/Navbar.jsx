@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import Logo_white from "../assets/domain/cobrother_Logo_white.png";
+import Logo_white from "../assets/domain/cobrother_Logo_whitee.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -76,7 +76,12 @@ const Navbar = () => {
                 <img
                   src={Logo_white}
                   alt="CoBrother Aultum"
-                  className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18 w-auto drop-shadow-2xl transition-transform duration-300 hover:scale-105"
+                  className="
+    h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64
+    w-auto
+    drop-shadow-2xl
+    transition-transform duration-300 scale-160
+  "
                 />
               </motion.div>
 
@@ -269,8 +274,9 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-4 sm:mt-6"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500" />
-                  <span className="relative block px-4 sm:px-6 py-3 sm:py-3.5 font-semibold text-white text-sm sm:text-base">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600" />
+                  <span className="relative block px-6 py-2.5 font-semibold text-white text-sm">
+                    {" "}
                     Get Started →
                   </span>
                 </motion.button>

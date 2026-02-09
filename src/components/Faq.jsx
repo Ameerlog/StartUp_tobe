@@ -29,28 +29,24 @@ const FAQS = [
   },
 ];
 
-
 export default function FAQ() {
   return (
-    <section id="faq" className="py-24 bg-white">
+    <section id="faq" className="bg-black py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-   
-        <div className="flex flex-col lg:flex-row lg:gap-12">
-
-          <div className="lg:w-1/3 mb-8 lg:mb-0">
-            <h3 className="text-2xl font-bold tracking-tight text-zinc-900 text-center lg:text-left sm:text-5xl">
-             Frequently asked questions
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
+          <div className="lg:w-1/3">
+            <h3 className="text-balance text-2xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Frequently asked questions
             </h3>
           </div>
 
           <div className="flex-1">
-            <div className="divide-y divide-zinc-200 border-t border-b border-zinc-200">
+            <div className="divide-y divide-zinc-800 border-y border-zinc-800">
               {FAQS.map((faq, i) => (
                 <FAQItem key={i} faq={faq} />
               ))}
             </div>
           </div>
-          
         </div>
       </div>
     </section>
@@ -64,46 +60,45 @@ function FAQItem({ faq }) {
     <div className="group">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-start justify-between py-6 text-left focus:outline-none"
+        className="flex w-full items-start justify-between gap-6 py-6 text-left"
       >
-        <span className="text-lg font-medium text-zinc-900 group-hover:text-zinc-700">
+        <span className="text-base font-medium text-white transition-colors group-hover:text-zinc-300 sm:text-lg">
           {faq.question}
         </span>
-        <span className="ml-6 flex h-7 items-center">
-          <motion.div
-            initial={false}
-            animate={{ rotate: isOpen ? 45 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 group-hover:text-zinc-600"
+
+        <motion.span
+          initial={false}
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 group-hover:text-white"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </motion.div>
-        </span>
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </motion.span>
       </button>
-      
+
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="overflow-hidden"
           >
-            <div className="pb-6 pr-12 text-base leading-relaxed text-zinc-500">
-              <p dangerouslySetInnerHTML={{ __html: faq.answer }} />
+            <div className="pb-6 pr-2 text-sm leading-relaxed text-zinc-400 sm:pr-12 sm:text-base">
+              {faq.answer}
             </div>
           </motion.div>
         )}

@@ -1,41 +1,99 @@
-import React from "react";
-import MarqueeRow from "../../components/Marquee";
+import React, { useRef, useState, useEffect } from "react";
 import { domainCards } from "../../data/domain";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Domains({ variant = "dark" }) {
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const animationRef = useRef(null);
   const isDark = variant === "dark";
+
+  const [isPaused, setIsPaused] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const idleTimerRef = useRef(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let scrollSpeed = 1;
+
+    const animate = () => {
+      if (!isPaused && container) {
+        container.scrollLeft += scrollSpeed;
+
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPaused]);
+
+  const resetIdleTimer = () => {
+    if (idleTimerRef.current) {
+      clearTimeout(idleTimerRef.current);
+    }
+
+    idleTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+      setShowButtons(false);
+    }, 3000);
+  };
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    setShowButtons(true);
+    resetIdleTimer();
+  };
+
+  const handleMouseLeave = () => {
+    resetIdleTimer();
+  };
+
+  const handleScroll = (dir) => {
+    if (!scrollRef.current) return;
+
+    setIsPaused(true);
+    setShowButtons(true);
+    resetIdleTimer();
+
+    const scrollAmount = 330;
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   const theme = {
     section: isDark ? "bg-black" : "bg-white",
     heading: isDark ? "text-white" : "text-zinc-900",
-
-    topButton: isDark
-      ? "border-white bg-white/10 text-white"
-      : "border-zinc-300 bg-zinc-100 text-zinc-700",
-
     fadeFrom: isDark ? "from-black" : "from-white",
-
     cardBg: isDark ? "bg-gray-900/60" : "bg-white",
     cardBorder: isDark ? "border-white/20" : "border-zinc-200",
     cardTitle: isDark ? "text-white" : "text-zinc-900",
-
     priceBadge: isDark
       ? "border-white/30 bg-white/10 text-white"
       : "border-zinc-300 bg-zinc-100 text-zinc-700",
-
-    imageBox: isDark
-      ? "bg-white/10 border-white/20"
-      : "bg-zinc-50 border-zinc-200",
-
     tld: isDark ? "text-white" : "text-zinc-500",
-
     bottomButton: isDark
       ? "border-white/30 bg-white/10 text-white"
       : "border-zinc-300 bg-zinc-100 text-zinc-700",
+    navButton: isDark
+      ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+      : "border-zinc-300 bg-white/80 text-zinc-700 hover:bg-white",
   };
+
+  const duplicatedCards = [...domainCards, ...domainCards];
 
   return (
     <section
@@ -47,154 +105,102 @@ export default function Domains({ variant = "dark" }) {
         >
           Co-Brandings
         </h2>
-
-        <button
-        onClick={() => navigate("/domain-form")}
-          className={`
-            group flex items-center gap-2 rounded-full
-            border border-white
-            bg-white/10
-             ${theme.topButton}
-            px-5 sm:px-6 md:px-8 py-2.5 sm:py-3
-            text-xs sm:text-sm font-bold
-            backdrop-blur-xl transition-all duration-300
-            hover:border-white/30
-            hover:text-white
-            hover:bg-gray-800
-
-            active:scale-[0.98]
-          `}
-        >
-          List Domains for Resell
-        </button>
       </div>
 
-      {/* Marquee */}
-      <div className="relative mt-6 sm:mt-10">
-        {/* Left Fade */}
+      <div
+        className="relative mt-8"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div
-          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-24 bg-linear-to-r ${theme.fadeFrom} to-transparent`}
+          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-r ${theme.fadeFrom} to-transparent`}
         />
-        {/* Right Fade */}
         <div
-          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-24 bg-linear-to-l ${theme.fadeFrom} to-transparent`}
+          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-l ${theme.fadeFrom} to-transparent`}
         />
 
-        <MarqueeRow
-          data={domainCards}
-          speed={25}
-          renderItem={(card) => {
+        <button
+          onClick={() => handleScroll("left")}
+          className={`absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2
+            rounded-full border backdrop-blur-xl
+            p-2 sm:p-3 transition-all duration-300
+            ${theme.navButton}
+            ${showButtons ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}
+          `}
+        >
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        <button
+          onClick={() => handleScroll("right")}
+          className={`absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2
+            rounded-full border backdrop-blue-xl
+            p-2 sm:p-3 transition-all duration-300
+            ${theme.navButton}
+            ${showButtons ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}
+          `}
+        >
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-hidden px-4 sm:px-8"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          {duplicatedCards.map((card, index) => {
             const { id, title, price, src } = card;
+
             return (
               <div
-                key={id}
-                className="shrink-0 w-[260px] sm:w-[300px] md:w-[320px] px-3
-                 border-white/30 
-                
-                hover:border-white/30
-                hover:bg-gray-900/80
-                transition-shadow duration-300
-                "
+                key={`${id}-${index}`}
+                className="shrink-0 w-65 sm:w-75 md:w-[320px] px-2 sm:px-3"
               >
                 <div
-                  className={`group h-[360px] rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
-                  backdrop-blur-sm flex flex-col
-                  shadow-white
-                   hover:border-white/30
-                hover:bg-gray-900/80
-                  transition-all duration-300 `}
+                  className={`group/card h-85 sm:h-90 rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
+                    backdrop-blur-sm flex flex-col transition-all duration-300
+                    hover:border-white/30 hover:bg-gray-900/80`}
                 >
                   <div className="p-4 sm:p-5 flex-1 flex flex-col">
-                    {/* Title + Price */}
-                    <div className="flex items-start justify-between gap-2 sm:gap-3">
-                      <h3
-                        className={`text-base sm:text-lg text-white/50 font-bold leading-tight ${theme.cardTitle} 
-                        group-hover:text-white
-                        transition-colors flex-1 min-w-0`}
-                      >
-                        {title}
-                      </h3>
-
-                      {/* Responsive Price Pill */}
-                      <span
-                        className={`
-                          shrink-0 
-                          rounded-full 
-                          border 
-                          font-bold 
-                          ${theme.priceBadge}
-                          
-                          /* Mobile - smaller */
-                          px-2 py-0.5 text-[10px]
-                          
-                          /* Small screens */
-                          sm:px-2.5 sm:py-1 sm:text-xs
-                          
-                          /* Medium screens and up */
-                          md:px-3 md:py-1 md:text-xs
-                          
-                          /* Large screens */
-                          lg:px-4 lg:py-1.5 lg:text-sm
-                          
-                          /* Ensure text doesn't wrap */
-                          whitespace-nowrap
-                          
-                          /* Optional: add max-width for very long prices */
-                          max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-none
-                          truncate
-                        `}
-                        title={price} /* Show full price on hover if truncated */
-                      >
-                        {price}
-                      </span>
-                    </div>
-
-                    {/* Image */}
-                    <div
-                      className={`mt-4 sm:mt-5 rounded-xl 
-                        border 
-                        border-white/30
-                      bg-[#0e1422]
-                        flex-1 flex 
-                        items-center 
-                        justify-center 
-                        relative
-                        `}
+                    <h3
+                      className={`text-base sm:text-lg font-bold leading-tight
+                        ${theme.cardTitle}`}
                     >
+                      {title}
+                    </h3>
+
+                    <div className="mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative">
                       <img
                         src={src}
                         alt={title}
-                        className="w-full h-[180px] sm:h-[200px] object-contain"
+                        className="w-full h-40 sm:h-45 md:h-50 object-contain"
                         draggable={false}
-                        loading="lazy"
                       />
-
                       <span
-                        className={`absolute bottom-2 sm:bottom-3 right-2 sm:right-3 text-[10px] sm:text-xs font-bold ${theme.tld}`}
+                        className={`absolute bottom-2 right-2 mb-15 text-xs font-bold ${theme.tld}`}
                       >
                         .com
                       </span>
                     </div>
 
-                    {/* CTA */}
-                    <div className="mt-4 sm:mt-6 flex justify-end">
+                    <div className="mt-3">
+                      <span
+                        className={`inline-block rounded-full border font-bold ${theme.priceBadge}
+                          px-3 py-1 text-xs`}
+                      >
+                        {price}
+                      </span>
+                    </div>
+
+                    <div className="mt-auto pt-3 flex justify-end">
                       <button
                         onClick={() => navigate("/branding")}
-                        className="
-                        rounded-full 
-                        bg-linear-to-r 
-                        bg-gray-600 
-                        hover:bg-gray-500 
-                        px-4 sm:px-6 
-                        py-2 sm:py-2.5 
-                        text-xs sm:text-sm 
-                        font-bold 
-                        text-white 
-                        shadow-lg 
-                        transition-all 
-                        hover:-translate-y-0.5 
-                        active:scale-[0.98] 
-                        cursor-pointer"
+                        className="rounded-full bg-gray-600 hover:bg-gray-500
+                          px-4 py-2 text-xs font-bold text-white
+                          transition-all hover:-translate-y-0.5"
                       >
                         Make it Yours →
                       </button>
@@ -203,31 +209,22 @@ export default function Domains({ variant = "dark" }) {
                 </div>
               </div>
             );
-          }}
-        />
-
-        {/* Bottom Button */}
-        <div className="group relative mt-10 flex justify-center px-4">
-          <button
-            onClick={() => navigate("/branding")}
-            className={`
-              group flex items-center gap-2 rounded-full
-              border-white
-              border ${theme.bottomButton}
-              px-6 py-3 text-sm font-bold
-              backdrop-blur-xl transition-all duration-300
-              group-hover:border-white/30
-               group-hover:text-white
-               hover:bg-gray-800
-
-              active:scale-[0.98]
-              cursor-pointer
-            `}
-          >
-            View All
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </button>
+          })}
         </div>
+      </div>
+
+      <div className="mt-10 flex justify-center">
+        <button
+          onClick={() => navigate("/branding")}
+          className={`flex items-center gap-2 rounded-full
+            border ${theme.bottomButton}
+            px-6 py-3 text-sm font-bold
+            backdrop-blur-xl transition-all
+            hover:bg-gray-800`}
+        >
+          View All
+          <ArrowRight className="w-4 h-4" />
+        </button>
       </div>
     </section>
   );

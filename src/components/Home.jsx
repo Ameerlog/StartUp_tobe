@@ -634,15 +634,24 @@ const ServiceCard = ({ item, index, navigate }) => {
       <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-3 sm:p-6 lg:p-8 hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center">
         {/* Icon Container - Dynamic Sizing */}
         <div
-          className={`relative w-14 h-14 sm:w-20 sm:h-20 mb-3 sm:mb-4 bg-gradient-to-br ${item.gradient} rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 flex items-center justify-center p-2 sm:p-3`}
+          className={`relative 
+            w-20 h-20 
+            sm:w-28 sm:h-28 
+            lg:w-32 lg:h-32 
+            mb-4 sm:mb-6
+            bg-gradient-to-br ${item.gradient}
+            rounded-2xl
+            flex items-center justify-center
+            transition-transform duration-300
+            group-hover:scale-110 group-hover:rotate-6
+          `}
         >
           <img
             src={item.Icon}
             alt={item.title}
-            className="w-full h-full object-contain drop-shadow-lg"
+            className="w-full h-full scale-[1.15] object-contain drop-shadow-xl"
           />
         </div>
-
         {/* Text Content */}
         <h3
           className={`text-sm sm:text-lg font-bold mb-1 sm:mb-2 transition-colors duration-300 ${isHovered ? item.iconColor : "text-white"}`}

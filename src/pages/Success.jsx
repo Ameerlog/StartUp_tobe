@@ -1,4 +1,3 @@
-
 import { Link, useSearchParams } from "react-router-dom";
 
 export default function Success() {
@@ -6,22 +5,22 @@ export default function Success() {
   const domain = params.get("domain");
 
   return (
-    <main className="min-h-screen bg-white text-zinc-950">
-      <div className="mx-auto max-w-2xl px-4 py-16">
-        <div className="rounded-3xl border border-zinc-200 bg-white p-6 sm:p-10 text-center">
-          <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-2xl border border-zinc-200 bg-zinc-50">
+    <main className="min-h-screen bg-black text-white">
+      <div className="mx-auto max-w-6xl px-4 py-20">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+          <div className="mx-auto mb-6 grid h-14 w-14 place-items-center rounded-full border border-white/20 bg-emerald-500/10 text-emerald-400 text-3xl font-bold">
             ✓
           </div>
 
-          <h1 className="text-2xl font-semibold">Thanks for reserving!</h1>
-          <p className="mt-3 text-zinc-600">
+          <h1 className="text-3xl font-semibold">Thanks for reserving!</h1>
+          <p className="mt-4 text-zinc-400 text-lg">
             We’ll contact you shortly{domain ? ` about ${domain}` : ""}.
           </p>
 
-          <div className="mt-6 flex justify-center gap-3">
+          <div className="mt-8 flex justify-center">
             <Link
               to="/marketplace"
-              className="rounded-xl border border-zinc-200 px-4 py-2 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
+              className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
             >
               Back to marketplace
             </Link>
