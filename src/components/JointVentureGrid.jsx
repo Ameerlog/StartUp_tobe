@@ -129,10 +129,10 @@ export default function JointVentureGrid() {
                           className="relative overflow-hidden rounded-full"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                          <span className="relative flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-white">
+                          <a  href="/getventure" className="relative flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-white">
                             Get Coventure
                             <ArrowRight className="h-3 w-3" />
-                          </span>
+                          </a>
                         </motion.button>
                       </div>
                     </div>

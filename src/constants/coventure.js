@@ -72,7 +72,7 @@ export const initialFormData = {
   coVenturePrice: '',
   contactEmail: '',
   contactNumber: '',
-  equityConsentAgreed: false,
+  terms: false,
 };
 
 export const validationRules = {

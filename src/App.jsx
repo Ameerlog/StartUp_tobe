@@ -24,6 +24,8 @@ import ContactUs from "./pages/ContactUs";
 import Cocreation from "./pages/Create";
 import DomainlistingForm from "./pages/DomainlistingForm";
 import CoworkingForm from "./pages/Coworker";
+import Venturedomain from "./pages/GetVentureform";
+import GetVentureForm from "./pages/GetVentureform";
 
 
 const App = () => {
@@ -59,7 +61,7 @@ const App = () => {
               path="/marketplace/:slug/payment/success"
               element={<Success />}
             />
-]
+           <Route path="getventure" element={<Venturedomain/>}/>
             <Route path="/community" element={<Investors />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />

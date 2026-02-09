@@ -264,7 +264,7 @@ const CoVentureBrandListingForm = () => {
         if (!validationRules.contactNumber.pattern.test(value))
           return 'Enter valid 10-digit number';
         return '';
-      case 'equityConsentAgreed':
+      case 'terms':
         if (!value) return 'You must agree to proceed';
         return '';
       default:
@@ -276,7 +276,7 @@ const CoVentureBrandListingForm = () => {
     const stepFields = {
       1: ['brandName', 'websiteDomain', 'industryCategory', 'coVenturePrice'],
       2: ['contactEmail', 'contactNumber'],
-      3: ['equityConsentAgreed'],
+      3: ['terms'],
     };
     const fieldsToValidate = stepFields[step] || [];
     const newErrors = {};
@@ -383,33 +383,38 @@ const handleSubmit = async (e) => {
   if (!validateStep(3)) return;
   setIsSubmitting(true);
   try {
-    let logoBase64 = null;
+    const priceString = formData.coVenturePrice.replace(/[₹,]/g, '');
+    const dealValue = parseInt(priceString, 10) || 0;
 
-    if (formData.brandLogo) {
-      logoBase64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(formData.brandLogo);
-      });
-    }
+    const industryMap = {
+      saas: 'SAAS',
+      ecommerce: 'ECOMMERCE',
+      consulting: 'CONSULTING',
+      ai_robotics: 'AI_ROBOTICS',
+      fintech: 'FINTECH',
+      other: 'OTHER',
+      enterprise: 'ENTERPRISE',
+    };
+
+    const mappedIndustry = industryMap[formData.industryCategory?.toLowerCase()] || formData.industryCategory?.toUpperCase();
 
     const payload = {
       brandDetails: {
         brandName: formData.brandName,
-        brandLogo: logoBase64,
-        websiteDomain: formData.websiteDomain,
-        industryCategory: formData.industryCategory,
-        coVenturePrice: formData.coVenturePrice,
+        website: formData.websiteDomain,
+        industry: mappedIndustry,
+        dealValue: dealValue,
       },
       contactInfo: {
-        contactEmail: formData.contactEmail,
-        contactNumber: formData.contactNumber,
+        email: formData.contactEmail,
+        phoneNumber: formData.contactNumber,
       },
       agreement: {
-        equityConsentAgreed: formData.equityConsentAgreed,
+        termsAccepted: formData.terms,
       },
     };
+
+    console.log('Sending payload:', JSON.stringify(payload, null, 2));
 
     const response = await fetch(
       'http://192.168.29.184:8080/api/createCoBranding',
@@ -1199,7 +1204,7 @@ const handleSubmit = async (e) => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 + idx * 0.1 }}
                         className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-all duration-300 group/check ${
-                          formData.equityConsentAgreed
+                          formData.terms
                             ? 'border-purple-500/30 bg-purple-500/5'
                             : 'border-neutral-800/50 hover:border-neutral-700/50 hover:bg-neutral-800/20'
                         }`}
@@ -1207,19 +1212,19 @@ const handleSubmit = async (e) => {
                         <div className="relative mt-0.5 flex-shrink-0">
                           <input
                             type="checkbox"
-                            name="equityConsentAgreed"
-                            checked={formData.equityConsentAgreed}
+                            name="terms"
+                            checked={formData.terms}
                             onChange={handleInputChange}
                             className="sr-only"
                           />
                           <div
                             className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
-                              formData.equityConsentAgreed
+                              formData.terms
                                 ? 'bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 shadow-lg shadow-purple-500/20'
                                 : 'border-neutral-600 bg-neutral-900/50 group-hover/check:border-purple-500/50'
                             }`}
                           >
-                            {formData.equityConsentAgreed && (
+                            {formData.terms && (
                               <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
@@ -1245,7 +1250,7 @@ const handleSubmit = async (e) => {
                   </motion.div>
 
                   <AnimatePresence>
-                    {errors.equityConsentAgreed && (
+                    {errors.terms && (
                       <motion.p
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -1253,7 +1258,7 @@ const handleSubmit = async (e) => {
                         className="text-red-400 text-xs flex items-center gap-1.5"
                       >
                         <AlertCircle className="w-3 h-3" />{' '}
-                        {errors.equityConsentAgreed}
+                        {errors.terms}
                       </motion.p>
                     )}
                   </AnimatePresence>
@@ -1329,30 +1334,7 @@ const handleSubmit = async (e) => {
           </form>
         </GlassCard>
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-5 sm:gap-8"
-        >
-          {[
-            { icon: Lock, text: 'Secure & Encrypted', color: 'text-green-500' },
-            { icon: FileText, text: 'NDA Protected', color: 'text-blue-500' },
-            { icon: Award, text: '500+ Partners', color: 'text-purple-500' },
-            { icon: Star, text: '4.9/5 Rating', color: 'text-amber-500' },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 + i * 0.1 }}
-              className="flex items-center gap-1.5 text-neutral-500 text-xs"
-            >
-              <item.icon className={`w-3.5 h-3.5 ${item.color}`} />
-              <span>{item.text}</span>
-            </motion.div>
-          ))}
-        </motion.div>
+   
       </div>
     </div>
   );
