@@ -58,5 +58,4 @@ export const aiRoboticsData = [
     desc: "Power backup for routers & network devices",
     icon: Router,
   },
-  
 ];

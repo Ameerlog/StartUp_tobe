@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Cobrother (6).png";
+import { useNavigate } from "react-router-dom";
+
 const XLogo = ({ className }) => (
   <svg
     viewBox="0 0 24 24"
@@ -114,6 +116,7 @@ const scrollToTop = () => {
 };
 
 export default function Footer() {
+  const navigate = useNavigate();
   return (
     <footer className="relative bg-black text-white overflow-hidden">
       {/* Background Glow */}
@@ -188,10 +191,22 @@ export default function Footer() {
 
           {/* CTA ACTIONS */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-            <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium">
+            <button
+              onClick={() => navigate("/contact")}
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500"
+            >
               Book a Cobrother Visit →
             </button>
-            <button className="px-6 py-3 rounded-xl border border-neutral-700 hover:border-neutral-500 transition">
+            <button
+              onClick={() =>
+                window.open(
+                  "https://aultum.com/",
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
+              className="px-6 py-3 rounded-xl border border-neutral-700 hover:border-neutral-500 transition"
+            >
               Get Aultum SaaS →
             </button>
           </div>

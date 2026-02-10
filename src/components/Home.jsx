@@ -23,8 +23,9 @@ import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
 import AIRobotics from "./Home/AIRobotics";
-import ComplianceCards from "./ComplianceCards";
 
+import Investors from "./Home/Investors";
+import Challenges from "../components/Home/Challeges";
 const Home = () => {
   const navigate = useNavigate();
 
@@ -300,7 +301,10 @@ const Home = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="relative text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent mb-2"
+                className="relative text-base sm:text-lg md:text-xl font-medium 
+             bg-gradient-to-r from-red-400  via-violet-500 to-purple-500
+                
+             bg-clip-text text-transparent mb-2"
               >
                 Get a .com for only ₹1.00<span className="text-sm">*</span>/1st
                 yr
@@ -314,7 +318,7 @@ const Home = () => {
                 className="relative text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto"
               >
                 Included AI powered cobrother{" "}
-                <span className="font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="font-semibold bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">
                   Aultum
                 </span>{" "}
                 with Add-on AI automation for your doorstep
@@ -514,8 +518,8 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-center mb-12 sm:mb-16 max-w-4xl relative px-2 sm:px-4"
           >
-            {/* Description */}
-            <motion.p
+            Description
+            {/* <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -524,8 +528,7 @@ const Home = () => {
               We don't just advise—we sit with you, work with you, and build
               with you. From registration to growth, your CoBrother handles it
               all.
-            </motion.p>
-
+            </motion.p> */}
             {/* Tagline */}
             <motion.p
               initial={{ opacity: 0 }}
@@ -535,7 +538,6 @@ const Home = () => {
             >
               Visit your cobrother at your doorstep
             </motion.p>
-
             {/* CTA Button */}
             <motion.button
               onClick={() => setShowBookingModal(true)}
@@ -554,7 +556,6 @@ const Home = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </motion.button>
-
             {/* Floating particles around the hero */}
             {[...Array(8)].map((_, i) => (
               <motion.div
@@ -604,9 +605,12 @@ const Home = () => {
       {/* 4. OTHER SECTIONS - FOURTH */}
       <JointVenture />
       <Domains />
-      <ComplianceCards />
+      {/* <ComplianceCards /> */}
       <Market />
+      <Challenges />
+
       <AIRobotics />
+      <Investors />
     </>
   );
 };

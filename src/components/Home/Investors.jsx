@@ -3,6 +3,7 @@ import MarqueeRow from "../../components/Marquee";
 import { investorCards } from "../../data/investors";
 import { ArrowRight } from "lucide-react";
 import BackgroundImage from "../../assets/domain/bg1.svg";
+import { useNavigate } from "react-router-dom";
 
 // Reusable Card Component to avoid repetition
 const InvestorCard = ({ card }) => (
@@ -81,6 +82,7 @@ const InvestorCard = ({ card }) => (
 );
 
 export default function Investors() {
+  const navigate = useNavigate();
   return (
     <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
       <div className="text-center px-4 flex flex-col items-center gap-4">
@@ -89,6 +91,7 @@ export default function Investors() {
         </h2>
 
         <button
+          onClick={() => navigate("/coworker-form")}
           className="
              group
              flex items-center gap-2

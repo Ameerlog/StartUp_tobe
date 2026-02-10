@@ -28,6 +28,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
+import GetVentureForm from "./pages/GetVentureform";
 
 const App = () => {
   return (
@@ -73,6 +74,8 @@ const App = () => {
             <Route path="/careers" element={<Careers />} />
             {/* Forms */}
             {/* Coventure listing form  */}
+
+            <Route path="/get-ventures" element={<GetVentureForm />} />
             <Route path="/coventure-form" element={<CoventureForm />} />
             <Route path="/domain-form" element={<DomainlistingForm />} />
             <Route path="/coworker-form" element={<CoworkingForm />} />

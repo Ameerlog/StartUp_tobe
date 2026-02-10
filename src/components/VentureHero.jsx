@@ -31,7 +31,7 @@ const VentureHero = () => {
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:32px_32px]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
 
-      <div className="relative mx-auto max-w-6xl px-4 pt-28 pb-24 text-center z-10">
+      <div className="relative mx-auto max-w-6xl px-4 pt-28 pb-2 text-center z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

@@ -7,10 +7,10 @@ import Cosister from "../assets/domain/cosister.svg";
 import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
 
-import Bedtolet from "../assets/domain/Bedtolet.svg";
-import Nopivot from "../assets/domain/nopivot.svg";
+import Bedtolet from "../assets/domain/Bedtolet1.svg";
+import nopivot1 from "../assets/domain/nopivot1.svg";
 import Oldmedal from "../assets/domain/oldmedal.png";
-import Reelshost from "../assets/domain/reelshost.svg";
+import Reelshost from "../assets/domain/reelshost1.svg";
 import Coastaldew from "../assets/domain/coastaldew.png";
 import Girij from "../assets/domain/girij.svg";
 import Submines from "../assets/domain/submines.png";
@@ -128,7 +128,7 @@ export const jvMarqueeCards = [
 
   {
     id: 12,
-    logo: Nopivot,
+    logo: nopivot1,
     desc: "Startup strategy & pivot advisory for early and growth-stage founders",
     details: [
       "Startup Advisory / Strategy / Growth Consulting",

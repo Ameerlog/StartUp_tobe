@@ -5,10 +5,10 @@ import DryChilli from "../assets/domain/drychilli.svg";
 import DryGrains from "../assets/domain/drygrains.svg";
 import Pregadays from "../assets/domain/pregadays.png";
 import Brandbunk from "../assets/domain/Brandbunk.svg";
-import Bedtolet from "../assets/domain/Bedtolet.svg";
-import Nopivot from "../assets/domain/nopivot.svg";
+import Bedtolet from "../assets/domain/Bedtolet1.svg";
+import nopivot1 from "../assets/domain/nopivot1.svg";
 import Oldmedal from "../assets/domain/oldmedal.png";
-import Reelshost from "../assets/domain/reelshost.svg";
+import Reelshost from "../assets/domain/reelshost1.svg";
 import Coastaldew from "../assets/domain/coastaldew.png";
 import Girij from "../assets/domain/girij.svg";
 import Submines from "../assets/domain/submines.png";
@@ -171,12 +171,12 @@ export const domainCards = [
     theme: ventureTheme,
   },
   {
-    id: "nopivot",
-    title: "NoPivot",
-    slug: "nopivot",
+    id: "nopivot1",
+    title: "nopivot1",
+    slug: "nopivot1",
     description: "Bold startup-focused brand representing long-term vision.",
-    href: "/marketplace/nopivot",
-    src: Nopivot,
+    href: "/marketplace/nopivot1",
+    src: nopivot1,
     price: "₹25,70,770",
     priceValue: 2570770,
     tags: ["Startup"],
