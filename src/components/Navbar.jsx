@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import Logo_white from "../assets/domain/cobrother_Logo_whitee.png";
+import Logo_white from "../assets/domain/cobrother123.png";
 
 const Navbar = () => {
   const navigate = useNavigate();

@@ -9,7 +9,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/Cobrother (6).png";
+import Logo from "../assets/Cobrother (10).png";
 import { useNavigate } from "react-router-dom";
 
 const XLogo = ({ className }) => (
