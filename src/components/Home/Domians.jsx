@@ -105,6 +105,26 @@ export default function Domains({ variant = "dark" }) {
         >
           Co-Brandings
         </h2>
+        <button
+          onClick={() => navigate("/domain-form")}
+          className={`
+            group flex items-center gap-2 rounded-full
+            border border-white
+            bg-white/10
+          text-white
+             ${theme.topButton}
+            px-5 sm:px-6 md:px-8 py-2.5 sm:py-3
+            text-xs sm:text-sm font-bold
+            backdrop-blur-xl transition-all duration-300
+            hover:border-white/30
+            hover:text-white
+          
+
+            active:scale-[0.98]
+          `}
+        >
+          List Domains for Resell
+        </button>
       </div>
 
       <div

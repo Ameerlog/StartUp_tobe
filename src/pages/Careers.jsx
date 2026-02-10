@@ -190,7 +190,7 @@ const Careers = () => {
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
             Join{" "}
-            <span className="bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
               CoBrother
             </span>
           </h1>
@@ -272,7 +272,7 @@ const Careers = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-6 py-2.5 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 rounded-full text-white font-semibold text-sm"
+                    className="px-6 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white font-semibold text-sm"
                   >
                     Apply Now
                   </motion.button>
@@ -416,7 +416,7 @@ const Careers = () => {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-3.5 bg-gradient-to-r from-red-500 via-violet-500 to-purple-500 rounded-xl text-white font-semibold text-lg"
+                  className="w-full px-6 py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white font-semibold text-lg"
                 >
                   Submit Application
                 </motion.button>
