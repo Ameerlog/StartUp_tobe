@@ -293,7 +293,7 @@ const Home = () => {
                 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
               >
                 <span className=" bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                  Search and buy available brand names
+                 Discover Your brand name here
                 </span>
               </motion.h2>
 
@@ -317,7 +317,7 @@ const Home = () => {
                 transition={{ delay: 0.4 }}
                 className="relative text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto"
               >
-                Included AI powered cobrother{" "}
+                Included AI powered CoBrother{" "}
                 <span className="font-semibold text-neutral-300 bg-clip-text">
                   Aultum
                 </span>{" "}
@@ -353,7 +353,7 @@ const Home = () => {
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
                     type="text"
-                    placeholder="Search the brand name you want"
+                    placeholder="Search the brand name "
                     value={domainQuery}
                     onChange={(e) => {
                       setDomainQuery(e.target.value);
@@ -536,7 +536,7 @@ const Home = () => {
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-purple-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-8"
             >
-              Visit your cobrother at your doorstep
+              Visit your CoBrother at your doorstep
             </motion.p>
             {/* CTA Button */}
             <motion.button
@@ -551,8 +551,8 @@ const Home = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500" />
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500 " />
 
-              <span className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2 rounded-full border-2 border-transparent group-hover:border-white/60 transition-all duration-300">
-                Book a CoBrother
+              <span  onClick={()=> navigate("contact")} className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2 rounded-full border-2 border-transparent group-hover:border-white/60 transition-all duration-300">
+              Visit your <span className="font-bold">CoBrother</span> 
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </motion.button>

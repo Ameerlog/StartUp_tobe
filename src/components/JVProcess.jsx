@@ -28,7 +28,7 @@ const steps = [
   {
     step: "03",
     icon: Grid,
-    title: "Access Cobrother Ecosystem",
+    title: "Access CoBrother Ecosystem",
     desc: "Get domains, SaaS tools, compliance, and marketing support.",
     gradient: "from-pink-500/20 to-rose-500/20",
     glowColor: "from-pink-600/30 to-rose-600/30",

@@ -84,31 +84,31 @@ const footerColumns = [
       "Contact Us",
       "Privacy Policy",
       "Terms of Service",
-      "Trust & Security",
+     
     ],
   },
 ];
 
-/* ================= PATHS ================= */
+
 
 const linkPaths = {
   "Co-Creation Challenges": "/co-creation",
-  "Co-Operation Setup": "/co-operation",
-  "Co-Marketing Solutions": "/co-marketing",
-  "Co-Branding & Domains": "/domains",
-  "Co-Working / Virtual Workspace": "/workspace",
+  "Co-Operation Setup": "/ai",
+  "Co-Marketing Solutions": "/marketing",
+  "Co-Branding & Domains": "/branding",
+  "Co-Working / Virtual Workspace": "/community",
 
   "Domain Marketplace": "/marketplace",
-  "Coventure / JV Opportunities": "/coventure",
-  "Premium Brands for Partnership": "/brands",
+  "Coventure / JV Opportunities": "/venture",
+  "Premium Brands for Partnership": "/branding",
 
-  "About Cobrother": "/about",
+  "About CoBrother": "/about",
   "How It Works": "/how-it-works",
-  Careers: "/careers",
+  "Careers": "/careers",
   "Contact Us": "/contact",
   "Privacy Policy": "/privacy-policy",
   "Terms of Service": "/terms-of-service",
-  "Trust & Security": "/trust-security",
+ 
 };
 
 const scrollToTop = () => {
@@ -125,17 +125,16 @@ export default function Footer() {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 blur-3xl rounded-full" />
       </div>
 
-      {/* Main Footer */}
       <section className="relative border-t border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          {/* TOP GRID */}
+        
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
-            {/* BRAND COLUMN */}
+        
             <div className="lg:col-span-2 space-y-6">
               <Link to="/">
                 <img
                   src={Logo}
-                  alt="Cobrother Aultum"
+                  alt="CoBrother Aultum"
                   className="h-48 md:h-56 w-auto"
                 />
               </Link>

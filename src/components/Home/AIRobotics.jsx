@@ -50,7 +50,7 @@ export default function AIRobotics() {
             mt-4
           "
         >
-          Get Aultum Access
+          Get Aultum Automation
         </button>
       </div>
 
@@ -195,7 +195,7 @@ export default function AIRobotics() {
                     "
                   >
                     <button
-                      onClick={() => navigate("/ai")}
+                      onClick={() => navigate("/contact")}
                       className="
                         w-full sm:flex-1 
                         rounded-full 
@@ -211,7 +211,7 @@ export default function AIRobotics() {
                         cursor-pointer
                       "
                     >
-                      Schedule a Visit
+                      Book a CoBrother
                     </button>
                   </div>
 

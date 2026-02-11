@@ -81,7 +81,7 @@ export default function BentoGrid() {
   const isSmall = useIsSmall();
 
   return (
-    <section className="bg-black py-16 sm:py-24">
+    <section className="bg-black ">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-14 text-center">
           <h2 className="text-balance text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-6xl">

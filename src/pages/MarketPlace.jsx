@@ -74,7 +74,7 @@ export default function MarketPlace() {
   ];
 
   return (
-    <main className="relative min-h-screen bg-black text-white overflow-hidden">
+    <main className="relative  bg-black text-white overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />

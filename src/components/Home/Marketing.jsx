@@ -31,7 +31,7 @@ export default function Marketing() {
             active:scale-[0.98]
           "
         >
-          Get Aultum Access
+          Get Aultum Automation
         </button>
       </div>
 
@@ -103,6 +103,7 @@ export default function Marketing() {
 
                   {/* Explore Button */}
                   <button
+                  onClick={()=> navigate('/contact')}
                     className="
                       w-full
                       rounded-full
@@ -119,7 +120,7 @@ export default function Marketing() {
                       cursor-pointer
                     "
                   >
-                    Schedule a Visit
+                    Book a CoBrother
                     <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>

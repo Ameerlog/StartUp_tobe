@@ -91,18 +91,7 @@ export default function DomainDetailsLayout() {
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                <h2 className="text-lg font-semibold">
-                  Join the founder community
-                </h2>
-                <p className="mt-2 text-sm text-zinc-400">
-                  Connect with cofounders and builders inside the Venture
-                  ecosystem.
-                </p>
-                <button className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black hover:opacity-90">
-                  Join Now →
-                </button>
-              </div>
+             
             </div>
 
             <div className="space-y-4 lg:sticky lg:top-8 h-fit">

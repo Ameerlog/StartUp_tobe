@@ -22,7 +22,7 @@ export default function Branding() {
 
   return (
     <main className="relative min-h-screen bg-black text-white overflow-hidden">
-      <section className="relative z-10 pt-28 pb-16 text-center">
+      <section className="relative z-10 pt-15 pb-0 text-center">
         <div className="mx-auto max-w-5xl px-4">
           <motion.div
             initial={{ opacity: 0, y: -8 }}
@@ -44,7 +44,7 @@ export default function Branding() {
               Build Your Brand
             </span>
             <span className="block mt-2 bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
-              Cobrother Guides You.
+              CoBrother Guides You.
             </span>
           </motion.h1>
 
@@ -54,7 +54,7 @@ export default function Branding() {
             transition={{ duration: 0.45, delay: 0.05 }}
             className="mx-auto mt-5 max-w-xl text-sm sm:text-base text-zinc-400 leading-relaxed"
           >
-            Finding the perfect brand name isn’t easy. Cobrother makes it
+            Finding the perfect brand name isn’t easy. CoBrother makes it
             simple.
             <br />
             We help you discover unique, memorable names and instantly check

@@ -103,7 +103,7 @@ export default function AIRoboticsPage() {
                     }
                     className="w-full flex items-center justify-between text-sm font-bold text-neutral-400 group-hover:text-white transition"
                   >
-                    Get Aultum Access
+                    Get Aultum Automation
                     <span className="bg-neutral-800 p-1.5 rounded-full">
                       <ArrowRight className="w-4 h-4" />
                     </span>
@@ -171,7 +171,7 @@ export default function AIRoboticsPage() {
                 className="mt-8 w-full rounded-full py-3 text-sm font-bold
                 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 transition"
               >
-                Get Aultum Access
+                Get Aultum Automation
               </button>
             </div>
           ))}

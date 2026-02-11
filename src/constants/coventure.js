@@ -18,7 +18,7 @@ export const equityConsentTerms = [
   },
   {
     id: 2,
-    title: 'Cobrother Share',
+    title: 'CoBrother Share',
     description: '3% of the total equity will always be allocated to Cobrother as part of the co-venture arrangement',
   },
   {
@@ -69,6 +69,7 @@ export const initialFormData = {
   brandLogo: null,
   websiteDomain: '',
   industryCategory: '',
+  brandDescription: "",
   coVenturePrice: '',
   contactEmail: '',
   contactNumber: '',

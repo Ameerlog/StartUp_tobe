@@ -53,7 +53,9 @@ const challengesData = [
   },
 ];
 
+
 export default function Challenges() {
+  const  marqueeData =[...challengesData, ...challengesData];
   const navigate = useNavigate();
 
   return (
@@ -86,7 +88,7 @@ export default function Challenges() {
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-black to-transparent" />
 
         <Marquee speed={22} gradient={false} pauseOnHover>
-          {challengesData.map((card) => {
+          {marqueeData.map((card) => {
             const Icon = card.icon;
 
             return (

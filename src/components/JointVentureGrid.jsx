@@ -53,7 +53,8 @@ export default function JointVentureGrid() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/90" />
       </div>
 
-      <section className="relative z-10 mx-auto max-w-6xl px-4 pt-20 pb-12 text-center">
+     <section className="relative z-10 mx-auto max-w-6xl px-4 pt-0 sm:pt-16 lg:pt-20 pb-8 sm:pb-0 text-center">
+
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -67,7 +68,7 @@ export default function JointVentureGrid() {
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
           <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-            Joint Ventures
+            Co-Ventures
           </span>
         </h1>
 
@@ -130,7 +131,7 @@ export default function JointVentureGrid() {
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
                           <a
-                            href="/getventure"
+                            href="/get-ventures"
                             className="relative flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-white"
                           >
                             Get Coventure

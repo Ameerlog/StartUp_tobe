@@ -94,7 +94,7 @@ export default function JVBenefitsSection() {
 
           <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base text-neutral-400">
             What startups gain by partnering with{" "}
-            <span className="text-white font-medium">Cobrother</span>
+            <span className="text-white font-medium">CoBrother</span>
           </p>
 
           <div className="mt-6 flex justify-center">

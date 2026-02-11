@@ -31,7 +31,7 @@ const VentureHero = () => {
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:32px_32px]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
 
-      <div className="relative mx-auto max-w-6xl px-4 pt-28 pb-2 text-center z-10">
+      <div className="relative mx-auto max-w-6xl px-4 pt-15 pb-2 text-center z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -51,11 +51,11 @@ const VentureHero = () => {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight relative"
         >
           <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-            Copartner with
+            Coventure with
           </span>
           <br />
           <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
-            Cobrother
+            CoBrother
           </span>
 
           <motion.div
@@ -71,7 +71,7 @@ const VentureHero = () => {
           transition={{ delay: 0.4 }}
           className="mt-6 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-2xl mx-auto"
         >
-          Our 70/30 co-ventures operate on the Aultum CRM & AI Automation —
+          Our  co-venture  system operates on the Aultum CRM & AI Automation —
           <br className="hidden sm:block" />
           <span className="text-white font-medium">
             Ensuring clarity, accountability, and execution from day one.
@@ -92,20 +92,20 @@ const VentureHero = () => {
           >
             <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
             <span className="relative flex items-center gap-2">
-              Get Aultum Access
+              Get Aultum Automation
               <ArrowRight className="w-5 h-5" />
             </span>
           </motion.a>
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ delay: 0.9, duration: 0.6 }}
-          className="mt-14 flex justify-center"
+          className="mt-5 flex justify-center"
         >
           <div className="h-px w-80 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

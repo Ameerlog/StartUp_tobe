@@ -3,7 +3,7 @@ import Card from "./Card";
 
 export default function FeaturesSection() {
   return (
-    <section className="relative bg-black text-white pt-0 pb-24 md:pb-32">
+    <section className="relative bg-black text-white pt-0 ">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">

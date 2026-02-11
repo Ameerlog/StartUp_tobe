@@ -212,7 +212,10 @@ const InputField = ({
 
 const CoVentureBrandListingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    brandDescription: "", // Add this if not in initialFormData
+  });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -253,6 +256,9 @@ const CoVentureBrandListingForm = () => {
         if (!value?.trim()) return "Price is required";
         const numValue = parseFloat(value.replace(/[₹,]/g, ""));
         if (isNaN(numValue) || numValue <= 0) return "Enter a valid amount";
+        return "";
+      case "brandDescription":
+        if (value && value.length > 500) return "Must not exceed 500 characters";
         return "";
       case "contactEmail":
         if (!value?.trim()) return "Email is required";
@@ -406,6 +412,7 @@ const CoVentureBrandListingForm = () => {
           website: formData.websiteDomain,
           industry: mappedIndustry,
           dealValue: dealValue,
+          description: formData.brandDescription || "",
         },
         contactInfo: {
           email: formData.contactEmail,
@@ -426,7 +433,7 @@ const CoVentureBrandListingForm = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -444,6 +451,7 @@ const CoVentureBrandListingForm = () => {
       setIsSubmitting(false);
     }
   };
+
   const getIcon = (iconName) => {
     const Icon = iconMap[iconName];
     return Icon ? <Icon className="w-4 h-4" /> : null;
@@ -541,7 +549,7 @@ const CoVentureBrandListingForm = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   setSubmitSuccess(false);
-                  setFormData(initialFormData);
+                  setFormData({ ...initialFormData, brandDescription: "" });
                   setLogoPreview(null);
                   setCurrentStep(1);
                   setTouched({});
@@ -990,6 +998,68 @@ const CoVentureBrandListingForm = () => {
                       )}
                     </AnimatePresence>
                   </motion.div>
+
+                  {/* Brand Description Field - NEW */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.35 }}
+                  >
+                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                      Brand Description
+                      <span className="text-neutral-500 text-xs ml-2">
+                        (Optional)
+                      </span>
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-500/0 to-pink-500/0 rounded-xl opacity-0 group-focus-within:from-purple-500/30 group-focus-within:to-pink-500/30 group-focus-within:opacity-100 transition-all duration-500 blur-sm" />
+                      <div className="relative">
+                        <FileText className="absolute left-4 top-4 w-4 h-4 text-neutral-500 group-focus-within:text-purple-400 transition-colors duration-300" />
+                        <textarea
+                          name="brandDescription"
+                          value={formData.brandDescription || ""}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          placeholder="Tell us about your brand, products, services, and what makes you unique..."
+                          rows={4}
+                          maxLength={500}
+                          className={`w-full pl-11 pr-4 py-3.5 bg-neutral-900/80 border rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all duration-300 text-sm backdrop-blur-sm resize-none ${
+                            errors.brandDescription && touched.brandDescription
+                              ? "border-red-500/60"
+                              : "border-neutral-800/60"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between mt-2">
+                      <p className="text-xs text-neutral-500">
+                        Help us understand your brand better
+                      </p>
+                      <span
+                        className={`text-xs ${
+                          (formData.brandDescription?.length || 0) >= 450
+                            ? "text-orange-400"
+                            : "text-neutral-500"
+                        }`}
+                      >
+                        {formData.brandDescription?.length || 0}/500
+                      </span>
+                    </div>
+                    <AnimatePresence>
+                      {errors.brandDescription && touched.brandDescription && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -5 }}
+                          className="text-red-400 text-xs mt-2 flex items-center gap-1.5"
+                        >
+                          <AlertCircle className="w-3 h-3" />{" "}
+                          {errors.brandDescription}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+              
                 </motion.div>
               )}
 
@@ -1053,6 +1123,11 @@ const CoVentureBrandListingForm = () => {
                               {formData.industryCategory}
                             </span>
                           </div>
+                          {formData.brandDescription && (
+                            <p className="text-xs text-neutral-400 mt-1 line-clamp-2">
+                              {formData.brandDescription}
+                            </p>
+                          )}
                         </div>
                         <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
                           <Check className="w-4 h-4 text-green-400" />
@@ -1150,6 +1225,19 @@ const CoVentureBrandListingForm = () => {
                           </div>
                         </div>
                         <div className="h-px bg-neutral-700/30" />
+                        {formData.brandDescription && (
+                          <>
+                            <div>
+                              <span className="text-neutral-500 block mb-1 text-xs">
+                                Description
+                              </span>
+                              <p className="text-neutral-300 text-xs leading-relaxed">
+                                {formData.brandDescription}
+                              </p>
+                            </div>
+                            <div className="h-px bg-neutral-700/30" />
+                          </>
+                        )}
                         <div className="grid grid-cols-2 gap-3 text-xs">
                           <div>
                             <span className="text-neutral-500 block mb-0.5">

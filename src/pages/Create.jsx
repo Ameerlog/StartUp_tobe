@@ -111,7 +111,7 @@ export default function CoCreation() {
         </h1>
 
         <p className="text-neutral-400 max-w-2xl mx-auto mb-10 text-lg">
-          Welcome to Cobrother’s Virtual Workspace — where challenges meet
+          Welcome to CoBrother’s Virtual Workspace — where challenges meet
           collaborators and ideas turn into action.
         </p>
 
@@ -168,7 +168,7 @@ export default function CoCreation() {
 
           <p className="text-neutral-400 max-w-2xl mx-auto mb-8">
             Submit your business challenge and get actionable solutions from
-            co-founders, investors, and experts. Cobrother guides your challenge
+            co-founders, investors, and experts. CoBrother guides your challenge
             to the right collaborators.
           </p>
 

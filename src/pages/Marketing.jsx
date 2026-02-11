@@ -14,12 +14,12 @@ const Marketing = () => {
   return (
     <section className="relative w-full overflow-hidden bg-black text-white">
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-0 left-1/4 w-96 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-32 pb-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-30 pb-0 ">
         <div className="text-center flex flex-col items-center">
           <img
             src={AultumLogo}
@@ -82,11 +82,11 @@ const Marketing = () => {
         </div>
       </div>
 
-      <section className="relative z-10 mt-24">
+      <section className="relative z-10 ">
         <MarketPlace />
       </section>
 
-      <section className="relative z-10 mt-24 space-y-20 px-4 sm:px-6">
+      <section className="relative z-10 mt-15 pb-0 space-y-20 px-4 sm:px-6">
         <div className="mx-auto max-w-6xl text-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">

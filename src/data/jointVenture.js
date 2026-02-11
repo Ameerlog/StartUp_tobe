@@ -16,7 +16,7 @@ import Girij from "../assets/domain/girij.svg";
 import Submines from "../assets/domain/submines.png";
 import Gotwellsoon from "../assets/domain/gotwellsoon.svg";
 import Checkdam from "../assets/domain/checkdam.png";
-import Cobrother from "../assets/domain/cobrother.svg";
+
 export const jvMarqueeCards = [
   {
     id: 1,
@@ -25,7 +25,7 @@ export const jvMarqueeCards = [
     details: [
       "Electric Vehicles / Clean Mobility",
       "Conversion Services + B2B Contracts",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -36,7 +36,7 @@ export const jvMarqueeCards = [
     details: [
       "Data Infrastructure / Cloud Services",
       "Extraction, Compression & Storage",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -47,7 +47,7 @@ export const jvMarqueeCards = [
     details: [
       "Women’s Essentials / Wellness",
       "D2C Products + Retail Distribution",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -58,7 +58,7 @@ export const jvMarqueeCards = [
     details: [
       "Women’s Essentials / Lifestyle",
       "D2C Products + Community-Driven Brand",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
   {
@@ -68,7 +68,7 @@ export const jvMarqueeCards = [
     details: [
       "Mining / Industrial Tech / Infrastructure Services",
       "B2B Services + Tech Solutions + Long-Term Contracts",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
   {
@@ -78,7 +78,7 @@ export const jvMarqueeCards = [
     details: [
       "Agri Trade / Food Exports",
       "Domestic Supply + Global Export Markets",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -89,7 +89,7 @@ export const jvMarqueeCards = [
     details: [
       "Agri Trade / Food Exports",
       "Domestic Supply + Global Distribution",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
   // {
@@ -100,7 +100,7 @@ export const jvMarqueeCards = [
   //   details: [
   //     "Marketing Services / Startup Growth",
   //     "D2C Services + Retainer + Project-Based",
-  //     "Get Venture (70/30)",
+  //     "Get Venture ",
   //   ],
   // },
 
@@ -111,7 +111,7 @@ export const jvMarqueeCards = [
     details: [
       "Healthcare / Wellness Services",
       "D2C + B2B Marketplace & Service Enablement",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -122,7 +122,7 @@ export const jvMarqueeCards = [
     details: [
       "Real Estate / Co-living / Student Housing",
       "D2C + B2B Marketplace + Property Partnerships",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -133,7 +133,7 @@ export const jvMarqueeCards = [
     details: [
       "Startup Advisory / Strategy / Growth Consulting",
       "D2C Services + Retainers + Advisory Packages",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -144,7 +144,7 @@ export const jvMarqueeCards = [
     details: [
       "Lifestyle / Fashion / Heritage Branding",
       "D2C Products + Limited Retail + Marketplaces",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -155,7 +155,7 @@ export const jvMarqueeCards = [
     details: [
       "Creator Economy / Marketing Tech / SaaS",
       "D2C SaaS + B2B for Creators, Brands & Agencies",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -166,7 +166,7 @@ export const jvMarqueeCards = [
     details: [
       "Hospitality / Travel / Resorts",
       "D2C Bookings + OTA + B2B Partnerships",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -177,7 +177,7 @@ export const jvMarqueeCards = [
     details: [
       "Wellness / Natural Products / Heritage Brand",
       "D2C Products + Marketplace + Select Retail",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 
@@ -188,7 +188,7 @@ export const jvMarqueeCards = [
     details: [
       "Mining / Industrial Tech / Infrastructure Services",
       "B2B Services + Tech Solutions + Long-Term Contracts",
-      "Get Venture (70/30)",
+      "Get Venture ",
     ],
   },
 ];

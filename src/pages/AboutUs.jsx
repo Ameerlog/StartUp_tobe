@@ -114,7 +114,7 @@ export default function AboutUs() {
                 </span>
               </h2>
               <p className="text-base sm:text-lg text-white/80 leading-relaxed mb-4">
-                <strong>The Architecture of Ambition.</strong> At Cobrother
+                <strong>The Architecture of Ambition.</strong> At CoBrother
                 Aultum, we don't believe in the traditional boundaries of
                 business. We believe in <strong>Ecosystems</strong>. In a world
                 where speed is the only sustainable competitive advantage, the

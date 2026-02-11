@@ -123,7 +123,7 @@ export default function Domains({ variant = "dark" }) {
             active:scale-[0.98]
           `}
         >
-          List Domains for Resell
+         Resell your Domain
         </button>
       </div>
 

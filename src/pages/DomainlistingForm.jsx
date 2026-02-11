@@ -268,6 +268,7 @@ const DomainListingForm = () => {
     domainExtension: "",
     domainCategory: "",
     askingPrice: { raw: "", formatted: "" },
+    domainLogo: null,
     contactEmail: "",
     contactNumber: "",
     platformFeeConsent: false,
@@ -275,6 +276,9 @@ const DomainListingForm = () => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
   const formSteps = [
@@ -306,6 +310,13 @@ const DomainListingForm = () => {
       }
       case "domainCategory":
         return value ? "" : "Select a domain category";
+      case "domainLogo":
+        if (value) {
+          if (value.size > 5 * 1024 * 1024) return "File must be under 5 MB";
+          if (!["image/png", "image/jpeg", "image/jpg", "image/svg+xml"].includes(value.type))
+            return "Only PNG, JPG, SVG allowed";
+        }
+        return "";
       case "contactEmail":
         return validationRules.emailPattern.test(value)
           ? ""
@@ -350,6 +361,41 @@ const DomainListingForm = () => {
     }));
   };
 
+  const handleFileChange = (file) => {
+    if (!file) return;
+    const error = validate("domainLogo", file);
+    if (error) {
+      setErrors((prev) => ({ ...prev, domainLogo: error }));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => setLogoPreview(reader.result);
+    reader.readAsDataURL(file);
+    setFormData((prev) => ({ ...prev, domainLogo: file }));
+    setErrors((prev) => ({ ...prev, domainLogo: "" }));
+  };
+
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(e.type === "dragenter" || e.type === "dragover");
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files?.[0]) {
+      handleFileChange(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleRemoveLogo = () => {
+    setFormData((prev) => ({ ...prev, domainLogo: null }));
+    setLogoPreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   const nextStep = () => {
     const stepFields =
       step === 1
@@ -386,7 +432,6 @@ const DomainListingForm = () => {
         throw new Error("Invalid asking price");
       }
 
-      // Updated payload structure to match your API
       const payload = {
         domainName: formData.domainName,
         domainExtension: formData.domainExtension,
@@ -411,7 +456,7 @@ const DomainListingForm = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -443,10 +488,12 @@ const DomainListingForm = () => {
       domainExtension: "",
       domainCategory: "",
       askingPrice: { raw: "", formatted: "" },
+      domainLogo: null,
       contactEmail: "",
       contactNumber: "",
       platformFeeConsent: false,
     });
+    setLogoPreview(null);
     setStep(1);
     setErrors({});
   };
@@ -822,6 +869,96 @@ const DomainListingForm = () => {
                     </AnimatePresence>
                   </motion.div>
 
+                  {/* Logo Upload Field */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                      Domain Logo{" "}
+                      <span className="text-neutral-500 text-xs ml-1">
+                        (Optional)
+                      </span>
+                    </label>
+                    <div
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
+                      className={`relative overflow-hidden border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-300 group ${
+                        dragActive
+                          ? "border-purple-500 bg-purple-500/5"
+                          : "border-neutral-700/60 hover:border-purple-500/50 hover:bg-neutral-800/30"
+                      }`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500" />
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={(e) => handleFileChange(e.target.files?.[0])}
+                        accept=".png,.jpg,.jpeg,.svg"
+                        className="hidden"
+                      />
+                      {logoPreview ? (
+                        <div className="relative inline-block">
+                          <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="relative"
+                          >
+                            <img
+                              src={logoPreview}
+                              alt="Logo"
+                              className="max-w-[120px] max-h-[80px] rounded-lg border border-neutral-700/50 shadow-lg"
+                            />
+                            <motion.button
+                              type="button"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemoveLogo();
+                              }}
+                              className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-red-500 to-pink-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-red-500/30"
+                            >
+                              <X className="w-3 h-3" />
+                            </motion.button>
+                          </motion.div>
+                        </div>
+                      ) : (
+                        <div className="relative z-10">
+                          <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <Upload className="w-5 h-5 text-purple-400" />
+                          </div>
+                          <p className="text-sm text-neutral-400 mb-1">
+                            Drop your logo or{" "}
+                            <span className="text-purple-400 font-medium">
+                              click to upload
+                            </span>
+                          </p>
+                          <p className="text-xs text-neutral-500">
+                            PNG, JPG, SVG • Max 5MB
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <AnimatePresence>
+                      {errors.domainLogo && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -5 }}
+                          className="text-red-400 text-xs mt-2 flex items-center gap-1.5"
+                        >
+                          <AlertCircle className="w-3 h-3" />{" "}
+                          {errors.domainLogo}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+
                   <SelectField
                     label="Domain Category"
                     name="domainCategory"
@@ -832,7 +969,7 @@ const DomainListingForm = () => {
                     placeholder="Select category"
                     icon={Layout}
                     required
-                    delay={0.2}
+                    delay={0.25}
                   />
                 </motion.div>
               )}
@@ -871,9 +1008,17 @@ const DomainListingForm = () => {
                     <div className="relative overflow-hidden bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 rounded-xl p-4 border border-neutral-700/30">
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
                       <div className="relative flex items-center gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-                          <Globe className="w-6 h-6 text-white" />
-                        </div>
+                        {logoPreview ? (
+                          <img
+                            src={logoPreview}
+                            alt="Domain"
+                            className="w-12 h-12 rounded-xl object-cover border border-neutral-700/50"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+                            <Globe className="w-6 h-6 text-white" />
+                          </div>
+                        )}
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-sm truncate">
                             {formData.domainName}
@@ -959,9 +1104,17 @@ const DomainListingForm = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
                       <div className="relative space-y-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-                            <Globe className="w-5 h-5 text-white" />
-                          </div>
+                          {logoPreview ? (
+                            <img
+                              src={logoPreview}
+                              alt="Domain"
+                              className="w-10 h-10 rounded-lg object-cover border border-neutral-700/50"
+                            />
+                          ) : (
+                            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+                              <Globe className="w-5 h-5 text-white" />
+                            </div>
+                          )}
                           <div>
                             <p className="font-semibold text-white text-sm">
                               {formData.domainName}
