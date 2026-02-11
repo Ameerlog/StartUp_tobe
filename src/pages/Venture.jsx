@@ -1,25 +1,26 @@
+import { useState } from "react";
 import CtaVenture from "../components/Ctaventure";
-import Divider from "../components/Divider";
-import ReserveDomainForm from "../components/Form";
 import JointVentureGrid from "../components/JointVentureGrid";
-import JVBenefitsSection from "../components/JVBenefits";
-import JVProcess from "../components/JVProcess";
 import VentureHero from "../components/VentureHero";
+import CoVentureBrandListingForm from "./CoventureForm";
 
 const Venture = () => {
+  const [refetchTrigger, setRefetchTrigger] = useState(0);
+
+  const handleFormSuccess = () => {
+    setRefetchTrigger((prev) => prev + 1);
+  };
+
   return (
     <main id="venture">
       <VentureHero />
 
-      {/* <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-600">
-  You need naming clarity before buying a domain, designing a logo,
-  filing a trademark, and going public with your startup.
-</p> */}
-      <JointVentureGrid />
-      {/* <JVProcess/> */}
+      {/* ✅ Add form with onSuccess callback */}
+      <CoVentureBrandListingForm onSuccess={handleFormSuccess} />
 
-      {/* <Divider/>
-<JVBenefitsSection/> */}
+      {/* ✅ Grid will refetch when key changes */}
+      <JointVentureGrid key={refetchTrigger} />
+
       <CtaVenture />
     </main>
   );

@@ -1,9 +1,16 @@
 import React from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import { Sparkles, ArrowRight } from "lucide-react";
-import { jvMarqueeCards } from "../data/jointVenture";
+import { coventureAPI } from "../services/api/coventure.api";
+import { useDataFetch } from "../hooks/useDataFetch";
 
 export default function JointVentureGrid() {
+  const {
+    data: jvMarqueeCards,
+    loading,
+    error,
+  } = useDataFetch(coventureAPI.getAll);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -45,6 +52,44 @@ export default function JointVentureGrid() {
       border: "group-hover:border-pink-500/50",
     },
   ];
+
+  // Loading State
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-black">
+        <div className="text-white text-xl">Loading ventures...</div>
+      </div>
+    );
+  }
+
+  // Error State
+  if (error) {
+    return (
+      <div className="text-red-500 text-center p-8 bg-black min-h-screen flex items-center justify-center">
+        <div>
+          <p className="text-xl mb-2">Failed to load ventures</p>
+          <p className="text-sm text-gray-400">{error}</p>
+          <p className="text-xs text-gray-500 mt-4">
+            Make sure backend API is running
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty State
+  if (!jvMarqueeCards || jvMarqueeCards.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-black">
+        <div className="text-center">
+          <p className="text-white text-xl mb-2">No ventures available yet</p>
+          <p className="text-gray-400 text-sm">
+            Submit the first venture to see it here!
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="relative bg-black text-white overflow-hidden">
@@ -94,7 +139,7 @@ export default function JointVentureGrid() {
 
               return (
                 <motion.article
-                  key={card.id}
+                  key={card._id || card.id}
                   variants={cardVariants}
                   whileHover="hover"
                   whileTap="tap"
@@ -112,7 +157,7 @@ export default function JointVentureGrid() {
                       <div className="flex items-center justify-center h-16 sm:h-20">
                         <img
                           src={card.logo}
-                          alt={card.title}
+                          alt={card.name || card.title}
                           className="max-h-full max-w-[200px] object-contain scale-250"
                           loading="lazy"
                         />
@@ -141,18 +186,23 @@ export default function JointVentureGrid() {
                     </div>
 
                     <div className="px-5 py-4">
+                      <p className="text-sm text-neutral-300 mb-3">
+                        {card.desc || card.description}
+                      </p>
                       <div className="mt-3 space-y-2">
-                        {card.details.slice(0, 3).map((item, i) => (
-                          <p
-                            key={i}
-                            className="flex items-start gap-2 text-xs text-neutral-400"
-                          >
-                            <span
-                              className={`mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`}
-                            />
-                            <span className="line-clamp-1">{item}</span>
-                          </p>
-                        ))}
+                        {(card.details || card.features || [])
+                          .slice(0, 3)
+                          .map((item, i) => (
+                            <p
+                              key={i}
+                              className="flex items-start gap-2 text-xs text-neutral-400"
+                            >
+                              <span
+                                className={`mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`}
+                              />
+                              <span className="line-clamp-1">{item}</span>
+                            </p>
+                          ))}
                       </div>
                     </div>
                   </div>

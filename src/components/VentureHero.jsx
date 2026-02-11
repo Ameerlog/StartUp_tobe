@@ -2,7 +2,8 @@ import React from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
-const VentureHero = () => {
+const VentureHero = ({ onFormSuccess }) => {
+  // ✅ Accept prop
   return (
     <section className="relative w-full min-h-[65vh] bg-black overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
