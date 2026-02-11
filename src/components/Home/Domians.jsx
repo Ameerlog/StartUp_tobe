@@ -108,6 +108,26 @@ export default function Domains({ variant = "dark" }) {
         >
           Co-Brandings
         </h2>
+        <button
+        onClick={() => navigate("/domain-form")}
+          className={`
+            group flex items-center gap-2 rounded-full
+            border border-white
+            bg-white/10
+          text-white
+             ${theme.topButton}
+            px-5 sm:px-6 md:px-8 py-2.5 sm:py-3
+            text-xs sm:text-sm font-bold
+            backdrop-blur-xl transition-all duration-300
+            hover:border-white/30
+            hover:text-white
+          
+
+            active:scale-[0.98]
+          `}
+        >
+          List Domains for Resell
+        </button>
       </div>
 
       <div
@@ -156,7 +176,8 @@ export default function Domains({ variant = "dark" }) {
           }}
         >
           {duplicatedCards.map((card, index) => {
-            const { id, title, price, src } = card;
+            const { id, title, price, src, slug } = card;
+
 
             return (
               <div
@@ -168,6 +189,11 @@ export default function Domains({ variant = "dark" }) {
                     backdrop-blur-sm flex flex-col transition-all duration-300
                     hover:border-white/30 hover:bg-gray-900/80`}
                 >
+                  <button
+    onClick={() => navigate(`/marketplace/${slug}`)}
+    className="absolute inset-0 z-10"
+    aria-label={`View ${title}`}
+  />
                   <div className="p-4 sm:p-5 flex-1 flex flex-col">
                     <h3
                       className={`text-base sm:text-lg font-bold leading-tight
@@ -201,7 +227,10 @@ export default function Domains({ variant = "dark" }) {
 
                     <div className="mt-auto pt-3 flex justify-end">
                       <button
-                        onClick={() => navigate("/branding")}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/marketplace/${slug}`);
+                        }}
                         className="rounded-full bg-gray-600 hover:bg-gray-500
                           px-4 py-2 text-xs font-bold text-white
                           transition-all hover:-translate-y-0.5"

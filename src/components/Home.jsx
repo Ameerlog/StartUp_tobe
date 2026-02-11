@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, Sparkles, ArrowRight, Check, X, Loader2 } from "lucide-react";
-// Assuming you have axios installed based on the original code
+
 import axios from "axios";
 
 import BackgroundImage from "../assets/domain/bg1.svg";
@@ -14,10 +14,11 @@ import Funding from "../assets/domain/ai.svg";
 import Community from "../assets/domain/community.svg";
 import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
-import Market from "./Home/Marketing";
+
 import AIRobotics from "./Home/AIRobotics";
 import ComplianceCards from "./ComplianceCards";
 import Investors from "./Home/Investors";
+import ChallengesMarquee from "./Home/Challeges";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -430,7 +431,8 @@ const Home = () => {
       <JointVenture />
       <Domains />
       <ComplianceCards />
-      <Market />
+      {/* <Market /> */}
+      <ChallengesMarquee/>
       <AIRobotics />
       <Investors/>
     </>
