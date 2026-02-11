@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Logo_white from "../assets/domain/cobrother_Logo_white.png";
 
+
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -92,7 +93,7 @@ const Navbar = () => {
               <img
                 src={Logo_white}
                 alt="CoBrother Aultum"
-                className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 w-auto scale-[1.8] sm:scale-[2.2] md:scale-[2.6] lg:scale-[3] xl:scale-[3.2] origin-left drop-shadow-2xl transition-transform duration-300 hover:scale-[1.9] sm:hover:scale-[2.3] md:hover:scale-[2.7] lg:hover:scale-[3.1] xl:hover:scale-[3.3]"
+                className="h-10 sm:h-20 md:h-24 lg:h-28 xl:h-32 w-auto  origin-left drop-shadow-2xl transition-transform duration-300 scale-200 ml-10"
               />
             </motion.div>
 
