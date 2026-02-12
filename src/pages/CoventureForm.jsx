@@ -214,7 +214,7 @@ const CoVentureBrandListingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     ...initialFormData,
-    brandDescription: "", // Add this if not in initialFormData
+    brandDescription: "",
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -225,9 +225,57 @@ const CoVentureBrandListingForm = () => {
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
+  const [brands, setBrands] = useState([]);
+  const [loadingBrands, setLoadingBrands] = useState(false);
+  const [brandsError, setBrandsError] = useState(null);
+
   useEffect(() => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentStep]);
+
+  const fetchAllBrands = async () => {
+    setLoadingBrands(true);
+    setBrandsError(null);
+    try {
+      const response = await fetch(
+        "http://192.168.29.184:8080/api/ListAllBrands",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch brands");
+      }
+
+      const data = await response.json();
+      console.log("Fetched brands:", data);
+
+      const mappedBrands = data.map((brand, index) => ({
+        id: brand.id || index + 1,
+        logo: brand.logoUrl || "",
+        brandName: brand.brandName || "",
+        desc: brand.description || "",
+        website: brand.website || "",
+        industry: brand.industry || "",
+        dealValue: brand.dealValue || 0,
+      }));
+
+      setBrands(mappedBrands);
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+      setBrandsError(error.message);
+    } finally {
+      setLoadingBrands(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllBrands();
+  }, []);
 
   const validateField = (name, value) => {
     switch (name) {
@@ -258,7 +306,8 @@ const CoVentureBrandListingForm = () => {
         if (isNaN(numValue) || numValue <= 0) return "Enter a valid amount";
         return "";
       case "brandDescription":
-        if (value && value.length > 500) return "Must not exceed 500 characters";
+        if (value && value.length > 500)
+          return "Must not exceed 500 characters";
         return "";
       case "contactEmail":
         if (!value?.trim()) return "Email is required";
@@ -383,7 +432,6 @@ const CoVentureBrandListingForm = () => {
   const prevStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep(3)) return;
@@ -395,18 +443,18 @@ const CoVentureBrandListingForm = () => {
       const industryMap = {
         saas: "SAAS",
         ecommerce: "ECOMMERCE",
-        consulting: "CONSULTING",
-        ai_robotics: "AI_ROBOTICS",
+        services: "SERVICES",
+        "ai-automation": "AI_ROBOTICS",
         fintech: "FINTECH",
         other: "OTHER",
-        enterprise: "ENTERPRISE",
       };
 
       const mappedIndustry =
         industryMap[formData.industryCategory?.toLowerCase()] ||
         formData.industryCategory?.toUpperCase();
 
-      const payload = {
+      // ✅ NEW: Create the data object (without logo)
+      const dataPayload = {
         brandDetails: {
           brandName: formData.brandName,
           website: formData.websiteDomain,
@@ -423,17 +471,27 @@ const CoVentureBrandListingForm = () => {
         },
       };
 
-      console.log("Sending payload:", JSON.stringify(payload, null, 2));
+      // ✅ NEW: Create FormData for multipart/form-data
+      const formDataToSend = new FormData();
 
+      // Add the JSON data as a string
+      formDataToSend.append("data", JSON.stringify(dataPayload));
+
+      // Add the logo file (if exists)
+      if (formData.brandLogo) {
+        formDataToSend.append("logo", formData.brandLogo);
+      }
+
+      console.log("Sending payload:", dataPayload);
+
+      // ✅ NEW: Send as multipart/form-data (NO Content-Type header needed!)
       const response = await fetch(
         "http://192.168.29.184:8080/api/createCoBranding",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
+          body: formDataToSend, // ✅ Send FormData directly
+          // ❌ DO NOT set Content-Type - browser sets it automatically with boundary
+        },
       );
 
       if (!response.ok) {
@@ -444,6 +502,7 @@ const CoVentureBrandListingForm = () => {
       const data = await response.json();
       console.log("Success:", data);
       setSubmitSuccess(true);
+      fetchAllBrands(); // Refresh the brands list
     } catch (error) {
       console.error("Submission error:", error);
       alert(error.message || "Something went wrong");
@@ -975,10 +1034,10 @@ const CoVentureBrandListingForm = () => {
                           value={formData.coVenturePrice}
                           onChange={handlePriceChange}
                           onBlur={handleBlur}
-                          placeholder="₹5,00,000"
+                          placeholder="₹10,00,000"
                           className={`w-full pl-11 pr-4 py-3.5 bg-neutral-900/80 border rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all duration-300 text-sm backdrop-blur-sm ${
                             errors.coVenturePrice && touched.coVenturePrice
-                              ? "border-red-500/60"
+                              ? "border-red-500/60 focus:border-red-500/60 focus:ring-red-500/30"
                               : "border-neutral-800/60"
                           }`}
                         />
@@ -999,67 +1058,53 @@ const CoVentureBrandListingForm = () => {
                     </AnimatePresence>
                   </motion.div>
 
-                  {/* Brand Description Field - NEW */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.35 }}
                   >
                     <label className="block text-sm font-medium text-neutral-300 mb-2">
-                      Brand Description
-                      <span className="text-neutral-500 text-xs ml-2">
+                      Brand Description{" "}
+                      <span className="text-neutral-500 text-xs">
                         (Optional)
                       </span>
                     </label>
                     <div className="relative group">
                       <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-500/0 to-pink-500/0 rounded-xl opacity-0 group-focus-within:from-purple-500/30 group-focus-within:to-pink-500/30 group-focus-within:opacity-100 transition-all duration-500 blur-sm" />
-                      <div className="relative">
-                        <FileText className="absolute left-4 top-4 w-4 h-4 text-neutral-500 group-focus-within:text-purple-400 transition-colors duration-300" />
-                        <textarea
-                          name="brandDescription"
-                          value={formData.brandDescription || ""}
-                          onChange={handleInputChange}
-                          onBlur={handleBlur}
-                          placeholder="Tell us about your brand, products, services, and what makes you unique..."
-                          rows={4}
-                          maxLength={500}
-                          className={`w-full pl-11 pr-4 py-3.5 bg-neutral-900/80 border rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all duration-300 text-sm backdrop-blur-sm resize-none ${
-                            errors.brandDescription && touched.brandDescription
-                              ? "border-red-500/60"
-                              : "border-neutral-800/60"
-                          }`}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <p className="text-xs text-neutral-500">
-                        Help us understand your brand better
-                      </p>
-                      <span
-                        className={`text-xs ${
-                          (formData.brandDescription?.length || 0) >= 450
-                            ? "text-orange-400"
-                            : "text-neutral-500"
+                      <textarea
+                        name="brandDescription"
+                        value={formData.brandDescription}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
+                        placeholder="Tell us about your brand..."
+                        rows={4}
+                        className={`relative w-full px-4 py-3.5 bg-neutral-900/80 border rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all duration-300 text-sm backdrop-blur-sm resize-none ${
+                          errors.brandDescription && touched.brandDescription
+                            ? "border-red-500/60"
+                            : "border-neutral-800/60"
                         }`}
-                      >
+                      />
+                    </div>
+                    <div className="flex justify-between items-center mt-2">
+                      <AnimatePresence>
+                        {errors.brandDescription &&
+                          touched.brandDescription && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -5 }}
+                              className="text-red-400 text-xs flex items-center gap-1.5"
+                            >
+                              <AlertCircle className="w-3 h-3" />{" "}
+                              {errors.brandDescription}
+                            </motion.p>
+                          )}
+                      </AnimatePresence>
+                      <span className="text-xs text-neutral-500 ml-auto">
                         {formData.brandDescription?.length || 0}/500
                       </span>
                     </div>
-                    <AnimatePresence>
-                      {errors.brandDescription && touched.brandDescription && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -5 }}
-                          className="text-red-400 text-xs mt-2 flex items-center gap-1.5"
-                        >
-                          <AlertCircle className="w-3 h-3" />{" "}
-                          {errors.brandDescription}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
-              
                 </motion.div>
               )}
 
@@ -1089,58 +1134,11 @@ const CoVentureBrandListingForm = () => {
                     </div>
                   </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <div className="relative overflow-hidden bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 rounded-xl p-4 border border-neutral-700/30">
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
-                      <div className="relative flex items-center gap-4">
-                        {logoPreview ? (
-                          <img
-                            src={logoPreview}
-                            alt="Brand"
-                            className="w-12 h-12 rounded-xl object-cover border border-neutral-700/50"
-                          />
-                        ) : (
-                          <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-                            <span className="text-white font-bold text-lg">
-                              {formData.brandName?.[0]?.toUpperCase() || "B"}
-                            </span>
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-white text-sm truncate">
-                            {formData.brandName}
-                          </p>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-xs bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-medium">
-                              {formData.coVenturePrice}
-                            </span>
-                            <span className="text-neutral-600">•</span>
-                            <span className="text-xs text-neutral-500 capitalize">
-                              {formData.industryCategory}
-                            </span>
-                          </div>
-                          {formData.brandDescription && (
-                            <p className="text-xs text-neutral-400 mt-1 line-clamp-2">
-                              {formData.brandDescription}
-                            </p>
-                          )}
-                        </div>
-                        <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
-                          <Check className="w-4 h-4 text-green-400" />
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
                   <InputField
                     label="Email Address"
                     name="contactEmail"
                     type="email"
-                    placeholder="you@company.com"
+                    placeholder="your@email.com"
                     value={formData.contactEmail}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
@@ -1148,12 +1146,13 @@ const CoVentureBrandListingForm = () => {
                     touched={touched.contactEmail}
                     icon={Mail}
                     required
-                    delay={0.15}
+                    delay={0.05}
                   />
 
                   <InputField
                     label="Phone Number"
                     name="contactNumber"
+                    type="tel"
                     placeholder="9876543210"
                     value={formData.contactNumber}
                     onChange={handleInputChange}
@@ -1162,7 +1161,7 @@ const CoVentureBrandListingForm = () => {
                     touched={touched.contactNumber}
                     icon={Phone}
                     required
-                    delay={0.2}
+                    delay={0.1}
                   />
                 </motion.div>
               )}
@@ -1181,14 +1180,14 @@ const CoVentureBrandListingForm = () => {
                       whileHover={{ scale: 1.1, rotate: 6 }}
                       className="w-10 h-10 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl flex items-center justify-center"
                     >
-                      <Shield className="w-5 h-5 text-green-400" />
+                      <FileCheck className="w-5 h-5 text-green-400" />
                     </motion.div>
                     <div>
                       <h2 className="text-lg font-bold text-white">
-                        Equity Consent
+                        Terms & Agreement
                       </h2>
                       <p className="text-xs text-neutral-500">
-                        Review and agree to terms
+                        Review and accept our terms
                       </p>
                     </div>
                   </div>
@@ -1196,182 +1195,115 @@ const CoVentureBrandListingForm = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
+                    transition={{ duration: 0.4, delay: 0.05 }}
+                    className="bg-neutral-900/50 border border-neutral-800/50 rounded-xl p-4 max-h-64 overflow-y-auto custom-scrollbar"
                   >
-                    <div className="relative overflow-hidden bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 rounded-xl p-5 border border-neutral-700/30">
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
-                      <div className="relative space-y-3">
-                        <div className="flex items-center gap-3">
-                          {logoPreview ? (
-                            <img
-                              src={logoPreview}
-                              alt="Brand"
-                              className="w-10 h-10 rounded-lg object-cover border border-neutral-700/50"
-                            />
-                          ) : (
-                            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-                              <span className="text-white font-bold">
-                                {formData.brandName?.[0]?.toUpperCase() || "B"}
-                              </span>
-                            </div>
-                          )}
-                          <div>
-                            <p className="font-semibold text-white text-sm">
-                              {formData.brandName}
-                            </p>
-                            <p className="text-xs bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-medium">
-                              {formData.coVenturePrice}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="h-px bg-neutral-700/30" />
-                        {formData.brandDescription && (
-                          <>
-                            <div>
-                              <span className="text-neutral-500 block mb-1 text-xs">
-                                Description
-                              </span>
-                              <p className="text-neutral-300 text-xs leading-relaxed">
-                                {formData.brandDescription}
-                              </p>
-                            </div>
-                            <div className="h-px bg-neutral-700/30" />
-                          </>
-                        )}
-                        <div className="grid grid-cols-2 gap-3 text-xs">
-                          <div>
-                            <span className="text-neutral-500 block mb-0.5">
-                              Email
+                    <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-purple-400" />
+                      Co-Venture Equity Terms
+                    </h3>
+                    <div className="space-y-3">
+                      {equityConsentTerms.map((term, idx) => (
+                        <motion.div
+                          key={term.id}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 + idx * 0.05 }}
+                          className="flex gap-3"
+                        >
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mt-0.5">
+                            <span className="text-xs text-purple-400 font-semibold">
+                              {term.id}
                             </span>
-                            <p className="text-neutral-300 truncate">
-                              {formData.contactEmail}
-                            </p>
                           </div>
                           <div>
-                            <span className="text-neutral-500 block mb-0.5">
-                              Phone
-                            </span>
-                            <p className="text-neutral-300">
-                              {formData.contactNumber}
+                            <h4 className="text-xs font-semibold text-neutral-200 mb-1">
+                              {term.title}
+                            </h4>
+                            <p className="text-xs text-neutral-400 leading-relaxed">
+                              {term.description}
                             </p>
                           </div>
-                          <div>
-                            <span className="text-neutral-500 block mb-0.5">
-                              Industry
-                            </span>
-                            <p className="text-neutral-300 capitalize">
-                              {formData.industryCategory}
-                            </p>
-                          </div>
-                          <div>
-                            <span className="text-neutral-500 block mb-0.5">
-                              Website
-                            </span>
-                            <p className="text-neutral-300 truncate">
-                              {formData.websiteDomain}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                        </motion.div>
+                      ))}
                     </div>
                   </motion.div>
 
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="space-y-3"
+                    transition={{ duration: 0.4, delay: 0.15 }}
                   >
-                    <p className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
-                      Terms & Conditions
-                    </p>
-                    {equityConsentTerms.map((term, idx) => (
-                      <motion.label
-                        key={term.id || idx}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + idx * 0.1 }}
-                        className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-all duration-300 group/check ${
-                          formData.terms
-                            ? "border-purple-500/30 bg-purple-500/5"
-                            : "border-neutral-800/50 hover:border-neutral-700/50 hover:bg-neutral-800/20"
-                        }`}
-                      >
-                        <div className="relative mt-0.5 flex-shrink-0">
-                          <input
-                            type="checkbox"
-                            name="terms"
-                            checked={formData.terms}
-                            onChange={handleInputChange}
-                            className="sr-only"
-                          />
-                          <div
-                            className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
-                              formData.terms
-                                ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 shadow-lg shadow-purple-500/20"
-                                : "border-neutral-600 bg-neutral-900/50 group-hover/check:border-purple-500/50"
-                            }`}
-                          >
+                    <label className="flex items-start gap-3 cursor-pointer group">
+                      <div className="relative flex-shrink-0 mt-0.5">
+                        <input
+                          type="checkbox"
+                          name="terms"
+                          checked={formData.terms}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          className="peer sr-only"
+                        />
+                        <div
+                          className={`w-5 h-5 border-2 rounded-md transition-all duration-300 ${
+                            formData.terms
+                              ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500"
+                              : "border-neutral-700 bg-neutral-900/50 group-hover:border-purple-500/50"
+                          }`}
+                        >
+                          <AnimatePresence>
                             {formData.terms && (
                               <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ type: "spring" }}
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                                className="flex items-center justify-center h-full"
                               >
                                 <Check className="w-3 h-3 text-white" />
                               </motion.div>
                             )}
-                          </div>
+                          </AnimatePresence>
                         </div>
-                        <div className="flex-1">
-                          <span className="text-sm text-white font-medium leading-relaxed block">
-                            {term.title}
-                          </span>
-                          {term.description && (
-                            <span className="text-xs text-neutral-400 leading-relaxed mt-1 block">
-                              {term.description}
-                            </span>
+                      </div>
+                      <div>
+                        <span className="text-sm text-neutral-300">
+                          I agree to the{" "}
+                          <span className="text-purple-400 font-medium">
+                            Co-Venture Terms
+                          </span>{" "}
+                          and understand the equity allocation structure
+                        </span>
+                        <AnimatePresence>
+                          {errors.terms && touched.terms && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -5 }}
+                              className="text-red-400 text-xs mt-2 flex items-center gap-1.5"
+                            >
+                              <AlertCircle className="w-3 h-3" /> {errors.terms}
+                            </motion.p>
                           )}
-                        </div>
-                      </motion.label>
-                    ))}
+                        </AnimatePresence>
+                      </div>
+                    </label>
                   </motion.div>
-
-                  <AnimatePresence>
-                    {errors.terms && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        className="text-red-400 text-xs flex items-center gap-1.5"
-                      >
-                        <AlertCircle className="w-3 h-3" /> {errors.terms}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="flex items-center justify-between pt-6 mt-6 border-t border-neutral-800/30"
-            >
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-neutral-800/50">
               {currentStep > 1 ? (
                 <motion.button
                   type="button"
                   onClick={prevStep}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="group relative overflow-hidden rounded-xl"
+                  whileHover={{ scale: 1.02, x: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl border border-neutral-700/60 bg-neutral-900/50 text-neutral-300 text-sm font-medium hover:border-neutral-600/60 hover:bg-neutral-800/50 transition-all duration-300"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative px-5 py-3 border border-neutral-700/50 rounded-xl text-neutral-300 hover:text-white hover:border-purple-500/30 transition-all duration-300 flex items-center gap-2 text-sm font-medium">
-                    <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-300" />
-                    Back
-                  </div>
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
                 </motion.button>
               ) : (
                 <div />
@@ -1381,28 +1313,28 @@ const CoVentureBrandListingForm = () => {
                 <motion.button
                   type="button"
                   onClick={nextStep}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="group relative overflow-hidden rounded-xl shadow-xl shadow-purple-500/20"
+                  whileHover={{ scale: 1.02, x: 2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="ml-auto group relative overflow-hidden rounded-xl"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
-                  <span className="relative px-6 py-3 font-semibold text-white text-sm flex items-center gap-2">
-                    Continue
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
+                  <span className="relative flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white">
+                    Next Step
+                    <ChevronRight className="w-4 h-4" />
                   </span>
                 </motion.button>
               ) : (
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
-                  className="group relative overflow-hidden rounded-xl shadow-xl shadow-purple-500/20 disabled:opacity-60 disabled:cursor-not-allowed"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className="ml-auto group relative overflow-hidden rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
-                  <span className="relative px-6 py-3 font-semibold text-white text-sm flex items-center gap-2">
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+                  <span className="relative flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white">
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -1417,7 +1349,7 @@ const CoVentureBrandListingForm = () => {
                   </span>
                 </motion.button>
               )}
-            </motion.div>
+            </div>
           </form>
         </GlassCard>
       </div>
