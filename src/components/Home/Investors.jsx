@@ -146,7 +146,10 @@ export default function Investors() {
           />
 
           <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
-            {/* <button
+            <button
+              onClick={() => {
+                navigate("/community");
+              }}
               className="group flex items-center 
                          gap-1.5 sm:gap-2
                          rounded-full
@@ -165,7 +168,6 @@ export default function Investors() {
                          hover:shadow-lg
                          cursor-pointer
                          "
-                         
             >
               View All
               <ArrowRight
@@ -173,7 +175,7 @@ export default function Investors() {
                            transition-transform duration-300 
                            group-hover:translate-x-1"
               />
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

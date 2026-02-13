@@ -52,7 +52,7 @@ const App = () => {
             <Route path="/marketplace" element={<MarketPlace />} />
 
             <Route
-              path="/marketplace/:slug"
+              path="/marketplace/domain/:id"
               element={<DomainDetailsLayout />}
             />
             <Route

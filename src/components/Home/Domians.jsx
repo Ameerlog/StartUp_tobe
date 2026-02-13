@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { domainCards } from "../../data/domain";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +11,30 @@ export default function Domains({ variant = "dark" }) {
   const [isPaused, setIsPaused] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const idleTimerRef = useRef(null);
+
+  // Simple fetch with useState
+  const [domains, setDomains] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDomains = async () => {
+      try {
+        const response = await fetch(
+          "http://192.168.29.184:8080/api/ListAllDomains",
+        );
+        const data = await response.json();
+        setDomains(data);
+      } catch (error) {
+        console.error("Failed to fetch domains:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDomains();
+  }, []);
+
+  const duplicatedDomains = [...domains, ...domains];
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -93,8 +116,6 @@ export default function Domains({ variant = "dark" }) {
       : "border-zinc-300 bg-white/80 text-zinc-700 hover:bg-white",
   };
 
-  const duplicatedCards = [...domainCards, ...domainCards];
-
   return (
     <section
       className={`w-full py-10 sm:py-12 md:py-16 relative overflow-hidden ${theme.section}`}
@@ -111,19 +132,16 @@ export default function Domains({ variant = "dark" }) {
             group flex items-center gap-2 rounded-full
             border border-white
             bg-white/10
-          text-white
-             ${theme.topButton}
+            text-white
             px-5 sm:px-6 md:px-8 py-2.5 sm:py-3
             text-xs sm:text-sm font-bold
             backdrop-blur-xl transition-all duration-300
             hover:border-white/30
             hover:text-white
-          
-
             active:scale-[0.98]
           `}
         >
-         Resell your Domain
+          Resell your Domain
         </button>
       </div>
 
@@ -171,73 +189,90 @@ export default function Domains({ variant = "dark" }) {
             msOverflowStyle: "none",
           }}
         >
-          {duplicatedCards.map((card, index) => {
-            const { id, title, price, src, slug } = card;
+          {isLoading ? (
+            <div className="text-white">Loading...</div>
+          ) : (
+            duplicatedDomains.map((domain, index) => {
+              const displayName = domain.domainName || "Domain";
+              const displayExt = domain.domainExtension || ".com";
+              const displayPrice = domain.askingPrice
+                ? `₹${domain.askingPrice.toLocaleString("en-IN")}`
+                : "Price TBA";
+              const domainId = domain.slug || domain._id || domain.id;
 
-            return (
-              <div
-                key={`${id}-${index}`}
-                className="shrink-0 w-65 sm:w-75 md:w-[320px] px-2 sm:px-3"
-              >
+              return (
                 <div
-                  className={`group/card h-85 sm:h-90 rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
-                    backdrop-blur-sm flex flex-col transition-all duration-300
-                    hover:border-white/30 hover:bg-gray-900/80`}
+                  key={`${domainId}-${index}`}
+                  className="shrink-0 w-65 sm:w-75 md:w-[320px] px-2 sm:px-3"
                 >
-                  <button
-                    onClick={() => navigate(`/marketplace/${slug}`)}
-                    className="absolute inset-0 z-10"
-                    aria-label={`View ${title}`}
-                  />
-                  <div className="p-4 sm:p-5 flex-1 flex flex-col">
-                    <h3
-                      className={`text-base sm:text-lg font-bold leading-tight
-                        ${theme.cardTitle}`}
-                    >
-                      {title}
-                    </h3>
-
-                    <div className="mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative">
-                      <img
-                        src={src}
-                        alt={title}
-                        className="w-full h-40 sm:h-45 md:h-50 object-contain"
-                        draggable={false}
-                      />
-                      <span
-                        className={`absolute bottom-2 right-2 mb-15 text-xs font-bold ${theme.tld}`}
+                  <div
+                    className={`group/card h-85 sm:h-90 rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
+                      backdrop-blur-sm flex flex-col transition-all duration-300
+                      hover:border-white/30 hover:bg-gray-900/80`}
+                  >
+                    <button
+                      onClick={() =>
+                        navigate(`/marketplace/domain/${domain.id}`)
+                      }
+                      className="absolute inset-0 z-10"
+                      aria-label={`View ${displayName}`}
+                    />
+                    <div className="p-4 sm:p-5 flex-1 flex flex-col">
+                      <h3
+                        className={`text-base sm:text-lg font-bold leading-tight
+                          ${theme.cardTitle}`}
                       >
-                        .com
-                      </span>
-                    </div>
+                        {displayName}
+                      </h3>
 
-                    <div className="mt-3">
-                      <span
-                        className={`inline-block rounded-full border font-bold ${theme.priceBadge}
-                          px-3 py-1 text-xs`}
-                      >
-                        {price}
-                      </span>
-                    </div>
+                      <div className="mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative">
+                        {domain.logo ? (
+                          <img
+                            src={domain.logo}
+                            alt={displayName}
+                            className="w-full h-40 sm:h-45 md:h-50 object-contain"
+                            draggable={false}
+                          />
+                        ) : (
+                          <div className="text-4xl font-bold text-white/20">
+                            {displayName.slice(0, 2).toUpperCase()}
+                          </div>
+                        )}
+                        <span
+                          className={`absolute bottom-2 right-2 mb-15 text-xs font-bold ${theme.tld}`}
+                        >
+                          {displayExt}
+                        </span>
+                      </div>
 
-                    <div className="mt-auto pt-3 flex justify-end">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/marketplace/${slug}`);
-                        }}
-                        className="rounded-full bg-gray-600 hover:bg-gray-500
-                          px-4 py-2 text-xs font-bold text-white
-                          transition-all hover:-translate-y-0.5"
-                      >
-                        Make it Yours →
-                      </button>
+                      <div className="mt-3">
+                        <span
+                          className={`inline-block rounded-full border font-bold ${theme.priceBadge}
+                            px-3 py-1 text-xs`}
+                        >
+                          {displayPrice}
+                        </span>
+                      </div>
+
+                      <div className="mt-auto pt-3 flex justify-end">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/marketplace/domain/${domain.id}`);
+                          }}
+                          className="rounded-full bg-gray-600 hover:bg-gray-500
+                            px-4 py-2 text-xs font-bold text-white
+                            transition-all hover:-translate-y-0.5"
+                        >
+                          Make it Yours →
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
 
