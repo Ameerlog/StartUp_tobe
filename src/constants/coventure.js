@@ -1,4 +1,4 @@
-// src/data/coVentureData.js
+
 
 export const industryCategories = [
   { value: '', label: 'Select Industry / Category', icon: 'Layers' },
@@ -90,4 +90,58 @@ export const validationRules = {
   contactNumber: {
     pattern: /^[0-9]{10}$/,
   },
+};
+
+
+ export const equityStructureOptions = [
+  {
+    value: "FIFTY_FIFTY",
+    ratio: "50:50",
+    label: "50 : 50",
+    description: "Equal Synergy",
+    
+  },
+  {
+    value: "SIXTY_FORTY",
+    ratio: "60:40",
+    label: "60 : 40",
+    description: "Majority Founder",
+    
+  },
+  {
+    value: "SEVENTY_THIRTY",
+    ratio: "70:30",
+    label: "70 : 30",
+    description: "Strategic Growth",
+  
+  },
+  {
+    value: "EIGHTY_TWENTY",
+    ratio: "80:20",
+    label: "80 : 20",
+    description: "Advisor / Investor Stake",
+  
+  },
+  {
+    value: "NINETY_TEN",
+    ratio: "90:10",
+    label: "90 : 10",
+    description: "Minor Equity Placement",
+
+  },
+  {
+    value: "NEGOTIABLE",
+    ratio: "Negotiable",
+    label: "Negotiable",
+   
+  },
+];
+
+ export const INDUSTRY_MAP = {
+  saas: "SAAS",
+  ecommerce: "ECOMMERCE",
+  services: "SERVICES",
+  "ai-automation": "AI_AUTOMATION",
+  fintech: "FINTECH",
+  other: "OTHER",
 };

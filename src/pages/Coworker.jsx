@@ -14,14 +14,12 @@ import {
   Target,
   Building2,
   MapPin,
-  Lock,
   Users,
-  Award,
-  Star,
   Sparkles,
   Shield,
-  FileCheck,
   ExternalLink,
+  Camera,
+  X,
 } from "lucide-react";
 
 import {
@@ -33,10 +31,9 @@ import {
 const stepIcons = {
   1: User,
   2: Target,
-  3: FileCheck,
+  3: Shield,
 };
 
-// Platform terms for co-working
 const coworkingTerms = [
   "Your profile will be visible to other members in the co-working network.",
   "We may share your LinkedIn profile with potential collaborators.",
@@ -44,6 +41,8 @@ const coworkingTerms = [
   "Your information will be used solely for networking and collaboration purposes.",
   "You can update or delete your profile at any time from your dashboard.",
 ];
+
+const API_BASE_URL = "http://192.168.29.184:8080/api";
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -282,7 +281,13 @@ const CoworkingForm = () => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
   const formRef = useRef(null);
+
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
+  const photoInputRef = useRef(null);
 
   const formSteps = [
     { id: 1, title: "Basic Info" },
@@ -294,44 +299,81 @@ const CoworkingForm = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step]);
 
+  const handlePhotoChange = (file) => {
+    if (!file) return;
+
+    // Validate file size (2MB max)
+    if (file.size > 2 * 1024 * 1024) {
+      setErrors((prev) => ({
+        ...prev,
+        profilePhoto: "Photo must be under 2MB",
+      }));
+      return;
+    }
+
+    // Validate file type
+    const validTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      setErrors((prev) => ({
+        ...prev,
+        profilePhoto: "Only JPG, PNG, or WebP allowed",
+      }));
+      return;
+    }
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => setPhotoPreview(reader.result);
+    reader.readAsDataURL(file);
+
+    setProfilePhoto(file);
+    setErrors((prev) => ({ ...prev, profilePhoto: "" }));
+  };
+
+  const handlePhotoDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(e.type === "dragenter" || e.type === "dragover");
+  };
+
+  const handlePhotoDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files?.[0]) {
+      handlePhotoChange(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleRemovePhoto = () => {
+    setProfilePhoto(null);
+    setPhotoPreview(null);
+    if (photoInputRef.current) photoInputRef.current.value = "";
+  };
+
   const validate = (name, value) => {
     switch (name) {
       case "fullName":
-        if (!value || !value.trim()) {
-          return "Full name is required";
-        }
-        if (value.trim().length < 2) {
+        if (!value || !value.trim()) return "Full name is required";
+        if (value.trim().length < 2)
           return "Full name must be at least 2 characters";
-        }
         return "";
-
       case "primaryRole":
         return !value || value === "" ? "Please select a role" : "";
-
       case "linkedinUrl":
-        if (!value || !value.trim()) {
-          return "LinkedIn URL is required";
-        }
-        if (!validationRules.linkedinPattern.test(value)) {
+        if (!value || !value.trim()) return "LinkedIn URL is required";
+        if (!validationRules.linkedinPattern.test(value))
           return "Enter a valid LinkedIn URL";
-        }
         return "";
-
       case "primarySkill":
-        if (!value || !value.trim()) {
-          return "Primary skill is required";
-        }
-        if (value.trim().length < 2) {
+        if (!value || !value.trim()) return "Primary skill is required";
+        if (value.trim().length < 2)
           return "Primary skill must be at least 2 characters";
-        }
         return "";
-
       case "industry":
         return !value || value === "" ? "Please select an industry" : "";
-
       case "termsConsent":
         return value ? "" : "You must agree to continue";
-
       default:
         return "";
     }
@@ -385,41 +427,87 @@ const CoworkingForm = () => {
     }
   };
 
+  // Helper function to get industry label
+  const getIndustryLabel = (value) => {
+    const industry = industryOptions.find((i) => i.value === value);
+    return industry ? industry.label : value;
+  };
+
+  // Helper function to get role label
+  const getRoleLabel = (value) => {
+    const role = roleOptions.find((r) => r.value === value);
+    return role ? role.label : value;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateStep(3)) {
-      return;
-    }
+    if (!validateStep(3)) return;
 
     setSubmitting(true);
 
     try {
+      // Build the skill string in the format backend expects
+      // Format: "primarySkill - industry - location"
+      const skillString = `${formData.primarySkill} - ${formData.industry} - ${formData.location || "Not specified"}`;
+
+      // Payload structure matching backend expectations
       const payload = {
-        fullName: formData.fullName,
+        fullName: formData.fullName.trim(),
         primaryRole: formData.primaryRole,
-        linkedinUrl: formData.linkedinUrl,
-        primarySkill: formData.primarySkill,
-        industry: formData.industry,
-        location: formData.location || null,
+        linkedinUrl: formData.linkedinUrl.trim(),
+        skill: skillString, // Combined skill string
         agreement: {
-          terms: formData.termsConsent,
+          termsAccepted: formData.termsConsent, // Changed from 'terms'
         },
       };
 
-      console.log("Submitting payload:", JSON.stringify(payload, null, 2));
+      console.log("=== SUBMISSION DATA ===");
+      console.log("Payload:", JSON.stringify(payload, null, 2));
+      console.log("Has Photo:", !!profilePhoto);
+      if (profilePhoto) {
+        console.log("Photo Name:", profilePhoto.name);
+        console.log("Photo Size:", profilePhoto.size);
+        console.log("Photo Type:", profilePhoto.type);
+      }
+      console.log("========================");
 
-      const response = await fetch(
-        "http://192.168.29.184:8080/api/CreateCoworking",
-        {
+      let response;
+
+      if (profilePhoto) {
+        // WITH PHOTO: Use FormData for multipart upload
+        const formDataToSend = new FormData();
+
+        // Append JSON data as string
+        formDataToSend.append("data", JSON.stringify(payload));
+
+        // Append photo file - key name must match backend expectation
+        // Common key names: "photo", "logo", "image", "file", "profilePhoto"
+        formDataToSend.append("logo", profilePhoto); // Changed to "logo" to match response
+
+        // Debug FormData
+        console.log("FormData entries:");
+        for (let [key, value] of formDataToSend.entries()) {
+          console.log(`  ${key}:`, value);
+        }
+
+        response = await fetch(`${API_BASE_URL}/CreateCoworking`, {
+          method: "POST",
+          // Don't set Content-Type header - browser will set it with boundary
+          body: formDataToSend,
+        });
+      } else {
+        // WITHOUT PHOTO: Regular JSON request
+        response = await fetch(`${API_BASE_URL}/CreateCoworking`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        },
-      );
+        });
+      }
 
+      // Handle response
       if (!response.ok) {
         let errorMessage = "Submission failed";
         try {
@@ -432,7 +520,12 @@ const CoworkingForm = () => {
       }
 
       const data = await response.json();
-      console.log("Success:", data);
+      console.log("=== SUCCESS RESPONSE ===");
+      console.log(JSON.stringify(data, null, 2));
+      console.log("========================");
+
+      // Store response data directly (no .data wrapper based on your response structure)
+      setSubmittedData(data);
       setSuccess(true);
     } catch (error) {
       console.error("Submission error:", error);
@@ -444,6 +537,7 @@ const CoworkingForm = () => {
 
   const resetForm = () => {
     setSuccess(false);
+    setSubmittedData(null);
     setFormData({
       fullName: "",
       primaryRole: "",
@@ -453,25 +547,31 @@ const CoworkingForm = () => {
       location: "",
       termsConsent: false,
     });
+    setProfilePhoto(null);
+    setPhotoPreview(null);
     setStep(1);
     setErrors({});
   };
 
-  // Get role and industry labels
-  const getRoleLabel = (value) => {
-    const role = roleOptions.find((r) => r.value === value);
-    return role ? role.label : value;
-  };
-
-  const getIndustryLabel = (value) => {
-    const industry = industryOptions.find((i) => i.value === value);
-    return industry ? industry.label : value;
+  // Parse skill string to get individual components
+  const parseSkillString = (skillString) => {
+    if (!skillString) return { skill: "", industry: "", location: "" };
+    const parts = skillString.split(" - ");
+    return {
+      skill: parts[0] || "",
+      industry: parts[1] || "",
+      location: parts[2] || "",
+    };
   };
 
   const completionPercentage = ((step - 1) / 3) * 100;
 
-  // Success Screen
+  // ==================== SUCCESS SCREEN ====================
   if (success) {
+    // Access response fields directly (no .data wrapper)
+    const photoUrl = submittedData?.logo || photoPreview;
+    const parsedSkill = parseSkillString(submittedData?.skill);
+
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-4 overflow-hidden">
         <AnimatedBackground />
@@ -484,15 +584,38 @@ const CoworkingForm = () => {
           <GlassCard glowColor="from-green-600/40 to-emerald-600/40">
             <div className="p-8 sm:p-12 text-center relative overflow-hidden">
               <FloatingParticles count={6} />
+
+              {/* Profile Photo / Success Icon */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
                 className="relative mx-auto mb-6"
               >
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-green-500/30">
-                  <CheckCircle2 className="w-10 h-10 text-white" />
-                </div>
+                {photoUrl ? (
+                  <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden border-2 border-green-500/50 shadow-2xl shadow-green-500/30">
+                    <img
+                      src={photoUrl}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        e.target.style.display = "none";
+                        e.target.parentElement.innerHTML = `
+                          <div class="w-full h-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                          </div>
+                        `;
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-green-500/30">
+                    <CheckCircle2 className="w-10 h-10 text-white" />
+                  </div>
+                )}
                 <motion.div
                   className="absolute inset-0 bg-green-500/20 rounded-2xl blur-xl"
                   animate={{
@@ -506,6 +629,8 @@ const CoworkingForm = () => {
                   }}
                 />
               </motion.div>
+
+              {/* Success Title */}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -519,6 +644,8 @@ const CoworkingForm = () => {
                   Successfully!
                 </span>
               </motion.h2>
+
+              {/* Welcome Message */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -527,43 +654,100 @@ const CoworkingForm = () => {
               >
                 Welcome,{" "}
                 <span className="font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  {formData.fullName}
+                  {submittedData?.fullName || formData.fullName}
                 </span>
                 ! Your co-working profile is now visible to others.
               </motion.p>
+
+              {/* Profile Summary */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.55 }}
-                className="mb-8"
+                className="mb-6"
               >
-                <div className="inline-flex items-center gap-4 px-5 py-3 bg-neutral-800/40 border border-neutral-700/30 rounded-xl text-xs text-neutral-400">
+                <div className="inline-flex flex-wrap items-center justify-center gap-3 px-5 py-3 bg-neutral-800/40 border border-neutral-700/30 rounded-xl text-xs text-neutral-400">
                   <div className="flex items-center gap-1.5">
                     <Briefcase className="w-3.5 h-3.5 text-blue-400" />
                     <span className="text-neutral-300">
-                      {getRoleLabel(formData.primaryRole)}
+                      {submittedData?.primaryRole || formData.primaryRole}
+                    </span>
+                  </div>
+                  <div className="w-px h-4 bg-neutral-700" />
+                  <div className="flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                    <span className="text-neutral-300">
+                      {parsedSkill.skill || formData.primarySkill}
                     </span>
                   </div>
                   <div className="w-px h-4 bg-neutral-700" />
                   <div className="flex items-center gap-1.5">
                     <Building2 className="w-3.5 h-3.5 text-green-400" />
                     <span className="text-neutral-300">
-                      {getIndustryLabel(formData.industry)}
+                      {parsedSkill.industry || getIndustryLabel(formData.industry)}
                     </span>
                   </div>
+                  {(parsedSkill.location || formData.location) && (
+                    <>
+                      <div className="w-px h-4 bg-neutral-700" />
+                      <div className="flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                        <span className="text-neutral-300">
+                          {parsedSkill.location || formData.location}
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </motion.div>
+
+              {/* LinkedIn Link */}
+              {submittedData?.linkedinUrl && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.58 }}
+                  className="mb-4"
+                >
+                  <a
+                    href={submittedData.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-lg text-blue-400 hover:bg-blue-500/20 transition-colors text-xs"
+                  >
+                    <Linkedin className="w-3.5 h-3.5" />
+                    View LinkedIn Profile
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </motion.div>
+              )}
+
+              {/* Profile ID */}
+              {submittedData?.Id && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-xs text-neutral-500 mb-6"
+                >
+                  Profile ID:{" "}
+                  <span className="text-neutral-400 font-mono bg-neutral-800/50 px-2 py-0.5 rounded">
+                    {submittedData.Id}
+                  </span>
+                </motion.p>
+              )}
+
+              {/* Create Another Button */}
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.65 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={resetForm}
                 className="group relative overflow-hidden rounded-full inline-flex items-center gap-2 shadow-2xl shadow-purple-500/30"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
                 <span className="relative px-8 py-3.5 font-semibold text-white text-sm flex items-center gap-2">
                   <Users className="w-4 h-4" />
                   Create Another Profile
@@ -576,6 +760,7 @@ const CoworkingForm = () => {
     );
   }
 
+  // ==================== FORM SCREEN ====================
   return (
     <div
       ref={formRef}
@@ -637,7 +822,7 @@ const CoworkingForm = () => {
           />
         </motion.div>
 
-        {/* Progress Steps */}
+        {/* Step Indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -743,7 +928,7 @@ const CoworkingForm = () => {
         <GlassCard glowColor="from-purple-600/30 to-pink-600/30">
           <form onSubmit={handleSubmit} className="p-5 sm:p-8">
             <AnimatePresence mode="wait">
-              {/* Step 1: Basic Info */}
+              {/* ==================== STEP 1 ==================== */}
               {step === 1 && (
                 <motion.div
                   key="step1"
@@ -770,6 +955,87 @@ const CoworkingForm = () => {
                     </div>
                   </div>
 
+                  {/* Profile Photo Upload */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.05 }}
+                  >
+                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                      Profile Photo
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <div
+                        onDragEnter={handlePhotoDrag}
+                        onDragLeave={handlePhotoDrag}
+                        onDragOver={handlePhotoDrag}
+                        onDrop={handlePhotoDrop}
+                        onClick={() => photoInputRef.current?.click()}
+                        className={`relative w-20 h-20 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-300 overflow-hidden group ${
+                          dragActive
+                            ? "border-purple-500 bg-purple-500/10"
+                            : "border-neutral-700/60 hover:border-purple-500/50"
+                        }`}
+                      >
+                        <input
+                          type="file"
+                          ref={photoInputRef}
+                          onChange={(e) =>
+                            handlePhotoChange(e.target.files?.[0])
+                          }
+                          accept="image/jpeg,image/png,image/webp"
+                          className="hidden"
+                        />
+                        {photoPreview ? (
+                          <>
+                            <img
+                              src={photoPreview}
+                              alt="Profile preview"
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Camera className="w-5 h-5 text-white" />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemovePhoto();
+                              }}
+                              className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-600 transition-colors"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center">
+                            <Camera className="w-6 h-6 text-neutral-500 group-hover:text-purple-400 transition-colors" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-neutral-400">
+                          Add a professional photo to your profile
+                        </p>
+                        <p className="text-[10px] text-neutral-500 mt-1">
+                          JPG, PNG, or WebP • Max 2MB
+                        </p>
+                        {profilePhoto && (
+                          <p className="text-[10px] text-green-400 mt-1 flex items-center gap-1">
+                            <Check className="w-3 h-3" />
+                            {profilePhoto.name}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {errors.profilePhoto && (
+                      <p className="text-red-400 text-xs mt-2 flex items-center gap-1.5">
+                        <AlertCircle className="w-3 h-3" />{" "}
+                        {errors.profilePhoto}
+                      </p>
+                    )}
+                  </motion.div>
+
                   <InputField
                     label="Full Name"
                     name="fullName"
@@ -779,7 +1045,7 @@ const CoworkingForm = () => {
                     error={errors.fullName}
                     icon={User}
                     required
-                    delay={0.05}
+                    delay={0.1}
                   />
 
                   <SelectField
@@ -792,7 +1058,7 @@ const CoworkingForm = () => {
                     placeholder="Select role"
                     icon={Briefcase}
                     required
-                    delay={0.1}
+                    delay={0.15}
                   />
 
                   <InputField
@@ -804,13 +1070,13 @@ const CoworkingForm = () => {
                     error={errors.linkedinUrl}
                     icon={Linkedin}
                     required
-                    delay={0.15}
+                    delay={0.2}
                     helperText="This will be displayed on your profile card so others can review your background."
                   />
                 </motion.div>
               )}
 
-              {/* Step 2: Skills */}
+              {/* ==================== STEP 2 ==================== */}
               {step === 2 && (
                 <motion.div
                   key="step2"
@@ -837,7 +1103,7 @@ const CoworkingForm = () => {
                     </div>
                   </div>
 
-                  {/* Summary Card */}
+                  {/* Profile Preview */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -846,9 +1112,19 @@ const CoworkingForm = () => {
                     <div className="relative overflow-hidden bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 rounded-xl p-4 border border-neutral-700/30">
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
                       <div className="relative flex items-center gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-                          <User className="w-6 h-6 text-white" />
-                        </div>
+                        {photoPreview ? (
+                          <div className="w-12 h-12 rounded-xl overflow-hidden">
+                            <img
+                              src={photoPreview}
+                              alt="Profile"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+                            <User className="w-6 h-6 text-white" />
+                          </div>
+                        )}
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-sm truncate">
                             {formData.fullName}
@@ -903,7 +1179,7 @@ const CoworkingForm = () => {
                 </motion.div>
               )}
 
-              {/* Step 3: Confirmation */}
+              {/* ==================== STEP 3 ==================== */}
               {step === 3 && (
                 <motion.div
                   key="step3"
@@ -930,7 +1206,7 @@ const CoworkingForm = () => {
                     </div>
                   </div>
 
-                  {/* Full Profile Summary */}
+                  {/* Final Profile Preview */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -939,11 +1215,20 @@ const CoworkingForm = () => {
                     <div className="relative overflow-hidden bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 rounded-xl p-5 border border-neutral-700/30">
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
                       <div className="relative space-y-4">
-                        {/* Profile Header */}
                         <div className="flex items-center gap-4">
-                          <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-                            <User className="w-7 h-7 text-white" />
-                          </div>
+                          {photoPreview ? (
+                            <div className="w-14 h-14 rounded-xl overflow-hidden">
+                              <img
+                                src={photoPreview}
+                                alt="Profile"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+                              <User className="w-7 h-7 text-white" />
+                            </div>
+                          )}
                           <div className="flex-1">
                             <p className="font-semibold text-white text-lg">
                               {formData.fullName}
@@ -964,7 +1249,6 @@ const CoworkingForm = () => {
 
                         <div className="h-px bg-neutral-700/30" />
 
-                        {/* Details Grid */}
                         <div className="grid grid-cols-2 gap-4 text-xs">
                           <div>
                             <span className="text-neutral-500 block mb-1 flex items-center gap-1.5">
@@ -1003,11 +1287,24 @@ const CoworkingForm = () => {
                             </p>
                           </div>
                         </div>
+
+                        {profilePhoto && (
+                          <>
+                            <div className="h-px bg-neutral-700/30" />
+                            <div className="flex items-center gap-2 text-xs text-green-400">
+                              <Camera className="w-3 h-3" />
+                              <span>Photo: {profilePhoto.name}</span>
+                              <span className="text-neutral-500">
+                                ({(profilePhoto.size / 1024).toFixed(1)} KB)
+                              </span>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </motion.div>
 
-                  {/* Terms Section */}
+                  {/* Community Guidelines */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1037,7 +1334,7 @@ const CoworkingForm = () => {
                     </div>
                   </motion.div>
 
-                  {/* Consent Checkbox */}
+                  {/* Terms Consent Checkbox */}
                   <motion.label
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -1057,7 +1354,6 @@ const CoworkingForm = () => {
                         checked={formData.termsConsent}
                         onChange={handleChange}
                         className="sr-only"
-                        aria-label="Agree to community guidelines"
                       />
                       <div
                         className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
@@ -1100,6 +1396,7 @@ const CoworkingForm = () => {
               )}
             </AnimatePresence>
 
+            {/* Navigation Buttons */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
