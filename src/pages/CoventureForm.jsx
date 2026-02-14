@@ -57,10 +57,6 @@ const stepIcons = {
   3: FileCheck,
 };
 
-
-
-
-// Helper function
 const getRatioParts = (equityValue) => {
   const option = equityStructureOptions.find((opt) => opt.value === equityValue);
   if (!option || option.value === "NEGOTIABLE") return null;

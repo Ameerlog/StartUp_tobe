@@ -47,7 +47,7 @@ const Navbar = () => {
       ],
     },
     { name: "Marketplace", path: "/marketplace" },
-    { name: "Domains", path: "/domains" },
+    { name: "Domains", path: "/branding" },
   ];
 
   return (

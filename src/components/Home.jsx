@@ -293,7 +293,7 @@ const Home = () => {
                 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
               >
                 <span className=" bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                 Discover Your brand name here
+                  Discover Your brand name here
                 </span>
               </motion.h2>
 
@@ -551,8 +551,11 @@ const Home = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500" />
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500 " />
 
-              <span  onClick={()=> navigate("contact")} className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2 rounded-full border-2 border-transparent group-hover:border-white/60 transition-all duration-300">
-              Visit your <span className="font-bold">CoBrother</span> 
+              <span
+                onClick={() => navigate("contact")}
+                className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2 rounded-full border-2 border-transparent group-hover:border-white/60 transition-all duration-300"
+              >
+                Visit your <span className="font-bold">CoBrother</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </motion.button>
@@ -656,7 +659,7 @@ const ServiceCard = ({ item, index, navigate }) => {
             className="w-full h-full scale-[1.15] object-contain drop-shadow-xl"
           />
         </div>
-        {/* Text Content */}
+  
         <h3
           className={`text-sm sm:text-lg font-bold mb-1 sm:mb-2 transition-colors duration-300 ${isHovered ? item.iconColor : "text-white"}`}
         >
@@ -666,7 +669,6 @@ const ServiceCard = ({ item, index, navigate }) => {
           {item.subtitle}
         </p>
 
-        {/* Arrow Icon - Hidden on very small screens */}
         <motion.div
           initial={{ x: 0 }}
           animate={{ x: isHovered ? 5 : 0 }}

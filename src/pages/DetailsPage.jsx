@@ -1,6 +1,5 @@
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { DESIGNS } from "../data/design";
 
 const FEATURES = [
   {
@@ -24,25 +23,58 @@ const INCLUDED_RIGHT = [
 ];
 
 export default function DomainDetailsLayout() {
-  const { slug } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [method, setMethod] = useState("buy");
+  const [domain, setDomain] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const item = useMemo(() => DESIGNS.find((d) => d.slug === slug), [slug]);
+  // Fetch domain from backend
+  useEffect(() => {
+    fetchDomain();
+  }, [id]);
 
-  if (!item) return <NotFound />;
+  const fetchDomain = async () => {
+    try {
+      const response = await fetch(
+        `http://192.168.29.184:8080/api/domain/${id}`,
+      );
+      if (!response.ok) throw new Error("Domain not found");
+      const data = await response.json();
+      setDomain(data);
+    } catch (error) {
+      console.error("Error fetching domain:", error);
+      setDomain(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const domain =
-    item.domain || `${item.title.replace(/\s+/g, "").toLowerCase()}.com`;
+  // Loading state
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+      </main>
+    );
+  }
 
-  const price = item.price;
+  // Not found state
+  if (!domain) return <NotFound />;
+
+  // Prepare data
+  const domainFullName = `${domain.domainName}${domain.domainExtension}`;
+  const priceFormatted = `₹${domain.askingPrice.toLocaleString("en-IN")}`;
 
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="border-b border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <div className="flex items-center justify-between gap-3">
-            <Link to="/" className="text-sm text-zinc-400 hover:text-white">
+            <Link
+              to="/branding"
+              className="text-sm text-zinc-400 hover:text-white"
+            >
               ← Back
             </Link>
 
@@ -61,7 +93,7 @@ export default function DomainDetailsLayout() {
               <div>
                 <h4 className="text-sm text-zinc-400">Premium domain</h4>
                 <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-                  {domain}
+                  {domainFullName}
                   <span className="ml-2 text-zinc-400 text-2xl sm:text-3xl">
                     available
                   </span>
@@ -70,12 +102,18 @@ export default function DomainDetailsLayout() {
 
               <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur">
                 <div className="aspect-[16/10] flex items-center justify-center">
-                  <img
-                    src={item.image}
-                    alt={domain}
-                    className="max-h-full max-w-full object-contain p-10"
-                    draggable={false}
-                  />
+                  {domain.logo ? (
+                    <img
+                      src={domain.logo}
+                      alt={domainFullName}
+                      className="max-h-full max-w-full object-contain p-10"
+                      draggable={false}
+                    />
+                  ) : (
+                    <div className="text-6xl font-bold text-white/20">
+                      {domain.domainName.substring(0, 2).toUpperCase()}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -90,8 +128,6 @@ export default function DomainDetailsLayout() {
                   </div>
                 ))}
               </div>
-
-             
             </div>
 
             <div className="space-y-4 lg:sticky lg:top-8 h-fit">
@@ -123,7 +159,9 @@ export default function DomainDetailsLayout() {
                       </div>
                     </div>
 
-                    <div className="text-sm font-semibold">{price}</div>
+                    <div className="text-sm font-semibold">
+                      {priceFormatted}
+                    </div>
 
                     <input
                       type="radio"
@@ -135,7 +173,7 @@ export default function DomainDetailsLayout() {
 
                   <button
                     onClick={() =>
-                      navigate(`/marketplace/${item.slug}/payment`)
+                      navigate(`/marketplace/domain/${id}/payment`)
                     }
                     className="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-black hover:opacity-90"
                   >
@@ -194,6 +232,12 @@ function NotFound() {
       <div className="mx-auto max-w-6xl px-4 py-20">
         <h1 className="text-2xl font-semibold">Domain not found</h1>
         <p className="mt-2 text-zinc-400">Check the URL and try again.</p>
+        <Link
+          to="/branding"
+          className="mt-4 inline-block text-purple-400 hover:text-purple-300"
+        >
+          ← Back to Marketplace
+        </Link>
       </div>
     </main>
   );

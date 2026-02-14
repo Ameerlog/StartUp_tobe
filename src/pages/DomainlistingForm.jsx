@@ -33,7 +33,7 @@ import {
   initialDomainFormData,
   validationRules,
 } from "../constants/domainListing";
-
+import confetti from "canvas-confetti";
 const stepIcons = {
   1: Globe,
   2: User,
@@ -276,6 +276,36 @@ const DomainListingForm = () => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  // Confetti effect on success
+  useEffect(() => {
+    if (success) {
+      // Fire multiple confetti bursts
+      const duration = 3000;
+      const end = Date.now() + duration;
+
+      const interval = setInterval(() => {
+        if (Date.now() > end) {
+          clearInterval(interval);
+          return;
+        }
+
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+        });
+
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+        });
+      }, 250);
+    }
+  }, [success]);
+
   const [logoPreview, setLogoPreview] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
@@ -313,7 +343,11 @@ const DomainListingForm = () => {
       case "domainLogo":
         if (value) {
           if (value.size > 5 * 1024 * 1024) return "File must be under 5 MB";
-          if (!["image/png", "image/jpeg", "image/jpg", "image/svg+xml"].includes(value.type))
+          if (
+            !["image/png", "image/jpeg", "image/jpg", "image/svg+xml"].includes(
+              value.type,
+            )
+          )
             return "Only PNG, JPG, SVG allowed";
         }
         return "";
@@ -425,14 +459,18 @@ const DomainListingForm = () => {
     }
 
     setSubmitting(true);
+
     try {
       const askingPrice = Number(formData.askingPrice.raw);
-
       if (isNaN(askingPrice) || askingPrice <= 0) {
         throw new Error("Invalid asking price");
       }
 
-      const payload = {
+      // Create FormData for multipart upload
+      const submitData = new FormData();
+
+      // Backend expects 'data' field with ALL info as JSON STRING
+      const jsonData = {
         domainName: formData.domainName,
         domainExtension: formData.domainExtension,
         domainCategory: formData.domainCategory,
@@ -446,32 +484,30 @@ const DomainListingForm = () => {
         },
       };
 
-      console.log("Sending payload:", JSON.stringify(payload, null, 2));
+      submitData.append("data", JSON.stringify(jsonData));
+
+      // Add logo file separately under 'logo' key
+      if (formData.domainLogo) {
+        submitData.append("logo", formData.domainLogo);
+      }
+
+      console.log("Sending FormData with logo...", jsonData);
 
       const response = await fetch(
         "http://192.168.29.184:8080/api/createDomain",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
+          body: submitData, // No Content-Type header needed
+        },
       );
 
       if (!response.ok) {
-        let errorMessage = "Submission failed";
-        try {
-          const err = await response.json();
-          errorMessage = err.message || err.error || errorMessage;
-        } catch {
-          errorMessage = `Server error: ${response.status} ${response.statusText}`;
-        }
-        throw new Error(errorMessage);
+        const error = await response.json().catch(() => ({}));
+        throw new Error(error.message || `Server error: ${response.status}`);
       }
 
       const data = await response.json();
-      console.log("Success:", data);
+      console.log("Success!", data);
       setSuccess(true);
     } catch (error) {
       console.error("Submission error:", error);

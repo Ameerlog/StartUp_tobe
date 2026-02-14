@@ -302,7 +302,6 @@ const CoworkingForm = () => {
   const handlePhotoChange = (file) => {
     if (!file) return;
 
-    // Validate file size (2MB max)
     if (file.size > 2 * 1024 * 1024) {
       setErrors((prev) => ({
         ...prev,
@@ -311,7 +310,6 @@ const CoworkingForm = () => {
       return;
     }
 
-    // Validate file type
     const validTypes = ["image/jpeg", "image/png", "image/webp"];
     if (!validTypes.includes(file.type)) {
       setErrors((prev) => ({
@@ -321,7 +319,7 @@ const CoworkingForm = () => {
       return;
     }
 
-    // Create preview
+
     const reader = new FileReader();
     reader.onloadend = () => setPhotoPreview(reader.result);
     reader.readAsDataURL(file);
@@ -427,13 +425,13 @@ const CoworkingForm = () => {
     }
   };
 
-  // Helper function to get industry label
+
   const getIndustryLabel = (value) => {
     const industry = industryOptions.find((i) => i.value === value);
     return industry ? industry.label : value;
   };
 
-  // Helper function to get role label
+  
   const getRoleLabel = (value) => {
     const role = roleOptions.find((r) => r.value === value);
     return role ? role.label : value;
@@ -447,45 +445,40 @@ const CoworkingForm = () => {
     setSubmitting(true);
 
     try {
-      // Build the skill string in the format backend expects
-      // Format: "primarySkill - industry - location"
+     
       const skillString = `${formData.primarySkill} - ${formData.industry} - ${formData.location || "Not specified"}`;
 
-      // Payload structure matching backend expectations
       const payload = {
         fullName: formData.fullName.trim(),
         primaryRole: formData.primaryRole,
         linkedinUrl: formData.linkedinUrl.trim(),
-        skill: skillString, // Combined skill string
+        skill: skillString, 
         agreement: {
-          termsAccepted: formData.termsConsent, // Changed from 'terms'
+          termsAccepted: formData.termsConsent, 
         },
       };
 
-      console.log("=== SUBMISSION DATA ===");
-      console.log("Payload:", JSON.stringify(payload, null, 2));
-      console.log("Has Photo:", !!profilePhoto);
-      if (profilePhoto) {
-        console.log("Photo Name:", profilePhoto.name);
-        console.log("Photo Size:", profilePhoto.size);
-        console.log("Photo Type:", profilePhoto.type);
-      }
-      console.log("========================");
+      // console.log("=== SUBMISSION DATA ===");
+      // console.log("Payload:", JSON.stringify(payload, null, 2));
+      // console.log("Has Photo:", !!profilePhoto);
+      // if (profilePhoto) {
+      //   console.log("Photo Name:", profilePhoto.name);
+      //   console.log("Photo Size:", profilePhoto.size);
+      //   console.log("Photo Type:", profilePhoto.type);
+      // }
+      // console.log("========================");
 
       let response;
 
       if (profilePhoto) {
-        // WITH PHOTO: Use FormData for multipart upload
+      
         const formDataToSend = new FormData();
 
-        // Append JSON data as string
         formDataToSend.append("data", JSON.stringify(payload));
 
-        // Append photo file - key name must match backend expectation
-        // Common key names: "photo", "logo", "image", "file", "profilePhoto"
-        formDataToSend.append("logo", profilePhoto); // Changed to "logo" to match response
-
-        // Debug FormData
+      
+        formDataToSend.append("logo", profilePhoto); 
+     
         console.log("FormData entries:");
         for (let [key, value] of formDataToSend.entries()) {
           console.log(`  ${key}:`, value);
@@ -493,11 +486,11 @@ const CoworkingForm = () => {
 
         response = await fetch(`${API_BASE_URL}/CreateCoworking`, {
           method: "POST",
-          // Don't set Content-Type header - browser will set it with boundary
+     
           body: formDataToSend,
         });
       } else {
-        // WITHOUT PHOTO: Regular JSON request
+
         response = await fetch(`${API_BASE_URL}/CreateCoworking`, {
           method: "POST",
           headers: {
@@ -507,7 +500,6 @@ const CoworkingForm = () => {
         });
       }
 
-      // Handle response
       if (!response.ok) {
         let errorMessage = "Submission failed";
         try {
@@ -524,7 +516,6 @@ const CoworkingForm = () => {
       console.log(JSON.stringify(data, null, 2));
       console.log("========================");
 
-      // Store response data directly (no .data wrapper based on your response structure)
       setSubmittedData(data);
       setSuccess(true);
     } catch (error) {
@@ -553,7 +544,6 @@ const CoworkingForm = () => {
     setErrors({});
   };
 
-  // Parse skill string to get individual components
   const parseSkillString = (skillString) => {
     if (!skillString) return { skill: "", industry: "", location: "" };
     const parts = skillString.split(" - ");
@@ -566,9 +556,7 @@ const CoworkingForm = () => {
 
   const completionPercentage = ((step - 1) / 3) * 100;
 
-  // ==================== SUCCESS SCREEN ====================
   if (success) {
-    // Access response fields directly (no .data wrapper)
     const photoUrl = submittedData?.logo || photoPreview;
     const parsedSkill = parseSkillString(submittedData?.skill);
 
@@ -585,7 +573,6 @@ const CoworkingForm = () => {
             <div className="p-8 sm:p-12 text-center relative overflow-hidden">
               <FloatingParticles count={6} />
 
-              {/* Profile Photo / Success Icon */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -599,7 +586,7 @@ const CoworkingForm = () => {
                       alt="Profile"
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        // Fallback if image fails to load
+           
                         e.target.style.display = "none";
                         e.target.parentElement.innerHTML = `
                           <div class="w-full h-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
@@ -630,7 +617,6 @@ const CoworkingForm = () => {
                 />
               </motion.div>
 
-              {/* Success Title */}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -645,7 +631,6 @@ const CoworkingForm = () => {
                 </span>
               </motion.h2>
 
-              {/* Welcome Message */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -659,7 +644,6 @@ const CoworkingForm = () => {
                 ! Your co-working profile is now visible to others.
               </motion.p>
 
-              {/* Profile Summary */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -701,7 +685,6 @@ const CoworkingForm = () => {
                 </div>
               </motion.div>
 
-              {/* LinkedIn Link */}
               {submittedData?.linkedinUrl && (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -722,7 +705,6 @@ const CoworkingForm = () => {
                 </motion.div>
               )}
 
-              {/* Profile ID */}
               {submittedData?.Id && (
                 <motion.p
                   initial={{ opacity: 0 }}
@@ -737,7 +719,6 @@ const CoworkingForm = () => {
                 </motion.p>
               )}
 
-              {/* Create Another Button */}
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -760,7 +741,6 @@ const CoworkingForm = () => {
     );
   }
 
-  // ==================== FORM SCREEN ====================
   return (
     <div
       ref={formRef}
@@ -768,7 +748,7 @@ const CoworkingForm = () => {
     >
       <AnimatedBackground />
       <div className="relative z-10 max-w-2xl mx-auto">
-        {/* Header */}
+      
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -822,7 +802,6 @@ const CoworkingForm = () => {
           />
         </motion.div>
 
-        {/* Step Indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -924,11 +903,10 @@ const CoworkingForm = () => {
           </div>
         </motion.div>
 
-        {/* Form Card */}
         <GlassCard glowColor="from-purple-600/30 to-pink-600/30">
           <form onSubmit={handleSubmit} className="p-5 sm:p-8">
             <AnimatePresence mode="wait">
-              {/* ==================== STEP 1 ==================== */}
+           
               {step === 1 && (
                 <motion.div
                   key="step1"
@@ -955,7 +933,6 @@ const CoworkingForm = () => {
                     </div>
                   </div>
 
-                  {/* Profile Photo Upload */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1076,7 +1053,6 @@ const CoworkingForm = () => {
                 </motion.div>
               )}
 
-              {/* ==================== STEP 2 ==================== */}
               {step === 2 && (
                 <motion.div
                   key="step2"
@@ -1304,7 +1280,6 @@ const CoworkingForm = () => {
                     </div>
                   </motion.div>
 
-                  {/* Community Guidelines */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1468,5 +1443,4 @@ const CoworkingForm = () => {
     </div>
   );
 };
-
 export default CoworkingForm;

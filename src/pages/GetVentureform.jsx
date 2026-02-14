@@ -19,6 +19,14 @@ const ventureSchema = z.object({
     .string()
     .min(2, "Name must be at least 2 characters")
     .max(50, "Name must be less than 50 characters"),
+    gstNo: z
+  .string()
+  .length(15, "GST number must be 15 characters")
+  .regex(
+    /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}Z[A-Z0-9]{1}$/,
+    "Invalid GST number format"
+  ),
+
   phone: z
     .string()
     .min(10, "Please enter a valid 10-digit phone number")
@@ -204,6 +212,7 @@ const GetVentureForm = () => {
       fullName: "",
       phone: "",
       location: "",
+      gstNo:"",
     },
   });
 
@@ -213,6 +222,7 @@ const GetVentureForm = () => {
         fullName: data.fullName.trim(),
         phone: data.phone.trim(),
         location: data.location.trim(),
+        gstNo:data.gstNo,
       };
 
       console.log("Submitting:", payload);
@@ -420,7 +430,18 @@ const GetVentureForm = () => {
                   setFocused={setFocused}
                   maxLength={10}
                 />
-
+                <InputField
+                  icon={MapPin}
+                  label="GST Number"
+                  name="gstNo"
+                  type="text"
+                  placeholder="GST Number "
+                  register={register}
+                  error={errors.gstNo}
+                  focused={focused}
+                  setFocused={setFocused}
+                  maxLength={100}
+                />
                 <InputField
                   icon={MapPin}
                   label="Location"
