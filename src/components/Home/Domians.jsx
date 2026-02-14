@@ -62,7 +62,7 @@ export default function Domains({ variant = "dark" }) {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "http://192.168.29.184:8080/api/ListAllDomains"
+          " https://cobrother-api.onrender.com/api/ListAllDomains"
         );
         const data = await response.json();
         setDomains(data);

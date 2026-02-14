@@ -4,7 +4,7 @@ import { investorCards } from "../../data/investors";
 import BackgroundImage from "../../assets/domain/bg1.svg";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE_URL = "http://192.168.29.184:8080/api";
+const API_BASE_URL = " https://cobrother-api.onrender.com";
 
 const InvestorCard = ({ card }) => {
 
@@ -201,7 +201,7 @@ export default function Investors() {
       try {
         setLoading(true);
         
-        const response = await fetch(`${API_BASE_URL}/ListAllCoWorking`);
+        const response = await fetch(`${API_BASE_URL}/api/ListAllCoWorking`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch profiles: ${response.status}`);

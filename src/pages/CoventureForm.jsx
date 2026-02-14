@@ -68,7 +68,7 @@ const getRatioParts = (equityValue) => {
 };
 
 
-const API_BASE_URL = "http://192.168.29.184:8080/api";
+const API_BASE_URL = " https://cobrother-api.onrender.com";
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -297,7 +297,7 @@ const CoVentureBrandListingForm = () => {
 
   const fetchAllBrands = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/ListAllBrands`);
+      const response = await fetch(`${API_BASE_URL}/api/ListAllBrands`);
       if (response.ok) {
         const data = await response.json();
         setBrands(data);
@@ -530,7 +530,7 @@ const CoVentureBrandListingForm = () => {
       }
 
  
-      const response = await fetch(`${API_BASE_URL}/createCoBranding`, {
+      const response = await fetch(`${API_BASE_URL}/api/createCoBranding`, {
         method: "POST",
         body: formDataToSend,
       });
@@ -655,7 +655,6 @@ const CoVentureBrandListingForm = () => {
                 </motion.div>
               )}
 
-              {/* Contact Info */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}

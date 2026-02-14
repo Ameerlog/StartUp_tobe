@@ -73,7 +73,7 @@ export default function JointVenture() {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://192.168.29.184:8080/api/ListAllBrands"
+          " https://cobrother-api.onrender.com/api/ListAllBrands"
         );
 
         if (response.ok) {
