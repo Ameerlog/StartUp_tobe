@@ -494,12 +494,13 @@ const DomainListingForm = () => {
       console.log("Sending FormData with logo...", jsonData);
 
       const response = await fetch(
-        "http://192.168.29.184:8080/api/createDomain",
+        " https://cobrother-api.onrender.com/api/createDomain",
         {
           method: "POST",
-          body: submitData, // No Content-Type header needed
+          body: submitData, 
         },
       );
+     
 
       if (!response.ok) {
         const error = await response.json().catch(() => ({}));

@@ -228,12 +228,12 @@ const GetVentureForm = () => {
       console.log("Submitting:", payload);
 
       const response = await fetch(
-        "http://192.168.29.184:8080/api/CreateJointVenture",
+        " https://cobrother-api.onrender.com/api/CreateJointVenture",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
           body: JSON.stringify(payload),
         },
       );

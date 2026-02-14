@@ -88,7 +88,7 @@ const Home = () => {
         {
           headers: {
             Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
           },
           timeout: 10000, // 10 second timeout
         },

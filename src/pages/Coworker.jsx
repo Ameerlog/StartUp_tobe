@@ -42,7 +42,7 @@ const coworkingTerms = [
   "You can update or delete your profile at any time from your dashboard.",
 ];
 
-const API_BASE_URL = "http://192.168.29.184:8080/api";
+const API_BASE_URL = " https://cobrother-api.onrender.com";
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -484,14 +484,14 @@ const CoworkingForm = () => {
           console.log(`  ${key}:`, value);
         }
 
-        response = await fetch(`${API_BASE_URL}/CreateCoworking`, {
+        response = await fetch(`${API_BASE_URL}/api/CreateCoworking`, {
           method: "POST",
      
           body: formDataToSend,
         });
       } else {
 
-        response = await fetch(`${API_BASE_URL}/CreateCoworking`, {
+        response = await fetch(`${API_BASE_URL}/api/CreateCoworking`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

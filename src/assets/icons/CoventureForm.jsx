@@ -321,7 +321,34 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
     console.log("Sending payload:", JSON.stringify(payload, null, 2));
 
     try {
-      await mutate(payload);
+      const formDataToSend = new FormData();
+
+formDataToSend.append(
+  "brandDetails",
+  new Blob([JSON.stringify(payload.brandDetails)], {
+    type: "application/json",
+  })
+);
+
+formDataToSend.append(
+  "contactInfo",
+  new Blob([JSON.stringify(payload.contactInfo)], {
+    type: "application/json",
+  })
+);
+
+formDataToSend.append(
+  "agreement",
+  new Blob([JSON.stringify(payload.agreement)], {
+    type: "application/json",
+  })
+);
+
+if (formData.brandLogo) {
+  formDataToSend.append("logo", formData.brandLogo);
+}
+
+await mutate(formDataToSend);
 
       // ✅ Save data FIRST
       setSubmittedData({

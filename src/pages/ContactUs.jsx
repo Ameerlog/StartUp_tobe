@@ -263,9 +263,8 @@ const ContactUs = () => {
 
       console.log("Submitting:", payload);
 
-      // Replace with your actual API endpoint
       const response = await fetch(
-        "http://192.168.29.184:8080/api/SupportContactUs",
+        " https://cobrother-api.onrender.com/api/SupportContactUs",
         {
           method: "POST",
           headers: {

@@ -19,7 +19,7 @@ export default function Branding() {
   const fetchDomains = async () => {
     try {
       const response = await fetch(
-        "http://192.168.29.184:8080/api/ListAllDomains",
+        "https://cobrother-api.onrender.com/api/ListAllDomains",
       );
       const data = await response.json();
       setDomains(data);
