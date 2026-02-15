@@ -58,7 +58,9 @@ const stepIcons = {
 };
 
 const getRatioParts = (equityValue) => {
-  const option = equityStructureOptions.find((opt) => opt.value === equityValue);
+  const option = equityStructureOptions.find(
+    (opt) => opt.value === equityValue,
+  );
   if (!option || option.value === "NEGOTIABLE") return null;
   const parts = option.ratio.split(":");
   return {
@@ -66,7 +68,6 @@ const getRatioParts = (equityValue) => {
     partnerShare: parseInt(parts[1], 10),
   };
 };
-
 
 const API_BASE_URL = " https://cobrother-api.onrender.com";
 
@@ -88,11 +89,15 @@ const AnimatedBackground = () => (
         y: [0, 50, -30, 0],
         scale: [1, 0.9, 1.1, 1],
       }}
-      transition={{ duration: 8, delay: 2, repeat: Infinity, ease: "easeInOut" }}
+      transition={{
+        duration: 8,
+        delay: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
     />
   </div>
 );
-
 
 const FloatingParticles = ({ count = 8 }) => (
   <>
@@ -111,17 +116,35 @@ const FloatingParticles = ({ count = 8 }) => (
   </>
 );
 
-
-const GlassCard = ({ children, className = "", glowColor = "from-purple-600/30 to-blue-600/30" }) => (
+const GlassCard = ({
+  children,
+  className = "",
+  glowColor = "from-purple-600/30 to-blue-600/30",
+}) => (
   <div className={`relative group ${className}`}>
-    <div className={`absolute -inset-0.5 bg-gradient-to-r ${glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`} />
+    <div
+      className={`absolute -inset-0.5 bg-gradient-to-r ${glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
+    />
     <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl transition-all duration-300 h-full">
       {children}
     </div>
   </div>
 );
 
-const InputField = ({ label, name, type = "text", placeholder, value, onChange, onBlur, error, touched, icon: Icon, required = false, delay = 0 }) => (
+const InputField = ({
+  label,
+  name,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  onBlur,
+  error,
+  touched,
+  icon: Icon,
+  required = false,
+  delay = 0,
+}) => (
   <motion.div
     initial={{ opacity: 0, y: 15 }}
     animate={{ opacity: 1, y: 0 }}
@@ -131,7 +154,9 @@ const InputField = ({ label, name, type = "text", placeholder, value, onChange, 
       {label} {required && <span className="text-pink-500">*</span>}
     </label>
     <div className="relative">
-      {Icon && <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />}
+      {Icon && (
+        <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+      )}
       <input
         type={type}
         name={name}
@@ -152,8 +177,15 @@ const InputField = ({ label, name, type = "text", placeholder, value, onChange, 
   </motion.div>
 );
 
-
-const EquityDropdown = ({ value, onChange, error, options, placeholder, label, required }) => {
+const EquityDropdown = ({
+  value,
+  onChange,
+  error,
+  options,
+  placeholder,
+  label,
+  required,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -187,23 +219,32 @@ const EquityDropdown = ({ value, onChange, error, options, placeholder, label, r
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full px-4 py-3.5 bg-neutral-900/80 border rounded-xl text-left flex items-center justify-between transition-all ${
-          isOpen ? "border-purple-500/50 ring-2 ring-purple-500/20" : error ? "border-red-500/60" : "border-neutral-800/60 hover:border-purple-500/30"
+          isOpen
+            ? "border-purple-500/50 ring-2 ring-purple-500/20"
+            : error
+              ? "border-red-500/60"
+              : "border-neutral-800/60 hover:border-purple-500/30"
         }`}
       >
         <div className="flex items-center gap-3">
           {selectedOption ? (
             <>
-              
               <div>
-                <span className="text-sm text-white font-medium">{selectedOption.label}</span>
-                <span className="text-xs text-neutral-500 ml-2">— {selectedOption.description}</span>
+                <span className="text-sm text-white font-medium">
+                  {selectedOption.label}
+                </span>
+                <span className="text-xs text-neutral-500 ml-2">
+                  — {selectedOption.description}
+                </span>
               </div>
             </>
           ) : (
             <span className="text-sm text-neutral-500">{placeholder}</span>
           )}
         </div>
-        <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180 text-purple-400" : "text-neutral-500"}`} />
+        <ChevronDown
+          className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180 text-purple-400" : "text-neutral-500"}`}
+        />
       </button>
 
       <AnimatePresence>
@@ -228,23 +269,35 @@ const EquityDropdown = ({ value, onChange, error, options, placeholder, label, r
                       setIsOpen(false);
                     }}
                     className={`w-full px-4 py-3 text-left flex items-center gap-3 transition-all ${
-                      isSelected ? (isNegotiable ? "bg-yellow-500/10" : "bg-purple-500/10") : "hover:bg-neutral-800/50"
+                      isSelected
+                        ? isNegotiable
+                          ? "bg-yellow-500/10"
+                          : "bg-purple-500/10"
+                        : "hover:bg-neutral-800/50"
                     } ${isNegotiable ? "border-t border-neutral-800/50" : ""}`}
                   >
                     <span className="text-lg">{option.icon}</span>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className={`text-sm font-semibold ${isSelected ? (isNegotiable ? "text-yellow-400" : "text-purple-400") : "text-white"}`}>
+                        <span
+                          className={`text-sm font-semibold ${isSelected ? (isNegotiable ? "text-yellow-400" : "text-purple-400") : "text-white"}`}
+                        >
                           {option.label}
                         </span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${isNegotiable ? "bg-yellow-500/20 text-yellow-400" : "bg-neutral-800 text-neutral-400"}`}>
+                        <span
+                          className={`text-xs px-2 py-0.5 rounded-full ${isNegotiable ? "bg-yellow-500/20 text-yellow-400" : "bg-neutral-800 text-neutral-400"}`}
+                        >
                           {option.ratio}
                         </span>
                       </div>
-                      <p className="text-xs text-neutral-500 mt-0.5">{option.description}</p>
+                      <p className="text-xs text-neutral-500 mt-0.5">
+                        {option.description}
+                      </p>
                     </div>
                     {isSelected && (
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center ${isNegotiable ? "bg-yellow-500" : "bg-purple-500"}`}>
+                      <div
+                        className={`w-5 h-5 rounded-full flex items-center justify-center ${isNegotiable ? "bg-yellow-500" : "bg-purple-500"}`}
+                      >
                         <Check className="w-3 h-3 text-white" />
                       </div>
                     )}
@@ -281,7 +334,6 @@ const CoVentureBrandListingForm = () => {
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
-
   const [jointVentureChecked, setJointVentureChecked] = useState(false);
   const [verificationChecked, setVerificationChecked] = useState(false);
   const [equityStructure, setEquityStructure] = useState("");
@@ -293,7 +345,6 @@ const CoVentureBrandListingForm = () => {
   useEffect(() => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentStep]);
-
 
   const fetchAllBrands = async () => {
     try {
@@ -311,7 +362,6 @@ const CoVentureBrandListingForm = () => {
     fetchAllBrands();
   }, []);
 
-
   const validateField = (name, value) => {
     switch (name) {
       case "brandName":
@@ -320,7 +370,8 @@ const CoVentureBrandListingForm = () => {
         return "";
       case "websiteDomain":
         if (!value?.trim()) return "Website is required";
-        if (!validationRules.websiteDomain.pattern.test(value)) return "Enter a valid URL";
+        if (!validationRules.websiteDomain.pattern.test(value))
+          return "Enter a valid URL";
         return "";
       case "industryCategory":
         if (!value) return "Please select a category";
@@ -332,11 +383,13 @@ const CoVentureBrandListingForm = () => {
         return "";
       case "contactEmail":
         if (!value?.trim()) return "Email is required";
-        if (!validationRules.contactEmail.pattern.test(value)) return "Enter a valid email";
+        if (!validationRules.contactEmail.pattern.test(value))
+          return "Enter a valid email";
         return "";
       case "contactNumber":
         if (!value?.trim()) return "Phone number is required";
-        if (!validationRules.contactNumber.pattern.test(value)) return "Enter valid 10-digit number";
+        if (!validationRules.contactNumber.pattern.test(value))
+          return "Enter valid 10-digit number";
         return "";
       case "terms":
         if (!value) return "You must agree to proceed";
@@ -381,7 +434,12 @@ const CoVentureBrandListingForm = () => {
       if (error) newErrors[field] = error;
     });
 
-    if (step === 3 && jointVentureChecked && verificationChecked && !equityStructure) {
+    if (
+      step === 3 &&
+      jointVentureChecked &&
+      verificationChecked &&
+      !equityStructure
+    ) {
       newErrors.equityStructure = "Please select an equity structure";
     }
 
@@ -389,7 +447,6 @@ const CoVentureBrandListingForm = () => {
     setErrors((prev) => ({ ...prev, ...newErrors }));
     return Object.keys(newErrors).length === 0;
   };
-
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -461,7 +518,10 @@ const CoVentureBrandListingForm = () => {
     const formattedValue = formatPrice(e.target.value);
     setFormData((prev) => ({ ...prev, coVenturePrice: formattedValue }));
     if (touched.coVenturePrice) {
-      setErrors((prev) => ({ ...prev, coVenturePrice: validateField("coVenturePrice", formattedValue) }));
+      setErrors((prev) => ({
+        ...prev,
+        coVenturePrice: validateField("coVenturePrice", formattedValue),
+      }));
     }
   };
 
@@ -478,21 +538,20 @@ const CoVentureBrandListingForm = () => {
     setIsSubmitting(true);
 
     try {
-    
       const priceString = formData.coVenturePrice.replace(/[₹,]/g, "");
       const dealValue = parseInt(priceString, 10) || 0;
 
-      const mappedIndustry = INDUSTRY_MAP[formData.industryCategory?.toLowerCase()] || "OTHER";
+      const mappedIndustry =
+        INDUSTRY_MAP[formData.industryCategory?.toLowerCase()] || "OTHER";
 
       const dataPayload = {
-  
         brandDetails: {
           brandName: formData.brandName,
           website: formData.websiteDomain,
           industry: mappedIndustry,
           dealValue: dealValue,
           description: formData.brandDescription || "",
-          ventureType: equityStructure || null, 
+          ventureType: equityStructure || null,
         },
 
         contactInfo: {
@@ -510,26 +569,21 @@ const CoVentureBrandListingForm = () => {
           globalGridDisplayAuthorized: verificationChecked,
         },
 
-     
         submittedAt: new Date().toISOString(),
       };
 
-    
       console.log("=== SUBMISSION DATA (NESTED) ===");
       console.log("Payload:", JSON.stringify(dataPayload, null, 2));
       console.log("================================");
 
- 
       const formDataToSend = new FormData();
       formDataToSend.append("data", JSON.stringify(dataPayload));
 
-   
       if (formData.brandLogo) {
         formDataToSend.append("logo", formData.brandLogo);
         console.log("Logo attached:", formData.brandLogo.name);
       }
 
- 
       const response = await fetch(`${API_BASE_URL}/api/createCoBranding`, {
         method: "POST",
         body: formDataToSend,
@@ -543,11 +597,9 @@ const CoVentureBrandListingForm = () => {
       const responseData = await response.json();
       console.log("Success Response:", responseData);
 
-    
       setSubmittedData(responseData);
       setSubmitSuccess(true);
       fetchAllBrands();
-
     } catch (error) {
       console.error("Submission error:", error);
       alert(error.message || "Something went wrong. Please try again.");
@@ -555,7 +607,6 @@ const CoVentureBrandListingForm = () => {
       setIsSubmitting(false);
     }
   };
-
 
   const resetForm = () => {
     setSubmitSuccess(false);
@@ -581,16 +632,19 @@ const CoVentureBrandListingForm = () => {
 
   const completionPercentage = ((currentStep - 1) / 3) * 100;
 
-
   if (submitSuccess) {
-    const selectedEquityOption = equityStructureOptions.find((opt) => opt.value === equityStructure);
-    
-  
-    const brandName = submittedData?.brandDetails?.brandName || formData.brandName;
+    const selectedEquityOption = equityStructureOptions.find(
+      (opt) => opt.value === equityStructure,
+    );
+
+    const brandName =
+      submittedData?.brandDetails?.brandName || formData.brandName;
     const email = submittedData?.contactInfo?.email || formData.contactEmail;
-    const phone = submittedData?.contactInfo?.phoneNumber || formData.contactNumber;
+    const phone =
+      submittedData?.contactInfo?.phoneNumber || formData.contactNumber;
     const logoUrl = submittedData?.brandDetails?.logoUrl;
-    const ventureType = submittedData?.brandDetails?.ventureType || equityStructure;
+    const ventureType =
+      submittedData?.brandDetails?.ventureType || equityStructure;
 
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-4">
@@ -620,8 +674,10 @@ const CoVentureBrandListingForm = () => {
 
               <p className="text-neutral-400 text-sm mb-4">
                 Thank you for listing{" "}
-                <span className="text-purple-400 font-semibold">{brandName}</span>.
-                We'll contact you within 24-48 hours.
+                <span className="text-purple-400 font-semibold">
+                  {brandName}
+                </span>
+                . We'll contact you within 24-48 hours.
               </p>
 
               {logoUrl && (
@@ -631,9 +687,9 @@ const CoVentureBrandListingForm = () => {
                   transition={{ delay: 0.3 }}
                   className="mb-4"
                 >
-                  <img 
-                    src={logoUrl} 
-                    alt="Brand Logo" 
+                  <img
+                    src={logoUrl}
+                    alt="Brand Logo"
                     className="w-20 h-20 mx-auto rounded-xl object-cover border border-neutral-700"
                   />
                 </motion.div>
@@ -646,9 +702,12 @@ const CoVentureBrandListingForm = () => {
                   transition={{ delay: 0.4 }}
                   className="mb-4 inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-lg text-xs"
                 >
-                  <span className="text-lg">{selectedEquityOption?.icon || "📊"}</span>
+                  <span className="text-lg">
+                    {selectedEquityOption?.icon || "📊"}
+                  </span>
                   <span className="text-neutral-300">
-                    Equity: <span className="text-purple-400 font-medium">
+                    Equity:{" "}
+                    <span className="text-purple-400 font-medium">
                       {selectedEquityOption?.label || ventureType}
                     </span>
                   </span>
@@ -684,7 +743,10 @@ const CoVentureBrandListingForm = () => {
                   transition={{ delay: 0.6 }}
                   className="text-xs text-neutral-500 mb-4"
                 >
-                  Reference ID: <span className="text-neutral-400 font-mono">{submittedData.id}</span>
+                  Reference ID:{" "}
+                  <span className="text-neutral-400 font-mono">
+                    {submittedData.id}
+                  </span>
                 </motion.p>
               )}
 
@@ -708,11 +770,13 @@ const CoVentureBrandListingForm = () => {
   }
 
   return (
-    <div ref={formRef} className="min-h-screen bg-black pt-24 sm:pt-28 pb-12 sm:pb-16 px-4">
+    <div
+      ref={formRef}
+      className="min-h-screen bg-black pt-24 sm:pt-28 pb-12 sm:pb-16 px-4"
+    >
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-2xl mx-auto">
-    
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -722,12 +786,16 @@ const CoVentureBrandListingForm = () => {
 
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full mb-5">
             <Handshake className="w-4 h-4 text-purple-400" />
-            <span className="text-sm font-medium text-purple-400">Co-Venture Program</span>
+            <span className="text-sm font-medium text-purple-400">
+              Co-Venture Program
+            </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
             <span className="text-white">List Your </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Brand</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              Brand
+            </span>
           </h1>
 
           <p className="text-neutral-400 text-sm sm:text-base max-w-md mx-auto">
@@ -735,8 +803,11 @@ const CoVentureBrandListingForm = () => {
           </p>
         </motion.div>
 
-    
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
           <div className="flex items-center justify-between mb-4">
             {formSteps.map((step, index) => {
               const isActive = currentStep === step.id;
@@ -751,13 +822,19 @@ const CoVentureBrandListingForm = () => {
                         isCompleted
                           ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 text-white"
                           : isActive
-                          ? "border-purple-500 bg-purple-500/10 text-white"
-                          : "border-neutral-700 bg-neutral-900/50 text-neutral-500"
+                            ? "border-purple-500 bg-purple-500/10 text-white"
+                            : "border-neutral-700 bg-neutral-900/50 text-neutral-500"
                       }`}
                     >
-                      {isCompleted ? <Check className="w-5 h-5" /> : <StepIcon className="w-4 h-4 sm:w-5 sm:h-5" />}
+                      {isCompleted ? (
+                        <Check className="w-5 h-5" />
+                      ) : (
+                        <StepIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                      )}
                     </div>
-                    <span className={`text-xs mt-2 font-medium ${isActive || isCompleted ? "text-white" : "text-neutral-500"}`}>
+                    <span
+                      className={`text-xs mt-2 font-medium ${isActive || isCompleted ? "text-white" : "text-neutral-500"}`}
+                    >
                       {step.title}
                     </span>
                   </div>
@@ -793,7 +870,6 @@ const CoVentureBrandListingForm = () => {
         <GlassCard glowColor="from-purple-600/30 to-pink-600/30">
           <form onSubmit={handleSubmit} className="p-5 sm:p-8">
             <AnimatePresence mode="wait">
-   
               {currentStep === 1 && (
                 <motion.div
                   key="step1"
@@ -807,8 +883,12 @@ const CoVentureBrandListingForm = () => {
                       <Building2 className="w-5 h-5 text-purple-400" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-white">Brand Details</h2>
-                      <p className="text-xs text-neutral-500">Tell us about your brand</p>
+                      <h2 className="text-lg font-bold text-white">
+                        Brand Details
+                      </h2>
+                      <p className="text-xs text-neutral-500">
+                        Tell us about your brand
+                      </p>
                     </div>
                   </div>
 
@@ -826,7 +906,9 @@ const CoVentureBrandListingForm = () => {
                   />
 
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-2">Brand Logo</label>
+                    <label className="block text-sm font-medium text-neutral-300 mb-2">
+                      Brand Logo
+                    </label>
                     <div
                       onDragEnter={handleDrag}
                       onDragLeave={handleDrag}
@@ -834,7 +916,9 @@ const CoVentureBrandListingForm = () => {
                       onDrop={handleDrop}
                       onClick={() => fileInputRef.current?.click()}
                       className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
-                        dragActive ? "border-purple-500 bg-purple-500/5" : "border-neutral-700/60 hover:border-purple-500/50"
+                        dragActive
+                          ? "border-purple-500 bg-purple-500/5"
+                          : "border-neutral-700/60 hover:border-purple-500/50"
                       }`}
                     >
                       <input
@@ -846,7 +930,11 @@ const CoVentureBrandListingForm = () => {
                       />
                       {logoPreview ? (
                         <div className="relative inline-block">
-                          <img src={logoPreview} alt="Logo" className="max-w-[120px] max-h-[80px] rounded-lg" />
+                          <img
+                            src={logoPreview}
+                            alt="Logo"
+                            className="max-w-[120px] max-h-[80px] rounded-lg"
+                          />
                           <button
                             type="button"
                             onClick={(e) => {
@@ -862,9 +950,14 @@ const CoVentureBrandListingForm = () => {
                         <div>
                           <Upload className="w-8 h-8 mx-auto mb-2 text-purple-400" />
                           <p className="text-sm text-neutral-400">
-                            Drop your logo or <span className="text-purple-400">click to upload</span>
+                            Drop your logo or{" "}
+                            <span className="text-purple-400">
+                              click to upload
+                            </span>
                           </p>
-                          <p className="text-xs text-neutral-500">PNG, JPG, SVG • Max 5MB</p>
+                          <p className="text-xs text-neutral-500">
+                            PNG, JPG, SVG • Max 5MB
+                          </p>
                         </div>
                       )}
                     </div>
@@ -888,14 +981,14 @@ const CoVentureBrandListingForm = () => {
                     required
                   />
 
-              
                   <div>
                     <label className="block text-sm font-medium text-neutral-300 mb-3">
                       Industry Category <span className="text-pink-500">*</span>
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                       {industryCategories.slice(1).map((cat) => {
-                        const isSelected = formData.industryCategory === cat.value;
+                        const isSelected =
+                          formData.industryCategory === cat.value;
                         return (
                           <button
                             key={cat.value}
@@ -908,7 +1001,13 @@ const CoVentureBrandListingForm = () => {
                             }`}
                           >
                             <div className="flex items-center justify-center gap-2">
-                              <span className={isSelected ? "text-purple-400" : "text-neutral-500"}>
+                              <span
+                                className={
+                                  isSelected
+                                    ? "text-purple-400"
+                                    : "text-neutral-500"
+                                }
+                              >
                                 {getIcon(cat.icon)}
                               </span>
                               <span>{cat.label}</span>
@@ -924,7 +1023,8 @@ const CoVentureBrandListingForm = () => {
                     </div>
                     {errors.industryCategory && touched.industryCategory && (
                       <p className="text-red-400 text-xs mt-2 flex items-center gap-1.5">
-                        <AlertCircle className="w-3 h-3" /> {errors.industryCategory}
+                        <AlertCircle className="w-3 h-3" />{" "}
+                        {errors.industryCategory}
                       </p>
                     )}
                   </div>
@@ -944,20 +1044,26 @@ const CoVentureBrandListingForm = () => {
                         onBlur={handleBlur}
                         placeholder="₹10,00,000"
                         className={`w-full pl-11 pr-4 py-3.5 bg-neutral-900/80 border rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 ${
-                          errors.coVenturePrice && touched.coVenturePrice ? "border-red-500/60" : "border-neutral-800/60"
+                          errors.coVenturePrice && touched.coVenturePrice
+                            ? "border-red-500/60"
+                            : "border-neutral-800/60"
                         }`}
                       />
                     </div>
                     {errors.coVenturePrice && touched.coVenturePrice && (
                       <p className="text-red-400 text-xs mt-2 flex items-center gap-1.5">
-                        <AlertCircle className="w-3 h-3" /> {errors.coVenturePrice}
+                        <AlertCircle className="w-3 h-3" />{" "}
+                        {errors.coVenturePrice}
                       </p>
                     )}
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-neutral-300 mb-2">
-                      Brand Description <span className="text-neutral-500 text-xs">(Optional)</span>
+                      Brand Description{" "}
+                      <span className="text-neutral-500 text-xs">
+                        (Optional)
+                      </span>
                     </label>
                     <textarea
                       name="brandDescription"
@@ -968,7 +1074,9 @@ const CoVentureBrandListingForm = () => {
                       className="w-full px-4 py-3.5 bg-neutral-900/80 border border-neutral-800/60 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 resize-none"
                     />
                     <div className="flex justify-end mt-1">
-                      <span className="text-xs text-neutral-500">{formData.brandDescription?.length || 0}/500</span>
+                      <span className="text-xs text-neutral-500">
+                        {formData.brandDescription?.length || 0}/500
+                      </span>
                     </div>
                   </div>
                 </motion.div>
@@ -987,8 +1095,12 @@ const CoVentureBrandListingForm = () => {
                       <User className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-white">Contact Information</h2>
-                      <p className="text-xs text-neutral-500">How can we reach you?</p>
+                      <h2 className="text-lg font-bold text-white">
+                        Contact Information
+                      </h2>
+                      <p className="text-xs text-neutral-500">
+                        How can we reach you?
+                      </p>
                     </div>
                   </div>
 
@@ -1035,8 +1147,12 @@ const CoVentureBrandListingForm = () => {
                       <FileCheck className="w-5 h-5 text-green-400" />
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-white">Terms & Agreement</h2>
-                      <p className="text-xs text-neutral-500">Review and accept our terms</p>
+                      <h2 className="text-lg font-bold text-white">
+                        Terms & Agreement
+                      </h2>
+                      <p className="text-xs text-neutral-500">
+                        Review and accept our terms
+                      </p>
                     </div>
                   </div>
 
@@ -1058,18 +1174,27 @@ const CoVentureBrandListingForm = () => {
                             : "border-neutral-700 bg-neutral-900/50"
                         }`}
                       >
-                        {jointVentureChecked && <Check className="w-3 h-3 text-white mx-auto mt-0.5" />}
+                        {jointVentureChecked && (
+                          <Check className="w-3 h-3 text-white mx-auto mt-0.5" />
+                        )}
                       </div>
                     </div>
                     <div className="flex-1">
                       <span className="text-sm text-neutral-300">
-                        <span className="font-medium text-purple-400">For Joint Ventures:</span> I agree that for any capital raised
-                        or partnership formed, a <span className="font-semibold text-yellow-400">3% Platform Success Fee</span> in
-                        Equity or Cash will be assigned to CoBrother.
+                        <span className="font-medium text-purple-400">
+                          For Joint Ventures:
+                        </span>{" "}
+                        I agree that for any capital raised or partnership
+                        formed, a{" "}
+                        <span className="font-semibold text-yellow-400">
+                          3% Platform Success Fee
+                        </span>{" "}
+                        in Equity or Cash will be assigned to CoBrother.
                       </span>
                       {errors.jointVenture && touched.jointVenture && (
                         <p className="text-red-400 text-xs mt-2 flex items-center gap-1.5">
-                          <AlertCircle className="w-3 h-3" /> {errors.jointVenture}
+                          <AlertCircle className="w-3 h-3" />{" "}
+                          {errors.jointVenture}
                         </p>
                       )}
                     </div>
@@ -1080,7 +1205,9 @@ const CoVentureBrandListingForm = () => {
                       <input
                         type="checkbox"
                         checked={verificationChecked}
-                        onChange={(e) => setVerificationChecked(e.target.checked)}
+                        onChange={(e) =>
+                          setVerificationChecked(e.target.checked)
+                        }
                         className="sr-only"
                       />
                       <div
@@ -1090,18 +1217,27 @@ const CoVentureBrandListingForm = () => {
                             : "border-neutral-700 bg-neutral-900/50"
                         }`}
                       >
-                        {verificationChecked && <Check className="w-3 h-3 text-white mx-auto mt-0.5" />}
+                        {verificationChecked && (
+                          <Check className="w-3 h-3 text-white mx-auto mt-0.5" />
+                        )}
                       </div>
                     </div>
                     <div>
                       <span className="text-sm text-neutral-300">
-                        <span className="font-medium text-purple-400">Verification:</span> I certify that I own the rights to this
-                        asset and authorize CoBrother to display this listing in the{" "}
-                        <span className="font-semibold text-cyan-400">Global Grid</span>.
+                        <span className="font-medium text-purple-400">
+                          Verification:
+                        </span>{" "}
+                        I certify that I own the rights to this asset and
+                        authorize CoBrother to display this listing in the{" "}
+                        <span className="font-semibold text-cyan-400">
+                          Global Grid
+                        </span>
+                        .
                       </span>
                       {errors.verification && touched.verification && (
                         <p className="text-red-400 text-xs mt-2 flex items-center gap-1.5">
-                          <AlertCircle className="w-3 h-3" /> {errors.verification}
+                          <AlertCircle className="w-3 h-3" />{" "}
+                          {errors.verification}
                         </p>
                       )}
                     </div>
@@ -1124,36 +1260,47 @@ const CoVentureBrandListingForm = () => {
                           placeholder="Choose your preferred equity split"
                         />
 
-                        {equityStructure && equityStructure !== "NEGOTIABLE" && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-4 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl"
-                          >
-                            {(() => {
-                              const ratioParts = getRatioParts(equityStructure);
-                              if (!ratioParts) return null;
-                              return (
-                                <div>
-                                  <div className="flex justify-between text-xs text-neutral-400 mb-2">
-                                    <span>Your Share ({ratioParts.yourShare}%)</span>
-                                    <span>CoBrother ({ratioParts.partnerShare}%)</span>
+                        {equityStructure &&
+                          equityStructure !== "NEGOTIABLE" && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-4 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl"
+                            >
+                              {(() => {
+                                const ratioParts =
+                                  getRatioParts(equityStructure);
+                                if (!ratioParts) return null;
+                                return (
+                                  <div>
+                                    <div className="flex justify-between text-xs text-neutral-400 mb-2">
+                                      <span>
+                                        {formData.brandName} (
+                                        {ratioParts.yourShare}%)
+                                      </span>
+                                      <span>
+                                        CoBrother ({ratioParts.partnerShare}%)
+                                      </span>
+                                    </div>
+                                    <div className="h-3 bg-neutral-800 rounded-full overflow-hidden flex">
+                                      <div
+                                        className="bg-gradient-to-r from-purple-500 to-purple-600 transition-all"
+                                        style={{
+                                          width: `${ratioParts.yourShare}%`,
+                                        }}
+                                      />
+                                      <div
+                                        className="bg-gradient-to-r from-pink-500 to-pink-600 transition-all"
+                                        style={{
+                                          width: `${ratioParts.partnerShare}%`,
+                                        }}
+                                      />
+                                    </div>
                                   </div>
-                                  <div className="h-3 bg-neutral-800 rounded-full overflow-hidden flex">
-                                    <div
-                                      className="bg-gradient-to-r from-purple-500 to-purple-600 transition-all"
-                                      style={{ width: `${ratioParts.yourShare}%` }}
-                                    />
-                                    <div
-                                      className="bg-gradient-to-r from-pink-500 to-pink-600 transition-all"
-                                      style={{ width: `${ratioParts.partnerShare}%` }}
-                                    />
-                                  </div>
-                                </div>
-                              );
-                            })()}
-                          </motion.div>
-                        )}
+                                );
+                              })()}
+                            </motion.div>
+                          )}
 
                         {equityStructure === "NEGOTIABLE" && (
                           <motion.div
@@ -1164,9 +1311,12 @@ const CoVentureBrandListingForm = () => {
                             <div className="flex items-center gap-3">
                               <span className="text-2xl">🤝</span>
                               <div>
-                                <p className="text-sm font-medium text-yellow-400">Custom Structure Request</p>
+                                <p className="text-sm font-medium text-yellow-400">
+                                  Custom Structure Request
+                                </p>
                                 <p className="text-xs text-yellow-400/70">
-                                  Our team will reach out to discuss a custom equity structure.
+                                  Our team will reach out to discuss a custom
+                                  equity structure.
                                 </p>
                               </div>
                             </div>
@@ -1192,13 +1342,18 @@ const CoVentureBrandListingForm = () => {
                             : "border-neutral-700 bg-neutral-900/50"
                         }`}
                       >
-                        {formData.terms && <Check className="w-3 h-3 text-white mx-auto mt-0.5" />}
+                        {formData.terms && (
+                          <Check className="w-3 h-3 text-white mx-auto mt-0.5" />
+                        )}
                       </div>
                     </div>
                     <div>
                       <span className="text-sm text-neutral-300">
-                        I agree to the <span className="text-purple-400 font-medium">Co-Venture Terms</span> and understand the
-                        equity allocation structure
+                        I agree to the{" "}
+                        <span className="text-purple-400 font-medium">
+                          Co-Venture Terms
+                        </span>{" "}
+                        and understand the equity allocation structure
                       </span>
                       {errors.terms && touched.terms && (
                         <p className="text-red-400 text-xs mt-2 flex items-center gap-1.5">
