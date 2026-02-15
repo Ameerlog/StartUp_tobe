@@ -293,7 +293,7 @@ const Home = () => {
                 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
               >
                 <span className=" bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                  Discover Your brand name here
+                  Discover Your Brand Name Here
                 </span>
               </motion.h2>
 
@@ -659,7 +659,7 @@ const ServiceCard = ({ item, index, navigate }) => {
             className="w-full h-full scale-[1.15] object-contain drop-shadow-xl"
           />
         </div>
-  
+
         <h3
           className={`text-sm sm:text-lg font-bold mb-1 sm:mb-2 transition-colors duration-300 ${isHovered ? item.iconColor : "text-white"}`}
         >
