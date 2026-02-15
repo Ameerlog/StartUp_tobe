@@ -21,10 +21,16 @@ const DomainCardSkeleton = ({ isDark }) => {
           <div className={`h-5 sm:h-6 ${theme.skeletonBg} rounded-md w-3/4`} />
 
           {/* Logo Area Skeleton */}
-          <div className={`mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative overflow-hidden`}>
-            <div className={`w-full h-40 sm:h-45 md:h-50 ${theme.skeletonBg}`} />
+          <div
+            className={`mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative overflow-hidden`}
+          >
+            <div
+              className={`w-full h-40 sm:h-45 md:h-50 ${theme.skeletonBg}`}
+            />
             {/* Extension Skeleton */}
-            <div className={`absolute bottom-2 right-2 mb-15 h-4 w-10 ${theme.skeletonBg} rounded`} />
+            <div
+              className={`absolute bottom-2 right-2 mb-15 h-4 w-10 ${theme.skeletonBg} rounded`}
+            />
           </div>
 
           {/* Price Badge Skeleton */}
@@ -62,7 +68,7 @@ export default function Domains({ variant = "dark" }) {
       setIsLoading(true);
       try {
         const response = await fetch(
-          " https://cobrother-api.onrender.com/api/ListAllDomains"
+          "https://cobrother-api.onrender.com/api/ListAllDomains",
         );
         const data = await response.json();
         setDomains(data);
@@ -161,7 +167,6 @@ export default function Domains({ variant = "dark" }) {
       : "border-zinc-300 bg-white/80 text-zinc-700 hover:bg-white",
   };
 
-
   const skeletonCount = 6;
 
   return (
@@ -200,7 +205,6 @@ export default function Domains({ variant = "dark" }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-
         <div
           className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-r ${theme.fadeFrom} to-transparent`}
         />
@@ -208,7 +212,6 @@ export default function Domains({ variant = "dark" }) {
           className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-l ${theme.fadeFrom} to-transparent`}
         />
 
-        
         {!isLoading && domains.length > 0 && (
           <>
             <button
@@ -254,7 +257,9 @@ export default function Domains({ variant = "dark" }) {
           ) : domains.length === 0 ? (
             // Empty State
             <div className="w-full text-center py-10">
-              <p className={`text-lg ${isDark ? "text-gray-400" : "text-zinc-500"}`}>
+              <p
+                className={`text-lg ${isDark ? "text-gray-400" : "text-zinc-500"}`}
+              >
                 No domains available at the moment.
               </p>
             </div>

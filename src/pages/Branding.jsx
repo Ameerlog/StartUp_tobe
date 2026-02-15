@@ -190,9 +190,11 @@ export default function Branding() {
                           <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            onClick={() =>
-                              navigate(`/marketplace/domain/${domain.id}`)
-                            }
+                            onClick={() => {
+                              console.log("Domain ID:", domain.id);
+                              console.log("Full Domain Object:", domain);
+                              navigate(`/marketplace/domain/${domain.id}`);
+                            }}
                             className="w-full group/btn relative overflow-hidden rounded-xl"
                           >
                             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />

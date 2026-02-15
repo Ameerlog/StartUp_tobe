@@ -37,7 +37,7 @@ export default function DomainDetailsLayout() {
   const fetchDomain = async () => {
     try {
       const response = await fetch(
-        `https://cobrother-api.onrender.com/domain/${id}`,
+        `https://cobrother-api.onrender.com/api/domain/${id}`,
       );
       if (!response.ok) throw new Error("Domain not found");
       const data = await response.json();

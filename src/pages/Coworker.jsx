@@ -319,7 +319,6 @@ const CoworkingForm = () => {
       return;
     }
 
-
     const reader = new FileReader();
     reader.onloadend = () => setPhotoPreview(reader.result);
     reader.readAsDataURL(file);
@@ -425,13 +424,11 @@ const CoworkingForm = () => {
     }
   };
 
-
   const getIndustryLabel = (value) => {
     const industry = industryOptions.find((i) => i.value === value);
     return industry ? industry.label : value;
   };
 
-  
   const getRoleLabel = (value) => {
     const role = roleOptions.find((r) => r.value === value);
     return role ? role.label : value;
@@ -445,16 +442,15 @@ const CoworkingForm = () => {
     setSubmitting(true);
 
     try {
-     
       const skillString = `${formData.primarySkill} - ${formData.industry} - ${formData.location || "Not specified"}`;
 
       const payload = {
         fullName: formData.fullName.trim(),
         primaryRole: formData.primaryRole,
         linkedinUrl: formData.linkedinUrl.trim(),
-        skill: skillString, 
+        skill: skillString,
         agreement: {
-          termsAccepted: formData.termsConsent, 
+          termsAccepted: formData.termsConsent,
         },
       };
 
@@ -471,14 +467,12 @@ const CoworkingForm = () => {
       let response;
 
       if (profilePhoto) {
-      
         const formDataToSend = new FormData();
 
         formDataToSend.append("data", JSON.stringify(payload));
 
-      
-        formDataToSend.append("logo", profilePhoto); 
-     
+        formDataToSend.append("logo", profilePhoto);
+
         console.log("FormData entries:");
         for (let [key, value] of formDataToSend.entries()) {
           console.log(`  ${key}:`, value);
@@ -486,11 +480,10 @@ const CoworkingForm = () => {
 
         response = await fetch(`${API_BASE_URL}/api/CreateCoworking`, {
           method: "POST",
-     
+
           body: formDataToSend,
         });
       } else {
-
         response = await fetch(`${API_BASE_URL}/api/CreateCoworking`, {
           method: "POST",
           headers: {
@@ -586,7 +579,6 @@ const CoworkingForm = () => {
                       alt="Profile"
                       className="w-full h-full object-cover"
                       onError={(e) => {
-           
                         e.target.style.display = "none";
                         e.target.parentElement.innerHTML = `
                           <div class="w-full h-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
@@ -668,7 +660,8 @@ const CoworkingForm = () => {
                   <div className="flex items-center gap-1.5">
                     <Building2 className="w-3.5 h-3.5 text-green-400" />
                     <span className="text-neutral-300">
-                      {parsedSkill.industry || getIndustryLabel(formData.industry)}
+                      {parsedSkill.industry ||
+                        getIndustryLabel(formData.industry)}
                     </span>
                   </div>
                   {(parsedSkill.location || formData.location) && (
@@ -748,7 +741,6 @@ const CoworkingForm = () => {
     >
       <AnimatedBackground />
       <div className="relative z-10 max-w-2xl mx-auto">
-      
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -906,7 +898,6 @@ const CoworkingForm = () => {
         <GlassCard glowColor="from-purple-600/30 to-pink-600/30">
           <form onSubmit={handleSubmit} className="p-5 sm:p-8">
             <AnimatePresence mode="wait">
-           
               {step === 1 && (
                 <motion.div
                   key="step1"

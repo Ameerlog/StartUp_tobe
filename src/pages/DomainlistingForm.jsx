@@ -49,7 +49,7 @@ const AnimatedBackground = () => (
         y: [0, -60, 30, 0],
         scale: [1, 1.2, 0.8, 1],
       }}
-      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
     />
     <motion.div
       className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
@@ -276,6 +276,7 @@ const DomainListingForm = () => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+
   // Confetti effect on success
   useEffect(() => {
     if (success) {
@@ -494,13 +495,12 @@ const DomainListingForm = () => {
       console.log("Sending FormData with logo...", jsonData);
 
       const response = await fetch(
-        " https://cobrother-api.onrender.com/api/createDomain",
+        "https://cobrother-api.onrender.com/api/createDomain",
         {
           method: "POST",
-          body: submitData, 
+          body: submitData,
         },
       );
-     
 
       if (!response.ok) {
         const error = await response.json().catch(() => ({}));

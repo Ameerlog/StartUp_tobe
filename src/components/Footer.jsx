@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Twitter,
@@ -17,7 +17,7 @@ const XLogo = ({ className }) => (
     viewBox="0 0 24 24"
     aria-hidden="true"
     className={className}
-    fill="currentColor" // This ensures it uses your hover text colors
+    fill="currentColor"
   >
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
@@ -84,12 +84,9 @@ const footerColumns = [
       "Contact Us",
       "Privacy Policy",
       "Terms of Service",
-     
     ],
   },
 ];
-
-
 
 const linkPaths = {
   "Co-Creation Challenges": "/co-creation",
@@ -104,19 +101,33 @@ const linkPaths = {
 
   "About CoBrother": "/about",
   "How It Works": "/how-it-works",
-  "Careers": "/careers",
+  Careers: "/careers",
   "Contact Us": "/contact",
   "Privacy Policy": "/privacy-policy",
   "Terms of Service": "/terms-of-service",
- 
-};
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 export default function Footer() {
   const navigate = useNavigate();
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className="relative bg-black text-white overflow-hidden">
       {/* Background Glow */}
@@ -127,9 +138,7 @@ export default function Footer() {
 
       <section className="relative border-t border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-16">
-        
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
-        
             <div className="lg:col-span-2 space-y-6">
               <Link to="/">
                 <img
@@ -219,12 +228,14 @@ export default function Footer() {
       </section>
 
       {/* BACK TO TOP */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-6 right-6 p-3 rounded-full bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition"
-      >
-        <ArrowUp className="h-5 w-5" />
-      </button>
+      {showButton && (
+        <button
+          onClick={scrollToTop}
+          className="z-100 fixed bottom-6 right-6 p-3 rounded-full bg-neutral-900 border border-neutral-800 hover:bg-gradient-to-r hover:from-purple-500 hover:to-blue-500 hover:border-transparent hover:shadow-[2px_2px_25px_rgba(168,85,247,0.6)] hover:scale-105 transition-all duration-300"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </button>
+      )}
     </footer>
   );
 }

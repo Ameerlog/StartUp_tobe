@@ -55,10 +55,7 @@ const challengesData = [
 
 export default function Challenges() {
   const navigate = useNavigate();
-  const marqueeData = useMemo(
-    () => [...challengesData, ...challengesData],
-    []
-  );
+  const marqueeData = useMemo(() => [...challengesData, ...challengesData], []);
 
   return (
     <section className="w-full bg-black py-10 relative overflow-hidden">
@@ -88,37 +85,141 @@ export default function Challenges() {
                 key={`${card.id}-${index}`}
                 className="shrink-0 w-52 sm:w-56 md:w-60 px-2"
               >
-                <div className="relative group h-60 rounded-2xl border border-white/10 bg-gray-900/80 p-4 flex flex-col backdrop-blur-sm transition-all duration-300 hover:bg-gray-900/60 hover:border-white/30">
-
-                  <span className="absolute top-3 right-3 rounded-full border border-white/30 bg-white/10 px-2.5 py-0.5 text-[10px] font-bold text-white">
-                    {card.price}
+                <div
+                  className="
+   relative
+    group
+    h-60 sm:h-64 md:h-72 lg:h-80
+    rounded-2xl 
+    border border-white/10 
+    bg-gray-900/60 
+    p-4 sm:p-5 md:p-6 
+    flex flex-col
+    backdrop-blur-sm
+    transition-all duration-300 
+    hover:bg-gray-900/80 
+    hover:border-white/30
+    overflow-hidden
+  "
+                >
+                  {/* Grid number badge */}
+                  <span
+                    className="
+      absolute top-3 right-3 sm:top-4 sm:right-4
+      rounded-full 
+      border border-white/30 
+      bg-white/10 
+      px-2.5 py-0.5 sm:px-3 sm:py-1
+      text-[10px] sm:text-xs
+      font-bold text-white
+      group-hover:border-white
+      group-hover:text-white
+      transition-all duration-300
+    "
+                  >
+                    {card.id.toString().padStart(2, "0")}
                   </span>
 
-                  <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-white/30">
-                    <Icon className="w-5 h-5 text-white transition-colors duration-300 group-hover:text-white/40" />
+                  {/* Icon */}
+                  <div
+                    className="
+     w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14
+    rounded-xl 
+    bg-white/10 
+    border border-white/30 
+    flex items-center justify-center 
+    mb-4 sm:mb-5 md:mb-6
+    transition-all duration-300 
+    group-hover:border-white
+    "
+                  >
+                    <Icon
+                      className="
+       w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7
+      text-white/40 
+      transition-colors duration-300 
+      group-hover:text-white
+      "
+                    />
                   </div>
 
-                  <h3 className="text-sm font-bold text-white mb-1">
+                  {/* Title */}
+                  <h3
+                    className="
+      text-sm sm:text-base md:text-lg
+      font-bold text-white 
+      mb-1 sm:mb-2 md:mb-3
+      group-hover:text-red-50
+      transition-colors duration-300
+    "
+                  >
                     {card.title}
                   </h3>
 
-                  <p className="text-xs text-gray-300 mb-1">
+                  {/* Subtitle */}
+                  <p
+                    className="
+      text-xs sm:text-sm md:text-base
+      text-gray-300 
+      mb-1 sm:mb-2
+      leading-relaxed
+    "
+                  >
                     {card.subtitle}
                   </p>
 
-                  <p className="text-[11px] text-gray-500">
-                    {card.description}
-                  </p>
-
-                  <div className="mt-auto pt-3">
-                    <button
-                      onClick={() => navigate("/co-creation")}
-                      className="w-full rounded-full bg-gray-500 hover:bg-gray-600 px-4 py-2 text-[11px] font-semibold text-white transition active:scale-[0.98]"
+                  {/* Description */}
+                  {card.desc && (
+                    <p
+                      className="
+        text-[11px] sm:text-xs md:text-sm
+        text-gray-500
+        tracking-wider
+      "
                     >
-                      Join Challenge
+                      {card.desc}
+                    </p>
+                  )}
+
+                  {/* Button */}
+                  <div
+                    className="
+      mt-auto pt-3 sm:pt-4 md:pt-5
+      shrink-0
+    "
+                  >
+                    <button
+                      onClick={() => navigate("/contact")}
+                      className="
+        w-full 
+        rounded-full 
+        bg-gray-500 
+        hover:bg-gray-600 
+        px-4 
+        py-2 
+        text-[11px] sm:text-xs md:text-sm
+        font-semibold text-white 
+        transition-all duration-200
+        active:scale-[0.98]
+        shadow-lg
+        cursor-pointer
+      "
+                    >
+                      Book a CoBrother
                     </button>
                   </div>
 
+                  {/* Hover glow effect */}
+                  <div
+                    className="
+      absolute inset-0 
+      rounded-2xl
+      bg-gradient-to-br from-red-500/0 to-red-500/0
+      group-hover:from-red-500/5 group-hover:to-transparent
+      transition-all duration-300
+      pointer-events-none
+    "
+                  />
                 </div>
               </div>
             );

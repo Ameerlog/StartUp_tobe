@@ -3,12 +3,11 @@ import MarqueeRow from "../../components/Marquee";
 import { investorCards } from "../../data/investors";
 import BackgroundImage from "../../assets/domain/bg1.svg";
 import { useNavigate } from "react-router-dom";
-
-const API_BASE_URL = " https://cobrother-api.onrender.com";
+import { ArrowRight } from "lucide-react";
+const API_BASE_URL = "https://cobrother-api.onrender.com";
 
 const InvestorCard = ({ card }) => {
-
-  const isProfile = card.hasOwnProperty('fullName');
+  const isProfile = card.hasOwnProperty("fullName");
 
   return (
     <div
@@ -44,7 +43,6 @@ const InvestorCard = ({ card }) => {
                      overflow-hidden"
         >
           {isProfile ? (
-          
             card.logo ? (
               <img
                 src={card.logo}
@@ -58,9 +56,13 @@ const InvestorCard = ({ card }) => {
                 draggable={false}
                 loading="lazy"
                 onError={(e) => {
-             
-                  const initials = card.fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                  e.target.style.display = 'none';
+                  const initials = card.fullName
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .toUpperCase()
+                    .slice(0, 2);
+                  e.target.style.display = "none";
                   e.target.parentElement.innerHTML = `
                     <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
                       <span class="text-white text-3xl font-bold">${initials}</span>
@@ -69,15 +71,18 @@ const InvestorCard = ({ card }) => {
                 }}
               />
             ) : (
-         
               <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
                 <span className="text-white text-3xl sm:text-4xl font-bold">
-                  {card.fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                  {card.fullName
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .toUpperCase()
+                    .slice(0, 2)}
                 </span>
               </div>
             )
           ) : (
-   
             <img
               src={card.src}
               alt={card.company}
@@ -133,34 +138,36 @@ const InvestorCard = ({ card }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-center gap-2">
-           
-                <svg 
-                  className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-blue-400" 
-                  fill="currentColor" 
+                <svg
+                  className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-blue-400"
+                  fill="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
                 <span className="text-xs xs:text-sm font-semibold text-blue-400 group-hover/connect:text-blue-300 transition-colors">
                   Connect
                 </span>
-   
-                <svg 
-                  className="w-3 h-3 xs:w-3.5 xs:h-3.5 text-blue-400/60 group-hover/connect:translate-x-0.5 group-hover/connect:-translate-y-0.5 transition-transform" 
-                  fill="none" 
-                  stroke="currentColor" 
+
+                <svg
+                  className="w-3 h-3 xs:w-3.5 xs:h-3.5 text-blue-400/60 group-hover/connect:translate-x-0.5 group-hover/connect:-translate-y-0.5 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
                 </svg>
               </div>
             </a>
           </div>
         )}
 
-        {!isProfile && (
-          <div className="mt-3 xs:mt-4 h-[36px] xs:h-[40px]" />
-        )}
+        {!isProfile && <div className="mt-3 xs:mt-4 h-[36px] xs:h-[40px]" />}
       </div>
     </div>
   );
@@ -200,22 +207,22 @@ export default function Investors() {
     const fetchProfiles = async () => {
       try {
         setLoading(true);
-        
+
         const response = await fetch(`${API_BASE_URL}/api/ListAllCoWorking`);
-        
+
         if (!response.ok) {
           throw new Error(`Failed to fetch profiles: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        
-        const profileList = Array.isArray(data) ? data : (data.data || []);
-        
+
+        const profileList = Array.isArray(data) ? data : data.data || [];
+
         console.log("Fetched profiles:", profileList);
-        
+
         if (profileList.length > 0) {
           setProfiles(profileList);
-          
+
           let marqueeData = [...profileList];
           while (marqueeData.length < 8) {
             marqueeData = [...marqueeData, ...profileList];
@@ -245,8 +252,6 @@ export default function Investors() {
   return (
     <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
       <div className="text-center px-4 flex flex-col items-center gap-4">
-       
-
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
           Co-Working
         </h2>
@@ -260,17 +265,23 @@ export default function Investors() {
       </div>
 
       <div className="relative mt-4 sm:mt-6 md:mt-8 lg:mt-10">
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-8 xs:w-12 sm:w-20 md:w-28 lg:w-36 xl:w-40 bg-gradient-to-r from-black to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-8 xs:w-12 sm:w-20 md:w-28 lg:w-36 xl:w-40 bg-gradient-to-l from-black to-transparent" />
+        {/* Left fade */}
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
 
-        <div className="mx-auto max-w-[1400px] px-2 sm:px-4 md:px-6 overflow-hidden space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10">
+        {/* Right fade */}
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
+        <div className="mx-auto max-w-[1400px] overflow-hidden space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10">
           {loading ? (
             <>
               <div className="flex gap-4">
-                {[...Array(5)].map((_, i) => <SkeletonCard key={`skeleton-1-${i}`} />)}
+                {[...Array(5)].map((_, i) => (
+                  <SkeletonCard key={`skeleton-1-${i}`} />
+                ))}
               </div>
               <div className="flex gap-4">
-                {[...Array(5)].map((_, i) => <SkeletonCard key={`skeleton-2-${i}`} />)}
+                {[...Array(5)].map((_, i) => (
+                  <SkeletonCard key={`skeleton-2-${i}`} />
+                ))}
               </div>
             </>
           ) : (
@@ -278,7 +289,12 @@ export default function Investors() {
               <MarqueeRow
                 data={firstRowData}
                 speed={25}
-                renderItem={(card) => <InvestorCard card={card} key={card.Id || card.company || Math.random()} />}
+                renderItem={(card) => (
+                  <InvestorCard
+                    card={card}
+                    key={card.Id || card.company || Math.random()}
+                  />
+                )}
               />
 
               {/* Uncomment to show second row */}
@@ -292,6 +308,17 @@ export default function Investors() {
           )}
         </div>
       </div>
+      {window.location.pathname === "/" && (
+        <div className="mt-10 flex justify-center">
+          <button
+            onClick={() => navigate("/community")}
+            className="flex items-center gap-2 rounded-full border border-white bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-xl transition hover:bg-gray-800"
+          >
+            View All
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

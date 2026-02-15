@@ -24,7 +24,6 @@ const JointVentureCardSkeleton = () => {
         "
       >
         <div className="flex-1 flex flex-col overflow-hidden animate-pulse">
-      
           <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
             <div className="h-8 sm:h-10 md:h-12 w-24 sm:w-28 md:w-32 bg-gray-700/50 rounded-lg" />
           </div>
@@ -73,7 +72,7 @@ export default function JointVenture() {
       setLoading(true);
       try {
         const response = await fetch(
-          " https://cobrother-api.onrender.com/api/ListAllBrands"
+          "https://cobrother-api.onrender.com/api/ListAllBrands",
         );
 
         if (response.ok) {
@@ -81,7 +80,7 @@ export default function JointVenture() {
 
           // Filter out empty brands
           const validBrands = data.filter(
-            (brand) => brand.brandDetails?.brandName
+            (brand) => brand.brandDetails?.brandName,
           );
 
           // Map to marquee card format
@@ -90,7 +89,7 @@ export default function JointVenture() {
             if (logoUrl.includes("localhost:8080")) {
               logoUrl = logoUrl.replace(
                 "localhost:8080",
-                "192.168.29.184:8080"
+                "192.168.29.184:8080",
               );
             }
 
@@ -118,12 +117,10 @@ export default function JointVenture() {
     fetchBrands();
   }, []);
 
-
   const skeletonCount = 6;
 
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
-   
       <div className="text-center px-4 flex flex-col items-center gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
           Co-Venture
@@ -155,7 +152,6 @@ export default function JointVenture() {
       </div>
 
       <div className="relative mt-6 sm:mt-8 md:mt-10">
-       
         <div
           className="
             pointer-events-none absolute left-0 top-0 z-10 
@@ -173,19 +169,18 @@ export default function JointVenture() {
         />
 
         {loading ? (
-         
           <div className="flex overflow-hidden px-2 sm:px-4">
             {[...Array(skeletonCount)].map((_, index) => (
               <JointVentureCardSkeleton key={`skeleton-${index}`} />
             ))}
           </div>
         ) : brands.length === 0 ? (
-  
           <div className="text-center py-16">
-            <p className="text-white/60">No brands available yet. Be the first to list!</p>
+            <p className="text-white/60">
+              No brands available yet. Be the first to list!
+            </p>
           </div>
         ) : (
-       
           <Marquee
             speed={24}
             gradient={false}
@@ -298,7 +293,6 @@ export default function JointVenture() {
         )}
       </div>
 
-   
       <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">
         <button
           onClick={() => navigate("/venture")}

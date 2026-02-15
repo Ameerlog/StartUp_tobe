@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import { Sparkles, ArrowRight } from "lucide-react";
@@ -21,7 +20,7 @@ export default function JointVentureGrid() {
     const fetchBrands = async () => {
       try {
         const response = await fetch(
-          "hhttps://cobrother-api.onrender.com/api/ListAllBrands",
+          "https://cobrother-api.onrender.com/api/ListAllBrands",
         );
         if (response.ok) {
           const data = await response.json();

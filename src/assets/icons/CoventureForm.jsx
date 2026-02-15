@@ -38,6 +38,7 @@ import {
   initialFormData,
   validationRules,
 } from "../constants/coventure";
+import confetti from "canvas-confetti";
 import Confetti from "react-confetti";
 import { useMutation } from "../hooks/useMutation";
 import { coventureAPI } from "../services/api/coventure.api";
@@ -210,6 +211,37 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
     setCurrentStep(1);
   }, []);
 
+  // Confetti effect on success
+  useEffect(() => {
+    if (submitSuccess) {
+      const duration = 4000;
+      const end = Date.now() + duration;
+
+      const interval = setInterval(() => {
+        if (Date.now() > end) {
+          clearInterval(interval);
+          return;
+        }
+
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+        });
+
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+        });
+      }, 250);
+
+      return () => clearInterval(interval);
+    }
+  }, [submitSuccess]);
+
   const [logoPreview, setLogoPreview] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
@@ -323,32 +355,32 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
     try {
       const formDataToSend = new FormData();
 
-formDataToSend.append(
-  "brandDetails",
-  new Blob([JSON.stringify(payload.brandDetails)], {
-    type: "application/json",
-  })
-);
+      formDataToSend.append(
+        "brandDetails",
+        new Blob([JSON.stringify(payload.brandDetails)], {
+          type: "application/json",
+        }),
+      );
 
-formDataToSend.append(
-  "contactInfo",
-  new Blob([JSON.stringify(payload.contactInfo)], {
-    type: "application/json",
-  })
-);
+      formDataToSend.append(
+        "contactInfo",
+        new Blob([JSON.stringify(payload.contactInfo)], {
+          type: "application/json",
+        }),
+      );
 
-formDataToSend.append(
-  "agreement",
-  new Blob([JSON.stringify(payload.agreement)], {
-    type: "application/json",
-  })
-);
+      formDataToSend.append(
+        "agreement",
+        new Blob([JSON.stringify(payload.agreement)], {
+          type: "application/json",
+        }),
+      );
 
-if (formData.brandLogo) {
-  formDataToSend.append("logo", formData.brandLogo);
-}
+      if (formData.brandLogo) {
+        formDataToSend.append("logo", formData.brandLogo);
+      }
 
-await mutate(formDataToSend);
+      await mutate(formDataToSend);
 
       // ✅ Save data FIRST
       setSubmittedData({
