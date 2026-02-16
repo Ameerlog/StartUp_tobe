@@ -146,7 +146,7 @@ const Home = () => {
     {
       Icon: Branding,
       title: "Co-Branding",
-      subtitle: "Identity Creation",
+      subtitle: "Identify your brands",
       path: "/branding",
       gradient: "from-blue-500/20 to-cyan-500/20",
       glowColor: "from-blue-600/30 to-cyan-600/30",
@@ -353,7 +353,7 @@ const Home = () => {
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
                     type="text"
-                    placeholder="Search the brand name "
+                    placeholder="Search your domain name "
                     value={domainQuery}
                     onChange={(e) => {
                       setDomainQuery(e.target.value);
@@ -408,10 +408,10 @@ const Home = () => {
               className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4"
             >
               {[
-                { name: ".com", price: "₹100" },
-                { name: ".co", price: "₹250" },
-                { name: ".net", price: "₹150" },
-                { name: ".org", price: "₹200" },
+                { name: ".com", price: "₹999" },
+                { name: ".in", price: "₹699" },
+                { name: ".ai", price: "₹4599" },
+                { name: ".io", price: "₹4599" },
               ].map((ext, index) => (
                 <motion.button
                   key={ext.name}
@@ -505,8 +505,7 @@ const Home = () => {
               transition={{ delay: 0.8 }}
               className="text-center text-xs sm:text-sm text-neutral-500 mt-4"
             >
-              <span className="align-super text-[10px]">^</span>3-year purchase
-              required. Additional years ₹1,599.00
+              <span className="align-super text-[10px]">*</span>Offer valid on 3 year purchase only
               <span className="text-[10px]">*</span>
             </motion.p>
           </motion.div>
@@ -536,7 +535,7 @@ const Home = () => {
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-purple-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-8"
             >
-              Visit your CoBrother at your doorstep
+              explore with your CoBrother at your doostep
             </motion.p>
             {/* CTA Button */}
             <motion.button

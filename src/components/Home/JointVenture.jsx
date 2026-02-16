@@ -147,7 +147,7 @@ export default function JointVenture() {
             mt-4
           "
         >
-          List Your CoVenture
+          List Your Venture
         </button>
       </div>
 

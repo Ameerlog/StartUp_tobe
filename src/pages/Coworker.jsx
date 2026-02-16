@@ -575,9 +575,9 @@ const CoworkingForm = () => {
                 {photoUrl ? (
                   <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden border-2 border-green-500/50 shadow-2xl shadow-green-500/30">
                     <img
-                      src={photoUrl}
-                      alt="Profile"
-                      className="w-full h-full object-cover"
+                     src={photoUrl?.startsWith('data:')
+                    ? photoUrl
+                    : `https://cobrother-api.onrender.com/api/images/${photoUrl}`}
                       onError={(e) => {
                         e.target.style.display = "none";
                         e.target.parentElement.innerHTML = `
