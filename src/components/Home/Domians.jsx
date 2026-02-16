@@ -301,7 +301,7 @@ export default function Domains({ variant = "dark" }) {
                       <div className="mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative">
                         {domain.logo ? (
                           <img
-                            src={domain.logo}
+                            src={`https://cobrother-api.onrender.com/api/images/${domain.logo}`}
                             alt={displayName}
                             className="w-full h-40 sm:h-45 md:h-50 object-contain"
                             draggable={false}
