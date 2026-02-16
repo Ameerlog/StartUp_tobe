@@ -476,7 +476,7 @@ const ContactUs = () => {
             <InfoCard
               icon={Phone}
               title="Phone"
-              value="+91 8085758575"
+              value="080 8575 8575"
               description="24/7"
               gradient="from-blue-500/20 to-blue-600/20"
               iconBg="from-blue-500/20 to-blue-600/20"

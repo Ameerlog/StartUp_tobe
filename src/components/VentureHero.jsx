@@ -85,7 +85,7 @@ const VentureHero = () => {
           className="mt-10"
         >
           <motion.a
-            href="/coventure-fomr"
+            href="/coventure-form"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
             className="relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-base sm:text-lg overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.35)]"
