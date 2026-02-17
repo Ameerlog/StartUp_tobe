@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Twitter,
   Linkedin,
@@ -107,6 +108,89 @@ const linkPaths = {
   "Terms of Service": "/terms-of-service",
 };
 
+// ── Animated Heart ─────────────────────────────────────────────
+const FloatingHeart = ({ id, x, size, drift, duration, onDone }) => (
+  <motion.span
+    key={id}
+    className="pointer-events-none absolute select-none"
+    style={{ left: x, bottom: "100%", fontSize: size }}
+    initial={{ y: 0, opacity: 0.9, scale: 0.5, x: 0 }}
+    animate={{
+      y: [-4, -50, -90, -120],
+      opacity: [0.9, 0.85, 0.5, 0],
+      scale: [0.5, 0.9, 0.75, 0.6],
+      x: [0, drift * 0.3, drift * 0.7, drift],
+    }}
+    transition={{
+      duration,
+      ease: "easeOut",
+      times: [0, 0.3, 0.7, 1],
+    }}
+    onAnimationComplete={onDone}
+  >
+    ❤️
+  </motion.span>
+);
+
+const AnimatedHeart = () => {
+  const [hearts, setHearts] = useState([]);
+
+  const intervalRef = useRef(null);
+  const counterRef = useRef(0);
+
+  const spawnHeart = () => {
+    const id = counterRef.current++;
+    setHearts((prev) => [
+      ...prev,
+      {
+        id,
+        x: Math.random() * 24 - 12, // spread around center
+        size: `${9 + Math.random() * 8}px`, // 9–17px, varied sizes
+        drift: (Math.random() - 0.5) * 30, // gentle left/right drift
+        duration: 2.4 + Math.random() * 1.2, // 2.4–3.6s, slow & natural
+      },
+    ]);
+  };
+
+  useEffect(() => {
+    spawnHeart(); // spawn first heart immediately
+
+    intervalRef.current = setInterval(spawnHeart, 800); // auto spawn
+
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
+  const removeHeart = (id) => {
+    setHearts((prev) => prev.filter((h) => h.id !== id));
+  };
+
+  return (
+    <span className="relative inline-flex items-center justify-center cursor-pointer">
+      <AnimatePresence>
+        {hearts.map((h) => (
+          <FloatingHeart
+            key={h.id}
+            id={h.id}
+            x={h.x}
+            size={h.size}
+            drift={h.drift}
+            duration={h.duration}
+            onDone={() => removeHeart(h.id)}
+          />
+        ))}
+      </AnimatePresence>
+      <motion.span
+        animate={{ scale: [1.2, 1.4, 1.2, 1] }}
+        transition={{ duration: 1, repeat: Infinity }}
+        className="text-base leading-none "
+      >
+        ❤️
+      </motion.span>
+    </span>
+  );
+};
+// ───────────────────────────────────────────────────────────────
+
 export default function Footer() {
   const navigate = useNavigate();
   const [showButton, setShowButton] = useState(false);
@@ -201,7 +285,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
             <button
               onClick={() => navigate("/contact")}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r D"
             >
               Book a Cobrother Visit →
             </button>
@@ -219,10 +303,10 @@ export default function Footer() {
             </button>
           </div>
 
-          {/* BOTTOM */}
+          {/* BOTTOM — only change: ❤️ → <AnimatedHeart /> */}
           <div className="pt-6 border-t border-neutral-800 text-center text-sm text-neutral-500">
             © 2026 <span className="font-semibold text-white">Cobrother™</span>.
-            All rights reserved. Made with ❤️ in India.
+            All rights reserved. Made with <AnimatedHeart /> in India.
           </div>
         </div>
       </section>

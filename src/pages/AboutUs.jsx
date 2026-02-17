@@ -9,7 +9,7 @@ export default function AboutUs() {
       icon: Lightbulb,
       title: "Identity (Co-Branding)",
       description: "Instantly provision the digital foundations of a brand.",
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-purple-600 to-blue-600 font-medium hover:from-purple-500",
     },
     {
       icon: TrendingUp,
@@ -41,7 +41,7 @@ export default function AboutUs() {
       title: "Culture (Co-Working)",
       description:
         "Curating a virtual workspace where the world's best founders meet.",
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-purple-600 to-blue-600 font-medium hover:from-purple-500",
     },
   ];
 

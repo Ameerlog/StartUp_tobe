@@ -218,8 +218,6 @@ export default function Investors() {
 
         const profileList = Array.isArray(data) ? data : data.data || [];
 
-        console.log("Fetched profiles:", profileList);
-
         if (profileList.length > 0) {
           setProfiles(profileList);
 

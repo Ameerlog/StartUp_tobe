@@ -956,7 +956,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                                   animate={{ scale: 1 }}
                                   className="absolute -top-1 -right-1"
                                 >
-                                  <div className="w-4 h-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                  <div className="w-4 h-4 bg-gradient-to-br from-purple-600 to-blue-600 font-medium hover:from-purple-500 rounded-full flex items-center justify-center">
                                     <Check className="w-2.5 h-2.5 text-white" />
                                   </div>
                                 </motion.div>
