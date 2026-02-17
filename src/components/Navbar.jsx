@@ -80,7 +80,7 @@ const Navbar = () => {
     h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64
     w-auto
     drop-shadow-2xl
-    transition-transform duration-300 scale-200
+    transition-transform duration-300 scale-170
   "
                 />
               </motion.div>

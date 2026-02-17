@@ -228,7 +228,7 @@ export default function Footer() {
                 <img
                   src={Logo}
                   alt="CoBrother Aultum"
-                  className="h-48 md:h-56 w-auto scale-180 ml-5"
+                  className="h-48 md:h-56 w-auto scale-140 ml-5"
                 />
               </Link>
 
