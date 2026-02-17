@@ -95,10 +95,13 @@ export default function Branding() {
               className="group relative inline-flex items-center gap-2 rounded-full overflow-hidden
               shadow-[0_0_40px_rgba(168,85,247,0.35)]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
 
-              <a href="/domain-form" className="relative px-7 py-3 text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+              <a
+                href="/domain-form"
+                className="relative px-7 py-3 text-sm sm:text-base font-semibold text-white flex items-center gap-2"
+              >
                 Resell Your Domain
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
@@ -147,12 +150,12 @@ export default function Branding() {
                           <div className="mb-4">
                             {domain.logo ? (
                               <img
-                              src={`https://cobrother-api.onrender.com/api/images/${domain.logo}`}
+                                src={`https://cobrother-api.onrender.com/api/images/${domain.logo}`}
                                 alt={domain.domainName}
                                 className="w-full h-40 object-cover rounded-xl border border-neutral-700/50"
                               />
                             ) : (
-                              <div className="w-full h-40 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center">
+                              <div className="w-full h-40 bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 rounded-xl flex items-center justify-center">
                                 <span className="text-4xl font-bold text-white opacity-50">
                                   {domain.domainName
                                     .substring(0, 2)
@@ -195,8 +198,8 @@ export default function Branding() {
                             }
                             className="w-full group/btn relative overflow-hidden rounded-xl"
                           >
-                            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover/btn:opacity-100 blur-xl transition duration-500" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover/btn:opacity-100 blur-xl transition duration-500" />
 
                             <span className="relative px-4 py-2.5 font-semibold text-white text-sm flex items-center justify-center gap-2">
                               Make it Yours

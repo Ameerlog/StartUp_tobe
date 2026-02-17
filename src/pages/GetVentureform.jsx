@@ -19,13 +19,13 @@ const ventureSchema = z.object({
     .string()
     .min(2, "Name must be at least 2 characters")
     .max(50, "Name must be less than 50 characters"),
-    gstNo: z
-  .string()
-  .length(15, "GST number must be 15 characters")
-  .regex(
-    /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}Z[A-Z0-9]{1}$/,
-    "Invalid GST number format"
-  ),
+  gstNo: z
+    .string()
+    .length(15, "GST number must be 15 characters")
+    .regex(
+      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}Z[A-Z0-9]{1}$/,
+      "Invalid GST number format",
+    ),
 
   phone: z
     .string()
@@ -212,7 +212,7 @@ const GetVentureForm = () => {
       fullName: "",
       phone: "",
       location: "",
-      gstNo:"",
+      gstNo: "",
     },
   });
 
@@ -222,7 +222,7 @@ const GetVentureForm = () => {
         fullName: data.fullName.trim(),
         phone: data.phone.trim(),
         location: data.location.trim(),
-        gstNo:data.gstNo,
+        gstNo: data.gstNo,
       };
 
       console.log("Submitting:", payload);
@@ -323,8 +323,8 @@ const GetVentureForm = () => {
                 onClick={resetForm}
                 className="group relative overflow-hidden rounded-full inline-flex items-center gap-2 shadow-2xl shadow-purple-500/30"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
                 <span className="relative px-8 py-3.5 font-semibold text-white text-sm flex items-center gap-2">
                   <Rocket className="w-4 h-4" />
                   Submit Another

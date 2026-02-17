@@ -104,7 +104,7 @@ export default function MarketPlace() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/co-creation")}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20"
           >
             Start Co-creation →
           </motion.button>
@@ -175,7 +175,7 @@ export default function MarketPlace() {
                               whileTap={{ scale: 0.95 }}
                               className="relative overflow-hidden rounded-full"
                             >
-                              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+                              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
                               <span className="relative px-4 py-1.5 text-xs font-semibold text-white">
                                 Buy Now
                               </span>

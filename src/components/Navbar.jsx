@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import Logo_white from "../assets/domain/cobrother123.png";
+import Logo_white from "../assets/domain/cobrother1234.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -104,7 +104,7 @@ const Navbar = () => {
                           <ChevronDown
                             className={`w-3.5 xl:w-4 h-3.5 xl:h-4 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
                           />
-                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r   font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
                         </button>
 
                         {/* Dropdown Panel */}
