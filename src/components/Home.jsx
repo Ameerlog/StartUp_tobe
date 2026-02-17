@@ -511,16 +511,16 @@ const Home = () => {
               all.
             </motion.p> */}
             {/* Tagline */}
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-purple-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-8"
             >
               explore with your CoBrother at your doorstep
-            </motion.p>
+            </motion.p> */}
             {/* CTA Button */}
-            <motion.button
+            {/* <motion.button
               onClick={() => setShowBookingModal(true)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -539,7 +539,7 @@ const Home = () => {
                 Visit your <span className="font-bold">CoBrother</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
-            </motion.button>
+            </motion.button> */}
             {/* Floating particles around the hero */}
             {[...Array(8)].map((_, i) => (
               <motion.div
