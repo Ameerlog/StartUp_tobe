@@ -329,7 +329,7 @@ const ContactUs = () => {
             transition={{ delay: 0.4 }}
             className="max-w-2xl mx-auto text-neutral-400 text-base sm:text-lg leading-relaxed"
           >
-            Leave your details and we'll get back to you within 24 hours.
+            Leave your details and we'll get back to you within a moments.
           </motion.p>
         </motion.div>
       </section>
@@ -411,7 +411,7 @@ const ContactUs = () => {
                       label="City"
                       name="city"
                       type="text"
-                      placeholder="Hubli"
+                      placeholder="Bengaluru"
                       register={register}
                       error={errors.city}
                       focused={focused}
@@ -465,8 +465,8 @@ const ContactUs = () => {
             <InfoCard
               icon={Mail}
               title="Email"
-              value="cobrother.com@gmail.com"
-              description="We'll respond within 24 hours"
+              value="join@cobrother.com"
+              description="We'll respond within a moments"
               gradient="from-purple-500/20 to-purple-600/20"
               iconBg="from-purple-500/20 to-purple-600/20"
               iconColor="text-purple-400"
@@ -476,15 +476,15 @@ const ContactUs = () => {
             <InfoCard
               icon={Phone}
               title="Phone"
-              value="+91 8085758575"
-              description="Mon-Fri from 9am to 6pm IST"
+              value=" 080 8575 8575"
+              description="24*7"
               gradient="from-blue-500/20 to-blue-600/20"
               iconBg="from-blue-500/20 to-blue-600/20"
               iconColor="text-blue-400"
               delay={1.0}
             />
 
-            <InfoCard
+            {/* <InfoCard
               icon={MapPin}
               title="Office"
               value="Hubballi, Karnataka"
@@ -493,14 +493,14 @@ const ContactUs = () => {
               iconBg="from-pink-500/20 to-pink-600/20"
               iconColor="text-pink-400"
               delay={1.1}
-            />
+            /> */}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 }}
             >
-              <GlassCard glowColor="from-purple-500/20 to-blue-500/20">
+              {/* <GlassCard glowColor="from-purple-500/20 to-blue-500/20">
                 <div className="p-5">
                   <h4 className="font-semibold mb-4 text-sm">
                     Why Contact Us?
@@ -511,13 +511,13 @@ const ContactUs = () => {
                     <StatItem number="24/7" label="Support Available" />
                   </div>
                 </div>
-              </GlassCard>
+              </GlassCard> */}
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      <section className="relative z-10 px-4 sm:px-6 pb-16 sm:pb-24">
+      {/* <section className="relative z-10 px-4 sm:px-6 pb-16 sm:pb-24">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -558,7 +558,7 @@ const ContactUs = () => {
             </GlassCard>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

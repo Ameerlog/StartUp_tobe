@@ -98,10 +98,10 @@ export default function Branding() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
 
-              <span className="relative px-7 py-3 text-sm sm:text-base font-semibold text-white flex items-center gap-2">
-                Find & Secure Your Domain
+              <a  href="/domain-form" className="relative px-7 py-3 text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+                Resell Your Domain
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </span>
+              </a>
             </motion.button>
           </motion.div>
         </div>

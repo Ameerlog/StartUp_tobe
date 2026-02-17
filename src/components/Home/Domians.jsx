@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-// Skeleton Component for Domain Card
 const DomainCardSkeleton = ({ isDark }) => {
   const theme = {
     cardBg: isDark ? "bg-gray-900/60" : "bg-white",
@@ -17,22 +16,24 @@ const DomainCardSkeleton = ({ isDark }) => {
           backdrop-blur-sm flex flex-col`}
       >
         <div className="p-4 sm:p-5 flex-1 flex flex-col animate-pulse">
-          {/* Domain Name Skeleton */}
           <div className={`h-5 sm:h-6 ${theme.skeletonBg} rounded-md w-3/4`} />
 
-          {/* Logo Area Skeleton */}
-          <div className={`mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative overflow-hidden`}>
-            <div className={`w-full h-40 sm:h-45 md:h-50 ${theme.skeletonBg}`} />
-            {/* Extension Skeleton */}
-            <div className={`absolute bottom-2 right-2 mb-15 h-4 w-10 ${theme.skeletonBg} rounded`} />
+          <div
+            className={`mt-4 rounded-xl border border-white/30 bg-[#0e1422] flex-1 flex items-center justify-center relative overflow-hidden`}
+          >
+            <div
+              className={`w-full h-40 sm:h-45 md:h-50 ${theme.skeletonBg}`}
+            />
+
+            <div
+              className={`absolute bottom-2 right-2 mb-15 h-4 w-10 ${theme.skeletonBg} rounded`}
+            />
           </div>
 
-          {/* Price Badge Skeleton */}
           <div className="mt-3">
             <div className={`h-7 w-24 ${theme.skeletonBg} rounded-full`} />
           </div>
 
-          {/* Button Skeleton */}
           <div className="mt-auto pt-3 flex justify-end">
             <div className={`h-8 w-28 ${theme.skeletonBg} rounded-full`} />
           </div>
@@ -52,17 +53,15 @@ export default function Domains({ variant = "dark" }) {
   const [showButtons, setShowButtons] = useState(false);
   const idleTimerRef = useRef(null);
 
-  // Fetch state
   const [domains, setDomains] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch domains - skeleton shows until data is loaded
   useEffect(() => {
     const fetchDomains = async () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          " https://cobrother-api.onrender.com/api/ListAllDomains"
+          "https://cobrother-api.onrender.com/api/ListAllDomains",
         );
         const data = await response.json();
         setDomains(data);
@@ -78,7 +77,6 @@ export default function Domains({ variant = "dark" }) {
 
   const duplicatedDomains = [...domains, ...domains];
 
-  // Auto-scroll animation - only starts after data is loaded
   useEffect(() => {
     const container = scrollRef.current;
     if (!container || isLoading || domains.length === 0) return;
@@ -128,6 +126,17 @@ export default function Domains({ variant = "dark" }) {
     resetIdleTimer();
   };
 
+  const handleTouchStart = () => {
+    if (isLoading) return;
+    setIsPaused(true);
+    setShowButtons(true);
+  };
+
+  const handleTouchEnd = () => {
+    if (isLoading) return;
+    resetIdleTimer();
+  };
+
   const handleScroll = (dir) => {
     if (!scrollRef.current || isLoading) return;
 
@@ -140,6 +149,11 @@ export default function Domains({ variant = "dark" }) {
       left: dir === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
     });
+  };
+
+  const handleCardClick = (domainId) => {
+    if (!domainId) return;
+    navigate(`/marketplace/domain/${domainId}`);
   };
 
   const theme = {
@@ -160,7 +174,6 @@ export default function Domains({ variant = "dark" }) {
       ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
       : "border-zinc-300 bg-white/80 text-zinc-700 hover:bg-white",
   };
-
 
   const skeletonCount = 6;
 
@@ -199,8 +212,9 @@ export default function Domains({ variant = "dark" }) {
         className="relative mt-8"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
-
         <div
           className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-r ${theme.fadeFrom} to-transparent`}
         />
@@ -208,7 +222,6 @@ export default function Domains({ variant = "dark" }) {
           className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-l ${theme.fadeFrom} to-transparent`}
         />
 
-        
         {!isLoading && domains.length > 0 && (
           <>
             <button
@@ -237,29 +250,28 @@ export default function Domains({ variant = "dark" }) {
           </>
         )}
 
-        {/* Scrollable container */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-hidden px-4 sm:px-8"
+          className="flex overflow-x-auto md:overflow-x-hidden px-4 sm:px-8 touch-pan-x"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
           }}
         >
           {isLoading ? (
-            // Skeleton Loading State - Shows until API response is received
             [...Array(skeletonCount)].map((_, index) => (
               <DomainCardSkeleton key={`skeleton-${index}`} isDark={isDark} />
             ))
           ) : domains.length === 0 ? (
-            // Empty State
             <div className="w-full text-center py-10">
-              <p className={`text-lg ${isDark ? "text-gray-400" : "text-zinc-500"}`}>
+              <p
+                className={`text-lg ${isDark ? "text-gray-400" : "text-zinc-500"}`}
+              >
                 No domains available at the moment.
               </p>
             </div>
           ) : (
-            // Actual Domain Cards - Shows after data is loaded
             duplicatedDomains.map((domain, index) => {
               const displayName = domain.domainName || "Domain";
               const displayExt = domain.domainExtension || ".com";
@@ -274,18 +286,26 @@ export default function Domains({ variant = "dark" }) {
                   className="shrink-0 w-65 sm:w-75 md:w-[320px] px-2 sm:px-3"
                 >
                   <div
+                    onClick={() => handleCardClick(domain.id)}
+                    onTouchEnd={(e) => {
+                      const touch = e.changedTouches[0];
+                      if (touch) {
+                        handleCardClick(domain.id);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        handleCardClick(domain.id);
+                      }
+                    }}
                     className={`group/card h-85 sm:h-90 rounded-2xl border ${theme.cardBorder} ${theme.cardBg}
                       backdrop-blur-sm flex flex-col transition-all duration-300
-                      hover:border-white/30 hover:bg-gray-900/80 relative`}
+                      hover:border-white/30 hover:bg-gray-900/80 cursor-pointer
+                      active:scale-[0.98] select-none`}
                   >
-                    <button
-                      onClick={() =>
-                        navigate(`/marketplace/domain/${domain.id}`)
-                      }
-                      className="absolute inset-0 z-10"
-                      aria-label={`View ${displayName}`}
-                    />
-                    <div className="p-4 sm:p-5 flex-1 flex flex-col">
+                    <div className="p-4 sm:p-5 flex-1 flex flex-col pointer-events-none">
                       <h3
                         className={`text-base sm:text-lg font-bold leading-tight
                           ${theme.cardTitle}`}
@@ -323,17 +343,13 @@ export default function Domains({ variant = "dark" }) {
                       </div>
 
                       <div className="mt-auto pt-3 flex justify-end">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/marketplace/domain/${domain.id}`);
-                          }}
-                          className="rounded-full bg-gray-600 hover:bg-gray-500
+                        <span
+                          className="rounded-full bg-gray-600 group-hover/card:bg-gray-500
                             px-4 py-2 text-xs font-bold text-white
-                            transition-all hover:-translate-y-0.5 relative z-20"
+                            transition-all group-hover/card:-translate-y-0.5"
                         >
                           Make it Yours →
-                        </button>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -353,6 +369,7 @@ export default function Domains({ variant = "dark" }) {
             px-6 py-3 text-sm font-bold
             backdrop-blur-xl transition-all
             hover:bg-gray-800
+            active:scale-[0.98]
             ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
           `}
         >

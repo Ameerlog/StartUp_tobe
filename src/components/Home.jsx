@@ -39,16 +39,15 @@ const Home = () => {
 
   // Domain Extensions
   const extensions = [
-    { name: ".com", price: "₹100", popular: true },
-    { name: ".co", price: "₹250", popular: true },
+    { name: ".com", price: "₹999", popular: true },
     { name: ".net", price: "₹150", popular: true },
     { name: ".org", price: "₹200", popular: true },
-    { name: ".shop", price: "₹50", popular: false },
-    { name: ".ai", price: "₹2,500", popular: false },
-    { name: ".io", price: "₹1,200", popular: false },
-    { name: ".dev", price: "₹350", popular: false },
-    { name: ".tech", price: "₹180", popular: false },
-    { name: ".store", price: "₹80", popular: false },
+    // { name: ".shop", price: "₹50", popular: false },
+    // { name: ".ai", price: "₹2,500", popular: true },
+    // { name: ".io", price: "₹1,200", popular: false },
+    // { name: ".dev", price: "₹350", popular: false },
+    // { name: ".tech", price: "₹180", popular: false },
+    // { name: ".store", price: "₹80", popular: false },
   ];
 
   const visibleExtensions = showAllExtensions
@@ -146,7 +145,7 @@ const Home = () => {
     {
       Icon: Branding,
       title: "Co-Branding",
-      subtitle: "Identity Creation",
+      subtitle: "Identify your brands",
       path: "/branding",
       gradient: "from-blue-500/20 to-cyan-500/20",
       glowColor: "from-blue-600/30 to-cyan-600/30",
@@ -159,26 +158,9 @@ const Home = () => {
       path: "/marketing",
       gradient: "from-pink-500/20 to-rose-500/20",
       glowColor: "from-pink-600/30 to-rose-600/30",
-      iconColor: "text-pink-400",
+     iconColor: "text-pink-400",
     },
-    {
-      Icon: Compliances,
-      title: "Co-Creation",
-      subtitle: "Innovative Solutions",
-      path: "/co-creation",
-      gradient: "from-orange-500/20 to-amber-500/20",
-      glowColor: "from-orange-600/30 to-amber-600/30",
-      iconColor: "text-orange-400",
-    },
-    {
-      Icon: Funding,
-      title: "Co-Operation",
-      subtitle: "Capital Access",
-      path: "/ai",
-      gradient: "from-green-500/20 to-emerald-500/20",
-      glowColor: "from-green-600/30 to-emerald-600/30",
-      iconColor: "text-green-400",
-    },
+   
     {
       Icon: Community,
       title: "Co-Working",
@@ -293,7 +275,7 @@ const Home = () => {
                 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
               >
                 <span className=" bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                  Discover Your brand name here
+                  Discover Your Brand Name Here
                 </span>
               </motion.h2>
 
@@ -321,7 +303,7 @@ const Home = () => {
                 <span className="font-semibold text-neutral-300 bg-clip-text">
                   Aultum
                 </span>{" "}
-                with Add-on AI automation for your doorstep
+                with Add-on AI automation at your doorstep
               </motion.p>
             </div>
 
@@ -353,7 +335,7 @@ const Home = () => {
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
                     type="text"
-                    placeholder="Search the brand name "
+                    placeholder="Search your domain name "
                     value={domainQuery}
                     onChange={(e) => {
                       setDomainQuery(e.target.value);
@@ -408,10 +390,10 @@ const Home = () => {
               className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4"
             >
               {[
-                { name: ".com", price: "₹100" },
-                { name: ".co", price: "₹250" },
-                { name: ".net", price: "₹150" },
-                { name: ".org", price: "₹200" },
+                { name: ".com", price: "₹999" },
+                { name: ".in", price: "₹699" },
+                { name: ".ai", price: "₹4599" },
+                { name: ".io", price: "₹4599" },
               ].map((ext, index) => (
                 <motion.button
                   key={ext.name}
@@ -505,8 +487,7 @@ const Home = () => {
               transition={{ delay: 0.8 }}
               className="text-center text-xs sm:text-sm text-neutral-500 mt-4"
             >
-              <span className="align-super text-[10px]">^</span>3-year purchase
-              required. Additional years ₹1,599.00
+              <span className="align-super text-[10px]">*</span>Offers valid on 3 year purchase only 
               <span className="text-[10px]">*</span>
             </motion.p>
           </motion.div>
@@ -536,7 +517,7 @@ const Home = () => {
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-purple-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-8"
             >
-              Visit your CoBrother at your doorstep
+              explore with your CoBrother at your doorstep
             </motion.p>
             {/* CTA Button */}
             <motion.button
@@ -589,16 +570,18 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
-            className="w-full max-w-6xl px-2 sm:px-4"
+            className="w-full max-w-7xl px-2 sm:px-4"
           >
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
+            <div className="flex flex-col md:flex-row  gap-4 sm:gap-5 lg:gap-6">
               {iconData.map((item, index) => (
+                <div className="flex-1 min-w-0">
                 <ServiceCard
                   key={index}
                   item={item}
                   index={index}
                   navigate={navigate}
                 />
+                </div>
               ))}
             </div>
           </motion.div>
@@ -618,7 +601,7 @@ const Home = () => {
   );
 };
 
-// SERVICE CARD COMPONENT - OPTIMIZED FOR RESPONSIVENESS
+
 const ServiceCard = ({ item, index, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
 

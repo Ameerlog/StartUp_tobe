@@ -2,6 +2,7 @@
 
 html {
   scroll-behavior: smooth;
+
 }
 .marquee {
   --marquee-inset: 80px;

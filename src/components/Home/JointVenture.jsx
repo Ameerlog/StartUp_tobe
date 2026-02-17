@@ -48,7 +48,6 @@ const JointVentureCardSkeleton = () => {
           </div>
         </div>
 
-        {/* Button Skeleton */}
         <div className="mt-auto pt-4 shrink-0">
           <div className="w-full h-9 sm:h-10 bg-gray-700/50 rounded-full" />
         </div>
@@ -150,7 +149,7 @@ export default function JointVenture() {
             mt-4
           "
         >
-          List Your CoVenture
+          List Your Venture
         </button>
       </div>
 
