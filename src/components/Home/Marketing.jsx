@@ -9,7 +9,7 @@ export default function Marketing() {
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
       <div className="text-center px-4 flex flex-col items-center gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
-          Marketing
+          Co-Marketing
         </h2>
         <button
           onClick={() =>

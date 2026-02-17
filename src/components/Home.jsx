@@ -593,8 +593,8 @@ const Home = () => {
       <Domains />
       {/* <ComplianceCards /> */}
       <Market />
-      <Challenges />
-      <AIRobotics />
+      {/* <Challenges />
+      <AIRobotics /> */}
       <Investors />
     </>
   );

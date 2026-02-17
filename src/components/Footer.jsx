@@ -10,7 +10,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/FooterLogo1.png";
+import Logo from "../assets/domain/FooterLogo1.png";
 import { useNavigate } from "react-router-dom";
 
 const XLogo = ({ className }) => (
@@ -228,7 +228,7 @@ export default function Footer() {
                 <img
                   src={Logo}
                   alt="CoBrother Aultum"
-                  className="h-48 md:h-56 w-auto scale-180 ml-5"
+                  className="h-48 md:h-56 w-auto scale-150 ml-15"
                 />
               </Link>
 
