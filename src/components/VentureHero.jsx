@@ -71,7 +71,8 @@ const VentureHero = () => {
           transition={{ delay: 0.4 }}
           className="mt-6 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-2xl mx-auto"
         >
-          Our  co-venture  system operates on the CoBrother Aultum CRM & AI Automation —
+          Our co-venture system operates on the CoBrother Aultum CRM & AI
+          Automation —
           <br className="hidden sm:block" />
           <span className="text-white font-medium">
             Ensuring clarity, accountability, and execution from day one.
@@ -90,7 +91,7 @@ const VentureHero = () => {
             whileTap={{ scale: 0.95 }}
             className="relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white text-base sm:text-lg overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.35)]"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+            <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
             <span className="relative flex items-center gap-2">
               List Your Venture
               <ArrowRight className="w-5 h-5" />

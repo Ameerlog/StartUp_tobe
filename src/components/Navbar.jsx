@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import Logo_white from "../assets/domain/cobrother123.png";
+import Logo_white from "../assets/domain/cobrother1234.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const Navbar = () => {
     h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64
     w-auto
     drop-shadow-2xl
-    transition-transform duration-300 scale-170
+    transition-transform duration-300 scale-200
   "
                 />
               </motion.div>
@@ -104,7 +104,7 @@ const Navbar = () => {
                           <ChevronDown
                             className={`w-3.5 xl:w-4 h-3.5 xl:h-4 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
                           />
-                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r   font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
                         </button>
 
                         {/* Dropdown Panel */}
@@ -139,7 +139,7 @@ const Navbar = () => {
                         className="group relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium text-white/80 hover:text-white transition-colors duration-300 block"
                       >
                         {link.name}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
                       </Link>
                     )}
                   </div>
@@ -152,7 +152,7 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="relative rounded-full ml-2 xl:ml-3 overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 " />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 " />
                   <span className="relative px-4 xl:px-5 py-2 xl:py-2.5 font-semibold text-white text-sm xl:text-base flex items-center gap-1.5 rounded-full border border-transparent hover:border-white/60 transition-colors duration-300">
                     Get Started <span className="text-xs xl:text-sm">→</span>
                   </span>

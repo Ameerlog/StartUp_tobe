@@ -602,8 +602,8 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                 onClick={() => navigate("/venture")}
                 className="group relative overflow-hidden rounded-full inline-flex items-center gap-2 shadow-2xl shadow-purple-500/30"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
                 <span className="relative px-8 py-3.5 font-semibold text-white text-sm flex items-center gap-2">
                   <Rocket className="w-4 h-4" />
                   View All Ventures
@@ -683,7 +683,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                       <div
                         className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-sm font-semibold border-2 transition-all duration-500 ${
                           isCompleted
-                            ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 text-white shadow-lg shadow-purple-500/30"
+                            ? "bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 border-purple-500 text-white shadow-lg shadow-purple-500/30"
                             : isActive
                               ? "border-purple-500 bg-purple-500/10 text-white shadow-lg shadow-purple-500/20"
                               : "border-neutral-700 bg-neutral-900/50 text-neutral-500"
@@ -718,7 +718,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                     <div className="flex-1 mx-2 sm:mx-4 mt-[-20px]">
                       <div className="h-[2px] w-full bg-neutral-800 rounded-full overflow-hidden">
                         <motion.div
-                          className="h-full bg-gradient-to-r from-purple-600 to-pink-600"
+                          className="h-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500"
                           initial={{ width: 0 }}
                           animate={{ width: isCompleted ? "100%" : "0%" }}
                           transition={{ duration: 0.5 }}
@@ -956,7 +956,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                                   animate={{ scale: 1 }}
                                   className="absolute -top-1 -right-1"
                                 >
-                                  <div className="w-4 h-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                  <div className="w-4 h-4 bg-gradient-to-br from-purple-600 to-blue-600 font-medium hover:from-purple-500 rounded-full flex items-center justify-center">
                                     <Check className="w-2.5 h-2.5 text-white" />
                                   </div>
                                 </motion.div>
@@ -1135,7 +1135,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                               className="w-12 h-12 rounded-xl object-cover border border-neutral-700/50"
                             />
                           ) : (
-                            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+                            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
                               <span className="text-white font-bold text-lg">
                                 {formData.brandName?.charAt(0)?.toUpperCase() ||
                                   "B"}
@@ -1242,7 +1242,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                                 className="w-10 h-10 rounded-lg object-cover border border-neutral-700/50"
                               />
                             ) : (
-                              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+                              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 rounded-lg flex items-center justify-center">
                                 <span className="text-white font-bold">
                                   {formData.brandName
                                     ?.charAt(0)
@@ -1347,7 +1347,7 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                             <div
                               className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
                                 formData.terms
-                                  ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 shadow-lg shadow-purple-500/20"
+                                  ? "bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 border-purple-500 shadow-lg shadow-purple-500/20"
                                   : "border-neutral-600 bg-neutral-900/50 group-hover:check:border-purple-500/50"
                               }`}
                             >
@@ -1427,8 +1427,8 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                       whileTap={{ scale: 0.97 }}
                       className="group relative overflow-hidden rounded-xl shadow-xl shadow-purple-500/20"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
                       <span className="relative px-6 py-3 font-semibold text-white text-sm flex items-center gap-2">
                         Continue
                         <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
@@ -1443,8 +1443,8 @@ const CoVentureBrandListingForm = ({ onSuccess }) => {
                       whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
                       className="group relative overflow-hidden rounded-xl shadow-xl shadow-purple-500/20 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
                       <span className="relative px-6 py-3 font-semibold text-white text-sm flex items-center gap-2">
                         {isSubmitting ? (
                           <>

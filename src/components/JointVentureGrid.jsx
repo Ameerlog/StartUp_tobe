@@ -200,7 +200,7 @@ export default function JointVentureGrid() {
                           whileTap={{ scale: 0.95 }}
                           className="relative overflow-hidden rounded-full"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
                           <a
                             href="/get-ventures"
                             className="relative flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-white"

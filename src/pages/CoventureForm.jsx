@@ -757,7 +757,7 @@ const CoVentureBrandListingForm = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={resetForm}
-                className="relative overflow-hidden rounded-full px-8 py-3.5 font-semibold text-white text-sm bg-gradient-to-r from-purple-600 to-pink-600"
+                className="relative overflow-hidden rounded-full px-8 py-3.5 font-semibold text-white text-sm bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500"
               >
                 <Rocket className="w-4 h-4 inline mr-2" />
                 Submit Another Brand
@@ -820,7 +820,7 @@ const CoVentureBrandListingForm = () => {
                     <div
                       className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center border-2 transition-all ${
                         isCompleted
-                          ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 text-white"
+                          ? "bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 border-purple-500 text-white"
                           : isActive
                             ? "border-purple-500 bg-purple-500/10 text-white"
                             : "border-neutral-700 bg-neutral-900/50 text-neutral-500"
@@ -843,7 +843,7 @@ const CoVentureBrandListingForm = () => {
                     <div className="flex-1 mx-2 sm:mx-4 mt-[-20px]">
                       <div className="h-[2px] w-full bg-neutral-800 rounded-full overflow-hidden">
                         <div
-                          className={`h-full bg-gradient-to-r from-purple-600 to-pink-600 transition-all ${isCompleted ? "w-full" : "w-0"}`}
+                          className={`h-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 transition-all ${isCompleted ? "w-full" : "w-0"}`}
                         />
                       </div>
                     </div>
@@ -1170,7 +1170,7 @@ const CoVentureBrandListingForm = () => {
                       <div
                         className={`w-5 h-5 border-2 rounded-md transition-all ${
                           jointVentureChecked
-                            ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500"
+                            ? "bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 border-purple-500"
                             : "border-neutral-700 bg-neutral-900/50"
                         }`}
                       >
@@ -1213,7 +1213,7 @@ const CoVentureBrandListingForm = () => {
                       <div
                         className={`w-5 h-5 border-2 rounded-md transition-all ${
                           verificationChecked
-                            ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500"
+                            ? "bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 border-purple-500"
                             : "border-neutral-700 bg-neutral-900/50"
                         }`}
                       >
@@ -1338,7 +1338,7 @@ const CoVentureBrandListingForm = () => {
                       <div
                         className={`w-5 h-5 border-2 rounded-md transition-all ${
                           formData.terms
-                            ? "bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500"
+                            ? "bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 border-purple-500"
                             : "border-neutral-700 bg-neutral-900/50"
                         }`}
                       >
@@ -1384,7 +1384,7 @@ const CoVentureBrandListingForm = () => {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="ml-auto flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold"
+                  className="ml-auto flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 text-white text-sm font-semibold"
                 >
                   Next Step
                   <ChevronRight className="w-4 h-4" />

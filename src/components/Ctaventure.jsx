@@ -45,8 +45,8 @@ const CtaVenture = () => {
             whileTap={{ scale: 0.95 }}
             className="group relative inline-flex items-center gap-2 rounded-full overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.35)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
 
             <a
               href="https://aultum.com/"

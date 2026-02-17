@@ -64,14 +64,14 @@ const InvestorCard = ({ card }) => {
                     .slice(0, 2);
                   e.target.style.display = "none";
                   e.target.parentElement.innerHTML = `
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500">
                       <span class="text-white text-3xl font-bold">${initials}</span>
                     </div>
                   `;
                 }}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500">
                 <span className="text-white text-3xl sm:text-4xl font-bold">
                   {card.fullName
                     .split(" ")
@@ -217,8 +217,6 @@ export default function Investors() {
         const data = await response.json();
 
         const profileList = Array.isArray(data) ? data : data.data || [];
-
-        console.log("Fetched profiles:", profileList);
 
         if (profileList.length > 0) {
           setProfiles(profileList);

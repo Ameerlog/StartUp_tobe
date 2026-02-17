@@ -47,7 +47,7 @@ const Marketing = () => {
               to="https://aultum.com/"
               className="relative inline-flex items-center overflow-hidden rounded-full"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
               <span className="relative px-6 py-3 text-sm font-semibold text-white">
                 Start Using Aultum →
               </span>

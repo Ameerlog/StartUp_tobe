@@ -74,7 +74,7 @@ export default function PrivacyPolicy() {
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Your data,
             </span>{" "}
-            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 bg-clip-text text-transparent">
               handled with care
             </span>
           </h1>
