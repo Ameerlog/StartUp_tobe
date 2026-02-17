@@ -10,7 +10,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/FooterLogo.png";
+import Logo from "../assets/FooterLogo1.png";
 import { useNavigate } from "react-router-dom";
 
 const XLogo = ({ className }) => (
@@ -228,7 +228,7 @@ export default function Footer() {
                 <img
                   src={Logo}
                   alt="CoBrother Aultum"
-                  className="h-48 md:h-56 w-auto"
+                  className="h-48 md:h-56 w-auto scale-180 ml-5"
                 />
               </Link>
 
@@ -285,7 +285,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
             <button
               onClick={() => navigate("/contact")}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r D"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500"
             >
               Book a Cobrother Visit →
             </button>
