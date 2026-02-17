@@ -494,14 +494,13 @@ const Home = () => {
           </motion.div>
 
           {/* 2. HERO TEXT SECTION - SECOND */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-center mb-12 sm:mb-16 max-w-4xl relative px-2 sm:px-4"
-          >
-            Description
-            {/* <motion.p
+            className="text-center max-w-4xl relative "
+          > */}
+          {/* <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -511,8 +510,8 @@ const Home = () => {
               with you. From registration to growth, your CoBrother handles it
               all.
             </motion.p> */}
-            {/* Tagline */}
-            {/* <motion.p
+          {/* Tagline */}
+          {/* <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -520,8 +519,8 @@ const Home = () => {
             >
               explore with your CoBrother at your doostep
             </motion.p> */}
-            {/* CTA Button */}
-            {/* <motion.button
+          {/* CTA Button */}
+          {/* <motion.button
               onClick={() => setShowBookingModal(true)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -541,8 +540,8 @@ const Home = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </motion.button> */}
-            {/* Floating particles around the hero */}
-            {[...Array(8)].map((_, i) => (
+          {/* Floating particles around the hero */}
+          {/* {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-purple-400 rounded-full pointer-events-none"
@@ -564,7 +563,7 @@ const Home = () => {
                 }}
               />
             ))}
-          </motion.div>
+          </motion.div> */}
 
           {/* 3. SERVICES GRID - THIRD */}
           <motion.div
