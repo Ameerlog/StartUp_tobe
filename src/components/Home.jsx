@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  Sparkles,
   ArrowRight,
   Check,
   X,
@@ -16,90 +15,153 @@ import BackgroundImage from "../assets/domain/bg1.svg";
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
 import Marketing from "../assets/domain/market.svg";
-import Compliances from "../assets/domain/complian.png";
-import Funding from "../assets/domain/ai.svg";
 import Community from "../assets/domain/community.svg";
 import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
-import AIRobotics from "./Home/AIRobotics";
 import Investors from "./Home/Investors";
-import Challenges from "../components/Home/Challeges";
 
 // ─────────────────────────────────────────────
-// HEXAGON BACKGROUND
+// HEXAGON BACKGROUND  — canvas-based, full screen
+// The old div-per-hex approach stopped at ~70% width because
+// the grid was built with fixed COLS/ROWS that didn't match
+// the actual viewport.  Canvas recalculates on every resize.
 // ─────────────────────────────────────────────
-const HEX_W = 44;
-const HEX_H = 50;
-const HEX_GAP = 2;
-const COLS = 26;
-const ROWS = 16;
-const CURSOR_RADIUS = 100;
-
-function buildGrid() {
-  const cells = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const offsetX = r % 2 === 1 ? (HEX_W + HEX_GAP) / 2 : 0;
-      const x = c * (HEX_W + HEX_GAP) - 50 + offsetX;
-      const y = r * (HEX_H * 0.77 + HEX_GAP) - 32;
-      cells.push({ id: `${r}-${c}`, x, y });
-    }
-  }
-  return cells;
-}
-
-const HEX_CELLS = buildGrid();
-
-// Cycling hue ref so we get the hue-rotate feel
-let globalHue = 120;
+const HEX_R = 18; // hex "radius" (center → vertex)
+const HEX_PAD = 4; // pixel gap between hexagons
+const GLOW_R = 130; // cursor glow radius in px
 
 const HexagonBackground = () => {
-  const rafRef = useRef(null);
-  const hexRefs = useRef([]);
-  const containerRef = useRef(null);
+  const wrapRef = useRef(null);
+  const canvasRef = useRef(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef(null);
+  const cellsRef = useRef([]);
+
+  // Recompute hex grid whenever the container resizes
+  const buildGrid = useCallback(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const W = wrap.offsetWidth;
+    const H = wrap.offsetHeight;
+
+    // pointy-top hexagon dimensions
+    const hexW = Math.sqrt(3) * HEX_R; // ~31px wide
+    const hexH = 2 * HEX_R; // ~36px tall
+    const colStep = hexW + HEX_PAD;
+    const rowStep = hexH * 0.75 + HEX_PAD;
+
+    const cols = Math.ceil(W / colStep) + 2;
+    const rows = Math.ceil(H / rowStep) + 2;
+
+    const cells = [];
+    for (let row = -1; row < rows; row++) {
+      for (let col = -1; col < cols; col++) {
+        const offsetX = row % 2 === 1 ? colStep / 2 : 0;
+        cells.push({
+          cx: col * colStep + offsetX + hexW / 2,
+          cy: row * rowStep + hexH / 2,
+          r: HEX_R,
+        });
+      }
+    }
+    cellsRef.current = cells;
+
+    // Resize canvas to match DPR
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+  }, []);
 
   useEffect(() => {
-    // Track mouse globally so it works even when content is on top
+    buildGrid();
+    const ro = new ResizeObserver(buildGrid);
+    if (wrapRef.current) ro.observe(wrapRef.current);
+    return () => ro.disconnect();
+  }, [buildGrid]);
+
+  // Track mouse globally so overlay elements don't block it
+  useEffect(() => {
     const onMove = (e) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const rect = wrap.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
+  // Draw loop
   useEffect(() => {
-    let hue = 120;
+    // Helper: pointy-top hex path
+    const hexPath = (ctx, cx, cy, r) => {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 3) * i - Math.PI / 6; // pointy-top
+        const px = cx + r * Math.cos(angle);
+        const py = cy + r * Math.sin(angle);
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    };
 
     const tick = () => {
       rafRef.current = requestAnimationFrame(tick);
-      hue = (hue + 0.5) % 360; // slowly cycle hue like hue-rotate
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = canvas.width / dpr;
+      const H = canvas.height / dpr;
+      const ctx = canvas.getContext("2d");
 
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const scaleX = container.offsetWidth / rect.width;
-      const scaleY = container.offsetHeight / rect.height;
-      const mx = (mouseRef.current.x - rect.left) * scaleX;
-      const my = (mouseRef.current.y - rect.top) * scaleY;
+      // Reset transform each frame (buildGrid may have scaled)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
 
-      hexRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const cell = HEX_CELLS[i];
-        const cx = cell.x + HEX_W / 2;
-        const cy = cell.y + HEX_H / 2;
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      const cells = cellsRef.current;
+
+      cells.forEach(({ cx, cy, r }) => {
         const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
-        const ratio = Math.max(0, 1 - dist / CURSOR_RADIUS);
+        const ratio = Math.max(0, 1 - dist / GLOW_R);
+
+        hexPath(ctx, cx, cy, r - 1);
 
         if (ratio > 0.01) {
-          const brightness = 15 + ratio * 25; // subtle, not too bright
-          const opacity = 0.3 + ratio * 0.5;
-          el.style.background = `rgba(139, 92, 246, ${opacity})`; // purple-500
-          el.style.transition = "none";
+          // Purple fill — subtle
+          ctx.fillStyle = `rgba(139, 92, 246, ${0.04 + ratio * 0.18})`;
+          ctx.fill();
+
+          // Bright border
+          ctx.strokeStyle = `rgba(167, 139, 250, ${0.4 + ratio * 0.72})`;
+          ctx.lineWidth = 1.2;
+
+          // Glow on strong hits
+          if (ratio > 0.35) {
+            ctx.shadowColor = `rgba(167, 139, 250, ${ratio * 0.55})`;
+            ctx.shadowBlur = 10 * ratio;
+          }
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+          ctx.shadowColor = "transparent";
         } else {
-          el.style.background = "#0d0d12";
-          el.style.transition = "background 1.2s ease";
+          // Resting state — very dim
+          ctx.fillStyle = "rgba(14, 12, 20, 0.9)";
+          ctx.fill();
+          ctx.strokeStyle = "rgba(100, 80, 180, 0.10)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
       });
     };
@@ -112,48 +174,28 @@ const HexagonBackground = () => {
 
   return (
     <div
-      ref={containerRef}
-      className="absolute inset-0 overflow-hidden"
-      style={{ zIndex: 1, pointerEvents: "none" }}
+      ref={wrapRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 1,
+        pointerEvents: "none",
+        overflow: "hidden",
+      }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {HEX_CELLS.map((cell, i) => (
-          <div
-            key={cell.id}
-            ref={(el) => (hexRefs.current[i] = el)}
-            style={{
-              position: "absolute",
-              left: cell.x,
-              top: cell.y,
-              width: HEX_W,
-              height: HEX_H,
-              clipPath:
-                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-              background:
-                "linear-gradient(90deg, rgba(18,17,19,1) 50%, rgba(0,0,0,1) 50%)",
-              transition: "background 1.5s ease",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Subtle fade overlay */}
+      <canvas
+        ref={canvasRef}
+        style={{ position: "absolute", top: 0, left: 0 }}
+      />
+      {/* Vertical fade — hexes are vivid top, dissolve toward bottom */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 55%, rgba(0,0,0,0.95) 100%)",
-          pointerEvents: "none",
+            "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.97) 100%)",
           zIndex: 2,
+          pointerEvents: "none",
         }}
       />
     </div>
@@ -290,10 +332,7 @@ const Home = () => {
   return (
     <>
       {/* MAIN HERO SECTION */}
-      <section
-        className="min-h-screen w-full relative overflow-hidden bg-black"
-        style={{ cursor: "none" }}
-      >
+      <section className="min-h-screen w-full relative overflow-hidden bg-black">
         {/* ── HEXAGON BACKGROUND (bottom layer) ── */}
         <HexagonBackground />
 
@@ -346,7 +385,7 @@ const Home = () => {
           <img
             src={BackgroundImage}
             alt="Background"
-            className="w-full h-full object-cover object-center opacity-10"
+            className="w-full h-full object-cover object-center opacity-15"
           />
         </div>
 
