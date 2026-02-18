@@ -311,7 +311,7 @@ export default function Footer() {
         </div>
       </section>
 
-      {/* BACK TO TOP */}
+      {/* BACK TO TOP
       {showButton && (
         <button
           onClick={scrollToTop}
@@ -319,7 +319,7 @@ export default function Footer() {
         >
           <ArrowUp className="h-5 w-5" />
         </button>
-      )}
+      )} */}
     </footer>
   );
 }
