@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -23,40 +23,167 @@ import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
 import AIRobotics from "./Home/AIRobotics";
-
 import Investors from "./Home/Investors";
 import Challenges from "../components/Home/Challeges";
+
+// ─────────────────────────────────────────────
+// HEXAGON BACKGROUND
+// ─────────────────────────────────────────────
+const HEX_W = 44;
+const HEX_H = 50;
+const HEX_GAP = 2;
+const COLS = 26;
+const ROWS = 16;
+const CURSOR_RADIUS = 100;
+
+function buildGrid() {
+  const cells = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const offsetX = r % 2 === 1 ? (HEX_W + HEX_GAP) / 2 : 0;
+      const x = c * (HEX_W + HEX_GAP) - 50 + offsetX;
+      const y = r * (HEX_H * 0.77 + HEX_GAP) - 32;
+      cells.push({ id: `${r}-${c}`, x, y });
+    }
+  }
+  return cells;
+}
+
+const HEX_CELLS = buildGrid();
+
+// Cycling hue ref so we get the hue-rotate feel
+let globalHue = 120;
+
+const HexagonBackground = () => {
+  const rafRef = useRef(null);
+  const hexRefs = useRef([]);
+  const containerRef = useRef(null);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+
+  useEffect(() => {
+    // Track mouse globally so it works even when content is on top
+    const onMove = (e) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  useEffect(() => {
+    let hue = 120;
+
+    const tick = () => {
+      rafRef.current = requestAnimationFrame(tick);
+      hue = (hue + 0.5) % 360; // slowly cycle hue like hue-rotate
+
+      const container = containerRef.current;
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      const scaleX = container.offsetWidth / rect.width;
+      const scaleY = container.offsetHeight / rect.height;
+      const mx = (mouseRef.current.x - rect.left) * scaleX;
+      const my = (mouseRef.current.y - rect.top) * scaleY;
+
+      hexRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const cell = HEX_CELLS[i];
+        const cx = cell.x + HEX_W / 2;
+        const cy = cell.y + HEX_H / 2;
+        const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
+        const ratio = Math.max(0, 1 - dist / CURSOR_RADIUS);
+
+        if (ratio > 0.01) {
+          const brightness = 15 + ratio * 25; // subtle, not too bright
+          const opacity = 0.3 + ratio * 0.5;
+          el.style.background = `rgba(139, 92, 246, ${opacity})`; // purple-500
+          el.style.transition = "none";
+        } else {
+          el.style.background = "#0d0d12";
+          el.style.transition = "background 1.2s ease";
+        }
+      });
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="absolute inset-0 overflow-hidden"
+      style={{ zIndex: 1, pointerEvents: "none" }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        {HEX_CELLS.map((cell, i) => (
+          <div
+            key={cell.id}
+            ref={(el) => (hexRefs.current[i] = el)}
+            style={{
+              position: "absolute",
+              left: cell.x,
+              top: cell.y,
+              width: HEX_W,
+              height: HEX_H,
+              clipPath:
+                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+              background:
+                "linear-gradient(90deg, rgba(18,17,19,1) 50%, rgba(0,0,0,1) 50%)",
+              transition: "background 1.5s ease",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Subtle fade overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 55%, rgba(0,0,0,0.95) 100%)",
+          pointerEvents: "none",
+          zIndex: 2,
+        }}
+      />
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// HOME
+// ─────────────────────────────────────────────
 const Home = () => {
   const navigate = useNavigate();
 
-  // Domain Search States
   const [domainQuery, setDomainQuery] = useState("");
   const [selectedExtension, setSelectedExtension] = useState(".com");
-  const [searchStatus, setSearchStatus] = useState("idle"); // idle, loading, available, unavailable, error
+  const [searchStatus, setSearchStatus] = useState("idle");
   const [focused, setFocused] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showAllExtensions, setShowAllExtensions] = useState(false);
 
-  // Domain Extensions
   const extensions = [
     { name: ".com", price: "₹999", popular: true },
     { name: ".net", price: "₹150", popular: true },
     { name: ".org", price: "₹200", popular: true },
-    // { name: ".shop", price: "₹50", popular: false },
-    // { name: ".ai", price: "₹2,500", popular: true },
-    // { name: ".io", price: "₹1,200", popular: false },
-    // { name: ".dev", price: "₹350", popular: false },
-    // { name: ".tech", price: "₹180", popular: false },
-    // { name: ".store", price: "₹80", popular: false },
   ];
 
   const visibleExtensions = showAllExtensions
     ? extensions
     : extensions.filter((ext) => ext.popular);
 
-  // Domain Search Function with Error Handling
   const searchDomain = async () => {
-    // Input validation
     if (!domainQuery.trim()) {
       setErrorMessage("Please enter a domain name");
       setSearchStatus("error");
@@ -64,7 +191,6 @@ const Home = () => {
       return;
     }
 
-    // Domain name validation (basic)
     const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
     if (!domainRegex.test(domainQuery.trim())) {
       setErrorMessage(
@@ -80,16 +206,13 @@ const Home = () => {
 
     try {
       const fullDomain = `${domainQuery.trim()}${selectedExtension}`;
-
-      // Replace with your actual API endpoint and credentials
       const response = await axios.get(
         `https://api.godaddy.com/v1/domains/available?domain=${fullDomain}`,
         {
           headers: {
             Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
-            // "Content-Type": "application/json",
           },
-          timeout: 10000, // 10 second timeout
+          timeout: 10000,
         },
       );
 
@@ -100,30 +223,23 @@ const Home = () => {
       }
     } catch (error) {
       console.error("Error checking domain:", error);
-
-      // Handle different error types
       if (error.code === "ECONNABORTED") {
         setErrorMessage("Request timeout. Please try again.");
       } else if (error.response) {
-        // Server responded with error
         setErrorMessage(
           error.response.data.message || "Server error. Please try again.",
         );
       } else if (error.request) {
-        // No response received
         setErrorMessage("Network error. Please check your connection.");
       } else {
         setErrorMessage("An unexpected error occurred. Please try again.");
       }
-
       setSearchStatus("error");
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      searchDomain();
-    }
+    if (e.key === "Enter") searchDomain();
   };
 
   const handleExtensionClick = (ext) => {
@@ -160,7 +276,6 @@ const Home = () => {
       glowColor: "from-pink-600/30 to-rose-600/30",
       iconColor: "text-pink-400",
     },
-
     {
       Icon: Community,
       title: "Co-Working",
@@ -174,25 +289,30 @@ const Home = () => {
 
   return (
     <>
-      {/* MAIN HERO SECTION WITH BACKGROUND */}
-      <section className="min-h-screen w-full relative overflow-hidden bg-black">
-        {/* ANIMATED GRADIENT ORBS */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {/* MAIN HERO SECTION */}
+      <section
+        className="min-h-screen w-full relative overflow-hidden bg-black"
+        style={{ cursor: "none" }}
+      >
+        {/* ── HEXAGON BACKGROUND (bottom layer) ── */}
+        <HexagonBackground />
+
+        {/* ── ANIMATED GRADIENT ORBS ── */}
+        <div
+          className="fixed inset-0 overflow-hidden pointer-events-none"
+          style={{ zIndex: 3 }}
+        >
           <motion.div
-            className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+            className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
             animate={{
               x: [0, 50, -30, 0],
               y: [0, -60, 30, 0],
               scale: [1, 1.2, 0.8, 1],
             }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+            className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
             animate={{
               x: [0, -40, 40, 0],
               y: [0, 50, -30, 0],
@@ -206,7 +326,7 @@ const Home = () => {
             }}
           />
           <motion.div
-            className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/15 rounded-full blur-3xl"
+            className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/8 rounded-full blur-3xl"
             animate={{
               x: [0, 30, -40, 0],
               y: [0, -40, 40, 0],
@@ -221,19 +341,21 @@ const Home = () => {
           />
         </div>
 
-        {/* BACKGROUND IMAGE WITH OVERLAY */}
-        <div className="absolute inset-0 w-full h-full">
+        {/* ── BACKGROUND IMAGE (kept, but more subtle since hexagons are the bg) ── */}
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
           <img
             src={BackgroundImage}
             alt="Background"
-            className="w-full h-full object-cover object-center opacity-30"
+            className="w-full h-full object-cover object-center opacity-10"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
         </div>
 
-        {/* MAIN CONTENT */}
-        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-20">
-          {/* 1. DOMAIN SEARCH SECTION - FIRST */}
+        {/* ── MAIN CONTENT ── */}
+        <div
+          className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-20"
+          style={{ zIndex: 10 }}
+        >
+          {/* 1. DOMAIN SEARCH SECTION */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -242,7 +364,6 @@ const Home = () => {
           >
             {/* Title & Subtitle */}
             <div className="relative text-center mb-6 sm:mb-8">
-              {/* Floating white glowing particles behind heading */}
               {[...Array(8)].map((_, i) => (
                 <motion.div
                   key={i}
@@ -274,7 +395,7 @@ const Home = () => {
                 transition={{ delay: 0.2 }}
                 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
               >
-                <span className=" bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                   Discover Your Brand Name Here
                 </span>
               </motion.h2>
@@ -283,10 +404,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="relative text-base sm:text-lg md:text-xl font-medium 
-             bg-gradient-to-r from-red-400  via-violet-500 to-purple-500
-                
-             bg-clip-text text-transparent mb-2"
+                className="relative text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-red-400 via-violet-500 to-purple-500 bg-clip-text text-transparent mb-2"
               >
                 Get a .com for only ₹1.00<span className="text-sm">*</span>/1st
                 yr
@@ -314,23 +432,18 @@ const Home = () => {
               transition={{ delay: 0.5 }}
               className="relative group mb-4 sm:mb-6"
             >
-              {/* Rainbow Gradient Border */}
               <div
                 className={`absolute -inset-[2px] bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 rounded-full transition-opacity duration-500 ${
                   focused ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                 }`}
               />
-
-              {/* Glow Effect */}
               <div
                 className={`absolute -inset-[5px] bg-gradient-to-r from-red-500 via-violet-500 to-red-500 rounded-full blur-md transition-opacity duration-500 ${
                   focused ? "opacity-40" : "opacity-0 group-hover:opacity-30"
                 }`}
               />
 
-              {/* Search Bar Container */}
               <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full p-1.5 sm:p-2 flex items-center gap-2 sm:gap-3">
-                {/* Input Field with Icon */}
                 <div className="relative flex-1 flex items-center">
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
@@ -346,10 +459,10 @@ const Home = () => {
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
                     className="w-full pl-9 sm:pl-14 pr-2 sm:pr-4 h-10 sm:h-14 bg-transparent text-white placeholder-neutral-500 focus:outline-none text-sm sm:text-base rounded-full"
+                    style={{ cursor: "text" }}
                   />
                 </div>
 
-                {/* Search Button */}
                 <motion.button
                   type="button"
                   onClick={searchDomain}
@@ -357,10 +470,10 @@ const Home = () => {
                   whileHover={{ scale: searchStatus === "loading" ? 1 : 1.05 }}
                   whileTap={{ scale: searchStatus === "loading" ? 1 : 0.95 }}
                   className="relative overflow-hidden rounded-full disabled:cursor-not-allowed disabled:opacity-70 flex-shrink-0"
+                  style={{ cursor: "pointer" }}
                 >
                   <div className="absolute inset-0 bg-gradient0" />
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 opacity-0 hover:opacity-100 blur transition duration-500" />
-
                   <div className="relative px-4 sm:px-8 h-10 sm:h-14 flex items-center justify-center gap-2">
                     {searchStatus === "loading" ? (
                       <>
@@ -403,6 +516,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.05 }}
+                  style={{ cursor: "pointer" }}
                   className={`px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 ${
                     selectedExtension === ext.name
                       ? "bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 text-white shadow-lg shadow-purple-500/30"
@@ -443,7 +557,6 @@ const Home = () => {
                       </div>
                     </div>
                   )}
-
                   {searchStatus === "unavailable" && (
                     <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl backdrop-blur-sm">
                       <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -459,7 +572,6 @@ const Home = () => {
                       </div>
                     </div>
                   )}
-
                   {searchStatus === "error" && (
                     <div className="flex items-start gap-3 p-4 bg-orange-500/10 border border-orange-500/30 rounded-2xl backdrop-blur-sm">
                       <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -480,7 +592,6 @@ const Home = () => {
               )}
             </AnimatePresence>
 
-            {/* Fine Print */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -493,94 +604,17 @@ const Home = () => {
             </motion.p>
           </motion.div>
 
-          {/* 2. HERO TEXT SECTION - SECOND */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-center max-w-4xl relative "
-          > */}
-          {/* <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="tracking-[0.1em] text-neutral-300 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-3"
-            >
-              We don't just advise—we sit with you, work with you, and build
-              with you. From registration to growth, your CoBrother handles it
-              all.
-            </motion.p> */}
-          {/* Tagline */}
-          {/* <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-purple-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-8"
-            >
-              explore with your CoBrother at your doostep
-            </motion.p> */}
-          {/* CTA Button */}
-          {/* <motion.button
-              onClick={() => setShowBookingModal(true)}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              whileHover={{ null: true }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative overflow-hidden rounded-full inline-flex items-center gap-2 shadow-2xl shadow-purple-500/30"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500" />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500 " />
-
-              <span
-                onClick={() => navigate("contact")}
-                className="relative px-8 py-4 font-semibold text-white text-base sm:text-lg flex items-center gap-2 rounded-full border-2 border-transparent group-hover:border-white/60 transition-all duration-300"
-              >
-                Visit your <span className="font-bold">CoBrother</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </span>
-            </motion.button> */}
-          {/* Floating particles around the hero */}
-          {/* {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-purple-400 rounded-full pointer-events-none"
-                style={{
-                  left: `${15 + i * 12}%`,
-                  top: `${25 + (i % 3) * 25}%`,
-                  filter: "blur(0.5px)",
-                }}
-                animate={{
-                  y: [0, -40, 0],
-                  opacity: [0, 1, 0],
-                  scale: [0, 1.5, 0],
-                }}
-                transition={{
-                  duration: 3 + i * 0.3,
-                  repeat: Infinity,
-                  delay: i * 0.5,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-          </motion.div> */}
-
-          {/* 3. SERVICES GRID - THIRD */}
+          {/* 2. SERVICES GRID */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
             className="w-full max-w-7xl px-2 sm:px-4"
           >
-            <div className="flex flex-col md:flex-row  gap-4 sm:gap-5 lg:gap-6">
+            <div className="flex flex-col md:flex-row gap-4 sm:gap-5 lg:gap-6">
               {iconData.map((item, index) => (
-                <div className="flex-1 min-w-0">
-                  <ServiceCard
-                    key={index}
-                    item={item}
-                    index={index}
-                    navigate={navigate}
-                  />
+                <div key={index} className="flex-1 min-w-0">
+                  <ServiceCard item={item} index={index} navigate={navigate} />
                 </div>
               ))}
             </div>
@@ -588,19 +622,18 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 4. OTHER SECTIONS - FOURTH */}
+      {/* OTHER SECTIONS */}
       <JointVenture />
       <Domains />
-      {/* <ComplianceCards /> */}
       <Market />
-      {/* <Challenges />
-      <AIRobotics /> */}
       <Investors />
     </>
   );
 };
 
-// SERVICE CARD COMPONENT - OPTIMIZED FOR RESPONSIVENESS
+// ─────────────────────────────────────────────
+// SERVICE CARD
+// ─────────────────────────────────────────────
 const ServiceCard = ({ item, index, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -614,26 +647,12 @@ const ServiceCard = ({ item, index, navigate }) => {
       onClick={() => item.path && navigate(item.path)}
       className="relative group cursor-pointer h-full"
     >
-      {/* Glow Effect */}
       <div
         className={`absolute -inset-0.5 bg-gradient-to-r ${item.glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
       />
-
-      {/* Card Content - Dynamic Padding */}
       <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-3 sm:p-6 lg:p-8 hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center">
-        {/* Icon Container - Dynamic Sizing */}
         <div
-          className={`relative 
-            w-20 h-20 
-            sm:w-28 sm:h-28 
-            lg:w-32 lg:h-32 
-            mb-4 sm:mb-6
-            bg-gradient-to-br ${item.gradient}
-            rounded-2xl
-            flex items-center justify-center
-            transition-transform duration-300
-            group-hover:scale-110 group-hover:rotate-6
-          `}
+          className={`relative w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 mb-4 sm:mb-6 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}
         >
           <img
             src={item.Icon}
@@ -641,16 +660,16 @@ const ServiceCard = ({ item, index, navigate }) => {
             className="w-full h-full scale-[1.15] object-contain drop-shadow-xl"
           />
         </div>
-
         <h3
-          className={`text-sm sm:text-lg font-bold mb-1 sm:mb-2 transition-colors duration-300 ${isHovered ? item.iconColor : "text-white"}`}
+          className={`text-sm sm:text-lg font-bold mb-1 sm:mb-2 transition-colors duration-300 ${
+            isHovered ? item.iconColor : "text-white"
+          }`}
         >
           {item.title}
         </h3>
         <p className="text-[10px] sm:text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 mb-2 sm:mb-4 line-clamp-2 sm:line-clamp-none">
           {item.subtitle}
         </p>
-
         <motion.div
           initial={{ x: 0 }}
           animate={{ x: isHovered ? 5 : 0 }}
