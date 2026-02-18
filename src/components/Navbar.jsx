@@ -69,7 +69,7 @@ const Navbar = () => {
               {/* Logo - Responsive Scaling */}
               <motion.div
                 onClick={() => navigate("/")}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative cursor-pointer z-50 flex-shrink-0"
               >
@@ -77,10 +77,10 @@ const Navbar = () => {
                   src={Logo_white}
                   alt="CoBrother Aultum"
                   className="
-    h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64
+    h-7 sm:h-7 md:h-7 lg:h-10 xl:h-11 ml-8
     w-auto
     drop-shadow-2xl
-    transition-transform duration-300 scale-170
+    transition-transform duration-300 scale-140
   "
                 />
               </motion.div>
