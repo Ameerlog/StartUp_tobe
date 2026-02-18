@@ -10,7 +10,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/domain/FooterLogo1.png";
+import Logo from "../assets/domain/FooterLogo12.png";
 import { useNavigate } from "react-router-dom";
 
 const XLogo = ({ className }) => (
@@ -223,12 +223,16 @@ export default function Footer() {
       <section className="relative border-t border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
-            <div className="lg:col-span-2 space-y-6">
-              <Link to="/">
+            <div className="lg:col-span-2 space-y-6 text-left">
+              <Link to="/" className="inline-block">
                 <img
                   src={Logo}
                   alt="CoBrother Aultum"
-                  className="h-48 md:h-56 w-auto scale-150 ml-15"
+                  className="w-48 sm:w-48 md:w-60
+    h-auto
+    max-w-full
+    mb-5
+    cursor-pointer"
                 />
               </Link>
 
