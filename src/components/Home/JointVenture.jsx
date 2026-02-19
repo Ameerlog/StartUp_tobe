@@ -215,8 +215,10 @@ export default function JointVenture() {
                   <div className="flex-1 flex flex-col overflow-hidden">
                     <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
                       <img
-                        src={card.logo}
-                        alt="JV Brand Logo"
+                        // src={card.logo}
+                      src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+
+                        alt={card.logo}
                         className="h-50 max-w-full object-contain"
                         loading="lazy"
                       />

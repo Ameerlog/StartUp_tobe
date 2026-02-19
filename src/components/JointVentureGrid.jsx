@@ -24,7 +24,7 @@ export default function JointVentureGrid() {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched data:", data);
+          console.log("Fetched  venture data:", data);
 
           // ✅ Filter out entries with null/empty brandName
           const validBrands = data.filter(
@@ -183,8 +183,10 @@ export default function JointVentureGrid() {
                     >
                       <div className="flex items-center justify-center h-16 sm:h-20">
                         <img
-                          src={card.logo}
-                          alt={card.title}
+                          // src={card.logo}
+                        src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+
+                          alt={card.logo}
                           className="max-h-full max-w-[200px] object-contain scale-250"
                           loading="lazy"
                         />

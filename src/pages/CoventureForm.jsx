@@ -69,7 +69,9 @@ const getRatioParts = (equityValue) => {
   };
 };
 
-const API_BASE_URL = " https://cobrother-api.onrender.com";
+// const API_BASE_URL = " https://cobrother-api.onrender.com";
+const API_BASE_URL = " http://localhost:8080";
+
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -346,9 +348,23 @@ const CoVentureBrandListingForm = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentStep]);
 
-  const fetchAllBrands = async () => {
+  // const fetchAllBrands = async () => {
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}/api/ListAllCoVenture`);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setBrands(data);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching brands:", error);
+  //   }
+  // };
+
+
+
+   const fetchAllBrands = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/ListAllBrands`);
+      const response = await fetch(`${API_BASE_URL}api/ListAllCoVenture`);
       if (response.ok) {
         const data = await response.json();
         setBrands(data);
@@ -584,7 +600,7 @@ const CoVentureBrandListingForm = () => {
         console.log("Logo attached:", formData.brandLogo.name);
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/createCoBranding`, {
+      const response = await fetch(`${API_BASE_URL}/api/createCoVenture`, {
         method: "POST",
         body: formDataToSend,
       });
@@ -688,8 +704,10 @@ const CoVentureBrandListingForm = () => {
                   className="mb-4"
                 >
                   <img
-                    src={logoUrl}
-                    alt="Brand Logo"
+                    // src={logoUrl}
+                    src={`https://cobrother-api.onrender.com/api/images/${card.logoUrl}`}
+
+                    alt={card.logoUrl}
                     className="w-20 h-20 mx-auto rounded-xl object-cover border border-neutral-700"
                   />
                 </motion.div>

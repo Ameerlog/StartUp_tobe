@@ -45,8 +45,10 @@ const InvestorCard = ({ card }) => {
           {isProfile ? (
             card.logo ? (
               <img
-                src={card.logo}
-                alt={card.fullName}
+                // src={card.logo}
+                // alt={card.fullName}
+                src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+                  alt={card.logo}
                 className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
                          max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
                          object-contain 
@@ -84,8 +86,10 @@ const InvestorCard = ({ card }) => {
             )
           ) : (
             <img
-              src={card.src}
-              alt={card.company}
+              // src={card.src}
+              // alt={card.company}
+              src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+                alt={card.logo}
               className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
                        max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
                        object-contain 
