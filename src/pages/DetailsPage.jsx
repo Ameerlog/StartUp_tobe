@@ -104,7 +104,7 @@ export default function DomainDetailsLayout() {
                 <div className="aspect-[16/10] flex items-center justify-center">
                   {domain.logo ? (
                     <img
-                      src={domain.logo}
+                      src={`https://cobrother-api.onrender.com/api/images/${domain.logo}`}
                       alt={domainFullName}
                       className="max-h-full max-w-full object-contain p-10"
                       draggable={false}

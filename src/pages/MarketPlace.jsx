@@ -143,7 +143,9 @@ export default function MarketPlace() {
                         />
 
                         <motion.button
-                          onClick={() => navigate(`/marketplace/${item.slug}`)}
+                          onClick={() =>
+                            navigate(`/marketplace/domain/${domain.id}`)
+                          }
                           className="absolute inset-0 z-10"
                         />
 

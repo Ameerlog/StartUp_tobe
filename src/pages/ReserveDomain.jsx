@@ -3,7 +3,8 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { DESIGNS } from "../data/design";
 
 export default function ReserveDomainPage() {
-  const { slug } = useParams();
+  const { id } = useParams();
+
   const navigate = useNavigate();
   const item = useMemo(() => DESIGNS.find((d) => d.slug === slug), [slug]);
 
