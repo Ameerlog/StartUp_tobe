@@ -63,9 +63,10 @@ const footerColumns = [
     links: [
       // "Co-Creation Challenges",
       // "Co-Operation Setup",
-      "Co-Marketing Solutions",
-      "Co-Branding & Domains",
-      "Co-Working / Virtual Workspace",
+      "Co-Venture",
+      "Co-Marketing",
+      "Co-Branding",
+      "Co-Working",
     ],
   },
   {
@@ -90,6 +91,10 @@ const footerColumns = [
 ];
 
 const linkPaths = {
+   "Co-Venture": "/venture",
+      "Co-Marketing": "/marketing",
+      "Co-Branding": "/branding",
+      "Co-Working": "/community",
   "Co-Creation Challenges": "/co-creation",
   "Co-Operation Setup": "/ai",
   "Co-Marketing Solutions": "/marketing",
