@@ -34,6 +34,9 @@ const Navbar = () => {
   if (!isHomePage) {
     return null;
   }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const navLinks = [
     {
       name: "Solutions",
@@ -41,8 +44,8 @@ const Navbar = () => {
         { name: "Co-Venture", path: "/venture" },
         { name: "Co-Branding", path: "/branding" },
         { name: "Co-Marketing", path: "/marketing" },
-        { name: "Co-Creation", path: "/co-creation" },
-        { name: "Co-Operation", path: "/ai" },
+        // { name: "Co-Creation", path: "/co-creation" },
+        // { name: "Co-Operation", path: "/ai" },
         { name: "Co-Working", path: "/community" },
       ],
     },
@@ -76,6 +79,7 @@ const Navbar = () => {
                 <img
                   src={Logo_white}
                   alt="CoBrother Aultum"
+                  onClick={scrollToTop}
                   className="
     h-7 sm:h-7 md:h-7 lg:h-10 xl:h-11 ml-8
     w-auto
@@ -117,7 +121,7 @@ const Navbar = () => {
                               transition={{ duration: 0.2 }}
                               className="absolute top-full left-0 mt-2 w-52 xl:w-56"
                             >
-                              <div className="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                              <div className="relative bg-black backdrop-blur-xl border rounded-2xl overflow-hidden shadow-2xl">
                                 {link.dropdown.map((item) => (
                                   <Link
                                     key={item.name}

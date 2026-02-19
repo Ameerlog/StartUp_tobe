@@ -32,7 +32,7 @@ const social = [
     color: "hover:text-blue-400",
   },
   {
-    href: "https://www.instagram.com/cobrother__?igsh=bXE3YnR4dDJ6NnVi",
+    href: "https://www.instagram.com/cobrother.com_?igsh=MTM2dWw4cTUwY2V1Mw==",
     label: "Instagram",
     Icon: Instagram,
     color: "hover:text-pink-400",
@@ -61,9 +61,8 @@ const footerColumns = [
   {
     title: "Solutions",
     links: [
-      "Co-Creation Challenges",
-      "Co-Operation Setup",
-      "Co-Marketing Solutions",
+      "Co-Venture",
+      "Co-Marketing",
       "Co-Branding & Domains",
       "Co-Working / Virtual Workspace",
     ],

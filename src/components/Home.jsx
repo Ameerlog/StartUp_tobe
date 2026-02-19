@@ -22,11 +22,6 @@ import Market from "./Home/Marketing";
 import Investors from "./Home/Investors";
 
 // ─────────────────────────────────────────────
-// HEXAGON BACKGROUND  — canvas-based, full screen
-// The old div-per-hex approach stopped at ~70% width because
-// the grid was built with fixed COLS/ROWS that didn't match
-// the actual viewport.  Canvas recalculates on every resize.
-// ─────────────────────────────────────────────
 const HEX_R = 18; // hex "radius" (center → vertex)
 const HEX_PAD = 4; // pixel gap between hexagons
 const GLOW_R = 130; // cursor glow radius in px
@@ -38,7 +33,6 @@ const HexagonBackground = () => {
   const rafRef = useRef(null);
   const cellsRef = useRef([]);
 
-  // Recompute hex grid whenever the container resizes
   const buildGrid = useCallback(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
@@ -187,7 +181,7 @@ const HexagonBackground = () => {
         ref={canvasRef}
         style={{ position: "absolute", top: 0, left: 0 }}
       />
-      {/* Vertical fade — hexes are vivid top, dissolve toward bottom */}
+
       <div
         style={{
           position: "absolute",
@@ -652,7 +646,7 @@ const Home = () => {
           >
             <div className="flex flex-col md:flex-row gap-4 sm:gap-5 lg:gap-6">
               {iconData.map((item, index) => (
-                <div key={index} className="flex-1 min-w-0">
+                <div key={index} className="flex-1 min-w-0 ">
                   <ServiceCard item={item} index={index} navigate={navigate} />
                 </div>
               ))}
