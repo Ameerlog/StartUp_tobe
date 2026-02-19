@@ -90,15 +90,15 @@ export default function MarketPlace() {
             Let’s Find Your Brand Name
           </motion.h1>
 
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-sm sm:text-base text-neutral-400"
           >
             Start co-creation and build something memorable.
-          </motion.p>
+          </motion.p> */}
 
-          <motion.button
+          {/* <motion.button
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.05 }}
@@ -107,7 +107,7 @@ export default function MarketPlace() {
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20"
           >
             Start Co-creation →
-          </motion.button>
+          </motion.button> */}
         </div>
       </section>
 

@@ -61,8 +61,8 @@ const footerColumns = [
   {
     title: "Solutions",
     links: [
-      "Co-Creation Challenges",
-      "Co-Operation Setup",
+      // "Co-Creation Challenges",
+      // "Co-Operation Setup",
       "Co-Marketing Solutions",
       "Co-Branding & Domains",
       "Co-Working / Virtual Workspace",

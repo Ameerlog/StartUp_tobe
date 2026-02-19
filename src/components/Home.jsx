@@ -354,14 +354,14 @@ const Home = () => {
           />
         </div>
 
-        {/* ── BACKGROUND IMAGE ── */}
+        {/* ── BACKGROUND IMAGE ──
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
           <img
             src={BackgroundImage}
             alt="Background"
             className="w-full h-full object-cover object-center opacity-15"
           />
-        </div>
+        </div> */}
 
         {/* ── MAIN CONTENT ── */}
         <div

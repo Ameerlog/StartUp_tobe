@@ -177,7 +177,7 @@ export default function Domains({ variant = "dark" }) {
         <h2
           className={`text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold ${theme.heading}`}
         >
-          Co-Brandings
+          Co-Branding
         </h2>
         <button
           onClick={() => navigate("/domain-form")}
