@@ -23,12 +23,10 @@ const JointVentureCardSkeleton = () => {
         "
       >
         <div className="flex-1 flex flex-col overflow-hidden animate-pulse">
-          {/* Logo Box Skeleton */}
           <div className="rounded-xl border border-white/20 bg-[#0e1422] h-28 sm:h-32 md:h-36 lg:h-40 shrink-0 flex items-center justify-center">
             <div className="h-16 sm:h-20 w-24 sm:w-28 md:w-32 bg-gray-700/50 rounded-lg" />
           </div>
 
-          {/* Details List Skeleton */}
           <div className="mt-3 sm:mt-4 space-y-2 sm:space-y-2.5">
             <div className="flex gap-2 items-center">
               <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
@@ -42,14 +40,16 @@ const JointVentureCardSkeleton = () => {
               <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
               <div className="h-3 bg-gray-700/50 rounded w-2/5" />
             </div>
-            <div className="flex gap-2 items-center">
-              <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
-              <div className="h-3 bg-gray-700/50 rounded w-5/6" />
+            <div className="flex gap-2 items-start">
+              <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0 mt-1" />
+              <div className="flex-1 space-y-1">
+                <div className="h-3 bg-gray-700/50 rounded w-full" />
+                <div className="h-3 bg-gray-700/50 rounded w-3/4" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Button Skeleton */}
         <div className="mt-auto pt-4 shrink-0">
           <div className="w-full h-9 sm:h-10 bg-gray-700/50 rounded-full" />
         </div>
@@ -68,58 +68,52 @@ export default function JointVenture() {
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
-
-  const truncateText = (text, maxLength = 73) => {
-    if (!text) return "No description";
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
-  };
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
     const fetchBrands = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllBrands",
+          "https://cobrother-api.onrender.com/api/ListAllBrands"
         );
 
         if (response.ok) {
           const data = await response.json();
 
-          // Filter out empty brands
           const validBrands = data.filter(
-            (brand) => brand.brandDetails?.brandName,
+            (brand) => brand.brandDetails?.brandName
           );
 
-          // Map to card format
           const mapped = validBrands.map((brand) => {
             let logoUrl = brand.brandDetails?.logoUrl || "";
             if (logoUrl.includes("localhost:8080")) {
               logoUrl = logoUrl.replace(
                 "localhost:8080",
-                "192.168.29.184:8080",
+                "192.168.29.184:8080"
               );
             }
 
-              const ratioMap = {
-                FIFTY_FIFTY: "50:50",
-                SIXTY_FORTY: "60:40",
-                SEVENTY_THIRTY: "70:30",
-                EIGHTY_TWENTY: "80:20",
-                NINETY_TEN: "90:10",
-                NEGOTIABLE: "Negotiable",
-              };
-              const rawType = brand.brandDetails?.ventureType || "Negotiable";
-              const ventureRatio = ratioMap[rawType] || rawType;
+            const ratioMap = {
+              FIFTY_FIFTY: "50:50",
+              SIXTY_FORTY: "60:40",
+              SEVENTY_THIRTY: "70:30",
+              EIGHTY_TWENTY: "80:20",
+              NINETY_TEN: "90:10",
+              NEGOTIABLE: "Negotiable",
+            };
+            const rawType = brand.brandDetails?.ventureType || "Negotiable";
+            const ventureRatio = ratioMap[rawType] || rawType;
 
-              return {
-                id: brand.id,
-                logo: logoUrl,
-                brandName: brand.brandDetails?.brandName || "Unknown",
-                dealValue: `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`,
-                ventureType: ventureRatio,
-                desc: truncateText(brand.brandDetails?.description, 73),
-              };
+            return {
+              id: brand.id,
+              logo: logoUrl,
+              brandName: brand.brandDetails?.brandName || "Unknown",
+              dealValue: `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`,
+              ventureType: ventureRatio,
+              desc:
+                brand.brandDetails?.description || "No description available",
+            };
           });
 
           setBrands(mapped);
@@ -136,7 +130,6 @@ export default function JointVenture() {
 
   const duplicatedBrands = [...brands, ...brands];
 
-  // Auto-scroll animation
   useEffect(() => {
     const container = scrollRef.current;
     if (!container || loading || brands.length === 0) return;
@@ -211,7 +204,21 @@ export default function JointVenture() {
     });
   };
 
+  const handleImageError = (cardId) => {
+    setImageErrors((prev) => ({ ...prev, [cardId]: true }));
+  };
+
   const skeletonCount = 6;
+
+  // Styles for 2-line clamp
+  const twoLineClampStyle = {
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    wordBreak: "break-word",
+  };
 
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
@@ -330,75 +337,100 @@ export default function JointVenture() {
                     rounded-xl sm:rounded-2xl 
                     border border-white/20 
                     bg-gray-900/60 
-                    p-4 sm:p-5 md:p-6 
+                    p-20 sm:p-5 md:p-6 
                     flex flex-col
                     backdrop-blur-sm
                     hover:border-white/30
                     hover:bg-gray-900/80
                     hover:shadow-lg
                     transition-all duration-300
+                    overflow-hidden 
                   "
                 >
-                  <div className="flex-1 flex flex-col overflow-hidden">
-                    {/* Logo Box */}
-                    <div className="rounded-xl border border-white/20 bg-[#0e1422] flex items-center justify-center p-3 sm:p-4 h-28 sm:h-32 md:h-36 lg:h-40 shrink-0">
-                      {card.logo ? (
+                  <div className="flex-1 flex flex-col min-h-0">
+
+                    <div
+                      className="
+                      rounded-xl border   
+                        h-30 sm:h-32 md:h-36 lg:h-40 
+                        shrink-0
+                        overflow-hidden
+                        flex items-center justify-center
+                        p-2
+                      "
+                    >
+                      {card.logo && !imageErrors[`${card.id}-${index}`] ? (
                         <img
                           src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                           alt={card.brandName}
-                          className="max-h-full max-w-full object-contain"
+                          className="
+                            max-w-full max-h-full w-auto h-auto object-contain
+                          "
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                          }}
                           loading="lazy"
                           draggable={false}
+                          onError={() =>
+                            handleImageError(`${card.id}-${index}`)
+                          }
                         />
                       ) : (
-                        <div className="text-3xl sm:text-4xl font-bold text-white/20">
-                          {card.brandName.slice(0, 2).toUpperCase()}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-white/20">
+                            {card.brandName.slice(0, 2).toUpperCase()}
+                          </span>
                         </div>
                       )}
                     </div>
 
                     {/* Details List */}
-                    <div className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2 overflow-hidden">
-                      {[
-                        card.brandName,
-                        card.dealValue,
-                        card.ventureType,
-                        card.desc,
-                      ].map((item, idx) => (
-                        <p
-                          key={idx}
-                          className="
-                            text-[10px] sm:text-[11px] md:text-xs 
-                            text-gray-300 
-                            flex gap-1.5 sm:gap-2
-                          "
-                        >
-                          <span
-                            className="
-                              mt-1 sm:mt-1.5 
-                              h-1.5 w-1.5 sm:h-2 sm:w-2 
-                              rounded-full bg-white/60 
-                              shrink-0
-                            "
-                          />
-                          <span className={idx === 3 ? 'line-clamp-2' : 'line-clamp-1 font-medium'}>{item}</span>
-                        </p>
-                      ))}
+                    <div className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2">
+                      {/* Brand Name */}
+                      <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-300 flex gap-1.5 sm:gap-2 items-start">
+                        <span className="mt-1 sm:mt-1.5 h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-white/60 shrink-0" />
+                        <span className="font-medium truncate max-w-full">
+                          {card.brandName}
+                        </span>
+                      </p>
+
+                      {/* Deal Value */}
+                      <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-300 flex gap-1.5 sm:gap-2 items-start">
+                        <span className="mt-1 sm:mt-1.5 h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-white/60 shrink-0" />
+                        <span className="font-medium truncate">
+                          {card.dealValue}
+                        </span>
+                      </p>
+
+                      {/* Venture Type */}
+                      <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-300 flex gap-1.5 sm:gap-2 items-start">
+                        <span className="mt-1 sm:mt-1.5 h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-white/60 shrink-0" />
+                        <span className="font-medium truncate">
+                          {card.ventureType}
+                        </span>
+                      </p>
+
+                      {/* Description - Exactly 2 lines with ellipsis */}
+                      <div
+  className="text-[10px] sm:text-[11px] md:text-xs text-gray-300 flex gap-1.5 sm:gap-2 items-start"
+  title={card.desc}
+>
+  <span className="mt-1 sm:mt-1.5 h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-white/60 shrink-0" />
+  <span className="flex-1 truncate">
+    {card.desc}
+  </span>
+</div>
                     </div>
                   </div>
 
-                  <div
-                    className="
-                      mt-auto pt-4
-                      flex flex-col sm:flex-row 
-                      gap-2 sm:gap-2.5 md:gap-3
-                      shrink-0 cursor-pointer
-                    "
-                  >
+                  {/* Button */}
+                  <div className="shrink-0">
                     <button
                       onClick={() => navigate("/get-ventures")}
                       className="
-                        w-full sm:flex-1 
+                      
+                        w-full
                         rounded-full 
                         bg-gray-600 hover:bg-gray-500
                         px-3 sm:px-4 
@@ -408,7 +440,7 @@ export default function JointVenture() {
                         shadow-lg hover:shadow-white-500/25
                         active:scale-[0.98]
                         transition-all duration-200
-                        cursor-pointer
+                        cursor-pointer  
                       "
                     >
                       Get Coventure

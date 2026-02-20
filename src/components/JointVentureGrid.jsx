@@ -1,45 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { motion, LayoutGroup } from "framer-motion";
-import { Sparkles, ArrowRight } from "lucide-react";
-// import { jvMarqueeCards } from "../data/jointVenture";
+import { Sparkles, ArrowRight, ChevronDown } from "lucide-react";
 
 export default function JointVentureGrid() {
-  // NEW - Add state for fetched brands
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageErrors, setImageErrors] = useState({});
+  const [expandedCards, setExpandedCards] = useState({});
 
-  // ✅ Helper function to truncate description to 73 characters
-  const truncateText = (text, maxLength = 73) => {
-    if (!text) return "No description";
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
-  };
-
-  // ✅ FIXED - Fetch brands on mount with correct data path
   useEffect(() => {
     const fetchBrands = async () => {
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllBrands",
+          "https://cobrother-api.onrender.com/api/ListAllBrands"
         );
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched  venture data:", data);
+          console.log("Fetched venture data:", data);
 
-          // ✅ Filter out entries with null/empty brandName
           const validBrands = data.filter(
-            (brand) => brand.brandDetails?.brandName,
+            (brand) => brand.brandDetails?.brandName
           );
 
           const mapped = validBrands.map((brand) => {
-            // Fix localhost URL to use correct IP
-            let logoUrl =
-              brand.brandDetails?.logoUrl ||
-              "https://via.placeholder.com/200x80?text=No+Logo";
+            let logoUrl = brand.brandDetails?.logoUrl || "";
             if (logoUrl.includes("localhost:8080")) {
               logoUrl = logoUrl.replace(
                 "localhost:8080",
-                "192.168.29.184:8080",
+                "192.168.29.184:8080"
               );
             }
 
@@ -48,10 +36,11 @@ export default function JointVentureGrid() {
               logo: logoUrl,
               title: brand.brandDetails?.brandName || "Unknown Brand",
               details: [
-                brand.brandDetails?.brandName || "Unknown Brand", // ✅ Brand name
-                `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`, // ✅ Deal value
-                truncateText(brand.brandDetails?.description, 73), // ✅ Description (max 73 chars)
+                brand.brandDetails?.brandName || "Unknown Brand",
+                `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`,
               ],
+              description:
+                brand.brandDetails?.description || "No description available",
             };
           });
 
@@ -66,6 +55,19 @@ export default function JointVentureGrid() {
     };
     fetchBrands();
   }, []);
+
+  const handleImageError = (cardId) => {
+    setImageErrors((prev) => ({ ...prev, [cardId]: true }));
+  };
+
+  const toggleExpand = (cardId) => {
+    setExpandedCards((prev) => ({ ...prev, [cardId]: !prev[cardId] }));
+  };
+
+  const needsExpansion = (text) => {
+    if (!text) return false;
+    return text.length > 100;
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -109,7 +111,15 @@ export default function JointVentureGrid() {
     },
   ];
 
-  // Show loading state
+  const threeLineClampStyle = {
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    wordBreak: "break-word",
+  };
+
   if (loading) {
     return (
       <main className="relative bg-black text-white py-16">
@@ -163,6 +173,8 @@ export default function JointVentureGrid() {
           >
             {brands.map((card, index) => {
               const theme = cardColors[index % cardColors.length];
+              const isExpanded = expandedCards[card.id];
+              const showToggle = needsExpansion(card.description);
 
               return (
                 <motion.article
@@ -181,15 +193,24 @@ export default function JointVentureGrid() {
                     <div
                       className={`border-b border-neutral-800/50 bg-gradient-to-br ${theme.gradient} px-5 py-6`}
                     >
-                      <div className="flex items-center justify-center h-16 sm:h-20">
-                        <img
-                          // src={card.logo}
-                        src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-
-                          alt={card.logo}
-                          className="max-h-full max-w-[200px] object-contain scale-250"
-                          loading="lazy"
-                        />
+                   
+                      <div className="relative h-24 sm:h-28 md:h-32 w-full overflow-hidden rounded-lg flex items-center justify-center">
+                        {card.logo && !imageErrors[card.id] ? (
+                          <img
+                            src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+                            alt={card.title}
+                            className="absolute inset-0 w-full h-full object-contain"
+                            loading="lazy"
+                            draggable={false}
+                            onError={() => handleImageError(card.id)}
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full w-full">
+                            <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-white/20">
+                              {card.title.slice(0, 2).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       <div className="mt-4 flex items-center justify-between">
@@ -215,18 +236,71 @@ export default function JointVentureGrid() {
                     </div>
 
                     <div className="px-5 py-4">
-                      <div className="mt-3 space-y-2">
-                        {card.details.slice(0, 3).map((item, i) => (
-                          <p
-                            key={i}
-                            className="flex items-start gap-2 text-xs text-neutral-400"
-                          >
+                      <div className="space-y-2">
+                        {/* Brand Name */}
+                        <p className="flex items-start gap-2 text-xs text-neutral-400">
+                          <span
+                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-gradient-to-r ${theme.gradient}`}
+                          />
+                          <span className="line-clamp-1 font-medium text-white">
+                            {card.details[0]}
+                          </span>
+                        </p>
+
+                        {/* Deal Value */}
+                        <p className="flex items-start gap-2 text-xs text-neutral-400">
+                          <span
+                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-gradient-to-r ${theme.gradient}`}
+                          />
+                          <span className="line-clamp-1">
+                            {card.details[1]}
+                          </span>
+                        </p>
+
+                        {/* Description - 3 lines collapsed, full when expanded */}
+                        <div className="flex items-start gap-2 text-xs text-neutral-400">
+                          <span
+                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-gradient-to-r ${theme.gradient}`}
+                          />
+                          <div className="flex-1 min-w-0">
                             <span
-                              className={`mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`}
-                            />
-                            <span className="line-clamp-1">{item}</span>
-                          </p>
-                        ))}
+                              className="leading-relaxed block"
+                              style={
+                                !isExpanded && showToggle
+                                  ? threeLineClampStyle
+                                  : { wordBreak: "break-word" }
+                              }
+                            >
+                              {card.description}
+                            </span>
+
+                            {showToggle && (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleExpand(card.id);
+                                }}
+                                className="
+                                  mt-1 
+                                  inline-flex items-center gap-0.5 
+                                  text-[15px] font-medium 
+                                  text-purple-400 hover:text-purple-300 
+                                  transition-colors duration-200 
+                                  cursor-pointer
+                                "
+                              >
+                                <span>
+                                  {isExpanded ? "Show less" : "Show more"}
+                                </span>
+                                <ChevronDown
+                                  className={`h-5 w-5 transition-transform duration-300 ${
+                                    isExpanded ? "rotate-180" : ""
+                                  }`}
+                                />
+                              </button>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
