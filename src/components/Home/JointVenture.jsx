@@ -23,26 +23,29 @@ const JointVentureCardSkeleton = () => {
         "
       >
         <div className="flex-1 flex flex-col overflow-hidden animate-pulse">
-          <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
-            <div className="h-8 sm:h-10 md:h-12 w-24 sm:w-28 md:w-32 bg-gray-700/50 rounded-lg" />
+          {/* Logo Box Skeleton */}
+          <div className="rounded-xl border border-white/20 bg-[#0e1422] h-28 sm:h-32 md:h-36 lg:h-40 shrink-0 flex items-center justify-center">
+            <div className="h-16 sm:h-20 w-24 sm:w-28 md:w-32 bg-gray-700/50 rounded-lg" />
           </div>
 
-          <div className="h-[48px] sm:h-[54px] md:h-[60px] mt-3 sm:mt-4 space-y-2">
-            <div className="h-3 sm:h-3.5 bg-gray-700/50 rounded w-full" />
-            <div className="h-3 sm:h-3.5 bg-gray-700/50 rounded w-5/6" />
-            <div className="h-3 sm:h-3.5 bg-gray-700/50 rounded w-4/6" />
-          </div>
-
-          <div className="h-[80px] sm:h-[90px] md:h-[100px] mt-3 sm:mt-4 space-y-2 sm:space-y-2.5">
-            {[1, 2, 3].map((_, index) => (
-              <div key={index} className="flex gap-1.5 sm:gap-2 items-center">
-                <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
-                <div
-                  className="h-2.5 sm:h-3 bg-gray-700/50 rounded"
-                  style={{ width: `${70 - index * 15}%` }}
-                />
-              </div>
-            ))}
+          {/* Details List Skeleton */}
+          <div className="mt-3 sm:mt-4 space-y-2 sm:space-y-2.5">
+            <div className="flex gap-2 items-center">
+              <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
+              <div className="h-3 bg-gray-700/50 rounded w-3/4" />
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
+              <div className="h-3 bg-gray-700/50 rounded w-1/2" />
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
+              <div className="h-3 bg-gray-700/50 rounded w-2/5" />
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="h-1.5 w-1.5 rounded-full bg-gray-700/50 shrink-0" />
+              <div className="h-3 bg-gray-700/50 rounded w-5/6" />
+            </div>
           </div>
         </div>
 
@@ -98,16 +101,25 @@ export default function JointVenture() {
               );
             }
 
-            return {
-              id: brand.id,
-              logo: logoUrl,
-              desc: truncateText(brand.brandDetails?.description, 73),
-              details: [
-                brand.brandDetails?.brandName || "Unknown",
-                `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`,
-                "Get Venture",
-              ],
-            };
+              const ratioMap = {
+                FIFTY_FIFTY: "50:50",
+                SIXTY_FORTY: "60:40",
+                SEVENTY_THIRTY: "70:30",
+                EIGHTY_TWENTY: "80:20",
+                NINETY_TEN: "90:10",
+                NEGOTIABLE: "Negotiable",
+              };
+              const rawType = brand.brandDetails?.ventureType || "Negotiable";
+              const ventureRatio = ratioMap[rawType] || rawType;
+
+              return {
+                id: brand.id,
+                logo: logoUrl,
+                brandName: brand.brandDetails?.brandName || "Unknown",
+                dealValue: `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`,
+                ventureType: ventureRatio,
+                desc: truncateText(brand.brandDetails?.description, 73),
+              };
           });
 
           setBrands(mapped);
@@ -328,47 +340,48 @@ export default function JointVenture() {
                   "
                 >
                   <div className="flex-1 flex flex-col overflow-hidden">
-                    <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
-                      <img
-                        src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-                        alt={card.logo}
-                        className="h-50 max-w-full object-contain"
-                        loading="lazy"
-                      />
+                    {/* Logo Box */}
+                    <div className="rounded-xl border border-white/20 bg-[#0e1422] flex items-center justify-center p-3 sm:p-4 h-28 sm:h-32 md:h-36 lg:h-40 shrink-0">
+                      {card.logo ? (
+                        <img
+                          src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+                          alt={card.brandName}
+                          className="max-h-full max-w-full object-contain"
+                          loading="lazy"
+                          draggable={false}
+                        />
+                      ) : (
+                        <div className="text-3xl sm:text-4xl font-bold text-white/20">
+                          {card.brandName.slice(0, 2).toUpperCase()}
+                        </div>
+                      )}
                     </div>
 
-                    <div className="h-[48px] sm:h-[54px] md:h-[60px] mt-3 sm:mt-4 overflow-hidden">
-                      <p
-                        className="
-                          text-xs sm:text-[13px] md:text-sm 
-                          text-gray-300 
-                          leading-relaxed
-                          line-clamp-3
-                        "
-                      >
-                        {card.desc}
-                      </p>
-                    </div>
-
-                    <div className="h-[80px] sm:h-[90px] md:h-[100px] mt-3 sm:mt-4 space-y-1 sm:space-y-1.5 overflow-hidden">
-                      {card.details.slice(0, 3).map((item, idx) => (
+                    {/* Details List */}
+                    <div className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2 overflow-hidden">
+                      {[
+                        card.brandName,
+                        card.dealValue,
+                        card.ventureType,
+                        card.desc,
+                      ].map((item, idx) => (
                         <p
                           key={idx}
                           className="
                             text-[10px] sm:text-[11px] md:text-xs 
-                            text-gray-400 
+                            text-gray-300 
                             flex gap-1.5 sm:gap-2
                           "
                         >
                           <span
                             className="
                               mt-1 sm:mt-1.5 
-                              h-1 w-1 sm:h-1.5 sm:w-1.5 
+                              h-1.5 w-1.5 sm:h-2 sm:w-2 
                               rounded-full bg-white/60 
                               shrink-0
                             "
                           />
-                          <span className="line-clamp-1">{item}</span>
+                          <span className={idx === 3 ? 'line-clamp-2' : 'line-clamp-1 font-medium'}>{item}</span>
                         </p>
                       ))}
                     </div>
