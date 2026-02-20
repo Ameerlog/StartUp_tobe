@@ -1087,11 +1087,12 @@ const CoVentureBrandListingForm = () => {
                       onChange={handleInputChange}
                       placeholder="Tell us about your brand..."
                       rows={4}
+                      maxLength={73}
                       className="w-full px-4 py-3.5 bg-neutral-900/80 border border-neutral-800/60 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 resize-none"
                     />
                     <div className="flex justify-end mt-1">
                       <span className="text-xs text-neutral-500">
-                        {formData.brandDescription?.length || 0}/500
+                        {formData.brandDescription?.length || 0}/73
                       </span>
                     </div>
                   </div>
