@@ -43,6 +43,17 @@ export default function JointVentureGrid() {
               );
             }
 
+            const ratioMap = {
+              FIFTY_FIFTY: "50:50",
+              SIXTY_FORTY: "60:40",
+              SEVENTY_THIRTY: "70:30",
+              EIGHTY_TWENTY: "80:20",
+              NINETY_TEN: "90:10",
+              NEGOTIABLE: "Negotiable",
+            };
+            const rawType = brand.brandDetails?.ventureType || "Negotiable";
+            const ventureRatio = ratioMap[rawType] || rawType;
+
             return {
               id: brand.id,
               logo: logoUrl,
@@ -50,6 +61,7 @@ export default function JointVentureGrid() {
               details: [
                 brand.brandDetails?.brandName || "Unknown Brand", // ✅ Brand name
                 `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`, // ✅ Deal value
+                ventureRatio, // ✅ Venture Type (50:50, 60:40, etc.)
                 truncateText(brand.brandDetails?.description, 73), // ✅ Description (max 73 chars)
               ],
             };
@@ -184,8 +196,7 @@ export default function JointVentureGrid() {
                       <div className="flex items-center justify-center h-16 sm:h-20">
                         <img
                           // src={card.logo}
-                        src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-
+                          src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                           alt={card.logo}
                           className="max-h-full max-w-[200px] object-contain scale-250"
                           loading="lazy"
@@ -216,7 +227,7 @@ export default function JointVentureGrid() {
 
                     <div className="px-5 py-4">
                       <div className="mt-3 space-y-2">
-                        {card.details.slice(0, 3).map((item, i) => (
+                        {card.details.map((item, i) => (
                           <p
                             key={i}
                             className="flex items-start gap-2 text-xs text-neutral-400"
@@ -224,7 +235,13 @@ export default function JointVentureGrid() {
                             <span
                               className={`mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`}
                             />
-                            <span className="line-clamp-1">{item}</span>
+                            <span
+                              className={
+                                i === 3 ? "line-clamp-2" : "line-clamp-1"
+                              }
+                            >
+                              {item}
+                            </span>
                           </p>
                         ))}
                       </div>
