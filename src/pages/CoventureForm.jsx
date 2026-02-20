@@ -69,8 +69,8 @@ const getRatioParts = (equityValue) => {
   };
 };
 
-// const API_BASE_URL = " https://cobrother-api.onrender.com";
-const API_BASE_URL = " http://localhost:8080";
+const API_BASE_URL = "https://cobrother-api.onrender.com";
+// const API_BASE_URL = "http://localhost:8080";
 
 
 const AnimatedBackground = () => (
@@ -364,7 +364,7 @@ const CoVentureBrandListingForm = () => {
 
    const fetchAllBrands = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}api/ListAllCoVenture`);
+      const response = await fetch(`${API_BASE_URL}/api/ListAllBrands`);
       if (response.ok) {
         const data = await response.json();
         setBrands(data);
@@ -704,10 +704,8 @@ const CoVentureBrandListingForm = () => {
                   className="mb-4"
                 >
                   <img
-                    // src={logoUrl}
-                    src={`https://cobrother-api.onrender.com/api/images/${card.logoUrl}`}
-
-                    alt={card.logoUrl}
+                    src={`https://cobrother-api.onrender.com/api/images/${logoUrl}`}
+                    alt="Brand Logo"
                     className="w-20 h-20 mx-auto rounded-xl object-cover border border-neutral-700"
                   />
                 </motion.div>

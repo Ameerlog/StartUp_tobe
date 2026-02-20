@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Marquee from "react-fast-marquee";
-import { ArrowRight } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const JointVentureCardSkeleton = () => {
@@ -58,8 +57,14 @@ const JointVentureCardSkeleton = () => {
 
 export default function JointVenture() {
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const animationRef = useRef(null);
+  const touchStartRef = useRef(null);
+  const idleTimerRef = useRef(null);
+
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   const truncateText = (text, maxLength = 73) => {
     if (!text) return "No description";
@@ -83,7 +88,7 @@ export default function JointVenture() {
             (brand) => brand.brandDetails?.brandName,
           );
 
-          // Map to marquee card format
+          // Map to card format
           const mapped = validBrands.map((brand) => {
             let logoUrl = brand.brandDetails?.logoUrl || "";
             if (logoUrl.includes("localhost:8080")) {
@@ -116,6 +121,83 @@ export default function JointVenture() {
 
     fetchBrands();
   }, []);
+
+  const duplicatedBrands = [...brands, ...brands];
+
+  // Auto-scroll animation
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container || loading || brands.length === 0) return;
+
+    let scrollSpeed = 1;
+
+    const animate = () => {
+      if (!isPaused && container) {
+        container.scrollLeft += scrollSpeed;
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPaused, loading, brands.length]);
+
+  const resetIdleTimer = () => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 5000);
+  };
+
+  const handleMouseEnter = () => {
+    if (loading) return;
+    setIsPaused(true);
+    resetIdleTimer();
+  };
+
+  const handleMouseLeave = () => {
+    if (loading) return;
+    resetIdleTimer();
+  };
+
+  const handleTouchStart = (e) => {
+    if (loading) return;
+    touchStartRef.current = e.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (loading || touchStartRef.current === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+    if (Math.abs(diff) > 50) {
+      handleScroll(diff > 0 ? "right" : "left");
+    }
+    touchStartRef.current = null;
+    resetIdleTimer();
+  };
+
+  const handleScroll = (dir) => {
+    if (!scrollRef.current || loading) return;
+    setIsPaused(true);
+    resetIdleTimer();
+
+    const firstCard = scrollRef.current.querySelector(":scope > div");
+    const scrollAmount = firstCard ? firstCard.offsetWidth : 330;
+
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   const skeletonCount = 6;
 
@@ -151,7 +233,13 @@ export default function JointVenture() {
         </button>
       </div>
 
-      <div className="relative mt-6 sm:mt-8 md:mt-10">
+      <div
+        className="relative mt-6 sm:mt-8 md:mt-10"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="
             pointer-events-none absolute left-0 top-0 z-10 
@@ -168,29 +256,56 @@ export default function JointVenture() {
           "
         />
 
-        {loading ? (
-          <div className="flex overflow-hidden px-2 sm:px-4">
-            {[...Array(skeletonCount)].map((_, index) => (
+        {!loading && brands.length > 0 && (
+          <>
+            <button
+              onClick={() => handleScroll("left")}
+              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2
+                rounded-full border backdrop-blur-xl
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
+                border-white/20 bg-white/10 text-white hover:bg-white/20
+                opacity-80 hover:opacity-100 active:scale-95
+              "
+            >
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+
+            <button
+              onClick={() => handleScroll("right")}
+              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2
+                rounded-full border backdrop-blur-xl
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
+                border-white/20 bg-white/10 text-white hover:bg-white/20
+                opacity-80 hover:opacity-100 active:scale-95
+              "
+            >
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </>
+        )}
+
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-hidden px-2 sm:px-4"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          {loading ? (
+            [...Array(skeletonCount)].map((_, index) => (
               <JointVentureCardSkeleton key={`skeleton-${index}`} />
-            ))}
-          </div>
-        ) : brands.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-white/60">
-              No brands available yet. Be the first to list!
-            </p>
-          </div>
-        ) : (
-          <Marquee
-            speed={24}
-            gradient={false}
-            pauseOnHover
-            pauseOnClick
-            scrollable
-          >
-            {brands.map((card) => (
+            ))
+          ) : brands.length === 0 ? (
+            <div className="text-center py-16 w-full">
+              <p className="text-white/60">
+                No brands available yet. Be the first to list!
+              </p>
+            </div>
+          ) : (
+            duplicatedBrands.map((card, index) => (
               <div
-                key={card.id}
+                key={`${card.id}-${index}`}
                 className="
                   shrink-0 
                   w-65 sm:w-75 md:w-85 lg:w-95 
@@ -215,9 +330,7 @@ export default function JointVenture() {
                   <div className="flex-1 flex flex-col overflow-hidden">
                     <div className="h-10 sm:h-12 md:h-14 lg:h-[60px] flex items-center shrink-0">
                       <img
-                        // src={card.logo}
-                      src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-
+                        src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                         alt={card.logo}
                         className="h-50 max-w-full object-contain"
                         loading="lazy"
@@ -238,9 +351,9 @@ export default function JointVenture() {
                     </div>
 
                     <div className="h-[80px] sm:h-[90px] md:h-[100px] mt-3 sm:mt-4 space-y-1 sm:space-y-1.5 overflow-hidden">
-                      {card.details.slice(0, 3).map((item, index) => (
+                      {card.details.slice(0, 3).map((item, idx) => (
                         <p
-                          key={index}
+                          key={idx}
                           className="
                             text-[10px] sm:text-[11px] md:text-xs 
                             text-gray-400 
@@ -290,9 +403,9 @@ export default function JointVenture() {
                   </div>
                 </div>
               </div>
-            ))}
-          </Marquee>
-        )}
+            ))
+          )}
+        </div>
       </div>
 
       <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 flex justify-center px-4">

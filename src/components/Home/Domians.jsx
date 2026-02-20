@@ -55,8 +55,8 @@ export default function Domains({ variant = "dark" }) {
   const isDark = variant === "dark";
 
   const [isPaused, setIsPaused] = useState(false);
-  const [showButtons, setShowButtons] = useState(false);
   const idleTimerRef = useRef(null);
+  const touchStartRef = useRef(null);
 
   // Fetch state
   const [domains, setDomains] = useState([]);
@@ -118,14 +118,12 @@ export default function Domains({ variant = "dark" }) {
 
     idleTimerRef.current = setTimeout(() => {
       setIsPaused(false);
-      setShowButtons(false);
     }, 5000);
   };
 
   const handleMouseEnter = () => {
     if (isLoading) return;
     setIsPaused(true);
-    setShowButtons(true);
     resetIdleTimer();
   };
 
@@ -134,14 +132,37 @@ export default function Domains({ variant = "dark" }) {
     resetIdleTimer();
   };
 
+  // Touch handlers for mobile/tablet swipe support
+  const handleTouchStart = (e) => {
+    if (isLoading) return;
+    touchStartRef.current = e.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (isLoading || touchStartRef.current === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+
+    // Swipe threshold of 50px
+    if (Math.abs(diff) > 50) {
+      handleScroll(diff > 0 ? "right" : "left");
+    }
+
+    touchStartRef.current = null;
+    resetIdleTimer();
+  };
+
   const handleScroll = (dir) => {
     if (!scrollRef.current || isLoading) return;
 
     setIsPaused(true);
-    setShowButtons(true);
     resetIdleTimer();
 
-    const scrollAmount = 330;
+    // Measure actual card width (including padding/margin) for perfect snapping
+    const firstCard = scrollRef.current.querySelector(":scope > div");
+    const scrollAmount = firstCard ? firstCard.offsetWidth : 330;
+
     scrollRef.current.scrollBy({
       left: dir === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
@@ -204,6 +225,8 @@ export default function Domains({ variant = "dark" }) {
         className="relative mt-8"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <div
           className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-r ${theme.fadeFrom} to-transparent`}
@@ -216,11 +239,11 @@ export default function Domains({ variant = "dark" }) {
           <>
             <button
               onClick={() => handleScroll("left")}
-              className={`absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2
+              className={`absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2
                 rounded-full border backdrop-blur-xl
-                p-2 sm:p-3 transition-all duration-300
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
                 ${theme.navButton}
-                ${showButtons ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}
+                opacity-80 hover:opacity-100 active:scale-95
               `}
             >
               <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -228,11 +251,11 @@ export default function Domains({ variant = "dark" }) {
 
             <button
               onClick={() => handleScroll("right")}
-              className={`absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2
+              className={`absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2
                 rounded-full border backdrop-blur-xl
-                p-2 sm:p-3 transition-all duration-300
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
                 ${theme.navButton}
-                ${showButtons ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}
+                opacity-80 hover:opacity-100 active:scale-95
               `}
             >
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />

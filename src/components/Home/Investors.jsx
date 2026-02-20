@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import MarqueeRow from "../../components/Marquee";
+import React, { useState, useEffect, useRef } from "react";
 import { investorCards } from "../../data/investors";
-import BackgroundImage from "../../assets/domain/bg1.svg";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 const API_BASE_URL = "https://cobrother-api.onrender.com";
 
 const InvestorCard = ({ card }) => {
@@ -45,8 +43,6 @@ const InvestorCard = ({ card }) => {
           {isProfile ? (
             card.logo ? (
               <img
-                // src={card.logo}
-                // alt={card.fullName}
                 src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                   alt={card.logo}
                 className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
@@ -86,8 +82,6 @@ const InvestorCard = ({ card }) => {
             )
           ) : (
             <img
-              // src={card.src}
-              // alt={card.company}
               src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                 alt={card.logo}
               className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
@@ -203,9 +197,15 @@ const SkeletonCard = () => (
 
 export default function Investors() {
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const animationRef = useRef(null);
+  const touchStartRef = useRef(null);
+  const idleTimerRef = useRef(null);
+
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dataToDisplay, setDataToDisplay] = useState(investorCards);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -247,9 +247,82 @@ export default function Investors() {
     return () => clearInterval(interval);
   }, []);
 
-  const midPoint = Math.ceil(dataToDisplay.length / 2);
-  const firstRowData = dataToDisplay.slice(0, midPoint);
-  const secondRowData = dataToDisplay.slice(midPoint);
+  const duplicatedData = [...dataToDisplay, ...dataToDisplay];
+
+  // Auto-scroll animation
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container || loading || dataToDisplay.length === 0) return;
+
+    let scrollSpeed = 1;
+
+    const animate = () => {
+      if (!isPaused && container) {
+        container.scrollLeft += scrollSpeed;
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPaused, loading, dataToDisplay.length]);
+
+  const resetIdleTimer = () => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 5000);
+  };
+
+  const handleMouseEnter = () => {
+    if (loading) return;
+    setIsPaused(true);
+    resetIdleTimer();
+  };
+
+  const handleMouseLeave = () => {
+    if (loading) return;
+    resetIdleTimer();
+  };
+
+  const handleTouchStart = (e) => {
+    if (loading) return;
+    touchStartRef.current = e.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (loading || touchStartRef.current === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+    if (Math.abs(diff) > 50) {
+      handleScroll(diff > 0 ? "right" : "left");
+    }
+    touchStartRef.current = null;
+    resetIdleTimer();
+  };
+
+  const handleScroll = (dir) => {
+    if (!scrollRef.current || loading) return;
+    setIsPaused(true);
+    resetIdleTimer();
+
+    const firstCard = scrollRef.current.querySelector(":scope > div");
+    const scrollAmount = firstCard ? firstCard.offsetWidth : 330;
+
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
@@ -266,47 +339,70 @@ export default function Investors() {
         </button>
       </div>
 
-      <div className="relative mt-4 sm:mt-6 md:mt-8 lg:mt-10">
+      <div
+        className="relative mt-4 sm:mt-6 md:mt-8 lg:mt-10"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Left fade */}
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
 
         {/* Right fade */}
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
-        <div className="mx-auto max-w-[1400px] overflow-hidden space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10">
-          {loading ? (
-            <>
-              <div className="flex gap-4">
-                {[...Array(5)].map((_, i) => (
-                  <SkeletonCard key={`skeleton-1-${i}`} />
-                ))}
-              </div>
-              <div className="flex gap-4">
-                {[...Array(5)].map((_, i) => (
-                  <SkeletonCard key={`skeleton-2-${i}`} />
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <MarqueeRow
-                data={firstRowData}
-                speed={25}
-                renderItem={(card) => (
-                  <InvestorCard
-                    card={card}
-                    key={card.Id || card.company || Math.random()}
-                  />
-                )}
-              />
 
-              {/* Uncomment to show second row */}
-              {/* <MarqueeRow
-                data={secondRowData}
-                speed={25}
-                direction="right"
-                renderItem={(card) => <InvestorCard card={card} key={card.Id || card.company || Math.random()} />}
-              /> */}
-            </>
+        {!loading && dataToDisplay.length > 0 && (
+          <>
+            <button
+              onClick={() => handleScroll("left")}
+              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2
+                rounded-full border backdrop-blur-xl
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
+                border-white/20 bg-white/10 text-white hover:bg-white/20
+                opacity-80 hover:opacity-100 active:scale-95
+              "
+            >
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+
+            <button
+              onClick={() => handleScroll("right")}
+              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2
+                rounded-full border backdrop-blur-xl
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
+                border-white/20 bg-white/10 text-white hover:bg-white/20
+                opacity-80 hover:opacity-100 active:scale-95
+              "
+            >
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </>
+        )}
+
+        <div className="mx-auto max-w-[1400px] overflow-hidden">
+          {loading ? (
+            <div className="flex gap-4">
+              {[...Array(5)].map((_, i) => (
+                <SkeletonCard key={`skeleton-${i}`} />
+              ))}
+            </div>
+          ) : (
+            <div
+              ref={scrollRef}
+              className="flex overflow-x-hidden"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
+              {duplicatedData.map((card, index) => (
+                <InvestorCard
+                  card={card}
+                  key={`${card.Id || card.company || index}-${index}`}
+                />
+              ))}
+            </div>
           )}
         </div>
       </div>

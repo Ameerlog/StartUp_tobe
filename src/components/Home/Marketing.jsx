@@ -1,10 +1,91 @@
-import React from "react";
-import Marquee from "react-fast-marquee";
+import React, { useRef, useState, useEffect } from "react";
 import { Market } from "../../data/marketing";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 export default function Marketing() {
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const animationRef = useRef(null);
+  const touchStartRef = useRef(null);
+  const idleTimerRef = useRef(null);
+
+  const [isPaused, setIsPaused] = useState(false);
+
+  const duplicatedMarket = [...Market, ...Market];
+
+  // Auto-scroll animation
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container || Market.length === 0) return;
+
+    let scrollSpeed = 1;
+
+    const animate = () => {
+      if (!isPaused && container) {
+        container.scrollLeft += scrollSpeed;
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPaused]);
+
+  const resetIdleTimer = () => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 5000);
+  };
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    resetIdleTimer();
+  };
+
+  const handleMouseLeave = () => {
+    resetIdleTimer();
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartRef.current === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+    if (Math.abs(diff) > 50) {
+      handleScroll(diff > 0 ? "right" : "left");
+    }
+    touchStartRef.current = null;
+    resetIdleTimer();
+  };
+
+  const handleScroll = (dir) => {
+    if (!scrollRef.current) return;
+    setIsPaused(true);
+    resetIdleTimer();
+
+    const firstCard = scrollRef.current.querySelector(":scope > div");
+    const scrollAmount = firstCard ? firstCard.offsetWidth : 300;
+
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16 relative overflow-hidden">
       <div className="text-center px-4 flex flex-col items-center gap-4">
@@ -35,19 +116,60 @@ export default function Marketing() {
         </button>
       </div>
 
-      <div className="relative mt-6 sm:mt-8 md:mt-10">
+      <div
+        className="relative mt-6 sm:mt-8 md:mt-10"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Left Gradient */}
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
 
         {/* Right Gradient */}
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
 
-        <Marquee speed={24} gradient={false} pauseOnHover autoFill>
-          {Market.map((card) => {
+        {Market.length > 0 && (
+          <>
+            <button
+              onClick={() => handleScroll("left")}
+              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2
+                rounded-full border backdrop-blur-xl
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
+                border-white/20 bg-white/10 text-white hover:bg-white/20
+                opacity-80 hover:opacity-100 active:scale-95
+              "
+            >
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+
+            <button
+              onClick={() => handleScroll("right")}
+              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2
+                rounded-full border backdrop-blur-xl
+                p-1.5 sm:p-2 md:p-3 transition-all duration-300
+                border-white/20 bg-white/10 text-white hover:bg-white/20
+                opacity-80 hover:opacity-100 active:scale-95
+              "
+            >
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </>
+        )}
+
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-hidden px-4 sm:px-8"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          {duplicatedMarket.map((card, index) => {
             const Icon = card.icon;
 
             return (
-              <div key={card.id} className="shrink-0 px-3 sm:px-4">
+              <div key={`${card.id}-${index}`} className="shrink-0 px-3 sm:px-4">
                 <div
                   className="
                     group
@@ -127,7 +249,7 @@ export default function Marketing() {
               </div>
             );
           })}
-        </Marquee>
+        </div>
       </div>
 
       <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center px-4">
