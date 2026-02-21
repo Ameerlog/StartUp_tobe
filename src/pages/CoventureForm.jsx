@@ -57,19 +57,8 @@ const stepIcons = {
   3: FileCheck,
 };
 
-const getRatioParts = (equityValue) => {
-  const option = equityStructureOptions.find(
-    (opt) => opt.value === equityValue,
-  );
-  if (!option || option.value === "NEGOTIABLE") return null;
-  const parts = option.ratio.split(":");
-  return {
-    yourShare: parseInt(parts[0], 10),
-    partnerShare: parseInt(parts[1], 10),
-  };
-};
-
-const API_BASE_URL = " https://cobrother-api.onrender.com";
+const API_BASE_URL = "https://cobrother-api.onrender.com";
+// const API_BASE_URL = "http://localhost:8080";
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -228,16 +217,14 @@ const EquityDropdown = ({
       >
         <div className="flex items-center gap-3">
           {selectedOption ? (
-            <>
-              <div>
-                <span className="text-sm text-white font-medium">
-                  {selectedOption.label}
-                </span>
-                <span className="text-xs text-neutral-500 ml-2">
-                  — {selectedOption.description}
-                </span>
-              </div>
-            </>
+            <div>
+              <span className="text-sm text-white font-medium">
+                {selectedOption.label}
+              </span>
+              <span className="text-xs text-neutral-500 ml-2">
+                — {selectedOption.description}
+              </span>
+            </div>
           ) : (
             <span className="text-sm text-neutral-500">{placeholder}</span>
           )}
@@ -278,18 +265,11 @@ const EquityDropdown = ({
                   >
                     <span className="text-lg">{option.icon}</span>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`text-sm font-semibold ${isSelected ? (isNegotiable ? "text-yellow-400" : "text-purple-400") : "text-white"}`}
-                        >
-                          {option.label}
-                        </span>
-                        <span
-                          className={`text-xs px-2 py-0.5 rounded-full ${isNegotiable ? "bg-yellow-500/20 text-yellow-400" : "bg-neutral-800 text-neutral-400"}`}
-                        >
-                          {option.ratio}
-                        </span>
-                      </div>
+                      <span
+                        className={`text-sm font-semibold ${isSelected ? (isNegotiable ? "text-yellow-400" : "text-purple-400") : "text-white"}`}
+                      >
+                        {option.label}
+                      </span>
                       <p className="text-xs text-neutral-500 mt-0.5">
                         {option.description}
                       </p>
@@ -532,6 +512,7 @@ const CoVentureBrandListingForm = () => {
   };
 
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep(3)) return;
@@ -563,7 +544,6 @@ const CoVentureBrandListingForm = () => {
           termsAccepted: formData.terms || false,
           jointVentureAccepted: jointVentureChecked,
           platformSuccessFeeAccepted: jointVentureChecked,
-          platformSuccessFeePercentage: jointVentureChecked ? 3 : 0,
           verificationAccepted: verificationChecked,
           ownershipCertified: verificationChecked,
           globalGridDisplayAuthorized: verificationChecked,
@@ -584,7 +564,7 @@ const CoVentureBrandListingForm = () => {
         console.log("Logo attached:", formData.brandLogo.name);
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/createCoBranding`, {
+      const response = await fetch(`${API_BASE_URL}/api/createCoVenture`, {
         method: "POST",
         body: formDataToSend,
       });
@@ -688,7 +668,7 @@ const CoVentureBrandListingForm = () => {
                   className="mb-4"
                 >
                   <img
-                    src={logoUrl}
+                    src={`https://cobrother-api.onrender.com/api/images/${logoUrl}`}
                     alt="Brand Logo"
                     className="w-20 h-20 mx-auto rounded-xl object-cover border border-neutral-700"
                   />
@@ -735,7 +715,6 @@ const CoVentureBrandListingForm = () => {
                 )}
               </motion.div>
 
-              {/* Show ID */}
               {submittedData?.id && (
                 <motion.p
                   initial={{ opacity: 0 }}
@@ -1029,7 +1008,6 @@ const CoVentureBrandListingForm = () => {
                     )}
                   </div>
 
-                  {/* Deal Value */}
                   <div>
                     <label className="block text-sm font-medium text-neutral-300 mb-2">
                       Deal Value <span className="text-pink-500">*</span>
@@ -1187,7 +1165,7 @@ const CoVentureBrandListingForm = () => {
                         I agree that for any capital raised or partnership
                         formed, a{" "}
                         <span className="font-semibold text-yellow-400">
-                          3% Platform Success Fee
+                          Platform Success Fee
                         </span>{" "}
                         in Equity or Cash will be assigned to CoBrother.
                       </span>
@@ -1259,48 +1237,6 @@ const CoVentureBrandListingForm = () => {
                           options={equityStructureOptions}
                           placeholder="Choose your preferred equity split"
                         />
-
-                        {equityStructure &&
-                          equityStructure !== "NEGOTIABLE" && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="mt-4 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl"
-                            >
-                              {(() => {
-                                const ratioParts =
-                                  getRatioParts(equityStructure);
-                                if (!ratioParts) return null;
-                                return (
-                                  <div>
-                                    <div className="flex justify-between text-xs text-neutral-400 mb-2">
-                                      <span>
-                                        {formData.brandName} (
-                                        {ratioParts.yourShare}%)
-                                      </span>
-                                      <span>
-                                        CoBrother ({ratioParts.partnerShare}%)
-                                      </span>
-                                    </div>
-                                    <div className="h-3 bg-neutral-800 rounded-full overflow-hidden flex">
-                                      <div
-                                        className="bg-gradient-to-r from-purple-500 to-purple-600 transition-all"
-                                        style={{
-                                          width: `${ratioParts.yourShare}%`,
-                                        }}
-                                      />
-                                      <div
-                                        className="bg-gradient-to-r from-pink-500 to-pink-600 transition-all"
-                                        style={{
-                                          width: `${ratioParts.partnerShare}%`,
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
-                                );
-                              })()}
-                            </motion.div>
-                          )}
 
                         {equityStructure === "NEGOTIABLE" && (
                           <motion.div

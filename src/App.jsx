@@ -29,6 +29,9 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
 import GetVentureForm from "./pages/GetVentureform";
+import SignIn from "./pages/auth/SignIn";
+import SignUp from "./pages/auth/SignUp";
+
 
 const App = () => {
   return (
@@ -44,13 +47,12 @@ const App = () => {
             <Route path="/compliance" element={<Compliance />} />
             <Route path="/ai" element={<AIRoboticsPage />} />
             <Route path="/co-creation" element={<Cocreation />} />
-            {/* <Route path='/community' element={<Community/>}/> */}
             <Route path="/venture" element={<Venture />} />
-            {/* joint venture apply button */}
+       
             <Route path="/apply" element={<ReserveDomainForm />} />
-            {/*  */}
+       
             <Route path="/marketplace" element={<MarketPlace />} />
-
+             
             <Route
               path="/marketplace/domain/:id"
               element={<DomainDetailsLayout />}
@@ -64,7 +66,6 @@ const App = () => {
               element={<Success />}
             />
 
-            {/* Footer */}
             <Route path="/community" element={<Investors />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
@@ -72,13 +73,17 @@ const App = () => {
             <Route path="/terms-of-service" element={<TermsAndConditions />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/careers" element={<Careers />} />
-            {/* Forms */}
-            {/* Coventure listing form  */}
+           
 
             <Route path="/get-ventures" element={<GetVentureForm />} />
             <Route path="/coventure-form" element={<CoventureForm />} />
             <Route path="/domain-form" element={<DomainlistingForm />} />
             <Route path="/coworker-form" element={<CoworkingForm />} />
+
+          
+           <Route path="/signin" element={<SignIn />} />
+           <Route path="/signup" element={<SignUp/>}/>
+
           </Routes>
         </div>
         <Footer />

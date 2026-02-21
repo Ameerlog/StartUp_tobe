@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -19,10 +19,177 @@ import Community from "../assets/domain/community.svg";
 import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
-import AIRobotics from "./Home/AIRobotics";
 import Investors from "./Home/Investors";
-import Challenges from "../components/Home/Challeges";
 
+// ─────────────────────────────────────────────
+// HEXAGON BACKGROUND  — canvas-based, full screen
+// ─────────────────────────────────────────────
+const HEX_R = 18;
+const HEX_PAD = 4;
+const GLOW_R = 130;
+
+const HexagonBackground = () => {
+  const wrapRef = useRef(null);
+  const canvasRef = useRef(null);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef(null);
+  const cellsRef = useRef([]);
+
+  const buildGrid = useCallback(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const W = wrap.offsetWidth;
+    const H = wrap.offsetHeight;
+
+    const hexW = Math.sqrt(3) * HEX_R;
+    const hexH = 2 * HEX_R;
+    const colStep = hexW + HEX_PAD;
+    const rowStep = hexH * 0.75 + HEX_PAD;
+
+    const cols = Math.ceil(W / colStep) + 2;
+    const rows = Math.ceil(H / rowStep) + 2;
+
+    const cells = [];
+    for (let row = -1; row < rows; row++) {
+      for (let col = -1; col < cols; col++) {
+        const offsetX = row % 2 === 1 ? colStep / 2 : 0;
+        cells.push({
+          cx: col * colStep + offsetX + hexW / 2,
+          cy: row * rowStep + hexH / 2,
+          r: HEX_R,
+        });
+      }
+    }
+    cellsRef.current = cells;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+  }, []);
+
+  useEffect(() => {
+    buildGrid();
+    const ro = new ResizeObserver(buildGrid);
+    if (wrapRef.current) ro.observe(wrapRef.current);
+    return () => ro.disconnect();
+  }, [buildGrid]);
+
+  useEffect(() => {
+    const onMove = (e) => {
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const rect = wrap.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  useEffect(() => {
+    const hexPath = (ctx, cx, cy, r) => {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 3) * i - Math.PI / 6;
+        const px = cx + r * Math.cos(angle);
+        const py = cy + r * Math.sin(angle);
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    };
+
+    const tick = () => {
+      rafRef.current = requestAnimationFrame(tick);
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = canvas.width / dpr;
+      const H = canvas.height / dpr;
+      const ctx = canvas.getContext("2d");
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      const cells = cellsRef.current;
+
+      cells.forEach(({ cx, cy, r }) => {
+        const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
+        const ratio = Math.max(0, 1 - dist / GLOW_R);
+
+        hexPath(ctx, cx, cy, r - 1);
+
+        if (ratio > 0.01) {
+          ctx.fillStyle = `rgba(139, 92, 246, ${0.04 + ratio * 0.18})`;
+          ctx.fill();
+
+          ctx.strokeStyle = `rgba(167, 139, 250, ${0.4 + ratio * 0.72})`;
+          ctx.lineWidth = 1.2;
+
+          if (ratio > 0.35) {
+            ctx.shadowColor = `rgba(167, 139, 250, ${ratio * 0.55})`;
+            ctx.shadowBlur = 10 * ratio;
+          }
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+          ctx.shadowColor = "transparent";
+        } else {
+          ctx.fillStyle = "rgba(14, 12, 20, 0.9)";
+          ctx.fill();
+          ctx.strokeStyle = "rgba(100, 80, 180, 0.10)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      });
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={wrapRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 1,
+        pointerEvents: "none",
+        overflow: "hidden",
+      }}
+    >
+      <canvas
+        ref={canvasRef}
+        style={{ position: "absolute", top: 0, left: 0 }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.97) 100%)",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      />
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// HOME
+// ─────────────────────────────────────────────
 const Home = () => {
   const navigate = useNavigate();
 
@@ -43,7 +210,7 @@ const Home = () => {
     const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
     if (!domainRegex.test(domainQuery.trim())) {
       setErrorMessage(
-        "Invalid domain name. Use only letters, numbers, and hyphens",
+        "Invalid domain name. Use only letters, numbers, and hyphens"
       );
       setSearchStatus("error");
       setTimeout(() => setSearchStatus("idle"), 3000);
@@ -62,7 +229,7 @@ const Home = () => {
             Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
           },
           timeout: 10000,
-        },
+        }
       );
 
       if (response.data.available) {
@@ -76,7 +243,7 @@ const Home = () => {
         setErrorMessage("Request timeout. Please try again.");
       } else if (error.response) {
         setErrorMessage(
-          error.response.data.message || "Server error. Please try again.",
+          error.response.data.message || "Server error. Please try again."
         );
       } else if (error.request) {
         setErrorMessage("Network error. Please check your connection.");
@@ -138,8 +305,16 @@ const Home = () => {
 
   return (
     <>
+      {/* MAIN HERO SECTION */}
       <section className="min-h-screen w-full relative overflow-hidden bg-black">
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* ── HEXAGON BACKGROUND (bottom layer) ── */}
+        <HexagonBackground />
+
+        {/* ── ANIMATED GRADIENT ORBS ── */}
+        <div
+          className="fixed inset-0 overflow-hidden pointer-events-none"
+          style={{ zIndex: 3 }}
+        >
           <motion.div
             className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
             animate={{
@@ -179,22 +354,28 @@ const Home = () => {
           />
         </div>
 
-        <div className="absolute inset-0 w-full h-full">
+        {/* ── BACKGROUND IMAGE ──
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
           <img
             src={BackgroundImage}
             alt="Background"
-            className="w-full h-full object-cover object-center opacity-30"
+            className="w-full h-full object-cover object-center opacity-15"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
-        </div>
+        </div> */}
 
-        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-20">
+        {/* ── MAIN CONTENT ── */}
+        <div
+          className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-20"
+          style={{ zIndex: 10 }}
+        >
+          {/* 1. DOMAIN SEARCH SECTION */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="w-full max-w-4xl mb-12 sm:mb-16 px-2 sm:px-4"
           >
+            {/* Title & Subtitle */}
             <div className="relative text-center mb-6 sm:mb-8">
               {[...Array(8)].map((_, i) => (
                 <motion.div
@@ -255,6 +436,7 @@ const Home = () => {
               </motion.p>
             </div>
 
+            {/* Search Bar */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -288,6 +470,7 @@ const Home = () => {
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
                     className="w-full pl-9 sm:pl-14 pr-2 sm:pr-4 h-10 sm:h-14 bg-transparent text-white placeholder-neutral-500 focus:outline-none text-sm sm:text-base rounded-full"
+                    style={{ cursor: "text" }}
                   />
                 </div>
 
@@ -298,6 +481,7 @@ const Home = () => {
                   whileHover={{ scale: searchStatus === "loading" ? 1 : 1.05 }}
                   whileTap={{ scale: searchStatus === "loading" ? 1 : 0.95 }}
                   className="relative overflow-hidden rounded-full disabled:cursor-not-allowed disabled:opacity-70 flex-shrink-0 bg-gradient-to-r from-purple-600 to-blue-600"
+                  style={{ cursor: "pointer" }}
                 >
                   <div className="relative px-4 sm:px-8 h-10 sm:h-14 flex items-center justify-center gap-2">
                     {searchStatus === "loading" ? (
@@ -320,6 +504,7 @@ const Home = () => {
               </div>
             </motion.div>
 
+            {/* Domain Extensions */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -340,6 +525,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.05 }}
+                  style={{ cursor: "pointer" }}
                   className={`px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 ${
                     selectedExtension === ext.name
                       ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30"
@@ -354,6 +540,7 @@ const Home = () => {
               ))}
             </motion.div>
 
+            {/* Search Status Messages */}
             <AnimatePresence mode="wait">
               {searchStatus !== "idle" && searchStatus !== "loading" && (
                 <motion.div
@@ -428,6 +615,7 @@ const Home = () => {
             </motion.p>
           </motion.div>
 
+          {/* 2. SERVICES GRID - Updated Layout from Second Code */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -448,6 +636,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* OTHER SECTIONS */}
       <JointVenture />
       <Domains />
       <Market />
@@ -456,6 +645,9 @@ const Home = () => {
   );
 };
 
+// ─────────────────────────────────────────────
+// SERVICE CARD - Updated Layout from Second Code
+// ─────────────────────────────────────────────
 const ServiceCard = ({ item, index, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
 

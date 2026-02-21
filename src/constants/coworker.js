@@ -1,5 +1,5 @@
 export const roleOptions = [
-  { label: "Co-Founder", value: "co-founder" },
+  { label: "I", value: "Industry" },
   { label: "Co-Investor", value: "co-investor" },
 ];
 
