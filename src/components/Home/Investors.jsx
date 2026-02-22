@@ -10,12 +10,12 @@ const InvestorCard = ({ card }) => {
   return (
     <div
       className="shrink-0 
-                 w-[240px] xs:w-[260px] sm:w-[280px] md:w-[320px] lg:w-[340px] xl:w-[360px] 
+                 w-60 xs:w-[260px] sm:w-70 md:w-[320px] lg:w-85 xl:w-90
                  px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6"
     >
       <div
         className="group 
-                   h-[220px] xs:h-[240px] sm:h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px] 
+                   h-55 xs:h-[240px] sm:h-65 md:h-70 lg:h-75 xl:h-80
                    rounded-xl sm:rounded-2xl md:rounded-[20px] 
                    border border-white/10
                    bg-gray-900/70
@@ -30,7 +30,7 @@ const InvestorCard = ({ card }) => {
                    relative"
       >
         <div
-          className="h-[100px] xs:h-[110px] sm:h-[130px] md:h-[150px] lg:h-[165px] xl:h-[180px] 
+          className="h-25 xs:h-[110px] sm:h-32.5 md:h-37.5 lg:h-41.25 xl:h-45
                      flex items-center justify-center 
                      bg-white/10 
                      rounded-lg sm:rounded-xl md:rounded-[14px] 
@@ -44,9 +44,9 @@ const InvestorCard = ({ card }) => {
             card.logo ? (
               <img
                 src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-                  alt={card.logo}
-                className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
-                         max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
+                alt={card.logo}
+                className="max-h-17.5 xs:max-h-[80px] sm:max-h-25 md:max-h-30 lg:max-h-33.75 xl:max-h-37.5
+                         max-w-17.5 xs:max-w-[80px] sm:max-w-25 md:max-w-30 lg:max-w-33.75 xl:max-w-37.5
                          object-contain 
                          group-hover:grayscale
                          transition-all duration-500
@@ -62,14 +62,14 @@ const InvestorCard = ({ card }) => {
                     .slice(0, 2);
                   e.target.style.display = "none";
                   e.target.parentElement.innerHTML = `
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500">
+                    <div class="w-full h-full flex items-center justify-center bg-linear-to-br from-purple-600 to-blue-600 hover:from-purple-500">
                       <span class="text-white text-3xl font-bold">${initials}</span>
                     </div>
                   `;
                 }}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500">
+              <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-purple-600 to-blue-600 hover:from-purple-500">
                 <span className="text-white text-3xl sm:text-4xl font-bold">
                   {card.fullName
                     .split(" ")
@@ -83,9 +83,9 @@ const InvestorCard = ({ card }) => {
           ) : (
             <img
               src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-                alt={card.logo}
-              className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
-                       max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
+              alt={card.logo}
+              className="max-h-17.5 xs:max-h-20 sm:max-h-25 md:max-h-30 lg:max-h-33.75 xl:max-h-37.5 
+                       max-w-17.5 xs:max-w-20 sm:max-w-25 md:max-w-30 lg:max-w-33.75 xl:max-w-37.5 
                        object-contain 
                        group-hover:grayscale
                        transition-all duration-500
@@ -165,7 +165,7 @@ const InvestorCard = ({ card }) => {
           </div>
         )}
 
-        {!isProfile && <div className="mt-3 xs:mt-4 h-[36px] xs:h-[40px]" />}
+        {!isProfile && <div className="mt-3 xs:mt-4 h-9 xs:h-10" />}
       </div>
     </div>
   );
@@ -174,18 +174,18 @@ const InvestorCard = ({ card }) => {
 const SkeletonCard = () => (
   <div
     className="shrink-0 
-               w-[240px] xs:w-[260px] sm:w-[280px] md:w-[320px] lg:w-[340px] xl:w-[360px] 
+               w-60 xs:w-65 sm:w-70 md:w-80 lg:w-85 xl:w-90 
                px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6"
   >
     <div
-      className="h-[220px] xs:h-[240px] sm:h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px] 
+      className="h-55 xs:h-60 sm:h-65 md:h-70 lg:h-75 xl:h-80 
                  rounded-xl sm:rounded-2xl md:rounded-[20px] 
                  border border-white/10
                  bg-gray-900/70
                  p-3 xs:p-4 sm:p-5 md:p-6 
                  animate-pulse"
     >
-      <div className="h-[100px] xs:h-[110px] sm:h-[130px] md:h-[150px] lg:h-[165px] xl:h-[180px] bg-gray-800 rounded-lg" />
+      <div className="h-25 xs:h-27.5 sm:h-32.5 md:h-37.5 lg:h-41.25 xl:h-45 bg-gray-800 rounded-lg" />
       <div className="mt-4 space-y-2">
         <div className="h-4 bg-gray-800 rounded w-3/4 mx-auto" />
         <div className="h-3 bg-gray-800 rounded w-1/2 mx-auto" />
@@ -326,7 +326,7 @@ export default function Investors() {
 
   return (
     <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
-      <div className="text-center px-4 flex flex-col items-center gap-4">
+      <div className="text-center px-0 flex flex-col items-center gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
           Co-Working
         </h2>
@@ -347,10 +347,10 @@ export default function Investors() {
         onTouchEnd={handleTouchEnd}
       >
         {/* Left fade */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-linear-to-r from-black to-transparent" />
 
         {/* Right fade */}
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-linear-to-l from-black to-transparent" />
 
         {!loading && dataToDisplay.length > 0 && (
           <>
@@ -380,7 +380,7 @@ export default function Investors() {
           </>
         )}
 
-        <div className="mx-auto max-w-[1400px] overflow-hidden">
+        <div className="mx-auto max-w-350 overflow-hidden">
           {loading ? (
             <div className="flex gap-4">
               {[...Array(5)].map((_, i) => (

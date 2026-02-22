@@ -15,7 +15,7 @@ const FAQS = [
   {
     question: "Is this a software platform or a service?",
     answer:
-      "It is both. The platform provides the core systems and tools, while our team supports setup, coordination, and early-stage operations. You don’t just get access to software — you start with a working system.",
+      "It is both. The platform provides the core systems and tools, while our team supports setup, coordination, and early-stage operations. You do not just get access to software - you start with a working system.",
   },
   {
     question: "How is this different from using multiple SaaS tools?",
@@ -31,9 +31,9 @@ const FAQS = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="bg-black py-20">
+    <section id="faq" className="bg-transparent py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
+        <div className="flex flex-col gap-10 lg:flex-row lg:gap-14">
           <div className="lg:w-1/3">
             <h3 className="text-balance text-2xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl">
               Frequently asked questions
@@ -41,7 +41,7 @@ export default function FAQ() {
           </div>
 
           <div className="flex-1">
-            <div className="divide-y divide-zinc-800 border-y border-zinc-800">
+            <div className="rounded-2xl border border-zinc-800/70 bg-zinc-900/55 backdrop-blur-xl divide-y divide-zinc-800/80 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
               {FAQS.map((faq, i) => (
                 <FAQItem key={i} faq={faq} />
               ))}
@@ -57,12 +57,12 @@ function FAQItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="group">
+    <div className="group px-5 sm:px-6">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-start justify-between gap-6 py-6 text-left"
       >
-        <span className="text-base font-medium text-white transition-colors group-hover:text-zinc-300 sm:text-lg">
+        <span className="text-base font-medium text-white transition-colors group-hover:text-zinc-200 sm:text-lg">
           {faq.question}
         </span>
 

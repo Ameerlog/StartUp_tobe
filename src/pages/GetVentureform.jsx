@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import confetti from "canvas-confetti";
 import {
   Phone,
   MapPin,
@@ -200,6 +201,37 @@ const InputField = ({
 const GetVentureForm = () => {
   const [focused, setFocused] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const submitLockRef = useRef(false);
+
+  useEffect(() => {
+    if (!submitSuccess) return;
+
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    const interval = setInterval(() => {
+      if (Date.now() > end) {
+        clearInterval(interval);
+        return;
+      }
+
+      confetti({
+        particleCount: 50,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+      });
+
+      confetti({
+        particleCount: 50,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+      });
+    }, 250);
+
+    return () => clearInterval(interval);
+  }, [submitSuccess]);
 
   const {
     register,
@@ -217,6 +249,9 @@ const GetVentureForm = () => {
   });
 
   const onSubmit = async (data) => {
+    if (submitLockRef.current) return;
+    submitLockRef.current = true;
+
     try {
       const payload = {
         fullName: data.fullName.trim(),
@@ -228,12 +263,12 @@ const GetVentureForm = () => {
       console.log("Submitting:", payload);
 
       const response = await fetch(
-        " https://cobrother-api.onrender.com/api/CreateJointVenture",
+        "https://cobrother-api.onrender.com/api/CreateJointVenture",
         {
           method: "POST",
-          // headers: {
-          //   "Content-Type": "application/json",
-          // },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(payload),
         },
       );
@@ -249,6 +284,8 @@ const GetVentureForm = () => {
     } catch (error) {
       console.error("Submission error:", error);
       alert(error.message || "Something went wrong. Please try again.");
+    } finally {
+      submitLockRef.current = false;
     }
   };
 
@@ -341,7 +378,7 @@ const GetVentureForm = () => {
     <div className="min-h-screen bg-black flex items-center justify-center p-4 overflow-hidden">
       <AnimatedBackground />
 
-      <div className="relative z-10 w-full max-w-lg">
+      <div className="mt-26 relative z-10 w-full max-w-lg">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

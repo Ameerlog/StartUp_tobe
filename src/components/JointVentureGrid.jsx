@@ -12,14 +12,14 @@ export default function JointVentureGrid() {
     const fetchBrands = async () => {
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllBrands"
+          "https://cobrother-api.onrender.com/api/ListAllBrands",
         );
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched venture data:", data);
 
           const validBrands = data.filter(
-            (brand) => brand.brandDetails?.brandName
+            (brand) => brand.brandDetails?.brandName,
           );
 
           const mapped = validBrands.map((brand) => {
@@ -27,7 +27,7 @@ export default function JointVentureGrid() {
             if (logoUrl.includes("localhost:8080")) {
               logoUrl = logoUrl.replace(
                 "localhost:8080",
-                "192.168.29.184:8080"
+                "192.168.29.184:8080",
               );
             }
 
@@ -131,24 +131,24 @@ export default function JointVentureGrid() {
   return (
     <main className="relative bg-black text-white overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/90" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[24px_24px]" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/50 via-transparent to-black/90" />
       </div>
 
       <section className="relative z-10 mx-auto max-w-6xl px-4 pt-0 sm:pt-16 lg:pt-20 pb-8 sm:pb-0 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-gradient-to-r from-purple-500/10 to-blue-500/10 px-4 py-2 shadow-lg shadow-purple-500/20"
+          className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-linear-to-r from-purple-500/10 to-blue-500/10 px-4 py-2 shadow-lg shadow-purple-500/20"
         >
           <Sparkles className="h-4 w-4 text-purple-400" />
-          <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-sm font-medium text-transparent">
+          <span className="bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-sm font-medium text-transparent">
             Coventure Ecosystem
           </span>
         </motion.div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
-          <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Co-Ventures
           </span>
         </h1>
@@ -159,7 +159,7 @@ export default function JointVentureGrid() {
         </p>
 
         <div className="mt-6 flex justify-center">
-          <div className="h-px w-40 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+          <div className="h-px w-40 bg-linear-to-r from-transparent via-purple-500/50 to-transparent" />
         </div>
       </section>
 
@@ -183,17 +183,16 @@ export default function JointVentureGrid() {
                   whileHover="hover"
                   whileTap="tap"
                   layout
-                  className={`group relative overflow-hidden rounded-2xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/90 to-neutral-950/95 backdrop-blur-xl transition ${theme.border}`}
+                  className={`group relative overflow-hidden rounded-2xl border border-neutral-800/50 bg-linear-to-br from-neutral-900/90 to-neutral-950/95 backdrop-blur-xl transition ${theme.border}`}
                 >
                   <div
-                    className={`absolute -inset-0.5 rounded-2xl bg-gradient-to-r ${theme.glow} opacity-0 blur-lg transition duration-500 group-hover:opacity-70`}
+                    className={`absolute -inset-0.5 rounded-2xl bg-linear-to-r ${theme.glow} opacity-0 blur-lg transition duration-500 group-hover:opacity-70`}
                   />
 
                   <div className="relative">
                     <div
-                      className={`border-b border-neutral-800/50 bg-gradient-to-br ${theme.gradient} px-5 py-6`}
+                      className={`border-b border-neutral-800/50 bg-linear-to-br ${theme.gradient} px-5 py-6`}
                     >
-                   
                       <div className="relative h-24 sm:h-28 md:h-32 w-full overflow-hidden rounded-lg flex items-center justify-center">
                         {card.logo && !imageErrors[card.id] ? (
                           <img
@@ -223,7 +222,7 @@ export default function JointVentureGrid() {
                           whileTap={{ scale: 0.95 }}
                           className="relative overflow-hidden rounded-full"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
+                          <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
                           <a
                             href="/get-ventures"
                             className="relative flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-white"
@@ -240,7 +239,7 @@ export default function JointVentureGrid() {
                         {/* Brand Name */}
                         <p className="flex items-start gap-2 text-xs text-neutral-400">
                           <span
-                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-gradient-to-r ${theme.gradient}`}
+                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-linear-to-r ${theme.gradient}`}
                           />
                           <span className="line-clamp-1 font-medium text-white">
                             {card.details[0]}
@@ -250,7 +249,7 @@ export default function JointVentureGrid() {
                         {/* Deal Value */}
                         <p className="flex items-start gap-2 text-xs text-neutral-400">
                           <span
-                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-gradient-to-r ${theme.gradient}`}
+                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-linear-to-r ${theme.gradient}`}
                           />
                           <span className="line-clamp-1">
                             {card.details[1]}
@@ -260,7 +259,7 @@ export default function JointVentureGrid() {
                         {/* Description - 3 lines collapsed, full when expanded */}
                         <div className="flex items-start gap-2 text-xs text-neutral-400">
                           <span
-                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-gradient-to-r ${theme.gradient}`}
+                            className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 bg-linear-to-r ${theme.gradient}`}
                           />
                           <div className="flex-1 min-w-0">
                             <span

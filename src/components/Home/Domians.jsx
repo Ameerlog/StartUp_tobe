@@ -229,10 +229,10 @@ export default function Domains({ variant = "dark" }) {
         onTouchEnd={handleTouchEnd}
       >
         <div
-          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-r ${theme.fadeFrom} to-transparent`}
+          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-20 bg-linear-to-r ${theme.fadeFrom} to-transparent`}
         />
         <div
-          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-20 bg-gradient-to-l ${theme.fadeFrom} to-transparent`}
+          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-20 bg-linear-to-l ${theme.fadeFrom} to-transparent`}
         />
 
         {!isLoading && domains.length > 0 && (

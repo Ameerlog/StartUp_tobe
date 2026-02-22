@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Headphones } from "lucide-react";
 import Logo_white from "../assets/domain/cobrother12341.png";
-
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -31,14 +30,9 @@ const Navbar = () => {
 
   const isHomePage = location.pathname === "/";
 
-  // Don't render navbar if not on home page
-  if (!isHomePage) {
-    return null;
-  }
-
   const scrolltoTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
   const navLinks = [
     {
       name: "Solutions",
@@ -51,7 +45,6 @@ const Navbar = () => {
         { name: "Co-Working", path: "/community" },
       ],
     },
-    { name: "Marketplace", path: "/marketplace" },
     { name: "Domains", path: "/branding" },
   ];
 
@@ -76,7 +69,7 @@ const Navbar = () => {
                 onClick={() => navigate("/")}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative cursor-pointer z-50 flex-shrink-0"
+                className="relative cursor-pointer z-50 shrink-0"
               >
                 <img
                   src={Logo_white}
@@ -110,7 +103,7 @@ const Navbar = () => {
                           <ChevronDown
                             className={`w-3.5 xl:w-4 h-3.5 xl:h-4 transition-transform duration-300 ${activeDropdown === index ? "rotate-180" : ""}`}
                           />
-                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r   font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r   font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
                         </button>
 
                         {/* Dropdown Panel */}
@@ -145,7 +138,7 @@ const Navbar = () => {
                         className="group relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium text-white/80 hover:text-white transition-colors duration-300 block"
                       >
                         {link.name}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 group-hover:w-full transition-all duration-300" />
                       </Link>
                     )}
                   </div>
@@ -158,10 +151,21 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="relative rounded-full ml-2 xl:ml-3 overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 " />
+                  <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 " />
                   <span className="relative px-4 xl:px-5 py-2 xl:py-2.5 font-semibold text-white text-sm xl:text-base flex items-center gap-1.5 rounded-full border border-transparent hover:border-white/60 transition-colors duration-300">
                     Get Started <span className="text-xs xl:text-sm">→</span>
                   </span>
+                </motion.button>
+
+                {/* Support Icon - Desktop */}
+                <motion.button
+                  onClick={() => navigate("/contact")}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex-shrink-0 p-2 xl:p-2.5 rounded-lg hover:bg-white/10 transition-colors ml-1"
+                  title="Support"
+                >
+                  <Headphones className="w-5 h-5 xl:w-5 xl:h-5 text-neutral-400 hover:text-white" />
                 </motion.button>
               </div>
 
@@ -280,7 +284,7 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-4 sm:mt-6"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-600" />
+                  <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-purple-600" />
                   <span className="relative block px-6 py-2.5 font-semibold text-white text-sm">
                     {" "}
                     Get Started →

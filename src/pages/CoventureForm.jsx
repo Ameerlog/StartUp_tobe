@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 import {
   Upload,
   X,
@@ -71,7 +72,6 @@ const getRatioParts = (equityValue) => {
 
 const API_BASE_URL = "https://cobrother-api.onrender.com";
 // const API_BASE_URL = "http://localhost:8080";
-
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -345,6 +345,36 @@ const CoVentureBrandListingForm = () => {
   const [submittedData, setSubmittedData] = useState(null);
 
   useEffect(() => {
+    if (!submitSuccess) return;
+
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    const interval = setInterval(() => {
+      if (Date.now() > end) {
+        clearInterval(interval);
+        return;
+      }
+
+      confetti({
+        particleCount: 50,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+      });
+
+      confetti({
+        particleCount: 50,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+      });
+    }, 250);
+
+    return () => clearInterval(interval);
+  }, [submitSuccess]);
+
+  useEffect(() => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentStep]);
 
@@ -360,9 +390,7 @@ const CoVentureBrandListingForm = () => {
   //   }
   // };
 
-
-
-   const fetchAllBrands = async () => {
+  const fetchAllBrands = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/ListAllBrands`);
       if (response.ok) {
@@ -663,7 +691,7 @@ const CoVentureBrandListingForm = () => {
       submittedData?.brandDetails?.ventureType || equityStructure;
 
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <div className="min-h-screen bg-black flex items-center justify-center p-4 mt-12 sm:mt-16 relative overflow-hidden">
         <AnimatedBackground />
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

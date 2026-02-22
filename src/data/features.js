@@ -9,7 +9,6 @@ import {
   Megaphone,
   Mail,
   MessageCircle,
-  UsersRound,
   Workflow,
   IndianRupee,
 } from "lucide-react";
@@ -19,7 +18,7 @@ export const features = [
     title: "Shop Builder",
     desc: "Create a fully-featured online shop with unlimited listings, multiple CTAs, and integrated payment processing. Launch products quickly and professionally.",
     icon: ShoppingCart,
-    price: "₹99,99,990",
+    price: "\u20B999,99,990",
   },
   {
     title: "Form Builder",
@@ -72,7 +71,7 @@ export const features = [
     icon: Workflow,
   },
   {
-    title: "Sales & Finance",
+    title: "Sales and Finance",
     desc: "Track revenue, manage invoices, and generate financial reports with built-in tax compliance features.",
     icon: IndianRupee,
   },
