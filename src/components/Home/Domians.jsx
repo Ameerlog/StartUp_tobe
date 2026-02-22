@@ -384,7 +384,7 @@ export default function Domains({ variant = "dark" }) {
             ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
           `}
         >
-          View All
+          View All Domains
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

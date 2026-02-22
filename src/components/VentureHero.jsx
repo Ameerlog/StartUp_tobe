@@ -69,13 +69,14 @@ const VentureHero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mt-6 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-2xl mx-auto"
+          className="mt-4 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-2xl mx-auto"
         >
-          Our co-venture system operates on the CoBrother Aultum CRM & AI
+          {/* Our co-venture system operates on the CoBrother Aultum CRM & AI
           Automation —
-          <br className="hidden sm:block" />
+          <br className="hidden sm:block" /> */}
           <span className="text-white font-medium">
-            Ensuring clarity, accountability, and execution from day one.
+            {/* Ensuring Clarity, Accountability, & Execution From Day One. */}
+            Driving Clarity, Accountability, & Execution From Day One.
           </span>
         </motion.p>
 
