@@ -12,7 +12,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -21,7 +20,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -46,7 +44,6 @@ const Navbar = () => {
     },
     { name: "Domains", path: "/branding" },
   ];
-
 
   const HoverUnderline = () => (
     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 group-hover:w-4/5 transition-all duration-300 rounded-full" />
@@ -151,7 +148,7 @@ const Navbar = () => {
                 ))}
 
                 <motion.button
-                  onClick={() => navigate("/contact")}
+                  onClick={() => navigate(" ")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative rounded-full ml-2 xl:ml-3 overflow-hidden"
@@ -234,7 +231,7 @@ const Navbar = () => {
                           whileTap={{ scale: 0.98 }}
                           onClick={() =>
                             setActiveDropdown(
-                              activeDropdown === index ? null : index
+                              activeDropdown === index ? null : index,
                             )
                           }
                           className="group w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white/80 hover:text-white active:text-white focus:text-white hover:bg-white/10 active:bg-white/15 rounded-lg sm:rounded-xl transition-all duration-300 relative focus:outline-none"
@@ -301,7 +298,7 @@ const Navbar = () => {
                 ))}
 
                 <motion.button
-                  onClick={() => navigate("/contact")}
+                  onClick={() => navigate("")}
                   whileTap={{ scale: 0.95 }}
                   className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-4 sm:mt-6 group"
                 >
