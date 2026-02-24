@@ -3,7 +3,7 @@ import { steps } from "../data/steps";
 
 const HowItWorksSection = () => {
   return (
-    <section className="relative  text-white pt-0 ">
+    <section className="relative bg-transparent text-white pt-0">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 sm:mb-20 text-center">
           <h2 className="mb-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">

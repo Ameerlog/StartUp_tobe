@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Layers, IndianRupee, Zap, Headphones, TrendingUp } from "lucide-react";
+import {
+  Layers,
+  IndianRupee,
+  Zap,
+  Headphones,
+  TrendingUp,
+  Check,
+} from "lucide-react";
 
 function useIsSmall() {
   const [isSmall, setIsSmall] = useState(false);
@@ -35,9 +42,9 @@ function Card({ children, className = "" }) {
   return (
     <div
       className={[
-        "relative rounded-3xl border border-zinc-800/60 bg-zinc-900",
+        "relative rounded-3xl border border-zinc-700/70 bg-zinc-900/65 backdrop-blur-xl",
         "shadow-[0_20px_60px_rgba(0,0,0,0.45)]",
-        "transition-all duration-300 hover:border-zinc-700 hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]",
+        "transition-all duration-300 hover:-translate-y-1 hover:border-zinc-500/60 hover:shadow-[0_30px_80px_rgba(0,0,0,0.58)]",
         className,
       ].join(" ")}
     >
@@ -48,21 +55,19 @@ function Card({ children, className = "" }) {
 
 function Title({ children }) {
   return (
-    <h3 className="text-base font-semibold tracking-tight text-white">
-      {children}
-    </h3>
+    <h3 className="text-lg font-semibold tracking-tight text-white">{children}</h3>
   );
 }
 
-function Muted({ children }) {
-  return <p className="text-sm leading-relaxed text-zinc-400">{children}</p>;
+function Muted({ children, className = "" }) {
+  return <p className={`text-sm leading-relaxed text-zinc-400 ${className}`}>{children}</p>;
 }
 
 function CheckRow({ children }) {
   return (
-    <div className="flex items-start gap-2 text-sm text-zinc-300">
+    <div className="flex items-start gap-2.5 text-sm text-zinc-300">
       <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">
-        ✓
+        <Check className="h-3.5 w-3.5" />
       </span>
       <span>{children}</span>
     </div>
@@ -71,7 +76,7 @@ function CheckRow({ children }) {
 
 function Badge({ children }) {
   return (
-    <span className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-xs font-medium text-zinc-300">
+    <span className="rounded-full border border-zinc-700/70 bg-zinc-900/75 px-3 py-1 text-xs font-medium text-zinc-300">
       {children}
     </span>
   );
@@ -81,11 +86,11 @@ export default function BentoGrid() {
   const isSmall = useIsSmall();
 
   return (
-    <section className="bg-black ">
+    <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mb-14 text-center">
+        <div className="mb-12 sm:mb-14 text-center">
           <h2 className="text-balance text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-6xl">
-            AULTUM – All-in-One CRM & Automation Platform
+            AULTUM - All-in-One CRM &amp; Automation Platform
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-sm sm:text-base text-zinc-400">
             Replace scattered tools with one unified platform for sales,
@@ -99,26 +104,26 @@ export default function BentoGrid() {
           animate={isSmall ? "show" : undefined}
           whileInView={isSmall ? undefined : "show"}
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-12 gap-4"
+          className="grid grid-cols-12 gap-5 lg:gap-6"
         >
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6">
+            <Card className="p-6 sm:p-7">
               <Title>What is AULTUM?</Title>
               <Muted className="mt-3">
                 A centralized CRM and automation engine built for startups,
                 agencies, and high-performance sales teams.
               </Muted>
 
-              <div className="mt-5 grid gap-2 sm:grid-cols-2">
+              <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
                 <CheckRow>Centralized CRM</CheckRow>
                 <CheckRow>Marketing automation</CheckRow>
-                <CheckRow>WhatsApp, Email & SMS</CheckRow>
+                <CheckRow>WhatsApp, Email and SMS</CheckRow>
                 <CheckRow>AI-ready workflows</CheckRow>
                 <CheckRow>White-label setup</CheckRow>
                 <CheckRow>Scalable access</CheckRow>
               </div>
 
-              <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
+              <div className="mt-6 rounded-2xl border border-zinc-700/70 bg-zinc-900/60 p-4">
                 <div className="flex flex-wrap justify-center gap-2">
                   {["Startups", "Agencies", "Sales Teams", "Services"].map(
                     (b) => (
@@ -131,63 +136,63 @@ export default function BentoGrid() {
           </motion.div>
 
           <motion.div variants={item} className="col-span-12 lg:col-span-3">
-            <Card className="p-6">
-              <Title>Core CRM & Automation</Title>
+            <Card className="p-6 sm:p-7 h-full">
+              <Title>Core CRM and Automation</Title>
               <Muted className="mt-2">
                 Track leads, pipelines, and follow-ups effortlessly.
               </Muted>
 
-              <div className="mt-4 space-y-2">
+              <div className="mt-4 space-y-2.5">
                 <CheckRow>Lead management</CheckRow>
                 <CheckRow>Custom pipelines</CheckRow>
-                <CheckRow>Tasks & reminders</CheckRow>
+                <CheckRow>Tasks and reminders</CheckRow>
                 <CheckRow>Basic automation</CheckRow>
                 <CheckRow>Role-based access</CheckRow>
               </div>
 
-              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900 p-3 text-xs text-zinc-400">
+              <div className="mt-4 rounded-xl border border-zinc-700/70 bg-zinc-900/60 p-3 text-xs text-zinc-400">
                 Never lose leads again.
               </div>
 
               <div className="mt-4 text-right text-sm font-semibold text-white">
-                ₹9,999 / month
+                {"\u20B9"}9,999 / month
               </div>
             </Card>
           </motion.div>
 
           <motion.div variants={item} className="col-span-12 lg:col-span-3">
-            <Card className="p-6">
-              <Title>Marketing & Communication</Title>
+            <Card className="p-6 sm:p-7 h-full">
+              <Title>Marketing and Communication</Title>
               <Muted className="mt-2">
                 Capture and nurture leads without switching tools.
               </Muted>
 
-              <div className="mt-4 space-y-2">
+              <div className="mt-4 space-y-2.5">
                 <CheckRow>Landing pages</CheckRow>
                 <CheckRow>Email automation</CheckRow>
-                <CheckRow>WhatsApp & SMS</CheckRow>
+                <CheckRow>WhatsApp and SMS</CheckRow>
                 <CheckRow>Unified inbox</CheckRow>
                 <CheckRow>Campaign tracking</CheckRow>
               </div>
 
-              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900 p-3 text-xs text-zinc-400">
+              <div className="mt-4 rounded-xl border border-zinc-700/70 bg-zinc-900/60 p-3 text-xs text-zinc-400">
                 Replace multiple marketing tools.
               </div>
 
               <div className="mt-4 text-right text-sm font-semibold text-white">
-                ₹14,999 / month
+                {"\u20B9"}14,999 / month
               </div>
             </Card>
           </motion.div>
 
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6">
-              <Title>Advanced Automation & AI</Title>
+            <Card className="p-6 sm:p-7 h-full">
+              <Title>Advanced Automation and AI</Title>
               <Muted className="mt-2">
                 Designed for scale with advanced workflows.
               </Muted>
 
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
                 <CheckRow>Multi-step workflows</CheckRow>
                 <CheckRow>AI-ready logic</CheckRow>
                 <CheckRow>Lead scoring</CheckRow>
@@ -197,19 +202,19 @@ export default function BentoGrid() {
               </div>
 
               <div className="mt-4 text-right text-sm font-semibold text-white">
-                ₹24,999 / month
+                {"\u20B9"}24,999 / month
               </div>
             </Card>
           </motion.div>
 
           <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6">
-              <Title>White-Label & Branding</Title>
+            <Card className="p-6 sm:p-7 h-full">
+              <Title>White-Label and Branding</Title>
               <Muted className="mt-2">
                 Launch AULTUM under your own brand.
               </Muted>
 
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
                 <CheckRow>Custom domain</CheckRow>
                 <CheckRow>Your branding</CheckRow>
                 <CheckRow>Branded login</CheckRow>
@@ -221,7 +226,7 @@ export default function BentoGrid() {
           </motion.div>
         </motion.div>
 
-        <motion.section variants={item} className="mt-20 text-center">
+        <motion.section variants={item} className="mt-16 sm:mt-20 text-center">
           <h3 className="text-xl sm:text-2xl font-medium text-white">
             Why Choose AULTUM?
           </h3>
@@ -229,7 +234,7 @@ export default function BentoGrid() {
             One platform to reduce cost, simplify operations, and scale faster.
           </p>
 
-          <div className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-4">
+          <div className="mx-auto mt-7 flex max-w-6xl flex-wrap justify-center gap-3 sm:gap-4">
             {[
               { text: "Replace multiple tools", icon: Layers },
               { text: "Lower operational cost", icon: IndianRupee },
@@ -240,7 +245,7 @@ export default function BentoGrid() {
               <motion.div
                 key={text}
                 whileHover={{ y: -2 }}
-                className="flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900 px-5 py-3 text-sm text-zinc-300"
+                className="flex items-center gap-3 rounded-full border border-zinc-700/70 bg-zinc-900/65 backdrop-blur-xl px-5 py-3 text-sm text-zinc-300"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
                   <Icon className="h-3.5 w-3.5 text-white" />

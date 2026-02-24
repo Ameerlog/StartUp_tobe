@@ -122,10 +122,10 @@ const GlassCard = ({
   <div className={`relative group ${className}`}>
     {hover && (
       <div
-        className={`absolute -inset-0.5 bg-gradient-to-r ${glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
+        className={`absolute -inset-0.5 bg-linear-to-r ${glowColor} rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
       />
     )}
-    <div className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full">
+    <div className="relative bg-linear-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full">
       {children}
     </div>
   </div>
@@ -583,7 +583,7 @@ const CoworkingForm = () => {
                       onError={(e) => {
                         e.target.style.display = "none";
                         e.target.parentElement.innerHTML = `
-                          <div class="w-full h-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                          <div class="w-full h-full bg-linear-to-br from-green-500 to-emerald-600 flex items-center justify-center">
                             <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
@@ -593,7 +593,7 @@ const CoworkingForm = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-green-500/30">
+                  <div className="w-20 h-20 mx-auto bg-linear-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-green-500/30">
                     <CheckCircle2 className="w-10 h-10 text-white" />
                   </div>
                 )}
@@ -617,10 +617,10 @@ const CoworkingForm = () => {
                 transition={{ delay: 0.4 }}
                 className="text-2xl sm:text-3xl font-bold mb-3"
               >
-                <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
                   Profile Created
                 </span>{" "}
-                <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                   Successfully!
                 </span>
               </motion.h2>
@@ -632,7 +632,7 @@ const CoworkingForm = () => {
                 className="text-neutral-400 text-sm sm:text-base mb-4 max-w-sm mx-auto"
               >
                 Welcome,{" "}
-                <span className="font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <span className="font-semibold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   {submittedData?.fullName || formData.fullName}
                 </span>
                 ! Your co-working profile is now visible to others.
@@ -754,10 +754,10 @@ const CoworkingForm = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full mb-5 shadow-lg shadow-purple-500/20"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full mb-5 shadow-lg shadow-purple-500/20"
           >
             <Users className="w-4 h-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
-            <span className="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="text-sm font-medium bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               Co-Working Network
             </span>
           </motion.div>
@@ -765,7 +765,7 @@ const CoworkingForm = () => {
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Join Our
             </span>{" "}
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
+            <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
               Community
             </span>
           </h1>
@@ -1220,7 +1220,7 @@ const CoworkingForm = () => {
 
                         <div className="grid grid-cols-2 gap-4 text-xs">
                           <div>
-                            <span className="text-neutral-500 block mb-1 flex items-center gap-1.5">
+                            <span className="text-neutral-500 flex mb-1 items-center gap-1.5">
                               <Linkedin className="w-3 h-3" />
                               LinkedIn
                             </span>
@@ -1229,7 +1229,7 @@ const CoworkingForm = () => {
                             </p>
                           </div>
                           <div>
-                            <span className="text-neutral-500 block mb-1 flex items-center gap-1.5">
+                            <span className="text-neutral-500 flex mb-1 items-center gap-1.5">
                               <Sparkles className="w-3 h-3" />
                               Primary Skill
                             </span>
@@ -1238,7 +1238,7 @@ const CoworkingForm = () => {
                             </p>
                           </div>
                           <div>
-                            <span className="text-neutral-500 block mb-1 flex items-center gap-1.5">
+                            <span className="text-neutral-500 flex mb-1 items-center gap-1.5">
                               <Building2 className="w-3 h-3" />
                               Industry
                             </span>
@@ -1247,7 +1247,7 @@ const CoworkingForm = () => {
                             </p>
                           </div>
                           <div>
-                            <span className="text-neutral-500 block mb-1 flex items-center gap-1.5">
+                            <span className="text-neutral-500 flex mb-1 items-center gap-1.5">
                               <MapPin className="w-3 h-3" />
                               Location
                             </span>

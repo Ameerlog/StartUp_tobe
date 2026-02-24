@@ -199,7 +199,62 @@ const Home = () => {
   const [focused, setFocused] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const searchDomain = async () => {
+  // const searchDomain = async () => {
+  //   if (!domainQuery.trim()) {
+  //     setErrorMessage("Please enter a domain name");
+  //     setSearchStatus("error");
+  //     setTimeout(() => setSearchStatus("idle"), 3000);
+  //     return;
+  //   }
+
+  //   const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
+  //   if (!domainRegex.test(domainQuery.trim())) {
+  //     setErrorMessage(
+  //       "Invalid domain name. Use only letters, numbers, and hyphens"
+  //     );
+  //     setSearchStatus("error");
+  //     setTimeout(() => setSearchStatus("idle"), 3000);
+  //     return;
+  //   }
+
+  //   setSearchStatus("loading");
+  //   setErrorMessage("");
+
+  //   try {
+  //     const fullDomain = `${domainQuery.trim()}${selectedExtension}`;
+  //     const response = await axios.get(
+  //       `https://api.godaddy.com/v1/domains/available?domain=${fullDomain}`,
+  //       {
+  //         headers: {
+  //           Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
+  //         },
+  //         timeout: 10000,
+  //       }
+  //     );
+
+  //     if (response.data.available) {
+  //       setSearchStatus("available");
+  //     } else {
+  //       setSearchStatus("unavailable");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error checking domain:", error);
+  //     if (error.code === "ECONNABORTED") {
+  //       setErrorMessage("Request timeout. Please try again.");
+  //     } else if (error.response) {
+  //       setErrorMessage(
+  //         error.response.data.message || "Server error. Please try again."
+  //       );
+  //     } else if (error.request) {
+  //       setErrorMessage("Network error. Please check your connection.");
+  //     } else {
+  //       setErrorMessage("An unexpected error occurred. Please try again.");
+  //     }
+  //     setSearchStatus("error");
+  //   }
+  // };
+
+  const searchDomain = () => {
     if (!domainQuery.trim()) {
       setErrorMessage("Please enter a domain name");
       setSearchStatus("error");
@@ -210,48 +265,17 @@ const Home = () => {
     const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
     if (!domainRegex.test(domainQuery.trim())) {
       setErrorMessage(
-        "Invalid domain name. Use only letters, numbers, and hyphens"
+        "Invalid domain name. Use only letters, numbers, and hyphens",
       );
       setSearchStatus("error");
       setTimeout(() => setSearchStatus("idle"), 3000);
       return;
     }
 
-    setSearchStatus("loading");
-    setErrorMessage("");
-
-    try {
-      const fullDomain = `${domainQuery.trim()}${selectedExtension}`;
-      const response = await axios.get(
-        `https://api.godaddy.com/v1/domains/available?domain=${fullDomain}`,
-        {
-          headers: {
-            Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
-          },
-          timeout: 10000,
-        }
-      );
-
-      if (response.data.available) {
-        setSearchStatus("available");
-      } else {
-        setSearchStatus("unavailable");
-      }
-    } catch (error) {
-      console.error("Error checking domain:", error);
-      if (error.code === "ECONNABORTED") {
-        setErrorMessage("Request timeout. Please try again.");
-      } else if (error.response) {
-        setErrorMessage(
-          error.response.data.message || "Server error. Please try again."
-        );
-      } else if (error.request) {
-        setErrorMessage("Network error. Please check your connection.");
-      } else {
-        setErrorMessage("An unexpected error occurred. Please try again.");
-      }
-      setSearchStatus("error");
-    }
+    window.open(
+      `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${domainQuery.trim()}`,
+      "_blank",
+    );
   };
 
   const handleKeyPress = (e) => {
@@ -620,7 +644,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
-            className="w-full max-w-7xl px-2 sm:px-4"
+            className="w-full max-w-7xl px-2 sm:px-4 "
           >
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
               {iconData.map((item, index) => (
@@ -666,7 +690,7 @@ const ServiceCard = ({ item, index, navigate }) => {
       />
 
       <div
-        className="relative bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-xl sm:rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center
+        className="relative bg-transparent backdrop-blur-xl border border-neutral-800/50 rounded-xl sm:rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center
         p-4 sm:p-5 md:p-6 lg:p-8
       "
       >
@@ -687,7 +711,7 @@ const ServiceCard = ({ item, index, navigate }) => {
           <img
             src={item.Icon}
             alt={item.title}
-            className="w-full h-full scale-[1.15] object-contain drop-shadow-xl"
+            className="w-full h-full scale-[1.8] object-contain drop-shadow-xl"
           />
         </div>
 

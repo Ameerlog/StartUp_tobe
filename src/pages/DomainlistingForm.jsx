@@ -276,6 +276,7 @@ const DomainListingForm = () => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const submitLockRef = useRef(false);
 
   // Confetti effect on success
   useEffect(() => {
@@ -453,12 +454,14 @@ const DomainListingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting || submitLockRef.current) return;
 
     if (!formData.platformFeeConsent) {
       setErrors({ platformFeeConsent: "Consent is required" });
       return;
     }
 
+    submitLockRef.current = true;
     setSubmitting(true);
 
     try {
@@ -514,6 +517,7 @@ const DomainListingForm = () => {
       console.error("Submission error:", error);
       alert(error.message || "Something went wrong. Please try again.");
     } finally {
+      submitLockRef.current = false;
       setSubmitting(false);
     }
   };
