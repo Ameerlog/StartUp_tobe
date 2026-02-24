@@ -254,40 +254,67 @@ const Home = () => {
   //   }
   // };
 
-  const searchDomain = () => {
-    if (!domainQuery.trim()) {
-      setErrorMessage("Please enter a domain name");
-      setSearchStatus("error");
-      setTimeout(() => setSearchStatus("idle"), 3000);
-      return;
-    }
+const searchDomain = () => {
+  const value = domainQuery.trim().toLowerCase();
 
-    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
-    if (!domainRegex.test(domainQuery.trim())) {
+  if (!value) {
+    setErrorMessage("Please enter a domain name");
+    setSearchStatus("error");
+    setTimeout(() => setSearchStatus("idle"), 3000);
+    return;
+  }
+
+  const fullDomainRegex = /^[a-z0-9-]+\.(com|in|ai|io)$/;
+
+  let finalDomain = "";
+
+  if (fullDomainRegex.test(value)) {
+    // Already full domain like abcd.com
+    finalDomain = value;
+  } else {
+    // Only name entered → append selected extension
+    const nameRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
+
+    if (!nameRegex.test(value)) {
       setErrorMessage(
-        "Invalid domain name. Use only letters, numbers, and hyphens",
+        "Invalid domain name. Use only letters, numbers, and hyphens"
       );
       setSearchStatus("error");
       setTimeout(() => setSearchStatus("idle"), 3000);
       return;
     }
 
-    window.open(
-      `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${domainQuery.trim()}`,
-      "_blank",
-    );
-  };
+    finalDomain = value + selectedExtension;
+  }
+
+  // Redirect ONLY when search button clicked
+  window.open(
+    `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${finalDomain}`,
+    "_blank"
+  );
+};
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") searchDomain();
   };
 
-  const handleExtensionClick = (ext) => {
-    setSelectedExtension(ext);
-    setSearchStatus("idle");
-    setErrorMessage("");
-  };
+const handleExtensionClick = (ext) => {
+  const value = domainQuery.trim().toLowerCase();
 
+  if (!value) return;
+
+  // Remove existing extension if present
+  const baseName = value.includes(".")
+    ? value.split(".")[0]
+    : value;
+
+  const updatedDomain = baseName + ext;
+
+  setDomainQuery(updatedDomain);   // Update input field
+  setSelectedExtension(ext);       // Update selected button
+  setSearchStatus("idle");
+  setErrorMessage("");
+};
   const iconData = [
     {
       Icon: Joint,
