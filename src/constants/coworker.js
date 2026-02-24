@@ -1,6 +1,8 @@
 export const roleOptions = [
-  { label: "Co-Founder", value: "co-founder" },
-  { label: "Co-Investor", value: "co-investor" },
+  { label: "Investing", value: "Investing" },
+  { label: "Fund Raising", value: "Fund Raising" },
+  { label: "Venturing", value: "Venturing" },
+  { label: "Hiring", value: "Hiring" },
 ];
 
 export const industryOptions = [

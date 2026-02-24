@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 const API_BASE_URL = "https://cobrother-api.onrender.com";
 
-const InvestorCard = ({ card }) => {
+const InvestorCard = ({ card, isLast, isFading }) => {
   const isProfile = card.hasOwnProperty("fullName");
 
   return (
     <div
-      className="shrink-0 
+      className={`shrink-0 
                  w-[240px] xs:w-[260px] sm:w-[280px] md:w-[320px] lg:w-[340px] xl:w-[360px] 
-                 px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6"
+                 px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6
+                 transition-opacity duration-500
+                 ${isFading ? 'opacity-0' : 'opacity-100'}`}
     >
       <div
         className="group 
-                   h-[220px] xs:h-[240px] sm:h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px] 
+                   h-[280px] xs:h-[300px] sm:h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px] 
                    rounded-xl sm:rounded-2xl md:rounded-[20px] 
                    border border-white/10
                    bg-gray-900/70
@@ -23,53 +25,45 @@ const InvestorCard = ({ card }) => {
                    backdrop-blur-sm 
                    shadow-2xl
                    transition-all duration-300 
-                   flex flex-col justify-between 
+                   flex flex-col items-center
                    hover:shadow-xl
                    hover:border-white/20
                    hover:bg-gray-900/50
                    relative"
       >
-        <div
-          className="h-[100px] xs:h-[110px] sm:h-[130px] md:h-[150px] lg:h-[165px] xl:h-[180px] 
-                     flex items-center justify-center 
-                     bg-white/10 
-                     rounded-lg sm:rounded-xl md:rounded-[14px] 
-                     backdrop-blur-sm 
-                     border border-white/10
-                     transition-all duration-300
-                     group-hover:border-white/20
-                     overflow-hidden"
-        >
+        <div className="w-[100px] h-[100px] xs:w-[110px] xs:h-[110px] sm:w-[120px] sm:h-[120px] md:w-[140px] md:h-[140px] lg:w-[150px] lg:h-[150px] xl:w-[160px] xl:h-[160px]
+               rounded-full
+               bg-gradient-to-br from-purple-500/20 to-blue-500/20
+               p-[3px] sm:p-1
+               transition-transform duration-300
+               group-hover:scale-105">
           {isProfile ? (
             card.logo ? (
-              <img
-                src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+              <div className="w-full h-full rounded-full bg-gray-800 overflow-hidden">
+                <img
+                  src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                   alt={card.logo}
-                className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
-                         max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
-                         object-contain 
-                         group-hover:grayscale
-                         transition-all duration-500
-                         group-hover:scale-100 scale-105"
-                draggable={false}
-                loading="lazy"
-                onError={(e) => {
-                  const initials = card.fullName
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .toUpperCase()
-                    .slice(0, 2);
-                  e.target.style.display = "none";
-                  e.target.parentElement.innerHTML = `
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500">
-                      <span class="text-white text-3xl font-bold">${initials}</span>
-                    </div>
-                  `;
-                }}
-              />
+                  className="w-full h-full object-cover"
+                  draggable={false}
+                  loading="lazy"
+                  onError={(e) => {
+                    const initials = card.fullName
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .toUpperCase()
+                      .slice(0, 2);
+                    e.target.style.display = "none";
+                    e.target.parentElement.innerHTML = `
+                      <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 rounded-full">
+                        <span class="text-white text-3xl font-bold">${initials}</span>
+                      </div>
+                    `;
+                  }}
+                />
+              </div>
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500">
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 rounded-full">
                 <span className="text-white text-3xl sm:text-4xl font-bold">
                   {card.fullName
                     .split(" ")
@@ -81,18 +75,18 @@ const InvestorCard = ({ card }) => {
               </div>
             )
           ) : (
-            <img
-              src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+            <div className="w-full h-full flex items-center justify-center rounded-full bg-gray-800 overflow-hidden">
+              <img
+                src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
                 alt={card.logo}
-              className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
-                       max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
-                       object-contain 
-                       group-hover:grayscale
-                       transition-all duration-500
-                       group-hover:scale-100 scale-105"
-              draggable={false}
-              loading="lazy"
-            />
+                className="max-h-[70px] xs:max-h-[80px] sm:max-h-[100px] md:max-h-[120px] lg:max-h-[135px] xl:max-h-[150px] 
+                         max-w-[70px] xs:max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[135px] xl:max-w-[150px] 
+                         object-contain 
+                         transition-all duration-500"
+                draggable={false}
+                loading="lazy"
+              />
+            </div>
           )}
         </div>
 
@@ -122,7 +116,7 @@ const InvestorCard = ({ card }) => {
         </div>
 
         {isProfile && card.linkedinUrl && (
-          <div className="mt-3 xs:mt-4">
+          <div className="mt-3 xs:mt-4 w-full">
             <a
               href={card.linkedinUrl}
               target="_blank"
@@ -146,7 +140,6 @@ const InvestorCard = ({ card }) => {
                 <span className="text-xs xs:text-sm font-semibold text-blue-400 group-hover/connect:text-blue-300 transition-colors">
                   Connect
                 </span>
-
                 <svg
                   className="w-3 h-3 xs:w-3.5 xs:h-3.5 text-blue-400/60 group-hover/connect:translate-x-0.5 group-hover/connect:-translate-y-0.5 transition-transform"
                   fill="none"
@@ -178,19 +171,20 @@ const SkeletonCard = () => (
                px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6"
   >
     <div
-      className="h-[220px] xs:h-[240px] sm:h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px] 
+      className="h-[280px] xs:h-[300px] sm:h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px] 
                  rounded-xl sm:rounded-2xl md:rounded-[20px] 
                  border border-white/10
                  bg-gray-900/70
                  p-3 xs:p-4 sm:p-5 md:p-6 
-                 animate-pulse"
+                 animate-pulse
+                 flex flex-col items-center"
     >
-      <div className="h-[100px] xs:h-[110px] sm:h-[130px] md:h-[150px] lg:h-[165px] xl:h-[180px] bg-gray-800 rounded-lg" />
-      <div className="mt-4 space-y-2">
+      <div className="w-[100px] h-[100px] xs:w-[110px] xs:h-[110px] sm:w-[120px] sm:h-[120px] md:w-[140px] md:h-[140px] bg-gray-800 rounded-full" />
+      <div className="mt-4 space-y-2 w-full">
         <div className="h-4 bg-gray-800 rounded w-3/4 mx-auto" />
         <div className="h-3 bg-gray-800 rounded w-1/2 mx-auto" />
       </div>
-      <div className="mt-4 h-10 bg-gray-800 rounded-lg" />
+      <div className="mt-auto w-full h-10 bg-gray-800 rounded-xl" />
     </div>
   </div>
 );
@@ -206,6 +200,8 @@ export default function Investors() {
   const [loading, setLoading] = useState(true);
   const [dataToDisplay, setDataToDisplay] = useState(investorCards);
   const [isPaused, setIsPaused] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState(''); 
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -247,9 +243,7 @@ export default function Investors() {
     return () => clearInterval(interval);
   }, []);
 
-  const duplicatedData = [...dataToDisplay, ...dataToDisplay];
-
-  // Auto-scroll animation
+  // Auto-scroll animation with fade at ends
   useEffect(() => {
     const container = scrollRef.current;
     if (!container || loading || dataToDisplay.length === 0) return;
@@ -258,9 +252,30 @@ export default function Investors() {
 
     const animate = () => {
       if (!isPaused && container) {
-        container.scrollLeft += scrollSpeed;
-        if (container.scrollLeft >= container.scrollWidth / 2) {
-          container.scrollLeft = 0;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        
+        if (scrollDirection === 'forward') {
+          container.scrollLeft += scrollSpeed;
+          
+          // Check if reached end
+          if (container.scrollLeft >= maxScroll - 10) {
+            setIsFading(true);
+            setTimeout(() => {
+              setScrollDirection('backward');
+              setIsFading(false);
+            }, 500);
+          }
+        } else {
+          container.scrollLeft -= scrollSpeed;
+          
+          // Check if reached start
+          if (container.scrollLeft <= 10) {
+            setIsFading(true);
+            setTimeout(() => {
+              setScrollDirection('forward');
+              setIsFading(false);
+            }, 500);
+          }
         }
       }
       animationRef.current = requestAnimationFrame(animate);
@@ -273,7 +288,7 @@ export default function Investors() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPaused, loading, dataToDisplay.length]);
+  }, [isPaused, loading, dataToDisplay.length, scrollDirection]);
 
   const resetIdleTimer = () => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
@@ -346,17 +361,18 @@ export default function Investors() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Left fade */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
+     
+        <div className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-24 md:w-32 lg:w-40 bg-transparent transition-opacity duration-300 ${scrollDirection === '' && !isFading ? 'opacity-50' : 'opacity-100'}`} />
 
-        {/* Right fade */}
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
+        <div className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-24 md:w-32 lg:w-40 bg-transparent transition-opacity duration-300 ${scrollDirection === '' && !isFading ? 'opacity-50' : 'opacity-100'}`} />
+
+        <div className={`pointer-events-none absolute inset-0 z-20 bg-black/50 transition-opacity duration-500 ${isFading ? 'opacity-100' : 'opacity-0'}`} />
 
         {!loading && dataToDisplay.length > 0 && (
           <>
             <button
               onClick={() => handleScroll("left")}
-              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2
+              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-30 -translate-y-1/2
                 rounded-full border backdrop-blur-xl
                 p-1.5 sm:p-2 md:p-3 transition-all duration-300
                 border-white/20 bg-white/10 text-white hover:bg-white/20
@@ -368,7 +384,7 @@ export default function Investors() {
 
             <button
               onClick={() => handleScroll("right")}
-              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2
+              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-30 -translate-y-1/2
                 rounded-full border backdrop-blur-xl
                 p-1.5 sm:p-2 md:p-3 transition-all duration-300
                 border-white/20 bg-white/10 text-white hover:bg-white/20
@@ -390,22 +406,25 @@ export default function Investors() {
           ) : (
             <div
               ref={scrollRef}
-              className="flex overflow-x-hidden"
+              className={`flex overflow-x-hidden transition-opacity duration-300 ${isFading ? 'opacity-50' : 'opacity-100'}`}
               style={{
                 scrollbarWidth: "none",
                 msOverflowStyle: "none",
               }}
             >
-              {duplicatedData.map((card, index) => (
+              {dataToDisplay.map((card, index) => (
                 <InvestorCard
                   card={card}
                   key={`${card.Id || card.company || index}-${index}`}
+                  isLast={index === dataToDisplay.length - 1}
+                  isFading={isFading}
                 />
               ))}
             </div>
           )}
         </div>
       </div>
+
       {window.location.pathname === "/" && (
         <div className="mt-10 flex justify-center">
           <button
