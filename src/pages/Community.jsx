@@ -26,10 +26,9 @@ const CommunityHero = () => (
       >
         <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
           Join Our
-        </span>
-        <br />
+        </span><span className="ml-2" />
         <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
-          Co-Working Community
+           Co-Working Community
         </span>
       </motion.h1>
 
@@ -191,12 +190,14 @@ const ProfileCard = ({ profile }) => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       whileHover={{ y: -4 }}
-      className="group relative min-w-0 overflow-hidden bg-linear-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 sm:p-5 hover:border-neutral-700/50 transition-all duration-300"
+      className="group relative min-w-0 overflow-hidden bg-linear-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-3 sm:p-4 md:p-5 hover:border-neutral-700/50 transition-all duration-300"
     >
-      <div className="mb-4 sm:mb-5 flex flex-col items-center">
+      {/* Profile Image Section - Fixed for small screens */}
+      <div className="mb-3 sm:mb-4 md:mb-5 flex flex-col items-center">
         <div
-          className={`relative w-full max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-square rounded-full p-[12px] sm:p-[14px] md:p-[16px] bg-linear-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
+          className={`relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px] lg:w-[190px] lg:h-[190px] rounded-full p-[8px] sm:p-[10px] md:p-[12px] lg:p-[14px] bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)] flex-shrink-0`}
         >
+          {/* SVG for circular text */}
           <svg
             viewBox="0 0 200 200"
             className="absolute inset-0 h-full w-full pointer-events-none"
@@ -207,7 +208,7 @@ const ProfileCard = ({ profile }) => {
               <path id={bottomArcId} d="M 10 100 A 90 90 0 0 0 190 100" />
             </defs>
             <text
-              className="fill-white text-[8.5px] sm:text-[9.5px] md:text-[10.5px] font-black tracking-[1.9px] sm:tracking-[2.2px] md:tracking-[2.4px]"
+              className="fill-white text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] font-black tracking-[1.5px] sm:tracking-[1.8px] md:tracking-[2px] lg:tracking-[2.2px]"
               style={{
                 paintOrder: "stroke",
                 stroke: "rgba(10,10,10,0.98)",
@@ -223,7 +224,7 @@ const ProfileCard = ({ profile }) => {
               </textPath>
             </text>
             <text
-              className="fill-white text-[8.5px] sm:text-[9.5px] md:text-[10.5px] font-black tracking-[1.9px] sm:tracking-[2.2px] md:tracking-[2.4px]"
+              className="fill-white text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] font-black tracking-[1.5px] sm:tracking-[1.8px] md:tracking-[2px] lg:tracking-[2.2px]"
               style={{
                 paintOrder: "stroke",
                 stroke: "rgba(10,10,10,0.98)",
@@ -240,7 +241,8 @@ const ProfileCard = ({ profile }) => {
             </text>
           </svg>
 
-          <div className="h-full w-full rounded-full overflow-hidden">
+          {/* Inner circle with image */}
+          <div className="h-full w-full rounded-full overflow-hidden flex-shrink-0">
             {imageUrl && !imageFailed ? (
               <img
                 src={imageUrl}
@@ -250,8 +252,8 @@ const ProfileCard = ({ profile }) => {
                 onError={() => setImageFailed(true)}
               />
             ) : (
-              <div className="w-full h-full rounded-full bg-linear-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-                <span className="text-3xl font-bold text-white">
+              <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                   {initials(displayName || "C").slice(0, 2)}
                 </span>
               </div>
@@ -260,18 +262,22 @@ const ProfileCard = ({ profile }) => {
         </div>
       </div>
 
+      {/* Name */}
       <div className="text-center min-w-0">
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight break-words">
+        <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white leading-tight break-words line-clamp-2">
           {displayName || "Community Member"}
         </h3>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm min-w-0">
-        <div className="flex items-center gap-2 text-neutral-300 min-w-0">
+      {/* Industry & LinkedIn */}
+      <div className="mt-2 sm:mt-3 flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm min-w-0">
+        <div className="flex items-center gap-1 sm:gap-2 text-neutral-300 min-w-0">
           {displayIndustry && (
-            <span className="flex items-center gap-1 min-w-0 break-words">
-              <Sparkles className="w-3.5 h-3.5 text-neutral-400" />
-              {displayIndustry}
+            <span className="flex items-center gap-1 min-w-0 break-words line-clamp-1">
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-neutral-400 flex-shrink-0" />
+              <span className="truncate max-w-[80px] sm:max-w-[120px]">
+                {displayIndustry}
+              </span>
             </span>
           )}
         </div>
@@ -280,10 +286,10 @@ const ProfileCard = ({ profile }) => {
             href={linkedinUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-sky-400 hover:text-sky-300 transition-colors font-medium"
+            className="inline-flex items-center gap-1 sm:gap-1.5 text-sky-400 hover:text-sky-300 transition-colors font-medium"
           >
-            <Linkedin className="w-4 h-4" />
-            Connect
+            <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Connect</span>
           </a>
         )}
       </div>

@@ -27,8 +27,7 @@ const BrandingHero = () => {
         >
           <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Find Premium
-          </span>
-          <br />
+          </span> <span />
           <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
             Domain Names
           </span>
@@ -308,7 +307,7 @@ const Branding = () => {
         <div style={isSticky ? { height: toolbarHeight } : undefined}>
           <div
             ref={toolbarRef}
-            className={`w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${isSticky ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0" : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"}`}
+            className={` relative z-[200] w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${isSticky ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0" : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"}`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
             {/* Row 1: Logo + Search + Support Icon */}
@@ -330,7 +329,7 @@ const Branding = () => {
                 </button>
               </div>
 
-              {/* Search Bar (Center) */}
+              {/* Search Bar (Center) */} 
               <div
                 className={`flex-1 mx-auto transition-all duration-300 ${
                   isSticky ? "max-w-4xl" : "max-w-5xl"

@@ -29,8 +29,7 @@ const VentureHero = () => {
         >
           <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Discover
-          </span>
-          <br />
+          </span> <span />
           <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
             Strategic Ventures
           </span>
@@ -254,7 +253,7 @@ const Venture = () => {
         <div style={isSticky ? { height: toolbarHeight } : undefined}>
           <div
             ref={toolbarRef}
-            className={`w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${isSticky ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0" : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"}`}
+            className={` relative z-[200] w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${isSticky ? "fixed top-0 left-0 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0" : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"}`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
             {/* Row 1: Logo + Search + Support Icon */}
@@ -336,7 +335,6 @@ const Venture = () => {
               </div>
             </div>
 
-            {/* Row 2: Filters (Left) + Sort & CTA (Right) */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 border-t border-neutral-800/30 overflow-visible">
               {/* Filters (Left) */}
               <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-visible">

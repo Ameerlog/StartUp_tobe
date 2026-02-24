@@ -472,7 +472,7 @@ const GetVentureForm = () => {
                   label="GST Number"
                   name="gstNo"
                   type="text"
-                  placeholder="GST Number "
+                  placeholder="29AAAAA0000A1Z5"
                   register={register}
                   error={errors.gstNo}
                   focused={focused}

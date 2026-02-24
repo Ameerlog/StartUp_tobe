@@ -41,7 +41,7 @@ const SortDropdown = ({ value, onChange, options, label = "Sort" }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 bg-black border border-neutral-800/50 rounded-xl shadow-lg shadow-black/50 z-50 min-w-max"
+            className="absolute top-full left-0 mt-2 bg-black border border-neutral-800/50 rounded-xl shadow-lg shadow-black/50 z-[9999] min-w-max"
           >
             <div className="py-2">
               {options.map((option) => (

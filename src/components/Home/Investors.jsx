@@ -1,196 +1,265 @@
 import React, { useState, useEffect, useRef } from "react";
 import { investorCards } from "../../data/investors";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Linkedin, Sparkles } from "lucide-react";
+
 const API_BASE_URL = "https://cobrother-api.onrender.com";
 
-const InvestorCard = ({ card }) => {
-  const isProfile = card.hasOwnProperty("fullName");
+// Exact same helper functions from Community page
+const getRoleTheme = (roleText = "") => {
+  const role = roleText.toLowerCase();
+
+  if (/(founder|co-founder|ceo|owner)/.test(role)) {
+    return {
+      ring: "from-purple-500 to-blue-500",
+      badge: "bg-purple-500/20 border-purple-400/50 text-purple-200",
+      city: "bg-purple-500/10 border-purple-500/30 text-purple-200",
+    };
+  }
+  if (/(investor|vc|angel)/.test(role)) {
+    return {
+      ring: "from-emerald-500 to-cyan-500",
+      badge: "bg-emerald-500/20 border-emerald-400/50 text-emerald-200",
+      city: "bg-emerald-500/10 border-emerald-500/30 text-emerald-200",
+    };
+  }
+  if (/(designer|ux|ui|product)/.test(role)) {
+    return {
+      ring: "from-sky-500 to-indigo-500",
+      badge: "bg-sky-500/20 border-sky-400/50 text-sky-200",
+      city: "bg-sky-500/10 border-sky-500/30 text-sky-200",
+    };
+  }
+  if (/(marketing|sales|growth)/.test(role)) {
+    return {
+      ring: "from-pink-500 to-orange-500",
+      badge: "bg-pink-500/20 border-pink-400/50 text-pink-200",
+      city: "bg-pink-500/10 border-pink-500/30 text-pink-200",
+    };
+  }
+  if (/(developer|engineer|tech)/.test(role)) {
+    return {
+      ring: "from-indigo-500 to-violet-500",
+      badge: "bg-indigo-500/20 border-indigo-400/50 text-indigo-200",
+      city: "bg-indigo-500/10 border-indigo-500/30 text-indigo-200",
+    };
+  }
+
+  return {
+    ring: "from-neutral-500 to-neutral-700",
+    badge: "bg-neutral-500/20 border-neutral-400/40 text-neutral-200",
+    city: "bg-neutral-500/10 border-neutral-500/30 text-neutral-200",
+  };
+};
+
+const pickFirstText = (...values) => {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return "";
+};
+
+const getImageUrl = (imageField) => {
+  if (!imageField) return null;
+  if (imageField.startsWith("data:")) return imageField;
+  if (imageField.startsWith("http")) return imageField;
+  if (imageField.startsWith("/api/images/")) {
+    return `${API_BASE_URL}${imageField}`;
+  }
+  return `${API_BASE_URL}/api/images/${imageField}`;
+};
+
+// EXACT SAME ProfileCard from Community page
+const ProfileCard = ({ profile }) => {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  const initials = (name = "") =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+
+  const details = profile.coworkingDetails || profile.profile || {};
+  const skillText = pickFirstText(profile.skill, details.skill);
+  const skillParts = skillText
+    .split(" - ")
+    .map((x) => x.trim())
+    .filter(Boolean);
+
+  const displayName = pickFirstText(
+    profile.fullName,
+    details.fullName,
+    profile.company,
+    details.company,
+  );
+  const displayRole = pickFirstText(
+    profile.primaryRole,
+    details.primaryRole,
+    profile.title,
+    details.title,
+    profile.role,
+    details.role,
+  );
+  const displayLocation = pickFirstText(
+    profile.location,
+    details.location,
+    skillParts[2],
+  );
+  const displayCity =
+    displayLocation.split(",")[0]?.split("-")[0]?.trim() || "City not set";
+  const displayIndustry = pickFirstText(
+    profile.industry,
+    details.industry,
+    skillParts[1],
+  );
+  const linkedinUrl = pickFirstText(
+    profile.linkedinUrl,
+    details.linkedinUrl,
+    profile.linkedin,
+    details.linkedin,
+  );
+  const imageSource = pickFirstText(
+    profile.logo,
+    details.logo,
+    profile.logoUrl,
+    details.logoUrl,
+    profile.photoUrl,
+    details.photoUrl,
+    profile.profileImage,
+    details.profileImage,
+    profile.image,
+    details.image,
+    profile.photo,
+    details.photo,
+  );
+  const imageUrl = getImageUrl(imageSource);
+  const roleTheme = getRoleTheme(displayRole);
+  const circleTextSeed =
+    `${profile.id || profile.Id || displayName || "member"}`
+      .toString()
+      .replace(/[^a-zA-Z0-9_-]/g, "");
+  const topArcId = `role-arc-top-${circleTextSeed}`;
+  const bottomArcId = `role-arc-bottom-${circleTextSeed}`;
+  const circleRoleText = (displayRole || "Member").toUpperCase().slice(0, 24);
+  const circleCityText = displayCity.toUpperCase().slice(0, 24);
 
   return (
-    <div
-      className="shrink-0 
-                 w-60 xs:w-[260px] sm:w-70 md:w-[320px] lg:w-85 xl:w-90
-                 px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6"
-    >
+    <div className="shrink-0 w-[280px] sm:w-[300px] md:w-[320px] lg:w-[340px] px-3 sm:px-4">
       <div
-        className="group 
-                   h-55 xs:h-[240px] sm:h-65 md:h-70 lg:h-75 xl:h-80
-                   rounded-xl sm:rounded-2xl md:rounded-[20px] 
-                   border border-white/10
-                   bg-gray-900/70
-                   p-3 xs:p-4 sm:p-5 md:p-6 
-                   backdrop-blur-sm 
-                   shadow-2xl
-                   transition-all duration-300 
-                   flex flex-col justify-between 
-                   hover:shadow-xl
-                   hover:border-white/20
-                   hover:bg-gray-900/50
-                   relative"
+        className="group relative min-w-0 overflow-hidden bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 sm:p-5 hover:border-neutral-700/50 transition-all duration-300"
       >
-        <div
-          className="h-25 xs:h-[110px] sm:h-32.5 md:h-37.5 lg:h-41.25 xl:h-45
-                     flex items-center justify-center 
-                     bg-white/10 
-                     rounded-lg sm:rounded-xl md:rounded-[14px] 
-                     backdrop-blur-sm 
-                     border border-white/10
-                     transition-all duration-300
-                     group-hover:border-white/20
-                     overflow-hidden"
-        >
-          {isProfile ? (
-            card.logo ? (
-              <img
-                src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-                alt={card.logo}
-                className="max-h-17.5 xs:max-h-[80px] sm:max-h-25 md:max-h-30 lg:max-h-33.75 xl:max-h-37.5
-                         max-w-17.5 xs:max-w-[80px] sm:max-w-25 md:max-w-30 lg:max-w-33.75 xl:max-w-37.5
-                         object-contain 
-                         group-hover:grayscale
-                         transition-all duration-500
-                         group-hover:scale-100 scale-105"
-                draggable={false}
-                loading="lazy"
-                onError={(e) => {
-                  const initials = card.fullName
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .toUpperCase()
-                    .slice(0, 2);
-                  e.target.style.display = "none";
-                  e.target.parentElement.innerHTML = `
-                    <div class="w-full h-full flex items-center justify-center bg-linear-to-br from-purple-600 to-blue-600 hover:from-purple-500">
-                      <span class="text-white text-3xl font-bold">${initials}</span>
-                    </div>
-                  `;
+        <div className="mb-4 sm:mb-5 flex flex-col items-center">
+          <div
+            className={`relative w-full max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-square rounded-full p-[12px] sm:p-[14px] md:p-[16px] bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
+          >
+            <svg
+              viewBox="0 0 200 200"
+              className="absolute inset-0 h-full w-full pointer-events-none"
+              aria-hidden="true"
+            >
+              <defs>
+                <path id={topArcId} d="M 10 100 A 90 90 0 0 1 190 100" />
+                <path id={bottomArcId} d="M 10 100 A 90 90 0 0 0 190 100" />
+              </defs>
+              <text
+                className="fill-white text-[8.5px] sm:text-[9.5px] md:text-[10.5px] font-black tracking-[1.9px] sm:tracking-[2.2px] md:tracking-[2.4px]"
+                style={{
+                  paintOrder: "stroke",
+                  stroke: "rgba(10,10,10,0.98)",
+                  strokeWidth: 2.2,
                 }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-purple-600 to-blue-600 hover:from-purple-500">
-                <span className="text-white text-3xl sm:text-4xl font-bold">
-                  {card.fullName
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .toUpperCase()
-                    .slice(0, 2)}
-                </span>
-              </div>
-            )
-          ) : (
-            <img
-              src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-              alt={card.logo}
-              className="max-h-17.5 xs:max-h-20 sm:max-h-25 md:max-h-30 lg:max-h-33.75 xl:max-h-37.5 
-                       max-w-17.5 xs:max-w-20 sm:max-w-25 md:max-w-30 lg:max-w-33.75 xl:max-w-37.5 
-                       object-contain 
-                       group-hover:grayscale
-                       transition-all duration-500
-                       group-hover:scale-100 scale-105"
-              draggable={false}
-              loading="lazy"
-            />
+              >
+                <textPath
+                  href={`#${topArcId}`}
+                  startOffset="50%"
+                  textAnchor="middle"
+                >
+                  {circleRoleText}
+                </textPath>
+              </text>
+              <text
+                className="fill-white text-[8.5px] sm:text-[9.5px] md:text-[10.5px] font-black tracking-[1.9px] sm:tracking-[2.2px] md:tracking-[2.4px]"
+                style={{
+                  paintOrder: "stroke",
+                  stroke: "rgba(10,10,10,0.98)",
+                  strokeWidth: 2.2,
+                }}
+              >
+                <textPath
+                  href={`#${bottomArcId}`}
+                  startOffset="50%"
+                  textAnchor="middle"
+                >
+                  {circleCityText}
+                </textPath>
+              </text>
+            </svg>
+
+            <div className="h-full w-full rounded-full overflow-hidden">
+              {imageUrl && !imageFailed ? (
+                <img
+                  src={imageUrl}
+                  alt={displayName || "Profile"}
+                  className="w-full h-full rounded-full object-cover"
+                  loading="lazy"
+                  onError={() => setImageFailed(true)}
+                />
+              ) : (
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">
+                    {initials(displayName || "C").slice(0, 2)}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center min-w-0">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight break-words">
+            {displayName || "Community Member"}
+          </h3>
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm min-w-0">
+          <div className="flex items-center gap-2 text-neutral-300 min-w-0">
+            {displayIndustry && (
+              <span className="flex items-center gap-1 min-w-0 break-words">
+                <Sparkles className="w-3.5 h-3.5 text-neutral-400" />
+                {displayIndustry}
+              </span>
+            )}
+          </div>
+          {linkedinUrl && (
+            <a
+              href={linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-sky-400 hover:text-sky-300 transition-colors font-medium"
+            >
+              <Linkedin className="w-4 h-4" />
+              Connect
+            </a>
           )}
         </div>
-
-        <div className="text-center flex-1 flex flex-col justify-center">
-          <h3
-            className="text-sm xs:text-base sm:text-lg md:text-[18px] lg:text-[20px] 
-                       font-bold text-white
-                       tracking-tight 
-                       transition-colors duration-300
-                       group-hover:text-gray-400
-                       line-clamp-1"
-          >
-            {isProfile ? card.fullName : card.company}
-          </h3>
-
-          <p
-            className="mt-1 xs:mt-1.5
-                       text-[11px] xs:text-xs sm:text-sm md:text-[14px] lg:text-[15px] 
-                       text-white
-                       font-medium 
-                       transition-colors duration-300
-                       group-hover:text-gray-400
-                       line-clamp-1"
-          >
-            {isProfile ? card.primaryRole : card.founder}
-          </p>
-        </div>
-
-        {isProfile && card.linkedinUrl && (
-          <div className="mt-3 xs:mt-4">
-            <a
-              href={card.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full py-2 xs:py-2.5 px-3 xs:px-4
-                         bg-blue-600/10 hover:bg-blue-600/20 
-                         border border-blue-600/20 hover:border-blue-600/40
-                         rounded-lg xs:rounded-xl
-                         transition-all duration-300
-                         group/connect"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <svg
-                  className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-blue-400"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-                <span className="text-xs xs:text-sm font-semibold text-blue-400 group-hover/connect:text-blue-300 transition-colors">
-                  Connect
-                </span>
-
-                <svg
-                  className="w-3 h-3 xs:w-3.5 xs:h-3.5 text-blue-400/60 group-hover/connect:translate-x-0.5 group-hover/connect:-translate-y-0.5 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-              </div>
-            </a>
-          </div>
-        )}
-
-        {!isProfile && <div className="mt-3 xs:mt-4 h-9 xs:h-10" />}
       </div>
     </div>
   );
 };
 
 const SkeletonCard = () => (
-  <div
-    className="shrink-0 
-               w-60 xs:w-65 sm:w-70 md:w-80 lg:w-85 xl:w-90 
-               px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6"
-  >
-    <div
-      className="h-55 xs:h-60 sm:h-65 md:h-70 lg:h-75 xl:h-80 
-                 rounded-xl sm:rounded-2xl md:rounded-[20px] 
-                 border border-white/10
-                 bg-gray-900/70
-                 p-3 xs:p-4 sm:p-5 md:p-6 
-                 animate-pulse"
-    >
-      <div className="h-25 xs:h-27.5 sm:h-32.5 md:h-37.5 lg:h-41.25 xl:h-45 bg-gray-800 rounded-lg" />
-      <div className="mt-4 space-y-2">
-        <div className="h-4 bg-gray-800 rounded w-3/4 mx-auto" />
-        <div className="h-3 bg-gray-800 rounded w-1/2 mx-auto" />
+  <div className="shrink-0 w-[280px] sm:w-[300px] md:w-[320px] lg:w-[340px] px-3 sm:px-4">
+    <div className="rounded-2xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 p-4 sm:p-5 animate-pulse">
+      <div className="flex justify-center mb-4 sm:mb-5">
+        <div className="w-[170px] sm:w-[190px] md:w-[210px] aspect-square rounded-full bg-neutral-800" />
       </div>
-      <div className="mt-4 h-10 bg-gray-800 rounded-lg" />
+      <div className="h-6 bg-neutral-800 rounded w-3/4 mx-auto" />
+      <div className="mt-3 flex justify-center gap-3">
+        <div className="h-4 bg-neutral-800 rounded w-20" />
+        <div className="h-4 bg-neutral-800 rounded w-16" />
+      </div>
     </div>
   </div>
 );
@@ -204,7 +273,7 @@ export default function Investors() {
 
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [dataToDisplay, setDataToDisplay] = useState(investorCards);
+  const [dataToDisplay, setDataToDisplay] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
@@ -219,7 +288,6 @@ export default function Investors() {
         }
 
         const data = await response.json();
-
         const profileList = Array.isArray(data) ? data : data.data || [];
 
         if (profileList.length > 0) {
@@ -249,7 +317,6 @@ export default function Investors() {
 
   const duplicatedData = [...dataToDisplay, ...dataToDisplay];
 
-  // Auto-scroll animation
   useEffect(() => {
     const container = scrollRef.current;
     if (!container || loading || dataToDisplay.length === 0) return;
@@ -316,7 +383,7 @@ export default function Investors() {
     resetIdleTimer();
 
     const firstCard = scrollRef.current.querySelector(":scope > div");
-    const scrollAmount = firstCard ? firstCard.offsetWidth : 330;
+    const scrollAmount = firstCard ? firstCard.offsetWidth : 340;
 
     scrollRef.current.scrollBy({
       left: dir === "left" ? -scrollAmount : scrollAmount,
@@ -346,43 +413,32 @@ export default function Investors() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Left fade */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-linear-to-r from-black to-transparent" />
-
-        {/* Right fade */}
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-linear-to-l from-black to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
 
         {!loading && dataToDisplay.length > 0 && (
           <>
             <button
               onClick={() => handleScroll("left")}
-              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2
-                rounded-full border backdrop-blur-xl
-                p-1.5 sm:p-2 md:p-3 transition-all duration-300
-                border-white/20 bg-white/10 text-white hover:bg-white/20
-                opacity-80 hover:opacity-100 active:scale-95
-              "
+              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border backdrop-blur-xl p-1.5 sm:p-2 md:p-3 transition-all duration-300 border-white/20 bg-white/10 text-white hover:bg-white/20 opacity-80 hover:opacity-100 active:scale-95"
+              aria-label="Scroll left"
             >
               <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             <button
               onClick={() => handleScroll("right")}
-              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2
-                rounded-full border backdrop-blur-xl
-                p-1.5 sm:p-2 md:p-3 transition-all duration-300
-                border-white/20 bg-white/10 text-white hover:bg-white/20
-                opacity-80 hover:opacity-100 active:scale-95
-              "
+              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border backdrop-blur-xl p-1.5 sm:p-2 md:p-3 transition-all duration-300 border-white/20 bg-white/10 text-white hover:bg-white/20 opacity-80 hover:opacity-100 active:scale-95"
+              aria-label="Scroll right"
             >
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </>
         )}
 
-        <div className="mx-auto max-w-350 overflow-hidden">
+        <div className="mx-auto max-w-[1400px] overflow-hidden">
           {loading ? (
-            <div className="flex gap-4">
+            <div className="flex py-4">
               {[...Array(5)].map((_, i) => (
                 <SkeletonCard key={`skeleton-${i}`} />
               ))}
@@ -390,22 +446,23 @@ export default function Investors() {
           ) : (
             <div
               ref={scrollRef}
-              className="flex overflow-x-hidden"
+              className="flex overflow-x-hidden py-4"
               style={{
                 scrollbarWidth: "none",
                 msOverflowStyle: "none",
               }}
             >
-              {duplicatedData.map((card, index) => (
-                <InvestorCard
-                  card={card}
-                  key={`${card.Id || card.company || index}-${index}`}
+              {duplicatedData.map((profile, index) => (
+                <ProfileCard
+                  profile={profile}
+                  key={`${profile.Id || profile.id || index}-${index}`}
                 />
               ))}
             </div>
           )}
         </div>
       </div>
+
       {window.location.pathname === "/" && (
         <div className="mt-10 flex justify-center">
           <button
