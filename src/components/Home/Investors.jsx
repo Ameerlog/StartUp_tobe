@@ -413,8 +413,21 @@ export default function Investors() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-black to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-black to-transparent" />
+   <div
+          className="
+            pointer-events-none absolute left-0 top-0 z-10 
+            h-full w-10 sm:w-16 md:w-24 lg:w-32 
+            bg-gradient-to-r from-black to-transparent
+          "
+        />
+
+        <div
+          className="
+            pointer-events-none absolute right-0 top-0 z-10 
+            h-full w-10 sm:w-16 md:w-24 lg:w-32 
+            bg-gradient-to-l from-black to-transparent
+          "
+        />
 
         {!loading && dataToDisplay.length > 0 && (
           <>
@@ -436,7 +449,7 @@ export default function Investors() {
           </>
         )}
 
-        <div className="mx-auto max-w-[1400px] overflow-hidden">
+        <div className="mx-auto  overflow-hidden">
           {loading ? (
             <div className="flex py-4">
               {[...Array(5)].map((_, i) => (
