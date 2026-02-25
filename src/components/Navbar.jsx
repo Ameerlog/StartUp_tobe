@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Headphones } from "lucide-react";
 import Logo_white from "../assets/domain/cobrother12341.png";
-
+import support from  "../assets/icons/botLogo.png"
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -159,15 +159,28 @@ const Navbar = () => {
                   </span>
                 </motion.button>
 
-                <motion.button
+                {/* <motion.button
                   onClick={() => navigate("/contact")}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex-shrink-0 p-2 xl:p-2.5 rounded-lg hover:bg-white/10 transition-colors ml-1"
                   title="Support"
                 >
-                  <Headphones className="w-5 h-5 xl:w-5 xl:h-5 text-neutral-400 hover:text-white" />
-                </motion.button>
+                  <img src={support} alt="" className="h-5 w-5 xl:h-6 xl:w-6 object-contain scale-[4] ml-3" />
+                </motion.button> */}
+                <motion.button
+  onClick={() => navigate("/contact")}
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  className="flex items-center justify-center p-2 xl:p-2.5 rounded-lg bg-transparent hover:bg-white/10 transition-colors ml-1"
+  title="Support"
+>
+  <img
+    src={support}
+    alt="Support"
+    className="h-7 w-7 xl:h-6 xl:w-6 object-cover scale-200"
+  />
+</motion.button>
               </div>
 
               <motion.button
@@ -311,10 +324,10 @@ const Navbar = () => {
                 <motion.div whileTap={{ scale: 0.98 }} className="mt-3">
                   <button
                     onClick={() => navigate("/contact")}
-                    className="group w-full flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white/60 hover:text-white active:text-white focus:text-white hover:bg-white/10 active:bg-white/15 rounded-lg sm:rounded-xl transition-all duration-300 focus:outline-none"
+                    className="group w-full flex items-center gap-4 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white/60 hover:text-white active:text-white focus:text-white hover:bg-white/10 active:bg-white/15 rounded-lg sm:rounded-xl transition-all duration-300 focus:outline-none"
                   >
-                    <Headphones className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span className="relative inline-block">
+                    <img src={support} className="w-4 h-4 sm:w-5 sm:h-5 scale-300" />
+                    <span className="relative inline-block ">
                       Support
                       <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full group-focus:w-full group-active:w-full transition-all duration-300 rounded-full" />
                     </span>
