@@ -254,40 +254,67 @@ const Home = () => {
   //   }
   // };
 
-  const searchDomain = () => {
-    if (!domainQuery.trim()) {
-      setErrorMessage("Please enter a domain name");
-      setSearchStatus("error");
-      setTimeout(() => setSearchStatus("idle"), 3000);
-      return;
-    }
+const searchDomain = () => {
+  const value = domainQuery.trim().toLowerCase();
 
-    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
-    if (!domainRegex.test(domainQuery.trim())) {
+  if (!value) {
+    setErrorMessage("Please enter a domain name");
+    setSearchStatus("error");
+    setTimeout(() => setSearchStatus("idle"), 3000);
+    return;
+  }
+
+  const fullDomainRegex = /^[a-z0-9-]+\.(com|in|ai|io)$/;
+
+  let finalDomain = "";
+
+  if (fullDomainRegex.test(value)) {
+    // Already full domain like abcd.com
+    finalDomain = value;
+  } else {
+    // Only name entered → append selected extension
+    const nameRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
+
+    if (!nameRegex.test(value)) {
       setErrorMessage(
-        "Invalid domain name. Use only letters, numbers, and hyphens",
+        "Invalid domain name. Use only letters, numbers, and hyphens"
       );
       setSearchStatus("error");
       setTimeout(() => setSearchStatus("idle"), 3000);
       return;
     }
 
-    window.open(
-      `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${domainQuery.trim()}`,
-      "_blank",
-    );
-  };
+    finalDomain = value + selectedExtension;
+  }
+
+  // Redirect ONLY when search button clicked
+  window.open(
+    `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${finalDomain}`,
+    "_blank"
+  );
+};
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") searchDomain();
   };
 
-  const handleExtensionClick = (ext) => {
-    setSelectedExtension(ext);
-    setSearchStatus("idle");
-    setErrorMessage("");
-  };
+const handleExtensionClick = (ext) => {
+  const value = domainQuery.trim().toLowerCase();
 
+  if (!value) return;
+
+  // Remove existing extension if present
+  const baseName = value.includes(".")
+    ? value.split(".")[0]
+    : value;
+
+  const updatedDomain = baseName + ext;
+
+  setDomainQuery(updatedDomain);   // Update input field
+  setSelectedExtension(ext);       // Update selected button
+  setSearchStatus("idle");
+  setErrorMessage("");
+};
   const iconData = [
     {
       Icon: Joint,
@@ -389,7 +416,7 @@ const Home = () => {
 
         {/* ── MAIN CONTENT ── */}
         <div
-          className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-20"
+        className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-16 sm:pt-25 pb-12 sm:pb-20"
           style={{ zIndex: 10 }}
         >
           {/* 1. DOMAIN SEARCH SECTION */}
@@ -430,13 +457,13 @@ const Home = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-4"
+                className="relative text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight mb-3 sm:mb-4"
               >
                 <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                   Discover Your Brand Name Here
                 </span>
               </motion.h2>
-
+{/* 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -446,8 +473,8 @@ const Home = () => {
                 Get a .com for only ₹1.00<span className="text-sm">*</span>/1st
                 yr
                 <span className="align-super text-xs">^</span>
-              </motion.p>
-
+              </motion.p> */}
+{/* 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -457,7 +484,7 @@ const Home = () => {
                 Included AI powered CoBrother{" "}
                 <span className="font-semibold text-neutral-300">Aultum</span>{" "}
                 with Add-on AI automation at your doorstep
-              </motion.p>
+              </motion.p> */}
             </div>
 
             {/* Search Bar */}
@@ -690,7 +717,7 @@ const ServiceCard = ({ item, index, navigate }) => {
       />
 
       <div
-        className="relative bg-transparent backdrop-blur-xl border border-neutral-800/50 rounded-xl sm:rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center
+        className="relative rounded-xl sm:rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center
         p-4 sm:p-5 md:p-6 lg:p-8
       "
       >
@@ -711,7 +738,7 @@ const ServiceCard = ({ item, index, navigate }) => {
           <img
             src={item.Icon}
             alt={item.title}
-            className="w-full h-full scale-[1.8] object-contain drop-shadow-xl"
+            className="w-full h-full scale-[1.5] object-contain drop-shadow-xl"
           />
         </div>
 
