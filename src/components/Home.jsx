@@ -10,7 +10,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import axios from "axios";
-
+import bethebro from "../assets/domain/bethebro.png";
 import BackgroundImage from "../assets/domain/bg1.svg";
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
@@ -254,67 +254,65 @@ const Home = () => {
   //   }
   // };
 
-const searchDomain = () => {
-  const value = domainQuery.trim().toLowerCase();
+  const searchDomain = () => {
+    const value = domainQuery.trim().toLowerCase();
 
-  if (!value) {
-    setErrorMessage("Please enter a domain name");
-    setSearchStatus("error");
-    setTimeout(() => setSearchStatus("idle"), 3000);
-    return;
-  }
-
-  const fullDomainRegex = /^[a-z0-9-]+\.(com|in|ai|io)$/;
-
-  let finalDomain = "";
-
-  if (fullDomainRegex.test(value)) {
-    // Already full domain like abcd.com
-    finalDomain = value;
-  } else {
-    // Only name entered → append selected extension
-    const nameRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
-
-    if (!nameRegex.test(value)) {
-      setErrorMessage(
-        "Invalid domain name. Use only letters, numbers, and hyphens"
-      );
+    if (!value) {
+      setErrorMessage("Please enter a domain name");
       setSearchStatus("error");
       setTimeout(() => setSearchStatus("idle"), 3000);
       return;
     }
 
-    finalDomain = value + selectedExtension;
-  }
+    const fullDomainRegex = /^[a-z0-9-]+\.(com|in|ai|io)$/;
 
-  // Redirect ONLY when search button clicked
-  window.open(
-    `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${finalDomain}`,
-    "_blank"
-  );
-};
+    let finalDomain = "";
+
+    if (fullDomainRegex.test(value)) {
+      // Already full domain like abcd.com
+      finalDomain = value;
+    } else {
+      // Only name entered → append selected extension
+      const nameRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
+
+      if (!nameRegex.test(value)) {
+        setErrorMessage(
+          "Invalid domain name. Use only letters, numbers, and hyphens",
+        );
+        setSearchStatus("error");
+        setTimeout(() => setSearchStatus("idle"), 3000);
+        return;
+      }
+
+      finalDomain = value + selectedExtension;
+    }
+
+    // Redirect ONLY when search button clicked
+    window.open(
+      `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${finalDomain}`,
+      "_blank",
+    );
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") searchDomain();
   };
 
-const handleExtensionClick = (ext) => {
-  const value = domainQuery.trim().toLowerCase();
+  const handleExtensionClick = (ext) => {
+    const value = domainQuery.trim().toLowerCase();
 
-  if (!value) return;
+    if (!value) return;
 
-  // Remove existing extension if present
-  const baseName = value.includes(".")
-    ? value.split(".")[0]
-    : value;
+    // Remove existing extension if present
+    const baseName = value.includes(".") ? value.split(".")[0] : value;
 
-  const updatedDomain = baseName + ext;
+    const updatedDomain = baseName + ext;
 
-  setDomainQuery(updatedDomain);   // Update input field
-  setSelectedExtension(ext);       // Update selected button
-  setSearchStatus("idle");
-  setErrorMessage("");
-};
+    setDomainQuery(updatedDomain); // Update input field
+    setSelectedExtension(ext); // Update selected button
+    setSearchStatus("idle");
+    setErrorMessage("");
+  };
   const iconData = [
     {
       Icon: Joint,
@@ -416,7 +414,7 @@ const handleExtensionClick = (ext) => {
 
         {/* ── MAIN CONTENT ── */}
         <div
-        className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-16 sm:pt-25 pb-12 sm:pb-20"
+          className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-16 sm:pt-25 pb-12 sm:pb-20"
           style={{ zIndex: 10 }}
         >
           {/* 1. DOMAIN SEARCH SECTION */}
@@ -457,13 +455,13 @@ const handleExtensionClick = (ext) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="relative text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight mb-3 sm:mb-4"
+                className="relative text-2xl sm:text-4xl md:text-3xl lg:text-3xl font-bold tracking-tight mb-3 sm:mb-4"
               >
                 <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                   Discover Your Brand Name Here
                 </span>
               </motion.h2>
-{/* 
+              {/* 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -474,7 +472,7 @@ const handleExtensionClick = (ext) => {
                 yr
                 <span className="align-super text-xs">^</span>
               </motion.p> */}
-{/* 
+              {/* 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -505,7 +503,7 @@ const handleExtensionClick = (ext) => {
                 }`}
               />
 
-              <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full p-1.5 sm:p-2 flex items-center gap-2 sm:gap-3">
+              <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full mb-2 p-1.5 sm:p-2 flex items-center gap-2 sm:gap-3">
                 <div className="relative flex-1 flex items-center">
                   <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
                   <input
@@ -556,7 +554,7 @@ const handleExtensionClick = (ext) => {
             </motion.div>
 
             {/* Domain Extensions */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -589,7 +587,7 @@ const handleExtensionClick = (ext) => {
                   </span>
                 </motion.button>
               ))}
-            </motion.div>
+            </motion.div> */}
 
             {/* Search Status Messages */}
             <AnimatePresence mode="wait">
@@ -658,11 +656,20 @@ const handleExtensionClick = (ext) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="text-center text-xs sm:text-sm text-neutral-500 mt-4"
+              className="text-md sm:text-sm text-neutral-500 mt-4 pl-110"
             >
-              <span className="align-super text-[10px]">*</span>
-              Offer valid on 3 year purchase only
-              <span className="text-[10px]">*</span>
+              <span className="mt-4">
+                <motion.img
+                  src={bethebro}
+                  whileHover={{
+                    scale: 1.15,
+                    rotate: 2,
+                    filter: "drop-shadow(0px 0px 12px #1edde7)",
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="w-22 h-7 scale-500 border-amber-400 align-center mt-20 cursor-pointer"
+                />
+              </span>
             </motion.p>
           </motion.div>
 
