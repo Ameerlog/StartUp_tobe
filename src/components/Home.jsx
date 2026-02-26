@@ -10,7 +10,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import axios from "axios";
-import bethebro from "../assets/domain/bethebro.png";
+import Bethebro from "../assets/domain/bethebro.png";
 import BackgroundImage from "../assets/domain/bg1.svg";
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
@@ -699,7 +699,7 @@ const Home = () => {
                       className="w-full h-full flex items-center justify-center bg-transparent"
                     >
                       <img
-                        src={bethebro}
+                        src={Bethebro}
                         className="relative z-10 w-75 h-25 object-fit"
                       />
                     </motion.button>
