@@ -10,7 +10,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import axios from "axios";
-import Bethebro from "../assets/domain/bethebro.png";
+import Bethebro from "../assets/domain/betheBro.png";
 import BackgroundImage from "../assets/domain/bg1.svg";
 import Joint from "../assets/domain/venture1.svg";
 import Branding from "../assets/domain/brand.svg";
