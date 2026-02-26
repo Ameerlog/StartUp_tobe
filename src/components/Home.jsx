@@ -656,19 +656,55 @@ const Home = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="text-md sm:text-sm text-neutral-500 mt-4 pl-110"
+              className="text-md sm:text-sm text-neutral-500 mt-4 pl-10"
             >
               <span className="mt-4">
-                <motion.img
-                  src={bethebro}
-                  whileHover={{
-                    scale: 1.15,
-                    rotate: 2,
-                    filter: "drop-shadow(0px 0px 12px #1edde7)",
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="w-22 h-7 scale-500 border-amber-400 align-center mt-20 cursor-pointer"
-                />
+                <div className="relative flex items-center justify-center mt-25">
+                  {/* Pulsing Glow Rings — like WhatsApp button */}
+                  {[0, 1, 2].map((i) => (
+                    <motion.span
+                      key={i}
+                      className="absolute rounded-bl-4xl rounded-tr-4xl"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  ))}
+
+                  {/* Outer soft glow */}
+                  <motion.div
+                    animate={{
+                      boxShadow: [
+                        "0 0 10px 2px rgba(147,51,234,0.4)",
+                        "0 0 25px 8px rgba(37,99,235,0.6)",
+                        "0 0 10px 2px rgba(147,51,234,0.4)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="relative w-110 h-22 cursor-pointer rounded-bl-4xl rounded-tr-4xl border border-white/30 bg-transparent overflow-hidden flex items-center justify-center"
+                  >
+                    <motion.button
+                      whileHover={{
+                        scale: 1.08,
+                        background: "linear-gradient(135deg, #9333ea, #2563eb)",
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 15,
+                      }}
+                      className="w-full h-full flex items-center justify-center bg-transparent"
+                    >
+                      <img
+                        src={bethebro}
+                        className="relative z-10 w-75 h-25 object-fit"
+                      />
+                    </motion.button>
+                  </motion.div>
+                </div>
               </span>
             </motion.p>
           </motion.div>
