@@ -652,63 +652,70 @@ const Home = () => {
               )}
             </AnimatePresence>
 
+            {/* bethebrob */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="text-md sm:text-sm text-neutral-500 mt-4 pl-10"
+              className="text-md sm:text-sm text-neutral-500 mt-4"
             >
               <span className="mt-4">
-                <div className="relative flex items-center justify-center mt-25">
-                  {/* Pulsing Glow Rings — like WhatsApp button */}
+                <div className="relative flex w-full items-center justify-center mt-8 sm:mt-10 lg:mt-10 ">
                   {[0, 1, 2].map((i) => (
                     <motion.span
                       key={i}
-                      className="absolute rounded-bl-4xl rounded-tr-4xl"
+                      className="absolute rounded-full"
                       style={{ width: "100%", height: "100%" }}
                     />
                   ))}
 
-                  {/* Outer soft glow */}
                   <motion.div
                     animate={{
                       boxShadow: [
-                        "0 0 10px 2px rgba(147,51,234,0.4)",
-                        "0 0 25px 8px rgba(37,99,235,0.6)",
-                        "0 0 10px 2px rgba(147,51,234,0.4)",
+                        "0 0 15px rgba(168, 85, 247, 0.4)",
+                        "0 0 30px rgba(147, 14, 234, 0.7)",
+                        "0 0 15px rgba(168, 85, 247, 0.4)",
                       ],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="relative w-110 h-22 cursor-pointer rounded-bl-4xl rounded-tr-4xl border border-white/30 bg-transparent overflow-hidden flex items-center justify-center"
+                    className="group relative 
+          h-10 w-[160px] 
+          sm:h-12 sm:w-[200px] 
+          md:h-14 md:w-[240px] 
+          lg:h-22 lg:w-[300px] 
+          cursor-pointer overflow-hidden rounded-full border border-purple-400/40 
+          bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-purple-900/80 
+          shadow-2xl backdrop-blur-sm 
+          hover:shadow-[0_25px_50px_rgba(147,51,234,0.6)] hover:border-purple-500/60"
                   >
                     <motion.button
-                      whileHover={{
-                        scale: 1.08,
-                        background: "linear-gradient(135deg, #9333ea, #2563eb)",
-                      }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.96 }}
                       transition={{
                         type: "spring",
-                        stiffness: 300,
-                        damping: 15,
+                        stiffness: 320,
+                        damping: 16,
                       }}
-                      className="w-full h-full flex items-center justify-center bg-transparent"
+                      className="flex h-full w-full items-center justify-center rounded-full 
+            bg-gradient-to-r from-slate-900/95 to-slate-800/95 hover:brightness-110"
                     >
                       <img
                         src={betheBro}
-                        className="relative z-10 w-75 h-25 object-fit"
+                        className="relative z-10 w-[120%] h-[120%] object-contain"
+                        alt="BeTheBro"
                       />
                     </motion.button>
+
+                    {/* Shine sweep */}
+                    <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px w-0 opacity-0 transition-all duration-700 origin-left group-hover:w-full group-hover:opacity-100 top-1/2 -translate-y-1/2" />
                   </motion.div>
                 </div>
               </span>
             </motion.p>
-
-            
           </motion.div>
 
           {/* 2. SERVICES GRID - Updated Layout from Second Code */}
