@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { investorCards } from "../../data/investors";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight, Linkedin, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Linkedin,
+  Sparkles,
+} from "lucide-react";
 
 const API_BASE_URL = "https://cobrother-api.onrender.com";
 
@@ -146,9 +152,7 @@ const ProfileCard = ({ profile }) => {
 
   return (
     <div className="shrink-0 w-[280px] sm:w-[300px] md:w-[320px] lg:w-[340px] px-3 sm:px-4">
-      <div
-        className="group relative min-w-0 overflow-hidden bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 sm:p-5 hover:border-neutral-700/50 transition-all duration-300"
-      >
+      <div className="group relative min-w-0 overflow-hidden bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 sm:p-5 hover:border-neutral-700/50 transition-all duration-300">
         <div className="mb-4 sm:mb-5 flex flex-col items-center">
           <div
             className={`relative w-full max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-square rounded-full p-[12px] sm:p-[14px] md:p-[16px] bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
@@ -276,7 +280,25 @@ export default function Investors() {
   const [dataToDisplay, setDataToDisplay] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
   const [isFading, setIsFading] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState(''); 
+  const [scrollDirection, setScrollDirection] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+      window.history.replaceState({}, document.title, "/community-form");
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "/login";
+    }
+  }, []);
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -328,26 +350,26 @@ export default function Investors() {
     const animate = () => {
       if (!isPaused && container) {
         const maxScroll = container.scrollWidth - container.clientWidth;
-        
-        if (scrollDirection === 'forward') {
+
+        if (scrollDirection === "forward") {
           container.scrollLeft += scrollSpeed;
-          
+
           // Check if reached end
           if (container.scrollLeft >= maxScroll - 10) {
             setIsFading(true);
             setTimeout(() => {
-              setScrollDirection('backward');
+              setScrollDirection("backward");
               setIsFading(false);
             }, 500);
           }
         } else {
           container.scrollLeft -= scrollSpeed;
-          
+
           // Check if reached start
           if (container.scrollLeft <= 10) {
             setIsFading(true);
             setTimeout(() => {
-              setScrollDirection('forward');
+              setScrollDirection("forward");
               setIsFading(false);
             }, 500);
           }
@@ -422,7 +444,10 @@ export default function Investors() {
         </h2>
 
         <button
-          onClick={() => navigate("/coworker-form")}
+          onClick={() => {
+            localStorage.setItem("redirectAfterLogin", "/coworker-form");
+            navigate("/login");
+          }}
           className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/20 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white backdrop-blur-xl transition-all duration-300 hover:bg-gray-800 active:scale-[0.98] mt-4"
         >
           Join our community
@@ -436,7 +461,7 @@ export default function Investors() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-   <div
+        <div
           className="
             pointer-events-none absolute left-0 top-0 z-10 
             h-full w-10 sm:w-16 md:w-24 lg:w-32 
