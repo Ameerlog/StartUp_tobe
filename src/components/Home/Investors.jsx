@@ -293,14 +293,6 @@ export default function Investors() {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      window.location.href = "/login";
-    }
-  }, []);
-
-  useEffect(() => {
     const fetchProfiles = async () => {
       try {
         setLoading(true);
