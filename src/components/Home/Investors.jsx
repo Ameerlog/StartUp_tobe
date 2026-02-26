@@ -275,6 +275,8 @@ export default function Investors() {
   const [loading, setLoading] = useState(true);
   const [dataToDisplay, setDataToDisplay] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState(''); 
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -325,9 +327,30 @@ export default function Investors() {
 
     const animate = () => {
       if (!isPaused && container) {
-        container.scrollLeft += scrollSpeed;
-        if (container.scrollLeft >= container.scrollWidth / 2) {
-          container.scrollLeft = 0;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        
+        if (scrollDirection === 'forward') {
+          container.scrollLeft += scrollSpeed;
+          
+          // Check if reached end
+          if (container.scrollLeft >= maxScroll - 10) {
+            setIsFading(true);
+            setTimeout(() => {
+              setScrollDirection('backward');
+              setIsFading(false);
+            }, 500);
+          }
+        } else {
+          container.scrollLeft -= scrollSpeed;
+          
+          // Check if reached start
+          if (container.scrollLeft <= 10) {
+            setIsFading(true);
+            setTimeout(() => {
+              setScrollDirection('forward');
+              setIsFading(false);
+            }, 500);
+          }
         }
       }
       animationRef.current = requestAnimationFrame(animate);
@@ -340,7 +363,7 @@ export default function Investors() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPaused, loading, dataToDisplay.length]);
+  }, [isPaused, loading, dataToDisplay.length, scrollDirection]);
 
   const resetIdleTimer = () => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);

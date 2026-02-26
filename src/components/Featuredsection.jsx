@@ -5,8 +5,9 @@ export default function FeaturesSection() {
   return (
     <section className="relative bg-transparent text-white pt-0">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+  
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+          <h2 className="text-4xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Includes
             </span>
