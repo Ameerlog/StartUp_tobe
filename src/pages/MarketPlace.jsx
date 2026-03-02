@@ -1,76 +1,58 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, X } from "lucide-react";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { 
+  ArrowRight, 
+  Search, 
+  X, 
+  Wallet, 
+  FileText, 
+  Layers, // Used for Industry
+  ChevronDown 
+} from "lucide-react";
+
 import FilterDropdown from "../components/Listing/FilterDropdown";
 import SortDropdown from "../components/Listing/SortDropdown";
+import Logo_white from "../assets/domain/cobrother12341.png";
 
-const INITIAL_COUNT = 6;
+const INITIAL_COUNT = 8;
 
-const cardColors = [
-  {
-    gradient: "from-purple-500/15 to-indigo-500/15",
-    glow: "from-purple-600/30 to-indigo-600/30",
-    border: "group-hover:border-purple-500/50",
-  },
-  {
-    gradient: "from-blue-500/15 to-cyan-500/15",
-    glow: "from-blue-600/30 to-cyan-600/30",
-    border: "group-hover:border-blue-500/50",
-  },
-  {
-    gradient: "from-pink-500/15 to-rose-500/15",
-    glow: "from-pink-600/30 to-rose-600/30",
-    border: "group-hover:border-pink-500/50",
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-  exit: { opacity: 0 },
+// --- Skeleton Component ---
+const MarketPlaceSkeleton = () => {
+  return (
+    <div className="h-[380px] rounded-2xl border border-white/10 bg-[#0A0A0A] p-2 flex flex-col w-full">
+      <div className="h-32 rounded-xl bg-white/5 animate-pulse mx-auto w-full" />
+      <div className="p-3 flex flex-col flex-1 gap-2">
+        <div className="flex justify-between items-start">
+           <div className="h-5 w-24 bg-white/10 rounded animate-pulse" />
+           <div className="h-4 w-12 bg-white/10 rounded-full animate-pulse" />
+        </div>
+        <div className="grid grid-cols-2 gap-2 mt-1">
+          <div className="h-14 bg-white/5 rounded-lg animate-pulse" />
+          <div className="h-14 bg-white/5 rounded-lg animate-pulse" />
+        </div>
+        <div className="h-16 bg-white/5 rounded-lg animate-pulse mt-1" />
+        <div className="mt-auto h-9 w-full bg-white/10 rounded-lg animate-pulse" />
+      </div>
+    </div>
+  );
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 36, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { type: "spring", stiffness: 140, damping: 16 },
-  },
-  exit: { opacity: 0, y: -16, scale: 0.96 },
-  hover: { y: -6, scale: 1.01 },
-  tap: { scale: 0.985 },
-};
-
-const buttonVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { type: "spring", stiffness: 220, damping: 16 },
-  },
-  hover: { scale: 1.04 },
-  tap: { scale: 0.96 },
-};
-
-const arrowVariants = {
-  animate: {
-    y: [0, 5, 0],
-    transition: { duration: 1.2, repeat: Infinity },
-  },
-};
-
+// --- Helper Functions ---
 const getImageUrl = (imageField) => {
   if (!imageField) return null;
-  if (imageField.startsWith("data:")) return imageField;
-  if (imageField.startsWith("http")) return imageField;
-  if (imageField.startsWith("/api/images/")) {
-    return `https://cobrother-api.onrender.com${imageField}`;
+  // Fix localhost/local network issues if present in API data
+  let url = imageField;
+  if (url.includes("localhost:8080")) {
+    url = url.replace("localhost:8080", "192.168.29.184:8080");
   }
-  return `https://cobrother-api.onrender.com/api/images/${imageField}`;
+
+  if (url.startsWith("data:")) return url;
+  if (url.startsWith("http")) return url;
+  if (url.startsWith("/api/images/")) {
+    return `https://cobrother-api.onrender.com${url}`;
+  }
+  return `https://cobrother-api.onrender.com/api/images/${url}`;
 };
 
 const normalizePrice = (details) => {
@@ -93,21 +75,57 @@ const normalizePrice = (details) => {
   if (numericPrice) {
     return {
       priceValue: numericPrice,
-      priceLabel: `\u20B9${numericPrice.toLocaleString("en-IN")}`,
+      priceLabel: `₹${numericPrice.toLocaleString("en-IN")}`,
     };
   }
 
-  const textPrice = priceCandidates.find(
-    (value) => typeof value === "string" && value.trim().length > 0,
-  );
-
   return {
     priceValue: 0,
-    priceLabel: textPrice ? textPrice.trim() : "Price on inquiry",
+    priceLabel: "Price on inquiry",
   };
 };
 
+// --- Hero Section ---
+const MarketHero = () => {
+  return (
+    <section className="relative w-full min-h-[28vh] bg-[#09090b] overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-size-[32px_32px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl px-4 pb-2 text-center z-10">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl sm:text-4xl md:text-7xl font-bold tracking-tight"
+        >
+          <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+            Premium
+          </span> <span />
+          <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+            Brand Marketplace
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mt-3 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
+        >
+          Acquire established brand identities, domains, and assets to kickstart your next venture.
+        </motion.p>
+      </div>
+    </section>
+  );
+};
+
 export default function MarketPlace() {
+  const navigate = useNavigate();
+  
+  // State
   const [showAll, setShowAll] = useState(false);
   const [ventures, setVentures] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -115,27 +133,52 @@ export default function MarketPlace() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [industryFilter, setIndustryFilter] = useState("");
   const [sort, setSort] = useState("");
-  const navigate = useNavigate();
+  const [imageErrors, setImageErrors] = useState({});
+
+  // Sticky Header Refs
+  const [isSticky, setIsSticky] = useState(false);
+  const [toolbarHeight, setToolbarHeight] = useState(0);
+  const heroRef = useRef(null);
+  const toolbarRef = useRef(null);
+
+  // --- Sticky Logic ---
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => setIsSticky(!entry.isIntersecting),
+      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" }
+    );
+    if (heroRef.current) observer.observe(heroRef.current);
+    return () => {
+      if (heroRef.current) observer.unobserve(heroRef.current);
+    };
+  }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(searchQuery.trim().toLowerCase());
-    }, 250);
+    const updateToolbarHeight = () => {
+      if (toolbarRef.current) setToolbarHeight(toolbarRef.current.offsetHeight || 0);
+    };
+    updateToolbarHeight();
+    window.addEventListener("resize", updateToolbarHeight);
+    return () => window.removeEventListener("resize", updateToolbarHeight);
+  }, []);
 
+  // --- Search Debounce ---
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchQuery.trim().toLowerCase()), 250);
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
+  // Reset show all on filter change
   useEffect(() => {
     setShowAll(false);
   }, [debouncedSearch, industryFilter, sort]);
 
+  // --- Data Fetching ---
   useEffect(() => {
     const fetchVentures = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllBrands",
-        );
+        const response = await fetch("https://cobrother-api.onrender.com/api/ListAllBrands");
         const data = await response.json();
         const list = Array.isArray(data) ? data : data.data || [];
 
@@ -146,7 +189,8 @@ export default function MarketPlace() {
             const { priceValue, priceLabel } = normalizePrice(details);
 
             return {
-              id: item.id || item.Id || index + 1,
+              id: item.id || index,
+              uniqueKey: `${item.id}-${index}`,
               title: details.brandName || "Unknown Brand",
               description: details.description || "Premium venture opportunity.",
               industry: details.industry || "General",
@@ -158,7 +202,7 @@ export default function MarketPlace() {
 
         setVentures(mappedVentures);
       } catch (error) {
-        console.error("Error fetching venture data:", error);
+        console.error("Error fetching data:", error);
         setVentures([]);
       } finally {
         setLoading(false);
@@ -168,291 +212,249 @@ export default function MarketPlace() {
     fetchVentures();
   }, []);
 
+  // --- Filtering & Sorting ---
   const industryOptions = useMemo(() => {
     const industryMap = new Map();
-
-    ventures.forEach((venture) => {
-      if (venture.industry?.trim()) {
-        const key = venture.industry.toLowerCase();
-        if (!industryMap.has(key)) industryMap.set(key, venture.industry);
+    ventures.forEach((v) => {
+      if (v.industry?.trim()) {
+        const key = v.industry.toLowerCase();
+        if (!industryMap.has(key)) industryMap.set(key, v.industry);
       }
     });
-
-    return Array.from(industryMap.values()).map((industry) => ({
-      label: industry,
-      value: industry,
-    }));
+    return Array.from(industryMap.values()).map((ind) => ({ label: ind, value: ind }));
   }, [ventures]);
 
   const filteredVentures = useMemo(() => {
-    const filtered = ventures.filter((venture) => {
+    let filtered = ventures.filter((v) => {
       if (debouncedSearch) {
-        const searchable = `${venture.title} ${venture.description} ${venture.industry}`.toLowerCase();
-        if (!searchable.includes(debouncedSearch)) return false;
+        const text = `${v.title} ${v.description} ${v.industry}`.toLowerCase();
+        if (!text.includes(debouncedSearch)) return false;
       }
-
-      if (industryFilter) {
-        if (venture.industry.toLowerCase() !== industryFilter.toLowerCase()) {
-          return false;
-        }
+      if (industryFilter && v.industry.toLowerCase() !== industryFilter.toLowerCase()) {
+        return false;
       }
-
       return true;
     });
 
-    const sorted = [...filtered];
-    if (sort === "price_high") {
-      sorted.sort((a, b) => b.priceValue - a.priceValue);
-    } else if (sort === "price_low") {
-      sorted.sort((a, b) => a.priceValue - b.priceValue);
-    } else if (sort === "name") {
-      sorted.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sort === "newest") {
-      sorted.reverse();
-    }
+    if (sort === "price_high") filtered.sort((a, b) => b.priceValue - a.priceValue);
+    else if (sort === "price_low") filtered.sort((a, b) => a.priceValue - b.priceValue);
+    else if (sort === "name") filtered.sort((a, b) => a.title.localeCompare(b.title));
+    else if (sort === "newest") filtered.reverse();
 
-    return sorted;
+    return filtered;
   }, [ventures, debouncedSearch, industryFilter, sort]);
 
-  const displayedVentures = useMemo(
-    () =>
-      showAll
-        ? filteredVentures
-        : filteredVentures.slice(0, INITIAL_COUNT),
-    [showAll, filteredVentures],
-  );
-
+  const displayedVentures = showAll ? filteredVentures : filteredVentures.slice(0, INITIAL_COUNT);
   const hasMore = filteredVentures.length > INITIAL_COUNT;
   const hasActiveFilters = Boolean(searchQuery || industryFilter || sort);
 
+  const handleImageError = (key) => {
+    setImageErrors(prev => ({ ...prev, [key]: true }));
+  };
+
   return (
-    <main className="relative text-white overflow-hidden">
-      <section className="relative z-10">
-        <div className="mx-auto max-w-6xl px-4 py-10 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent"
-          >
-            Let&apos;s Find Your Brand Name
-          </motion.h1>
+    <main className="min-h-screen bg-[#09090b]">
+      <div className="relative">
+        <div ref={heroRef}>
+          <MarketHero />
         </div>
-      </section>
 
-      <section className="relative z-10 pb-14">
-        <div className="mx-auto max-w-6xl px-4 pt-8">
-          <div className="sticky top-20 z-20 mb-6 sm:mb-8 rounded-2xl border border-neutral-800/60 bg-neutral-900/75 backdrop-blur-xl shadow-[0_14px_38px_rgba(0,0,0,0.35)]">
-            <div className="p-3 sm:p-4 border-b border-neutral-800/50">
-              <div className="relative">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 pointer-events-none" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search brand name, description or industry..."
-                  disabled={loading}
-                  className="w-full h-11 sm:h-12 pl-10 pr-10 rounded-xl border border-neutral-700/70 bg-neutral-950/50 text-white text-sm placeholder:text-neutral-500 focus:outline-none focus:ring-1 focus:ring-purple-500/40 focus:border-purple-500/40 transition-all disabled:opacity-50"
-                />
-                {searchQuery.trim().length > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-md hover:bg-neutral-800/70 transition-colors"
-                    aria-label="Clear search"
-                  >
-                    <X className="w-4 h-4 text-neutral-400" />
+        {/* --- Sticky Toolbar --- */}
+        <div style={isSticky ? { height: toolbarHeight } : undefined}>
+          <div
+            ref={toolbarRef}
+            className={`relative z-[200] w-full transition-all duration-500 ease-out 
+              ${isSticky 
+                ? "fixed top-0 left-0 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md" 
+                : "relative z-10 bg-transparent border-b border-transparent shadow-none"
+              }`}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Top Row */}
+              <div className="flex items-center gap-3 sm:gap-4 py-3 sm:py-4">
+                <div className={`flex-shrink-0 overflow-hidden transition-all duration-500 ${isSticky ? "max-w-[150px] opacity-100" : "max-w-0 opacity-0 pointer-events-none"}`}>
+                  <button onClick={() => navigate("/")} className="hover:opacity-80">
+                    <img src={Logo_white} alt="CoBrother" className="h-6 sm:h-8 w-auto" />
                   </button>
-                )}
-              </div>
-            </div>
+                </div>
 
-            <div className="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <span className="text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
-                  Filters:
-                </span>
-                <FilterDropdown
-                  label={industryFilter || "Industry"}
-                  value={industryFilter}
-                  options={industryOptions}
-                  onChange={setIndustryFilter}
-                />
+                <div className={`flex-1 mx-auto transition-all duration-300 ${isSticky ? "max-w-4xl" : "max-w-5xl"}`}>
+                  <div className={`relative flex items-center rounded-2xl border border-neutral-700/60 bg-neutral-900/95 transition-all duration-300 ${isSticky ? "p-1 shadow-lg" : "p-2 shadow-xl"}`}>
+                    <Search className={`absolute text-neutral-400 pointer-events-none ${isSticky ? "left-4 w-4 h-4" : "left-5 w-5 h-5"}`} />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search brands, industries..."
+                      className={`w-full bg-neutral-950/40 border-transparent rounded-xl text-white placeholder:text-neutral-500 focus:ring-2 focus:ring-purple-500/35 transition-all ${isSticky ? "h-11 pl-11 pr-10 text-sm" : "h-14 pl-14 pr-12 text-base"}`}
+                    />
+                    {searchQuery && (
+                      <button onClick={() => setSearchQuery("")} className="absolute right-4 p-1 hover:bg-neutral-800/80 rounded-md">
+                        <X className="w-4 h-4 text-neutral-400" />
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 sm:gap-3">
-                <SortDropdown
-                  label="Sort"
-                  value={sort}
-                  onChange={setSort}
-                  options={[
-                    { label: "Newest", value: "newest" },
-                    { label: "Name A-Z", value: "name" },
-                    { label: "Price: High to Low", value: "price_high" },
-                    { label: "Price: Low to High", value: "price_low" },
-                  ]}
-                />
-                {hasActiveFilters && (
-                  <button
-                    onClick={() => {
-                      setSearchQuery("");
-                      setIndustryFilter("");
-                      setSort("");
-                    }}
-                    className="px-3 py-2 bg-neutral-900/80 border border-neutral-700/60 rounded-lg text-white text-xs sm:text-sm font-medium hover:bg-neutral-800/70 transition-colors"
-                  >
-                    Clear Filters
-                  </button>
-                )}
+              {/* Bottom Row */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 border-t border-neutral-800/30">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs sm:text-sm font-medium text-neutral-400">Filters:</span>
+                  <FilterDropdown
+                    label={industryFilter || "Industry"}
+                    value={industryFilter}
+                    options={industryOptions}
+                    onChange={setIndustryFilter}
+                  />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <SortDropdown
+                    label="Sort"
+                    value={sort}
+                    onChange={setSort}
+                    options={[
+                      { label: "Newest", value: "newest" },
+                      { label: "Name A-Z", value: "name" },
+                      { label: "Price: High to Low", value: "price_high" },
+                      { label: "Price: Low to High", value: "price_low" },
+                    ]}
+                  />
+                  {hasActiveFilters && (
+                    <button
+                      onClick={() => { setSearchQuery(""); setIndustryFilter(""); setSort(""); }}
+                      className="px-3 py-2 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-xs font-medium hover:bg-neutral-800/60"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-
-          <LayoutGroup>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={showAll ? "expanded" : "collapsed"}
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                layout
-                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-              >
-                <AnimatePresence mode="popLayout">
-                  {displayedVentures.map((item, index) => {
-                    const theme = cardColors[index % cardColors.length];
-
-                    return (
-                      <motion.article
-                        key={item.id}
-                        variants={cardVariants}
-                        whileHover="hover"
-                        whileTap="tap"
-                        layout
-                        className={`group relative overflow-hidden rounded-2xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/80 to-neutral-950/85 backdrop-blur-xl cursor-pointer ${theme.border}`}
-                      >
-                        <div
-                          className={`absolute -inset-0.5 rounded-2xl bg-gradient-to-r ${theme.glow} opacity-0 blur-lg transition duration-500 group-hover:opacity-70`}
-                        />
-
-                        <motion.button
-                          onClick={() => navigate("/get-ventures")}
-                          className="absolute inset-0 z-10"
-                        />
-
-                        <div
-                          className={`border-b border-neutral-800/50 bg-gradient-to-br ${theme.gradient} p-4`}
-                        >
-                          <div className="aspect-[4/3] flex items-center justify-center rounded-xl bg-black/60">
-                            {item.logo ? (
-                              <motion.img
-                                src={getImageUrl(item.logo)}
-                                alt={item.title}
-                                className="max-h-full max-w-full object-contain"
-                                initial={{ scale: 0.9, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{ delay: index * 0.05 }}
-                              />
-                            ) : (
-                              <span className="text-3xl font-bold text-white/40">
-                                {item.title.substring(0, 2).toUpperCase()}
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="mt-4 flex items-center justify-between gap-2">
-                            <span className="rounded-full border border-white/40 bg-white/10 px-3 py-1 text-xs text-neutral-300 truncate max-w-[55%]">
-                              {item.priceLabel}
-                            </span>
-
-                            <motion.button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigate("/get-ventures");
-                              }}
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                              className="relative overflow-hidden rounded-full"
-                            >
-                              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
-                              <span className="relative px-4 py-1.5 text-xs font-semibold text-white">
-                                Buy Now
-                              </span>
-                            </motion.button>
-                          </div>
-                        </div>
-
-                        <div className="p-5">
-                          <div className="text-sm font-semibold text-white">
-                            {item.title}
-                          </div>
-                          <p className="mt-1.5 text-xs text-neutral-400 line-clamp-2">
-                            {item.description}
-                          </p>
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="rounded-full border border-neutral-700/50 bg-neutral-800/50 px-3 py-1 text-xs text-neutral-300">
-                              {item.industry}
-                            </span>
-                          </div>
-                        </div>
-                      </motion.article>
-                    );
-                  })}
-                </AnimatePresence>
-              </motion.div>
-            </AnimatePresence>
-
-            {loading ? (
-              <div className="mt-10 text-center text-sm text-neutral-400">
-                Loading ventures...
-              </div>
-            ) : filteredVentures.length === 0 ? (
-              <div className="mt-10 text-center text-sm text-neutral-400">
-                No brands matched your current filters.
-              </div>
-            ) : hasMore ? (
-              <motion.div
-                variants={buttonVariants}
-                initial="hidden"
-                animate="visible"
-                className="mt-10 text-center"
-              >
-                <motion.button
-                  onClick={() => {
-                    setShowAll(!showAll);
-                    if (showAll) {
-                      window.scrollTo({ top: 220, behavior: "smooth" });
-                    }
-                  }}
-                  whileHover="hover"
-                  whileTap="tap"
-                  className="inline-flex items-center gap-2 rounded-full border border-neutral-700 bg-neutral-900/80 backdrop-blur-xl px-6 py-3 text-sm font-semibold text-neutral-200"
-                >
-                  {showAll
-                    ? "Show Less"
-                    : `View All (${filteredVentures.length - INITIAL_COUNT} more)`}
-
-                  <motion.svg
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    variants={arrowVariants}
-                    animate="animate"
-                    style={{ rotate: showAll ? 180 : 0 }}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </motion.svg>
-                </motion.button>
-              </motion.div>
-            ) : null}
-          </LayoutGroup>
         </div>
+      </div>
+
+      {/* --- Listing Grid --- */}
+      <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <LayoutGroup>
+          {loading ? (
+             <div className="grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              {[...Array(8)].map((_, i) => <MarketPlaceSkeleton key={i} />)}
+             </div>
+          ) : displayedVentures.length === 0 ? (
+            <div className="w-full text-center py-20 bg-white/5 rounded-2xl border border-white/10">
+              <h3 className="text-xl font-bold text-white mb-2">No results found</h3>
+              <p className="text-zinc-400">Try adjusting your search or filters.</p>
+              <button 
+                onClick={() => { setSearchQuery(""); setIndustryFilter(""); }}
+                className="mt-4 px-4 py-2 bg-white text-black rounded-full font-bold text-sm hover:bg-gray-200"
+              >
+                Clear All Filters
+              </button>
+            </div>
+          ) : (
+            <motion.div 
+              layout 
+              className="grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+            >
+              <AnimatePresence mode="popLayout">
+                {displayedVentures.map((card) => (
+                  <motion.div
+                    key={card.uniqueKey}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* --- CONSISTENT CARD DESIGN --- */}
+                    <div className="group relative h-[380px] rounded-2xl border border-white/10 bg-[#111] bg-opacity-60 backdrop-blur-md flex flex-col overflow-hidden transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1">
+                      
+                      {/* Top Image */}
+                      <div className="relative h-32 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-4 border-b border-white/5">
+                        {card.logo && !imageErrors[card.uniqueKey] ? (
+                          <img
+                            src={getImageUrl(card.logo)}
+                            alt={card.title}
+                            className="max-h-full max-w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy"
+                            onError={() => handleImageError(card.uniqueKey)}
+                          />
+                        ) : (
+                          <span className="text-4xl font-black text-white/10 select-none">
+                            {card.title.slice(0, 2).toUpperCase()}
+                          </span>
+                        )}
+                        <div className="absolute top-3 right-3 bg-black/40 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded">
+                          <p className="text-[9px] font-bold text-emerald-400 tracking-wider uppercase">Verified</p>
+                        </div>
+                      </div>
+
+                      <div className="p-4 flex flex-col flex-1">
+                        <h3 className="text-lg font-bold text-white mb-2 truncate">{card.title}</h3>
+                        
+                        {/* Data Grid: Price & Industry */}
+                        <div className="grid grid-cols-2 gap-2 mb-2">
+                            <div className="bg-white/5 rounded-lg p-2.5 border border-white/5 overflow-hidden">
+                                <div className="flex items-center gap-1 text-zinc-400 text-[9px] font-medium uppercase tracking-wider mb-0.5">
+                                    <Wallet className="w-2.5 h-2.5" /> Price
+                                </div>
+                                <div className="text-white font-bold whitespace-nowrap overflow-hidden text-ellipsis text-sm">
+                                    {card.priceLabel}
+                                </div>
+                            </div>
+                            <div className="bg-white/5 rounded-lg p-2.5 border border-white/5 overflow-hidden">
+                                <div className="flex items-center gap-1 text-zinc-400 text-[9px] font-medium uppercase tracking-wider mb-0.5">
+                                    <Layers className="w-2.5 h-2.5" /> Industry
+                                </div>
+                                <div className="text-white font-bold text-sm truncate">
+                                    {card.industry}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Description Box */}
+                        <div className="bg-white/5 rounded-lg p-2.5 border border-white/5 mb-3 flex-1 overflow-hidden">
+                           <div className="flex items-center gap-1 text-zinc-400 text-[9px] font-medium uppercase tracking-wider mb-0.5">
+                               <FileText className="w-2.5 h-2.5" /> Description
+                           </div>
+                           <p className="text-[10px] text-zinc-300 line-clamp-2 leading-relaxed">
+                              {card.description}
+                           </p>
+                        </div>
+
+                        <div className="mt-auto">
+                          <button
+                            onClick={() => navigate("/get-ventures")}
+                            className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-white text-black py-2.5 text-[11px] font-bold uppercase tracking-wider transition-transform active:scale-[0.98] hover:bg-gray-200"
+                          >
+                            Get Brand <ArrowRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {/* --- END CARD DESIGN --- */}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+
+          {/* Load More Button */}
+          {!loading && hasMore && (
+            <div className="mt-12 flex justify-center">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3 text-sm font-bold text-white backdrop-blur-xl transition-all duration-300 hover:bg-gray-800 hover:border-white/40 active:scale-[0.98]"
+              >
+                {showAll ? "Show Less" : `View All (${filteredVentures.length - INITIAL_COUNT} more)`}
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+              </button>
+            </div>
+          )}
+        </LayoutGroup>
       </section>
     </main>
   );

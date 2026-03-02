@@ -20,6 +20,8 @@ import ScrolltoTop from "./components/ScrolltoTop";
 import Investors from "../src/components/Home/Investors";
 import CoventureForm from "../src/pages/CoventureForm";
 import AboutUs from "./pages/AboutUs";
+
+
 import ContactUs from "./pages/ContactUs";
 import Cocreation from "./pages/Create";
 import DomainlistingForm from "./pages/DomainlistingForm";
@@ -30,59 +32,51 @@ import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
 import GetVentureForm from "./pages/GetVentureform";
 import Login from "./pages/Login";
+import Dashboard from "./dashboard/pages/Dashbord";
 const App = () => {
   return (
     <BrowserRouter>
       <ScrolltoTop />
       <div className="min-h-screen flex flex-col bg-black">
-        <Navbar />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/marketing" element={<Marketing />} />
-            <Route path="/branding" element={<Branding />} />
-            <Route path="/compliance" element={<Compliance />} />
-            <Route path="/ai" element={<AIRoboticsPage />} />
-            <Route path="/co-creation" element={<Cocreation />} />
-            {/* <Route path='/community' element={<Community/>}/> */}
-            <Route path="/venture" element={<Venture />} />
-            {/* joint venture apply button */}
-            <Route path="/apply" element={<ReserveDomainForm />} />
-            {/*  */}
-            <Route path="/marketplace" element={<MarketPlace />} />
-
-            <Route
-              path="/marketplace/domain/:id"
-              element={<DomainDetailsLayout />}
-            />
-            <Route
-              path="/marketplace/:slug/payment"
-              element={<ReserveDomainPage />}
-            />
-            <Route
-              path="/marketplace/:slug/payment/success"
-              element={<Success />}
-            />
-            <Route path="/login" element={<Login />} />
-
-            {/* Footer */}
-            <Route path="/community" element={<Community />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsAndConditions />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/careers" element={<Careers />} />
-            {/* Forms */}
-            {/* Coventure listing form  */}
-
-            <Route path="/get-ventures" element={<GetVentureForm />} />
-            <Route path="/coventure-form" element={<CoventureForm />} />
-            <Route path="/domain-form" element={<DomainlistingForm />} />
-            <Route path="/coworker-form" element={<CoworkingForm />} />
-          </Routes>
-        </div>
-        <Footer />
+        <Routes>
+          {/* Dashboard Route - Completely Separate Layout */}
+          <Route path="/dashboard/*" element={<Dashboard />} />
+          
+          <Route path="/*" element={
+            <>
+              <Navbar />
+              <div className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/marketing" element={<Marketing />} />
+                  <Route path="/branding" element={<Branding />} />
+                  <Route path="/compliance" element={<Compliance />} />
+                  <Route path="/ai" element={<AIRoboticsPage />} />
+                  <Route path="/co-creation" element={<Cocreation />} />
+                  <Route path="/venture" element={<Venture />} />
+                  <Route path="/apply" element={<ReserveDomainForm />} />
+                  <Route path="/marketplace" element={<MarketPlace />} />
+                  <Route path="/marketplace/domain/:id" element={<DomainDetailsLayout />} />
+                  <Route path="/marketplace/:slug/payment" element={<ReserveDomainPage />} />
+                  <Route path="/marketplace/:slug/payment/success" element={<Success />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/community" element={<Community />} />
+                  <Route path="/about" element={<AboutUs />} />
+                  <Route path="/contact" element={<ContactUs />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms-of-service" element={<TermsAndConditions />} />
+                  <Route path="/how-it-works" element={<HowItWorks />} />
+                  <Route path="/careers" element={<Careers />} />
+                  <Route path="/get-ventures" element={<GetVentureForm />} />
+                  <Route path="/coventure-form" element={<CoventureForm />} />
+                  <Route path="/domain-form" element={<DomainlistingForm />} />
+                  <Route path="/coworker-form" element={<CoworkingForm />} />
+                </Routes>
+              </div>
+              <Footer />
+            </>
+          } />
+        </Routes>
       </div>
     </BrowserRouter>
   );

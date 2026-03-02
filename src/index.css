@@ -303,3 +303,27 @@ main {
     padding-top: 5rem; /* 80px for mobile */
   }
 }
+
+/* GoDaddy Style Dashboard */
+.gd-sidebar-item {
+  @apply flex items-center gap-3 px-4 py-3 text-gray-700 cursor-pointer transition-all
+         border-l-4 border-transparent hover:bg-gray-50;
+}
+
+.gd-sidebar-item-active {
+  @apply bg-blue-50 text-blue-600 border-l-blue-600 font-medium;
+}
+
+.gd-card {
+  @apply bg-white rounded-lg border border-gray-200;
+}
+
+.gd-btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white 
+         rounded-lg font-medium hover:bg-blue-700 transition-colors;
+}
+
+.gd-btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-gray-700 
+         border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors;
+}
