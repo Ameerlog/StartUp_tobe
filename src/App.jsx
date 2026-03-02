@@ -29,7 +29,6 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
 import GetVentureForm from "./pages/GetVentureform";
-import Login from "./pages/Login";
 const App = () => {
   return (
     <BrowserRouter>
@@ -63,7 +62,6 @@ const App = () => {
               path="/marketplace/:slug/payment/success"
               element={<Success />}
             />
-            <Route path="/login" element={<Login />} />
 
             {/* Footer */}
             <Route path="/community" element={<Community />} />

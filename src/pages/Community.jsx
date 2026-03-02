@@ -224,7 +224,7 @@ const ProfileCard = ({ profile }) => {
               </textPath>
             </text>
             <text
-              className="fill-white text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] font-black tracking-[1.5px] sm:tracking-[1.8px] md:tracking-[2px] lg:tracking-[2.2px]"
+              className="fill-white text-[7px] sm:text-[8px] md:text-[9px] lg:text-[12px] font-black tracking-[1.5px] sm:tracking-[1.8px] md:tracking-[2px] lg:tracking-[2.2px]"
               style={{
                 paintOrder: "stroke",
                 stroke: "rgba(10,10,10,0.98)",
@@ -240,7 +240,6 @@ const ProfileCard = ({ profile }) => {
               </textPath>
             </text>
           </svg>
-
           {/* Inner circle with image */}
           <div className="h-full w-full rounded-full overflow-hidden flex-shrink-0">
             {imageUrl && !imageFailed ? (
