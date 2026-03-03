@@ -1,14 +1,142 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import { ArrowRight, ExternalLink, Search, X } from "lucide-react";
+import { ArrowRight, Search, X, Tag, Globe } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import FilterDropdown from "../components/Listing/FilterDropdown";
 import SortDropdown from "../components/Listing/SortDropdown";
 import Pagination from "../components/Listing/Pagination";
 import EmptyState from "../components/Listing/EmptyState";
-import SkeletonLoader from "../components/Listing/SkeletonLoader";
 import useListingState from "../hooks/useListingState";
 import Logo_white from "../assets/domain/cobrother12341.png";
+
+// Skeleton Card (Bigger Size)
+const DomainCardSkeleton = () => {
+  return (
+    <div className="w-full">
+      <div className="h-[380px] rounded-2xl border border-white/10 bg-[#0A0A0A] flex flex-col">
+        {/* Image Area */}
+        <div className="h-36 rounded-t-2xl bg-white/5 animate-pulse w-full" />
+        
+        <div className="p-4 flex flex-col flex-1">
+          {/* Title */}
+          <div className="h-6 w-3/4 bg-white/10 rounded animate-pulse" />
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 gap-3 mt-4">
+            <div className="h-16 bg-white/5 rounded-xl animate-pulse" />
+            <div className="h-16 bg-white/5 rounded-xl animate-pulse" />
+          </div>
+
+          {/* Button */}
+          <div className="mt-auto h-11 w-full bg-white/10 rounded-xl animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Domain Card (Bigger Size, No Gaps)
+const DomainCard = ({ domain, imageErrors, handleImageError }) => {
+  const navigate = useNavigate();
+  
+  const displayName = domain.domainName || "Domain";
+  const displayExt = domain.domainExtension || ".com";
+  const displayPrice = domain.askingPrice
+    ? `₹${domain.askingPrice.toLocaleString("en-IN")}`
+    : "TBA";
+  const domainId = domain.slug || domain._id || domain.id;
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+      className="w-full"
+    >
+      <div
+        onClick={() => navigate(`/marketplace/domain/${domain.id}`)}
+        className="
+          group relative h-[380px] rounded-2xl border border-white/10 bg-[#111] bg-opacity-60
+          backdrop-blur-md flex flex-col overflow-hidden transition-all duration-300
+          hover:border-white/20 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1
+          cursor-pointer
+        "
+      >
+        {/* Top: Image/Logo Area */}
+        <div className="relative h-36 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-6 border-b border-white/5">
+          {domain.logo && !imageErrors?.[domainId] ? (
+            <img
+              src={`https://cobrother-api.onrender.com/api/images/${domain.logo}`}
+              alt={displayName}
+              className="max-h-full max-w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
+              draggable={false}
+              onError={() => handleImageError?.(domainId)}
+            />
+          ) : (
+            <div className="text-5xl font-black text-white/10 select-none">
+              {displayName.slice(0, 2).toUpperCase()}
+            </div>
+          )}
+          {/* Badge */}
+          <div className="absolute top-3 right-3 bg-black/40 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-lg">
+            <p className="text-[9px] font-bold text-emerald-400 tracking-wider uppercase">
+              Verified
+            </p>
+          </div>
+        </div>
+
+        {/* Body Content */}
+        <div className="p-4 flex flex-col flex-1">
+          <h3 className="text-lg font-bold text-white truncate">
+            {displayName}
+          </h3>
+
+          {/* Stats Grid - No gaps below values */}
+          <div className="grid grid-cols-2 gap-3 mt-4 flex-1">
+            <div className="bg-white/5 rounded-xl p-3 border border-white/5 flex flex-col justify-center">
+              <div className="flex items-center gap-1.5 text-zinc-400 text-[10px] font-medium uppercase tracking-wider">
+                <Tag className="w-3 h-3" /> Price
+              </div>
+              <div 
+                className="text-white font-bold text-base mt-1 whitespace-nowrap overflow-hidden text-ellipsis"
+                title={displayPrice}
+              >
+                {displayPrice}
+              </div>
+            </div>
+            <div className="bg-white/5 rounded-xl p-3 border border-white/5 flex flex-col justify-center">
+              <div className="flex items-center gap-1.5 text-zinc-400 text-[10px] font-medium uppercase tracking-wider">
+                <Globe className="w-3 h-3" /> Extension
+              </div>
+              <div className="text-white font-bold text-base mt-1 truncate">
+                {displayExt}
+              </div>
+            </div>
+          </div>
+
+          {/* Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/marketplace/domain/${domain.id}`);
+            }}
+            className="
+              w-full flex items-center justify-center gap-2
+              rounded-full bg-gray-600 text-white
+              py-3 text-xs font-bold uppercase tracking-wider
+              transition-transform active:scale-[0.98] hover:bg-gray-500
+              mt-4
+            "
+          >
+            Make it Yours <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const BrandingHero = () => {
   return (
@@ -18,7 +146,7 @@ const BrandingHero = () => {
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-black/90" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4  pb-2 text-center z-10">
+      <div className="relative mx-auto max-w-6xl px-4 pb-2 text-center z-10">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -27,7 +155,7 @@ const BrandingHero = () => {
         >
           <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Find Premium
-          </span> <span />
+          </span>{" "}
           <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
             Domain Names
           </span>
@@ -46,78 +174,6 @@ const BrandingHero = () => {
   );
 };
 
-const DomainCard = ({ domain }) => {
-  const navigate = useNavigate();
-
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      whileHover={{ y: -4 }}
-      className="group relative bg-linear-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-6 hover:border-neutral-700/50 transition-all duration-300"
-    >
-      <div className="absolute -inset-0.5 bg-linear-to-r from-purple-600/0 to-pink-600/0 rounded-2xl blur-lg opacity-0 group-hover:from-purple-600/30 group-hover:to-pink-600/30 group-hover:opacity-70 transition duration-500" />
-
-      <div className="relative">
-        {/* Logo */}
-        <div className="mb-4 h-40 bg-linear-to-br from-neutral-800 to-neutral-900 rounded-xl flex items-center justify-center overflow-hidden">
-          {domain.logo ? (
-            <img
-              src={`https://cobrother-api.onrender.com/api/images/${domain.logo}`}
-              alt={domain.domainName}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <span className="text-4xl font-bold text-white opacity-30">
-              {domain.domainName.substring(0, 2).toUpperCase()}
-            </span>
-          )}
-        </div>
-
-        {/* Domain Name */}
-        <h3 className="text-lg font-bold text-white mb-1 truncate">
-          {domain.domainName}
-        </h3>
-
-        {/* Extension */}
-        <p className="text-xs text-neutral-400 mb-3 font-medium">
-          {domain.domainExtension}
-        </p>
-
-        {/* Price */}
-        <div className="mb-4">
-          <span className="text-2xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            ₹{domain.askingPrice.toLocaleString("en-IN")}
-          </span>
-        </div>
-
-        {/* Category Badge */}
-        <div className="mb-4">
-          <span className="inline-block px-3 py-1 text-xs bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-400 capitalize">
-            {domain.domainCategory}
-          </span>
-        </div>
-
-        {/* Action Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate(`/marketplace/domain/${domain.id}`)}
-          className="w-full group/btn relative overflow-hidden rounded-xl"
-        >
-          <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
-          <span className="relative px-4 py-2.5 font-semibold text-white text-sm flex items-center justify-center gap-2">
-            Make it Yours
-            <ExternalLink className="w-3.5 h-3.5" />
-          </span>
-        </motion.button>
-      </div>
-    </motion.div>
-  );
-};
 const Branding = () => {
   const navigate = useNavigate();
   const {
@@ -139,6 +195,7 @@ const Branding = () => {
 
   const [domains, setDomains] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageErrors, setImageErrors] = useState({});
   const [isSticky, setIsSticky] = useState(false);
   const [toolbarHeight, setToolbarHeight] = useState(0);
   const heroRef = useRef(null);
@@ -151,7 +208,7 @@ const Branding = () => {
         const nextSticky = !entry.isIntersecting;
         setIsSticky((prev) => (prev === nextSticky ? prev : nextSticky));
       },
-      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" },
+      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" }
     );
     if (heroRef.current) {
       observer.observe(heroRef.current);
@@ -179,7 +236,7 @@ const Branding = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllDomains",
+          "https://cobrother-api.onrender.com/api/ListAllDomains"
         );
         const data = await response.json();
         setDomains(data || []);
@@ -191,6 +248,10 @@ const Branding = () => {
     };
     fetchDomains();
   }, []);
+
+  const handleImageError = (id) => {
+    setImageErrors((prev) => ({ ...prev, [id]: true }));
+  };
 
   // Filter and search logic
   const filteredDomains = domains.filter((domain) => {
@@ -212,11 +273,7 @@ const Branding = () => {
     if (filters.length && filters.length !== "") {
       const domainLength = domain.domainName.length;
       if (filters.length === "short" && domainLength > 5) return false;
-      if (
-        filters.length === "medium" &&
-        (domainLength < 6 || domainLength > 10)
-      )
-        return false;
+      if (filters.length === "medium" && (domainLength < 6 || domainLength > 10)) return false;
       if (filters.length === "long" && domainLength < 11) return false;
     }
     return true;
@@ -236,10 +293,10 @@ const Branding = () => {
   const totalPages = Math.ceil(sortedDomains.length / itemsPerPage);
   const paginatedDomains = sortedDomains.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
-  // Get unique extensions with default options
+  // Get unique extensions
   const defaultExtensions = [
     { label: ".com", value: ".com" },
     { label: ".net", value: ".net" },
@@ -250,15 +307,11 @@ const Branding = () => {
     { label: ".co", value: ".co" },
     { label: ".biz", value: ".biz" },
   ];
-  const apiExtensions = Array.from(
-    new Set(domains.map((d) => d.domainExtension)),
-  )
+  const apiExtensions = Array.from(new Set(domains.map((d) => d.domainExtension)))
     .filter((ext) => ext && ext.trim() !== "")
     .map((ext) => ({ label: ext, value: ext }));
   const uniqueExtensions = Array.from(
-    new Map(
-      [...defaultExtensions, ...apiExtensions].map((x) => [x.value, x]),
-    ).values(),
+    new Map([...defaultExtensions, ...apiExtensions].map((x) => [x.value, x])).values()
   );
 
   const ctaButton = (
@@ -276,7 +329,6 @@ const Branding = () => {
     </motion.button>
   );
 
-  // Clear filters logic
   const handleClearFilters = () => {
     setFilters({
       extension: "",
@@ -289,163 +341,171 @@ const Branding = () => {
     setCurrentPage(1);
   };
 
-  // Check if any filters are active
   const hasActiveFilters =
-    searchQuery?.trim().length > 0 ||
-    filters.extension ||
-    filters.length ||
-    sort;
+    searchQuery?.trim().length > 0 || filters.extension || filters.length || sort;
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-[#09090b]">
       {/* Navbar + Hero */}
       <div className="relative">
         <div ref={heroRef}>
           <BrandingHero />
         </div>
-        {/* Sticky Toolbar: Two-Row Layout */}
+
+        {/* Sticky Toolbar */}
         <div style={isSticky ? { height: toolbarHeight } : undefined}>
           <div
             ref={toolbarRef}
-            className={` relative z-[200] w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${isSticky ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0" : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"}`}
+            className={`relative z-[200] w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${
+              isSticky
+                ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0"
+                : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"
+            }`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
-            {/* Row 1: Logo + Search + Support Icon */}
-            <div className="flex items-center gap-3 sm:gap-4 py-3 sm:py-4">
-              <div
-                className={`flex-shrink-0 overflow-hidden transition-all duration-500 ease-out ${isSticky ? "max-w-[180px] opacity-100" : "max-w-0 opacity-0 pointer-events-none"}`}
-              >
-                <button
-                  onClick={() => navigate("/")}
-                  className="flex-shrink-0 hover:opacity-80 transition-opacity"
-                  title="Home"
-                  tabIndex={isSticky ? 0 : -1}
+              {/* Row 1: Logo + Search */}
+              <div className="flex items-center gap-3 sm:gap-4 py-3 sm:py-4">
+                <div
+                  className={`flex-shrink-0 overflow-hidden transition-all duration-500 ease-out ${
+                    isSticky
+                      ? "max-w-[180px] opacity-100"
+                      : "max-w-0 opacity-0 pointer-events-none"
+                  }`}
                 >
-                  <img
-                    src={Logo_white}
-                    alt="CoBrother"
-                    className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto"
-                  />
-                </button>
-              </div>
-
-              {/* Search Bar (Center) */} 
-              <div
-                className={`flex-1 mx-auto transition-all duration-300 ${
-                  isSticky ? "max-w-4xl" : "max-w-5xl"
-                }`}
-              >
-                <div className="relative group">
-                  <div
-                    className={`relative flex items-center rounded-2xl border border-neutral-700/60 bg-neutral-900/95 transition-all duration-300 ${
-                      isSticky
-                        ? "p-1 shadow-[0_8px_22px_rgba(0,0,0,0.35)]"
-                        : "p-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
-                    }`}
+                  <button
+                    onClick={() => navigate("/")}
+                    className="flex-shrink-0 hover:opacity-80 transition-opacity"
+                    title="Home"
+                    tabIndex={isSticky ? 0 : -1}
                   >
-                    <Search
-                      className={`absolute top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none transition-all duration-300 ${
-                        isSticky
-                          ? "left-4 sm:left-5 w-4 h-4 sm:w-5 sm:h-5"
-                          : "left-5 sm:left-6 w-5 h-5 sm:w-6 sm:h-6"
-                      }`}
+                    <img
+                      src={Logo_white}
+                      alt="CoBrother"
+                      className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto"
                     />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => handleSearch(e.target.value)}
-                      placeholder="Type your startup idea or keywords..."
-                      disabled={loading}
-                      className={`w-full bg-neutral-950/40 border border-transparent rounded-xl text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-purple-500/35 transition-all duration-300 disabled:opacity-50 ${
+                  </button>
+                </div>
+
+                {/* Search Bar */}
+                <div
+                  className={`flex-1 mx-auto transition-all duration-300 ${
+                    isSticky ? "max-w-4xl" : "max-w-5xl"
+                  }`}
+                >
+                  <div className="relative group">
+                    <div
+                      className={`relative flex items-center rounded-2xl border border-neutral-700/60 bg-neutral-900/95 transition-all duration-300 ${
                         isSticky
-                          ? "h-11 sm:h-12 pl-11 sm:pl-12 pr-10 sm:pr-12 text-sm sm:text-base"
-                          : "h-14 sm:h-16 pl-14 sm:pl-16 pr-12 sm:pr-14 text-base sm:text-[1.08rem]"
+                          ? "p-1 shadow-[0_8px_22px_rgba(0,0,0,0.35)]"
+                          : "p-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
                       }`}
-                    />
-                    <AnimatePresence>
-                      {searchQuery.trim().length > 0 && (
-                        <motion.button
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          onClick={() => handleSearch("")}
-                          className={`absolute top-1/2 -translate-y-1/2 hover:bg-neutral-800/80 rounded-md transition-all duration-300 ${
-                            isSticky
-                              ? "right-3 sm:right-4 p-1"
-                              : "right-4 sm:right-5 p-1.5"
-                          }`}
-                          disabled={loading}
-                        >
-                          <X
-                            className={`text-neutral-400 hover:text-white transition-all duration-300 ${
-                              isSticky ? "w-4 h-4" : "w-5 h-5"
+                    >
+                      <Search
+                        className={`absolute top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none transition-all duration-300 ${
+                          isSticky
+                            ? "left-4 sm:left-5 w-4 h-4 sm:w-5 sm:h-5"
+                            : "left-5 sm:left-6 w-5 h-5 sm:w-6 sm:h-6"
+                        }`}
+                      />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        placeholder="Search for domain names..."
+                        disabled={loading}
+                        className={`w-full bg-neutral-950/40 border border-transparent rounded-xl text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-purple-500/35 transition-all duration-300 disabled:opacity-50 ${
+                          isSticky
+                            ? "h-11 sm:h-12 pl-11 sm:pl-12 pr-10 sm:pr-12 text-sm sm:text-base"
+                            : "h-14 sm:h-16 pl-14 sm:pl-16 pr-12 sm:pr-14 text-base sm:text-[1.08rem]"
+                        }`}
+                      />
+                      <AnimatePresence>
+                        {searchQuery.trim().length > 0 && (
+                          <motion.button
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            onClick={() => handleSearch("")}
+                            className={`absolute top-1/2 -translate-y-1/2 hover:bg-neutral-800/80 rounded-md transition-all duration-300 ${
+                              isSticky
+                                ? "right-3 sm:right-4 p-1"
+                                : "right-4 sm:right-5 p-1.5"
                             }`}
-                          />
-                        </motion.button>
-                      )}
-                    </AnimatePresence>
+                            disabled={loading}
+                          >
+                            <X
+                              className={`text-neutral-400 hover:text-white transition-all duration-300 ${
+                                isSticky ? "w-4 h-4" : "w-5 h-5"
+                              }`}
+                            />
+                          </motion.button>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Row 2: Filters (Left) + Sort & CTA (Right) */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 border-t border-neutral-800/30 overflow-visible">
-              {/* Filters (Left) */}
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-visible">
-                <span className="text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
-                  Filters:
-                </span>
-                <FilterDropdown
-                  label={filters.extension || "Extension"}
-                  value={filters.extension}
-                  options={uniqueExtensions}
-                  onChange={(val) => handleFilterChange("extension", val)}
-                />
-                <FilterDropdown
-                  label={filters.length || "Length"}
-                  value={filters.length}
-                  options={[
-                    { label: "Short (≤5)", value: "short" },
-                    { label: "Medium (6-10)", value: "medium" },
-                    { label: "Long (11+)", value: "long" },
-                  ]}
-                  onChange={(val) => handleFilterChange("length", val)}
-                />
-              </div>
+              {/* Row 2: Filters */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 border-t border-neutral-800/30 overflow-visible">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-visible">
+                  <span className="text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
+                    Filters:
+                  </span>
+                  <FilterDropdown
+                    label={filters.extension || "Extension"}
+                    value={filters.extension}
+                    options={uniqueExtensions}
+                    onChange={(val) => handleFilterChange("extension", val)}
+                  />
+                  <FilterDropdown
+                    label={filters.length || "Length"}
+                    value={filters.length}
+                    options={[
+                      { label: "Short (≤5)", value: "short" },
+                      { label: "Medium (6-10)", value: "medium" },
+                      { label: "Long (11+)", value: "long" },
+                    ]}
+                    onChange={(val) => handleFilterChange("length", val)}
+                  />
+                </div>
 
-              {/* Sort & CTA (Right) */}
-              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                <SortDropdown
-                  label="Sort"
-                  value={sort}
-                  onChange={handleSortChange}
-                  options={[
-                    { label: "Price: Low to High", value: "price_low" },
-                    { label: "Price: High to Low", value: "price_high" },
-                    { label: "Newest", value: "newest" },
-                  ]}
-                />
-                {hasActiveFilters && (
-                  <button
-                    onClick={handleClearFilters}
-                    className="px-2 sm:px-3 py-1.5 sm:py-2 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-xs font-medium hover:bg-neutral-800/60 transition-colors whitespace-nowrap"
-                    disabled={loading}
-                  >
-                    Clear Filters
-                  </button>
-                )}
-                {ctaButton && <div className="flex-shrink-0">{ctaButton}</div>}
+                <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                  <SortDropdown
+                    label="Sort"
+                    value={sort}
+                    onChange={handleSortChange}
+                    options={[
+                      { label: "Price: Low to High", value: "price_low" },
+                      { label: "Price: High to Low", value: "price_high" },
+                      { label: "Newest", value: "newest" },
+                    ]}
+                  />
+                  {hasActiveFilters && (
+                    <button
+                      onClick={handleClearFilters}
+                      className="px-2 sm:px-3 py-1.5 sm:py-2 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-xs font-medium hover:bg-neutral-800/60 transition-colors whitespace-nowrap"
+                      disabled={loading}
+                    >
+                      Clear Filters
+                    </button>
+                  )}
+                  {ctaButton && <div className="flex-shrink-0">{ctaButton}</div>}
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Main content */}
+
+      {/* Main Content */}
       <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         {loading ? (
-          <SkeletonLoader count={8} columns={4} />
+          <div className="grid gap-5 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            {[...Array(8)].map((_, index) => (
+              <DomainCardSkeleton key={`skeleton-${index}`} />
+            ))}
+          </div>
         ) : paginatedDomains.length === 0 ? (
           <EmptyState
             title="No domains found"
@@ -457,16 +517,22 @@ const Branding = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className="grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+              className="grid gap-5 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
             >
               <AnimatePresence mode="popLayout">
                 {paginatedDomains.map((domain) => (
-                  <DomainCard key={domain.id} domain={domain} />
+                  <DomainCard
+                    key={domain.id}
+                    domain={domain}
+                    imageErrors={imageErrors}
+                    handleImageError={handleImageError}
+                  />
                 ))}
               </AnimatePresence>
             </motion.div>
           </LayoutGroup>
         )}
+
         {paginatedDomains.length > 0 && (
           <Pagination
             currentPage={currentPage}
