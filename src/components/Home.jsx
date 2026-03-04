@@ -192,7 +192,9 @@ const HexagonBackground = () => {
 // ─────────────────────────────────────────────
 const Home = () => {
   const navigate = useNavigate();
-
+  const handleBeTheCoBrother = () => {
+    navigate("/bethecobrother"); // put your target path here
+  };
   const [domainQuery, setDomainQuery] = useState("");
   const [selectedExtension, setSelectedExtension] = useState(".com");
   const [searchStatus, setSearchStatus] = useState("idle");
@@ -653,7 +655,7 @@ const Home = () => {
             </AnimatePresence>
 
             {/* bethebrob */}
-            <BeTheCoBrotherBtn />
+            <BeTheCoBrotherBtn onClick={handleBeTheCoBrother} />
           </motion.div>
 
           {/* 2. SERVICES GRID - Updated Layout from Second Code */}

@@ -179,7 +179,7 @@ const MatrixCanvas = ({ active }) => {
    MAIN BUTTON
 ───────────────────────────── */
 
-export default function BeTheCoBrotherButton() {
+export default function BeTheCoBrotherButton({ onClick }) {
   const [hovered, setHovered] = useState(false);
   const pillRef = useRef(null);
   const [pillSize, setPillSize] = useState({ w: 0, h: 0 });
@@ -210,6 +210,7 @@ export default function BeTheCoBrotherButton() {
 
         <motion.div
           ref={pillRef}
+          onClick={onClick}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.96 }}
           transition={{ type: "spring", stiffness: 300, damping: 18 }}
