@@ -313,7 +313,7 @@ const ContactUs = () => {
             </span>
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 sm:mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 sm:mb-6 font-display">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Let's Start a
             </span>
@@ -427,8 +427,8 @@ const ContactUs = () => {
                     whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     className="relative w-full group/btn overflow-hidden rounded-xl shadow-xl shadow-purple-500/20 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 opacity-0 group-hover/btn:opacity-100 blur-xl transition duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 " />
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600  opacity-0 group-hover/btn:opacity-100 blur-xl transition duration-500" />
                     <div className="relative px-8 py-4 flex items-center justify-center gap-3">
                       {isSubmitting ? (
                         <>

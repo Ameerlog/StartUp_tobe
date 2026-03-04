@@ -455,7 +455,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="relative text-2xl sm:text-4xl md:text-3xl lg:text-3xl font-bold tracking-tight mb-3 sm:mb-4"
+                className="relative text-2xl sm:text-4xl md:text-3xl lg:text-3xl font-bold tracking-tight mb-3 sm:mb-4 font-display"
               >
                 <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                   Discover Your Brand Name Here
@@ -485,7 +485,7 @@ const Home = () => {
               </motion.p> */}
             </div>
 
-           {/* Search Bar */}
+            {/* Search Bar */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
