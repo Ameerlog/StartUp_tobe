@@ -20,7 +20,7 @@ import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
 import Investors from "./Home/Investors";
-
+import BeTheCoBrotherBtn from "./Bethebrobtn";
 // ─────────────────────────────────────────────
 // HEXAGON BACKGROUND  — canvas-based, full screen
 // ─────────────────────────────────────────────
@@ -490,67 +490,67 @@ const Home = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="relative group mb-4 sm:mb-6"
+              className="relative mb-6"
             >
-              <div
-                className={`absolute -inset-[2px] bg-gradient-to-r from-purple-600 to-blue-600 rounded-full transition-opacity duration-500 ${
-                  focused ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                }`}
-              />
-              <div
-                className={`absolute -inset-[5px] bg-gradient-to-r from-red-500 via-violet-500 to-red-500 rounded-full blur-md transition-opacity duration-500 ${
-                  focused ? "opacity-40" : "opacity-0 group-hover:opacity-30"
-                }`}
-              />
+              <motion.div
+                className="rounded-full p-[1px]"
+                animate={{
+                  backgroundPosition: ["0% 50%", "200% 50%"],
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{
+                  background: `
+        linear-gradient(
+          90deg,
+          #8b5cf6,
+          #3b82f6,
+          #ec4899,
+          #8b5cf6
+        )
+      `,
+                  backgroundSize: "200% 200%",
+                  boxShadow: "0 0 20px rgba(139,92,246,0.6)",
+                }}
+              >
+                {/* ✅ Inner Search Container */}
+                <div className="bg-neutral-900 rounded-full p-2 flex items-center gap-3">
+                  <div className="relative flex-1 flex items-center">
+                    <Search className="absolute left-4 w-5 h-5 text-neutral-400 pointer-events-none" />
 
-              <div className="relative bg-neutral-900/95 backdrop-blur-sm rounded-full mb-2 p-1.5 sm:p-2 flex items-center gap-2 sm:gap-3">
-                <div className="relative flex-1 flex items-center">
-                  <Search className="absolute left-3 sm:left-5 w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 pointer-events-none" />
-                  <input
-                    type="text"
-                    placeholder="Search your domain name"
-                    value={domainQuery}
-                    onChange={(e) => {
-                      setDomainQuery(e.target.value);
-                      setSearchStatus("idle");
-                      setErrorMessage("");
-                    }}
-                    onKeyPress={handleKeyPress}
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
-                    className="w-full pl-9 sm:pl-14 pr-2 sm:pr-4 h-10 sm:h-14 bg-transparent text-white placeholder-neutral-500 focus:outline-none text-sm sm:text-base rounded-full"
-                    style={{ cursor: "text" }}
-                  />
-                </div>
-
-                <motion.button
-                  type="button"
-                  onClick={searchDomain}
-                  disabled={searchStatus === "loading"}
-                  whileHover={{ scale: searchStatus === "loading" ? 1 : 1.05 }}
-                  whileTap={{ scale: searchStatus === "loading" ? 1 : 0.95 }}
-                  className="relative overflow-hidden rounded-full disabled:cursor-not-allowed disabled:opacity-70 flex-shrink-0 bg-gradient-to-r from-purple-600 to-blue-600"
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className="relative px-4 sm:px-8 h-10 sm:h-14 flex items-center justify-center gap-2">
-                    {searchStatus === "loading" ? (
-                      <>
-                        <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 text-white animate-spin" />
-                        <span className="font-semibold text-white text-sm sm:text-base hidden sm:inline">
-                          Searching...
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                        <span className="font-semibold text-white text-sm sm:text-base hidden sm:inline">
-                          Search
-                        </span>
-                      </>
-                    )}
+                    <input
+                      type="text"
+                      placeholder="Search your domain name"
+                      value={domainQuery}
+                      onChange={(e) => {
+                        setDomainQuery(e.target.value);
+                        setSearchStatus("idle");
+                        setErrorMessage("");
+                      }}
+                      onKeyPress={handleKeyPress}
+                      className="w-full pl-12 pr-4 h-12 bg-transparent text-white placeholder-neutral-500 focus:outline-none rounded-full"
+                    />
                   </div>
-                </motion.button>
-              </div>
+
+                  <motion.button
+                    type="button"
+                    onClick={searchDomain}
+                    disabled={searchStatus === "loading"}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-6 h-12 flex items-center justify-center text-white font-semibold"
+                  >
+                    {searchStatus === "loading" ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      "Search"
+                    )}
+                  </motion.button>
+                </div>
+              </motion.div>
             </motion.div>
 
             {/* Domain Extensions */}
@@ -653,67 +653,7 @@ const Home = () => {
             </AnimatePresence>
 
             {/* bethebrob */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="text-md sm:text-sm text-neutral-500 mt-4"
-            >
-              <div className="relative flex w-full items-center justify-center mt-8 sm:mt-10 lg:mt-10">
-                {[0, 1, 2].map((i) => (
-                  <motion.span
-                    key={i}
-                    className="absolute rounded-full"
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                ))}
-
-                <motion.div
-                  animate={{
-                    boxShadow: [
-                      "0 0 15px rgba(168, 85, 247, 0.4)",
-                      "0 0 30px rgba(147, 14, 234, 0.7)",
-                      "0 0 15px rgba(168, 85, 247, 0.4)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="group relative 
-        h-10 w-[160px] 
-        sm:h-12 sm:w-[200px] 
-        md:h-14 md:w-[240px] 
-        lg:h-22 lg:w-[300px] 
-        cursor-pointer overflow-hidden rounded-full border border-purple-400/40 
-        bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-purple-900/80 
-        shadow-2xl backdrop-blur-sm 
-        hover:shadow-[0_25px_50px_rgba(147,51,234,0.6)] hover:border-purple-500/60"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.96 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 320,
-                      damping: 16,
-                    }}
-                    className="flex h-full w-full items-center justify-center rounded-full 
-          bg-gradient-to-r from-slate-900/95 to-slate-800/95 hover:brightness-110"
-                  >
-                    <img
-                      src={betheBro}
-                      className="relative z-10 w-[120%] h-[120%] object-contain"
-                      alt="BeTheBro"
-                    />
-                  </motion.button>
-
-                  {/* Shine sweep */}
-                  <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px w-0 opacity-0 transition-all duration-700 origin-left group-hover:w-full group-hover:opacity-100 top-1/2 -translate-y-1/2" />
-                </motion.div>
-              </div>
-            </motion.div>
+            <BeTheCoBrotherBtn />
           </motion.div>
 
           {/* 2. SERVICES GRID - Updated Layout from Second Code */}
