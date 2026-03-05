@@ -554,7 +554,7 @@ const CoworkingForm = () => {
     const parsedSkill = parseSkillString(submittedData?.skill);
 
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-4 overflow-hidden">
+      <div className="min-h-[100svh] bg-black flex items-center justify-center p-4 overflow-hidden">
         <AnimatedBackground />
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -739,7 +739,7 @@ const CoworkingForm = () => {
   return (
     <div
       ref={formRef}
-      className="min-h-screen bg-black pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 overflow-hidden"
+      className="min-h-[100svh] bg-black pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 overflow-hidden"
     >
       <AnimatedBackground />
       <div className="relative z-10 max-w-2xl mx-auto">
