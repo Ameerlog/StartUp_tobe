@@ -30,11 +30,11 @@ const Marketing = () => {
           />
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight max-w-4xl font-display">
-            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+            <span className="font-display bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               AI-Powered operations
             </span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="font-display bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
               for modern business
             </span>
           </h1>
