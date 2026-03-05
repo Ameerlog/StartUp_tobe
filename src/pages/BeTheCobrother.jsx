@@ -1,10 +1,81 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
-import { DynamicIcon } from "lucide-react/dynamic";
+import {
+  Network,
+  Sparkles,
+  Package,
+  Store,
+  Map,
+  ShieldCheck,
+  Smartphone,
+  MessageCircle,
+  Laptop,
+  MapPin,
+  Workflow,
+  Bell,
+  Settings,
+  MonitorCheck,
+  Rocket,
+  BadgeIndianRupee,
+  ChevronRight,
+  HelpCircle,
+  ChevronDown,
+  Timer,
+  BadgePercent,
+  Quote,
+  Check,
+  AlertCircle,
+  Tablet,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+
+/* ─────────────────────────────────────────────
+   ICON MAP (replaces DynamicIcon)
+────────────────────────────────────────────── */
+const ICONS = {
+  network: Network,
+  sparkles: Sparkles,
+  package: Package,
+  store: Store,
+  map: Map,
+  "shield-check": ShieldCheck,
+  smartphone: Smartphone,
+  "message-circle": MessageCircle,
+  laptop: Laptop,
+  tablet: Tablet,
+  "map-pin": MapPin,
+  workflow: Workflow,
+  bell: Bell,
+  settings: Settings,
+  "monitor-check": MonitorCheck,
+  rocket: Rocket,
+  "badge-indian-rupee": BadgeIndianRupee,
+  "chevron-right": ChevronRight,
+  "help-circle": HelpCircle,
+  "chevron-down": ChevronDown,
+  timer: Timer,
+  "badge-percent": BadgePercent,
+  quote: Quote,
+  check: Check,
+  "alert-circle": AlertCircle,
+};
+
+const Icon = ({ name, size = 18, className, color, style }) => {
+  const Cmp = ICONS[name];
+  if (!Cmp) return null;
+  return (
+    <Cmp
+      size={size}
+      className={className}
+      color={color}
+      style={style}
+      aria-hidden
+    />
+  );
+};
 
 /* ─────────────────────────────────────────────
    VALIDATION
@@ -219,7 +290,7 @@ const WelcomeModal = ({ onClose }) => (
 const SectionLabel = ({ icon, kicker, title, desc }) => (
   <motion.div variants={fadeUp} className="flex items-start gap-4">
     <div className="w-11 h-11 rounded-2xl bg-[#00C3FF]/10 border border-[#00C3FF]/20 flex items-center justify-center shrink-0">
-      <DynamicIcon name={icon} size={18} className="text-[#00C3FF]" />
+      <Icon name={icon} size={18} className="text-[#00C3FF]" />
     </div>
     <div className="min-w-0">
       <p className="text-slate-400 text-[11px] font-black uppercase tracking-[0.28em]">
@@ -317,7 +388,7 @@ const DetailsSection = () => {
   ];
 
   return (
-    <section className="mt-16 pt-14 border-t border-white/5">
+    <section className="mt-4 pt-14 border-t border-white/5">
       {/* ── Info cards ── */}
       <SectionLabel
         icon="sparkles"
@@ -353,11 +424,7 @@ const DetailsSection = () => {
       >
         <div className="flex items-center gap-3 mb-5">
           <div className="w-10 h-10 rounded-2xl bg-[#892eff]/12 border border-[#892eff]/20 flex items-center justify-center">
-            <DynamicIcon
-              name="shield-check"
-              size={17}
-              className="text-[#892eff]"
-            />
+            <Icon name="shield-check" size={17} className="text-[#892eff]" />
           </div>
           <p className="text-white font-black uppercase tracking-tight">
             Requirements
@@ -370,11 +437,7 @@ const DetailsSection = () => {
               className="flex items-center gap-3 rounded-2xl border border-white/8 bg-black/20 px-4 py-3"
             >
               <div className="w-8 h-8 rounded-xl bg-[#892eff]/12 border border-[#892eff]/20 flex items-center justify-center shrink-0">
-                <DynamicIcon
-                  name={r.icon}
-                  size={14}
-                  className="text-[#892eff]"
-                />
+                <Icon name={r.icon} size={14} className="text-[#892eff]" />
               </div>
               <p className="text-slate-300 text-sm font-semibold">{r.text}</p>
             </div>
@@ -410,11 +473,7 @@ const DetailsSection = () => {
                       border: `1px solid ${s.color}35`,
                     }}
                   >
-                    <DynamicIcon
-                      name={s.icon}
-                      size={18}
-                      style={{ color: s.color }}
-                    />
+                    <Icon name={s.icon} size={18} style={{ color: s.color }} />
                   </div>
                   <p className="text-white text-xs font-black uppercase tracking-tight leading-snug">
                     {s.title}
@@ -432,7 +491,7 @@ const DetailsSection = () => {
                   <div className="flex items-center justify-center px-2 shrink-0">
                     <div className="flex items-center gap-1">
                       <div className="w-5 h-[1px] bg-white/15 rounded-full" />
-                      <DynamicIcon
+                      <Icon
                         name="chevron-right"
                         size={14}
                         className="text-slate-400"
@@ -613,7 +672,7 @@ const BeTheCobrother = () => {
           >
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-10 h-10 bg-[#892eff] rounded-xl flex items-center justify-center shadow-[0_0_18px_rgba(137,46,255,0.6)] shrink-0">
-                <DynamicIcon name="network" color="white" size={22} />
+                <Icon name="network" color="white" size={22} />
               </div>
               <div className="min-w-0">
                 <p className="text-white font-black tracking-tight uppercase leading-none truncate">
@@ -697,7 +756,7 @@ const BeTheCobrother = () => {
                 ))}
               </motion.div>
 
-              <div className="cobrother-border-shell">
+              <div className="text-center mt-2">
                 <motion.button
                   variants={fadeUp}
                   type="button"
@@ -764,7 +823,7 @@ const BeTheCobrother = () => {
                             border: `1.5px solid ${c.color}44`,
                           }}
                         >
-                          <DynamicIcon
+                          <Icon
                             name={c.icon}
                             size={17}
                             style={{ color: c.color }}
@@ -892,7 +951,7 @@ const BeTheCobrother = () => {
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-xl bg-[#00C3FF]/10 border border-[#00C3FF]/20 flex items-center justify-center">
-                              <DynamicIcon
+                              <Icon
                                 name={hasEquipment ? "laptop" : "tablet"}
                                 size={16}
                                 className="text-[#00C3FF]"
@@ -949,7 +1008,7 @@ const BeTheCobrother = () => {
                             >
                               {submitState.status === "success" && (
                                 <div className="rounded-2xl border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-200 flex items-start gap-3">
-                                  <DynamicIcon
+                                  <Icon
                                     name="check"
                                     size={16}
                                     className="mt-0.5 shrink-0"
@@ -966,7 +1025,7 @@ const BeTheCobrother = () => {
                               )}
                               {submitState.status === "error" && (
                                 <div className="rounded-2xl border border-orange-500/30 bg-orange-500/10 px-4 py-3 text-sm text-orange-200 flex items-start gap-3">
-                                  <DynamicIcon
+                                  <Icon
                                     name="alert-circle"
                                     size={16}
                                     className="mt-0.5 shrink-0"
@@ -1009,7 +1068,7 @@ const BeTheCobrother = () => {
                   className="rounded-2xl border border-white/8 bg-black/30 p-4"
                 >
                   <div className="flex items-start gap-3">
-                    <DynamicIcon
+                    <Icon
                       name="quote"
                       size={16}
                       className="text-[#892eff] shrink-0 mt-0.5"
@@ -1047,7 +1106,7 @@ const DetailCard = ({ icon, title, items }) => (
   >
     <div className="flex items-start gap-3">
       <div className="w-11 h-11 rounded-2xl bg-[#892eff]/12 border border-[#892eff]/20 flex items-center justify-center shrink-0">
-        <DynamicIcon name={icon} size={18} className="text-[#892eff]" />
+        <Icon name={icon} size={18} className="text-[#892eff]" />
       </div>
       <div className="min-w-0">
         <p className="text-white font-black uppercase tracking-tight">
@@ -1085,11 +1144,7 @@ const AccordionItem = ({ q, a }) => {
           transition={{ duration: 0.18, ease: "easeOut" }}
           className="shrink-0"
         >
-          <DynamicIcon
-            name="chevron-down"
-            size={17}
-            className="text-slate-300"
-          />
+          <Icon name="chevron-down" size={17} className="text-slate-300" />
         </motion.div>
       </button>
 
@@ -1118,7 +1173,7 @@ const AccordionItem = ({ q, a }) => {
 const TrustBadge = ({ icon, text }) => (
   <div className="rounded-2xl border border-white/10 bg-white/5 p-3 flex items-center gap-3">
     <div className="w-8 h-8 rounded-xl bg-[#892eff]/12 border border-[#892eff]/20 flex items-center justify-center shrink-0">
-      <DynamicIcon name={icon} size={14} className="text-[#892eff]" />
+      <Icon name={icon} size={14} className="text-[#892eff]" />
     </div>
     <p className="text-slate-300 text-xs font-semibold">{text}</p>
   </div>
