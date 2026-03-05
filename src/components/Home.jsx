@@ -706,6 +706,9 @@ const Home = () => {
                       src={betheBro}
                       className="relative z-10 w-[120%] h-[120%] object-contain"
                       alt="BeTheBro"
+                      onClick={() => {
+                        navigate("/bethecobrother");
+                      }}
                     />
                   </motion.button>
 
