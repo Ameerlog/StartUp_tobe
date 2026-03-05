@@ -573,13 +573,15 @@ const CoworkingForm = () => {
                 className="relative mx-auto mb-6"
               >
                 {photoUrl ? (
-                  <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden border-2 border-green-500/50 shadow-2xl shadow-green-500/30">
+                  <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden border-2 border-green-500/50 shadow-2xl shadow-green-500/30 flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
                     <img
                       src={
                         photoUrl?.startsWith("data:")
                           ? photoUrl
                           : `https://cobrother-api.onrender.com/api/images/${photoUrl}`
                       }
+                      className="w-full h-full object-cover flex-shrink-0"
+                      style={{ width: '100%', height: '100%', display: 'block' }}
                       onError={(e) => {
                         e.target.style.display = "none";
                         e.target.parentElement.innerHTML = `
@@ -961,7 +963,8 @@ const CoworkingForm = () => {
                             <img
                               src={photoPreview}
                               alt="Profile preview"
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover flex-shrink-0"
+                              style={{ width: '100%', height: '100%', display: 'block' }}
                             />
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <Camera className="w-5 h-5 text-white" />
@@ -1082,11 +1085,12 @@ const CoworkingForm = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5" />
                       <div className="relative flex items-center gap-4">
                         {photoPreview ? (
-                          <div className="w-12 h-12 rounded-xl overflow-hidden">
+                          <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
                             <img
                               src={photoPreview}
                               alt="Profile"
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover flex-shrink-0"
+                              style={{ width: '100%', height: '100%', display: 'block' }}
                             />
                           </div>
                         ) : (
@@ -1186,11 +1190,12 @@ const CoworkingForm = () => {
                       <div className="relative space-y-4">
                         <div className="flex items-center gap-4">
                           {photoPreview ? (
-                            <div className="w-14 h-14 rounded-xl overflow-hidden">
+                            <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
                               <img
                                 src={photoPreview}
                                 alt="Profile"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover flex-shrink-0"
+                                style={{ width: '100%', height: '100%', display: 'block' }}
                               />
                             </div>
                           ) : (

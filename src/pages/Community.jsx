@@ -203,6 +203,8 @@ const ProfileCard = ({ profile }) => {
             viewBox="0 0 200 200"
             className="absolute inset-0 h-full w-full pointer-events-none"
             aria-hidden="true"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none' }}
           >
             <defs>
               <path id={topArcId} d="M 10 100 A 90 90 0 0 1 190 100" />
@@ -242,14 +244,15 @@ const ProfileCard = ({ profile }) => {
             </text>
           </svg>
           {/* Inner circle with image */}
-          <div className="h-full w-full rounded-full overflow-hidden flex-shrink-0">
+          <div className="h-full w-full rounded-full overflow-hidden flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
             {imageUrl && !imageFailed ? (
               <img
                 src={imageUrl}
                 alt={displayName || "Profile"}
-                className="w-full h-full rounded-full object-cover"
+                className="w-full h-full rounded-full object-cover flex-shrink-0"
                 loading="lazy"
                 onError={() => setImageFailed(true)}
+                style={{ width: '100%', height: '100%', display: 'block' }}
               />
             ) : (
               <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
