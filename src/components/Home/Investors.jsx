@@ -443,7 +443,7 @@ export default function Investors() {
         >
           <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500" />
           <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="relative">Join our community</span>
+          <span className="relative cursor-pointer">Join our community</span>
         </button>
       </div>
 
@@ -530,7 +530,7 @@ export default function Investors() {
             className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-purple-500/40 bg-purple-500/5 px-8 py-2.5 text-sm font-bold text-purple-300 backdrop-blur-md shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 hover:border-blue-400/60 hover:text-white hover:shadow-[0_0_26px_rgba(96,165,250,0.4)] active:scale-[0.97]"
           >
             <span className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-blue-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:via-blue-600/20 group-hover:to-pink-600/20 transition-all duration-300" />
-            <span className="relative">View All</span>
+            <span className="relative cursor-pointer">View All</span>
             <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>

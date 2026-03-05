@@ -1,7 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import { ArrowRight, Search, X, ChevronLeft, ChevronRight, PieChart, Wallet, FileText } from "lucide-react";
+import {
+  ArrowRight,
+  Search,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  PieChart,
+  Wallet,
+  FileText,
+} from "lucide-react";
 import FilterDropdown from "../components/Listing/FilterDropdown";
 import SortDropdown from "../components/Listing/SortDropdown";
 import Pagination from "../components/Listing/Pagination";
@@ -17,7 +26,7 @@ const VentureCardSkeleton = () => {
       <div className="h-[380px] rounded-2xl border border-white/10 bg-[#0A0A0A] p-2 flex flex-col">
         {/* Image Area */}
         <div className="h-32 rounded-xl bg-white/5 animate-pulse mx-auto w-full" />
-        
+
         <div className="p-3 flex flex-col flex-1 gap-2">
           {/* Title */}
           <div className="h-5 w-3/4 bg-white/10 rounded animate-pulse" />
@@ -88,17 +97,19 @@ const VentureCard = ({ venture, imageErrors, handleImageError }) => {
           <h3 className="text-lg font-bold text-white mb-2 truncate">
             {venture.title}
           </h3>
-          
+
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-2 mb-2">
             <div className="bg-white/5 rounded-lg p-2.5 border border-white/5 overflow-hidden">
               <div className="flex items-center gap-1 text-zinc-400 text-[9px] font-medium uppercase tracking-wider mb-0.5">
                 <Wallet className="w-2.5 h-2.5" /> Deal Value
               </div>
-              <div 
+              <div
                 className="text-white font-bold whitespace-nowrap overflow-hidden text-ellipsis"
                 title={venture.dealValue}
-                style={{ fontSize: venture.dealValue.length > 10 ? '12px' : '14px' }}
+                style={{
+                  fontSize: venture.dealValue.length > 10 ? "12px" : "14px",
+                }}
               >
                 {venture.dealValue}
               </div>
@@ -131,7 +142,7 @@ const VentureCard = ({ venture, imageErrors, handleImageError }) => {
                 w-full flex items-center justify-center gap-1.5
                 rounded-full bg-gray-600 text-white
                 py-2.5 text-[11px] font-bold uppercase tracking-wider
-                transition-transform active:scale-[0.98] hover:bg-gray-500
+                transition-transform active:scale-[0.98] hover:bg-gray-500 cursor-pointer
               "
             >
               Get Coventure <ArrowRight className="w-3 h-3" />
@@ -172,7 +183,8 @@ const VentureHero = () => {
           transition={{ delay: 0.2 }}
           className="mt-3 text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto"
         >
-          Find and connect with high-growth venture opportunities aligned with your goals.
+          Find and connect with high-growth venture opportunities aligned with
+          your goals.
         </motion.p>
       </div>
     </section>
@@ -213,7 +225,7 @@ const Venture = () => {
         const nextSticky = !entry.isIntersecting;
         setIsSticky((prev) => (prev === nextSticky ? prev : nextSticky));
       },
-      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" }
+      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" },
     );
     if (heroRef.current) {
       observer.observe(heroRef.current);
@@ -241,18 +253,21 @@ const Venture = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllBrands"
+          "https://cobrother-api.onrender.com/api/ListAllBrands",
         );
         if (response.ok) {
           const data = await response.json();
           const validVentures = data.filter(
-            (brand) => brand.brandDetails?.brandName
+            (brand) => brand.brandDetails?.brandName,
           );
 
           const mapped = validVentures.map((brand) => {
             let logoUrl = brand.brandDetails?.logoUrl || "";
             if (logoUrl.includes("localhost:8080")) {
-              logoUrl = logoUrl.replace("localhost:8080", "192.168.29.184:8080");
+              logoUrl = logoUrl.replace(
+                "localhost:8080",
+                "192.168.29.184:8080",
+              );
             }
 
             const ratioMap = {
@@ -273,7 +288,8 @@ const Venture = () => {
               industry: brand.brandDetails?.industry || "Tech",
               dealValue: `₹${(brand.brandDetails?.dealValue || 0).toLocaleString("en-IN")}`,
               ventureType: ventureRatio,
-              description: brand.brandDetails?.description || "No description available",
+              description:
+                brand.brandDetails?.description || "No description available",
             };
           });
 
@@ -327,7 +343,7 @@ const Venture = () => {
   const totalPages = Math.ceil(sortedVentures.length / itemsPerPage);
   const paginatedVentures = sortedVentures.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   // Get unique industries for filter
@@ -341,8 +357,8 @@ const Venture = () => {
 
   const uniqueIndustries = Array.from(
     new Map(
-      [...defaultIndustries, ...apiIndustries].map((x) => [x.value, x])
-    ).values()
+      [...defaultIndustries, ...apiIndustries].map((x) => [x.value, x]),
+    ).values(),
   );
 
   const hasActiveFilters =
@@ -506,7 +522,9 @@ const Venture = () => {
                       Clear Filters
                     </button>
                   )}
-                  {ctaButton && <div className="flex-shrink-0">{ctaButton}</div>}
+                  {ctaButton && (
+                    <div className="flex-shrink-0">{ctaButton}</div>
+                  )}
                 </div>
               </div>
             </div>

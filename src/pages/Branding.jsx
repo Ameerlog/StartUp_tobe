@@ -127,7 +127,7 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
               rounded-full bg-gray-600 text-white
               py-3 text-xs font-bold uppercase tracking-wider
               transition-transform active:scale-[0.98] hover:bg-gray-500
-              mt-4
+              mt-4 cursor-pointer
             "
           >
             Make it Yours <ArrowRight className="w-3.5 h-3.5" />

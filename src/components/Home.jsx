@@ -508,12 +508,12 @@ const Home = () => {
           90deg,
           #8b5cf6,
           #3b82f6,
-          #ec4899,
+          
           #8b5cf6
         )
       `,
-                  backgroundSize: "200% 200%",
-                  boxShadow: "0 0 20px rgba(139,92,246,0.6)",
+                  backgroundSize: "300% 300%",
+                  boxShadow: "0 2px 40px rgba(139,92,246,0.6)",
                 }}
               >
                 {/* ✅ Inner Search Container */}
@@ -531,7 +531,7 @@ const Home = () => {
                         setErrorMessage("");
                       }}
                       onKeyPress={handleKeyPress}
-                      className="w-full pl-12 pr-4 h-12 bg-transparent text-white placeholder-neutral-500 focus:outline-none rounded-full"
+                      className=" w-full pl-12 pr-4 h-12 bg-transparent text-white placeholder-neutral-500 focus:outline-none rounded-full"
                     />
                   </div>
 
@@ -541,7 +541,7 @@ const Home = () => {
                     disabled={searchStatus === "loading"}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-6 h-12 flex items-center justify-center text-white font-semibold"
+                    className="cursor-pointer rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-6 h-12 flex items-center justify-center text-white font-semibold"
                   >
                     {searchStatus === "loading" ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -669,20 +669,20 @@ const Home = () => {
                 ))}
 
                 <div className="cobrother-border-shell">
-                <motion.div
-                  animate={{
-                    boxShadow: [
-                      "0 0 15px rgba(168, 85, 247, 0.4)",
-                      "0 0 30px rgba(147, 14, 234, 0.7)",
-                      "0 0 15px rgba(168, 85, 247, 0.4)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="group relative 
+                  <motion.div
+                    animate={{
+                      boxShadow: [
+                        "0 0 15px rgba(168, 85, 247, 0.4)",
+                        "0 0 30px rgba(147, 14, 234, 0.7)",
+                        "0 0 15px rgba(168, 85, 247, 0.4)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="group relative 
         h-10 w-[160px] 
         sm:h-12 sm:w-[200px] 
         md:h-14 md:w-[240px] 
@@ -691,31 +691,31 @@ const Home = () => {
         bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-purple-900/80 
         shadow-2xl backdrop-blur-sm 
         hover:shadow-[0_25px_50px_rgba(147,51,234,0.6)]"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.96 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 320,
-                      damping: 16,
-                    }}
-                    className="flex h-full w-full items-center justify-center rounded-full 
-          bg-gradient-to-r from-slate-900/95 to-slate-800/95 hover:brightness-110"
                   >
-                    <img
-                      src={betheBro}
-                      className="relative z-10 w-[120%] h-[120%] object-contain"
-                      alt="BeTheBro"
-                      onClick={() => {
-                        navigate("/bethecobrother");
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 320,
+                        damping: 16,
                       }}
-                    />
-                  </motion.button>
+                      className="cursor-pointer flex h-full w-full items-center justify-center rounded-full 
+          bg-gradient-to-r from-slate-900/95 to-slate-800/95 hover:brightness-110 "
+                    >
+                      <img
+                        src={betheBro}
+                        className="relative z-10 w-[120%] h-[120%] object-contain"
+                        alt="BeTheBro"
+                        onClick={() => {
+                          navigate("/bethecobrother");
+                        }}
+                      />
+                    </motion.button>
 
-                  {/* Shine sweep */}
-                  <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px w-0 opacity-0 transition-all duration-700 origin-left group-hover:w-full group-hover:opacity-100 top-1/2 -translate-y-1/2" />
-                </motion.div>
+                    {/* Shine sweep */}
+                    <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px w-0 opacity-0 transition-all duration-700 origin-left group-hover:w-full group-hover:opacity-100 top-1/2 -translate-y-1/2" />
+                  </motion.div>
                 </div>
               </div>
             </motion.div>

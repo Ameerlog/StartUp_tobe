@@ -26,9 +26,10 @@ const CommunityHero = () => (
       >
         <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
           Join Our
-        </span><span className="ml-2" />
+        </span>
+        <span className="ml-2" />
         <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
-           Co-Working Community
+          Co-Working Community
         </span>
       </motion.h1>
 
@@ -492,7 +493,7 @@ const Community = () => {
       className="group relative overflow-hidden rounded-full w-full sm:w-auto"
     >
       <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
-      <span className="relative px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base flex items-center justify-center gap-2">
+      <span className=" cursor-pointerrelative px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base flex items-center justify-center gap-2">
         Join Our Community <ArrowRight className="w-4 h-4" />
       </span>
     </motion.button>
@@ -527,117 +528,119 @@ const Community = () => {
             className={`w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${isSticky ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0" : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"}`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
-            {/* Row 1: Logo + Search + Support Icon */}
-            <div className="flex items-center gap-3 sm:gap-4 py-3 sm:py-4">
-              <div
-                className={`flex-shrink-0 overflow-hidden transition-all duration-500 ease-out ${isSticky ? "max-w-[180px] opacity-100" : "max-w-0 opacity-0 pointer-events-none"}`}
-              >
-                <button
-                  onClick={() => navigate("/")}
-                  className="flex-shrink-0 hover:opacity-80 transition-opacity"
-                  title="Home"
-                  tabIndex={isSticky ? 0 : -1}
+              {/* Row 1: Logo + Search + Support Icon */}
+              <div className="flex items-center gap-3 sm:gap-4 py-3 sm:py-4">
+                <div
+                  className={`flex-shrink-0 overflow-hidden transition-all duration-500 ease-out ${isSticky ? "max-w-[180px] opacity-100" : "max-w-0 opacity-0 pointer-events-none"}`}
                 >
-                  <img
-                    src={Logo_white}
-                    alt="CoBrother"
-                    className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto"
-                  />
-                </button>
-              </div>
-
-              {/* Search Bar (Center) */}
-              <div className="flex-1 max-w-2xl mx-auto">
-                <div className="relative group">
-                  <div className="relative flex items-center">
-                    <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-neutral-500 pointer-events-none" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => handleSearch(e.target.value)}
-                      placeholder="Search investors, founders, or partners..."
-                      disabled={loading}
-                      className="w-full pl-10 sm:pl-11 pr-10 py-2 sm:py-2.5 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-sm placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all duration-300 disabled:opacity-50"
+                  <button
+                    onClick={() => navigate("/")}
+                    className="flex-shrink-0 hover:opacity-80 transition-opacity"
+                    title="Home"
+                    tabIndex={isSticky ? 0 : -1}
+                  >
+                    <img
+                      src={Logo_white}
+                      alt="CoBrother"
+                      className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto"
                     />
-                    <AnimatePresence>
-                      {searchQuery.trim().length > 0 && (
-                        <motion.button
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          onClick={() => handleSearch("")}
-                          className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-neutral-800/50 rounded-md transition-colors"
-                          disabled={loading}
-                        >
-                          <X className="w-4 h-4 text-neutral-400 hover:text-white" />
-                        </motion.button>
-                      )}
-                    </AnimatePresence>
+                  </button>
+                </div>
+
+                {/* Search Bar (Center) */}
+                <div className="flex-1 max-w-2xl mx-auto">
+                  <div className="relative group">
+                    <div className="relative flex items-center">
+                      <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-neutral-500 pointer-events-none" />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        placeholder="Search investors, founders, or partners..."
+                        disabled={loading}
+                        className="w-full pl-10 sm:pl-11 pr-10 py-2 sm:py-2.5 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-sm placeholder-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-all duration-300 disabled:opacity-50"
+                      />
+                      <AnimatePresence>
+                        {searchQuery.trim().length > 0 && (
+                          <motion.button
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            onClick={() => handleSearch("")}
+                            className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-neutral-800/50 rounded-md transition-colors"
+                            disabled={loading}
+                          >
+                            <X className="w-4 h-4 text-neutral-400 hover:text-white" />
+                          </motion.button>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Row 2: Filters (Left) + Sort & CTA (Right) */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 border-t border-neutral-800/30 overflow-visible">
-              {/* Filters (Left) */}
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-visible">
-                <span className="text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
-                  Filters:
-                </span>
-                <FilterDropdown
-                  label={filters.role || "Role"}
-                  value={filters.role}
-                  options={uniqueRoles}
-                  onChange={(v) => handleFilterChange("role", v)}
-                />
-                <FilterDropdown
-                  label={filters.industry || "Industry Focus"}
-                  value={filters.industry}
-                  options={uniqueIndustries}
-                  onChange={(v) => handleFilterChange("industry", v)}
-                />
-                <div className="relative">
-                  <input
-                    list="community-location-options"
-                    value={filters.location || ""}
-                    onChange={(e) =>
-                      handleFilterChange("location", e.target.value)
-                    }
-                    placeholder="Location"
-                    className="w-full sm:w-auto px-3 sm:px-4 py-2.5 sm:py-3 bg-neutral-900/80 border border-neutral-800/60 rounded-lg sm:rounded-xl text-white text-sm font-medium placeholder:text-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-colors min-w-[150px]"
+              {/* Row 2: Filters (Left) + Sort & CTA (Right) */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 border-t border-neutral-800/30 overflow-visible">
+                {/* Filters (Left) */}
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-visible">
+                  <span className="text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
+                    Filters:
+                  </span>
+                  <FilterDropdown
+                    label={filters.role || "Role"}
+                    value={filters.role}
+                    options={uniqueRoles}
+                    onChange={(v) => handleFilterChange("role", v)}
                   />
-                  <datalist id="community-location-options">
-                    {uniqueLocations.map((loc) => (
-                      <option key={loc} value={loc} />
-                    ))}
-                  </datalist>
+                  <FilterDropdown
+                    label={filters.industry || "Industry Focus"}
+                    value={filters.industry}
+                    options={uniqueIndustries}
+                    onChange={(v) => handleFilterChange("industry", v)}
+                  />
+                  <div className="relative">
+                    <input
+                      list="community-location-options"
+                      value={filters.location || ""}
+                      onChange={(e) =>
+                        handleFilterChange("location", e.target.value)
+                      }
+                      placeholder="Location"
+                      className="w-full sm:w-auto px-3 sm:px-4 py-2.5 sm:py-3 bg-neutral-900/80 border border-neutral-800/60 rounded-lg sm:rounded-xl text-white text-sm font-medium placeholder:text-neutral-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/30 transition-colors min-w-[150px]"
+                    />
+                    <datalist id="community-location-options">
+                      {uniqueLocations.map((loc) => (
+                        <option key={loc} value={loc} />
+                      ))}
+                    </datalist>
+                  </div>
+                </div>
+
+                {/* Sort & CTA (Right) */}
+                <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                  <SortDropdown
+                    label="Sort"
+                    value={sort}
+                    onChange={handleSortChange}
+                    options={[
+                      { label: "Name A-Z", value: "name" },
+                      { label: "Newest", value: "newest" },
+                    ]}
+                  />
+                  {hasActiveFilters && (
+                    <button
+                      onClick={handleClearFilters}
+                      className="px-2 sm:px-3 py-1.5 sm:py-2 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-xs font-medium hover:bg-neutral-800/60 transition-colors whitespace-nowrap"
+                      disabled={loading}
+                    >
+                      Clear Filters
+                    </button>
+                  )}
+                  {ctaButton && (
+                    <div className="flex-shrink-0">{ctaButton}</div>
+                  )}
                 </div>
               </div>
-
-              {/* Sort & CTA (Right) */}
-              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                <SortDropdown
-                  label="Sort"
-                  value={sort}
-                  onChange={handleSortChange}
-                  options={[
-                    { label: "Name A-Z", value: "name" },
-                    { label: "Newest", value: "newest" },
-                  ]}
-                />
-                {hasActiveFilters && (
-                  <button
-                    onClick={handleClearFilters}
-                    className="px-2 sm:px-3 py-1.5 sm:py-2 bg-neutral-900/80 border border-neutral-800/60 rounded-lg text-white text-xs font-medium hover:bg-neutral-800/60 transition-colors whitespace-nowrap"
-                    disabled={loading}
-                  >
-                    Clear Filters
-                  </button>
-                )}
-                {ctaButton && <div className="flex-shrink-0">{ctaButton}</div>}
-              </div>
-            </div>
             </div>
           </div>
         </div>
