@@ -129,10 +129,10 @@ const HexagonBackground = () => {
         hexPath(ctx, cx, cy, r - 1);
 
         if (ratio > 0.01) {
-          ctx.fillStyle = `rgba(139, 92, 246, ${0.04 + ratio * 0.18})`;
+          ctx.fillStyle = `rgba(139, 32, 246, ${0.04 + ratio * 0.18})`;
           ctx.fill();
 
-          ctx.strokeStyle = `rgba(167, 139, 250, ${0.4 + ratio * 0.72})`;
+          ctx.strokeStyle = `rgba(167, 30, 255, ${0.4 + ratio * 0.72})`;
           ctx.lineWidth = 1.2;
 
           if (ratio > 0.35) {
@@ -145,10 +145,34 @@ const HexagonBackground = () => {
         } else {
           ctx.fillStyle = "rgba(14, 12, 20, 0.9)";
           ctx.fill();
-          ctx.strokeStyle = "rgba(100, 80, 180, 0.10)";
+          ctx.strokeStyle = "rgba(139, 92, 246, 0.35)";
           ctx.lineWidth = 1;
           ctx.stroke();
         }
+
+        // ── CENTER DOT ──
+        // Dim base opacity when far, brighter when hovered
+        const dotOpacity =
+          ratio > 0.01
+            ? 0.35 + ratio * 0.65 // 0.35 → 1.0 as ratio increases
+            : 0.12; // always-visible faint dot when far
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, 1.6, 0, Math.PI * 2);
+
+        if (ratio > 0.01) {
+          // Glowing dot near cursor — add soft halo
+          ctx.shadowColor = `rgba(192, 132, 252, ${ratio * 0.9})`;
+          ctx.shadowBlur = 6 * ratio;
+        }
+
+        ctx.fillStyle = `rgba(216, 180, 254, ${dotOpacity})`;
+        ctx.fill();
+
+        // Reset shadow so it doesn't bleed into next hexagon
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = "transparent";
+        // ── END CENTER DOT ──
       });
     };
 
@@ -199,61 +223,6 @@ const Home = () => {
   const [focused, setFocused] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const searchDomain = async () => {
-  //   if (!domainQuery.trim()) {
-  //     setErrorMessage("Please enter a domain name");
-  //     setSearchStatus("error");
-  //     setTimeout(() => setSearchStatus("idle"), 3000);
-  //     return;
-  //   }
-
-  //   const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
-  //   if (!domainRegex.test(domainQuery.trim())) {
-  //     setErrorMessage(
-  //       "Invalid domain name. Use only letters, numbers, and hyphens"
-  //     );
-  //     setSearchStatus("error");
-  //     setTimeout(() => setSearchStatus("idle"), 3000);
-  //     return;
-  //   }
-
-  //   setSearchStatus("loading");
-  //   setErrorMessage("");
-
-  //   try {
-  //     const fullDomain = `${domainQuery.trim()}${selectedExtension}`;
-  //     const response = await axios.get(
-  //       `https://api.godaddy.com/v1/domains/available?domain=${fullDomain}`,
-  //       {
-  //         headers: {
-  //           Authorization: `sso-key YOUR_API_KEY:YOUR_API_SECRET`,
-  //         },
-  //         timeout: 10000,
-  //       }
-  //     );
-
-  //     if (response.data.available) {
-  //       setSearchStatus("available");
-  //     } else {
-  //       setSearchStatus("unavailable");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error checking domain:", error);
-  //     if (error.code === "ECONNABORTED") {
-  //       setErrorMessage("Request timeout. Please try again.");
-  //     } else if (error.response) {
-  //       setErrorMessage(
-  //         error.response.data.message || "Server error. Please try again."
-  //       );
-  //     } else if (error.request) {
-  //       setErrorMessage("Network error. Please check your connection.");
-  //     } else {
-  //       setErrorMessage("An unexpected error occurred. Please try again.");
-  //     }
-  //     setSearchStatus("error");
-  //   }
-  // };
-
   const searchDomain = () => {
     const value = domainQuery.trim().toLowerCase();
 
@@ -269,10 +238,8 @@ const Home = () => {
     let finalDomain = "";
 
     if (fullDomainRegex.test(value)) {
-      // Already full domain like abcd.com
       finalDomain = value;
     } else {
-      // Only name entered → append selected extension
       const nameRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
       if (!nameRegex.test(value)) {
@@ -287,7 +254,6 @@ const Home = () => {
       finalDomain = value + selectedExtension;
     }
 
-    // Redirect ONLY when search button clicked
     window.open(
       `https://www.secureserver.net/products/domain-registration/find?plid=600394&domainToCheck=${finalDomain}`,
       "_blank",
@@ -303,13 +269,12 @@ const Home = () => {
 
     if (!value) return;
 
-    // Remove existing extension if present
     const baseName = value.includes(".") ? value.split(".")[0] : value;
 
     const updatedDomain = baseName + ext;
 
-    setDomainQuery(updatedDomain); // Update input field
-    setSelectedExtension(ext); // Update selected button
+    setDomainQuery(updatedDomain);
+    setSelectedExtension(ext);
     setSearchStatus("idle");
     setErrorMessage("");
   };
@@ -403,15 +368,6 @@ const Home = () => {
           />
         </div>
 
-        {/* ── BACKGROUND IMAGE ──
-        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
-          <img
-            src={BackgroundImage}
-            alt="Background"
-            className="w-full h-full object-cover object-center opacity-15"
-          />
-        </div> */}
-
         {/* ── MAIN CONTENT ── */}
         <div
           className="relative flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 lg:px-8 pt-16 sm:pt-25 pb-12 sm:pb-20"
@@ -461,28 +417,6 @@ const Home = () => {
                   Discover Your Brand Name Here
                 </span>
               </motion.h2>
-              {/* 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="relative text-base sm:text-lg md:text-xl font-medium bg-gradient-to-r from-red-400 via-violet-500 to-purple-500 bg-clip-text text-transparent mb-2"
-              >
-                Get a .com for only ₹1.00<span className="text-sm">*</span>/1st
-                yr
-                <span className="align-super text-xs">^</span>
-              </motion.p> */}
-              {/* 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="relative text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto"
-              >
-                Included AI powered CoBrother{" "}
-                <span className="font-semibold text-neutral-300">Aultum</span>{" "}
-                with Add-on AI automation at your doorstep
-              </motion.p> */}
             </div>
 
             {/* Search Bar */}
@@ -552,42 +486,6 @@ const Home = () => {
                 </div>
               </motion.div>
             </motion.div>
-
-            {/* Domain Extensions */}
-            {/* <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4"
-            >
-              {[
-                { name: ".com", price: "₹999" },
-                { name: ".in", price: "₹699" },
-                { name: ".ai", price: "₹4599" },
-                { name: ".io", price: "₹4599" },
-              ].map((ext, index) => (
-                <motion.button
-                  key={ext.name}
-                  onClick={() => handleExtensionClick(ext.name)}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 + index * 0.05 }}
-                  style={{ cursor: "pointer" }}
-                  className={`px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 ${
-                    selectedExtension === ext.name
-                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30"
-                      : "bg-white/10 text-white hover:bg-white/20 border border-white/10 hover:border-white/30"
-                  }`}
-                >
-                  {ext.name}
-                  <span className="ml-1 opacity-70 text-[10px] sm:text-xs">
-                    {ext.price}
-                  </span>
-                </motion.button>
-              ))}
-            </motion.div> */}
 
             {/* Search Status Messages */}
             <AnimatePresence mode="wait">
@@ -721,7 +619,7 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* 2. SERVICES GRID - Updated Layout from Second Code */}
+          {/* 2. SERVICES GRID */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -752,7 +650,7 @@ const Home = () => {
 };
 
 // ─────────────────────────────────────────────
-// SERVICE CARD - Updated Layout from Second Code
+// SERVICE CARD
 // ─────────────────────────────────────────────
 const ServiceCard = ({ item, index, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
