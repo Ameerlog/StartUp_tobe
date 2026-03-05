@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* ─── Tailwind v4 Theme: Fonts ─────────────────────────────────────────── */
+@theme {
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Syne", sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -180,6 +193,55 @@ html {
   100% {
     background-position: 300% 50%;
   }
+}
+
+/* ─── CoBrother CTA: Animated Border (turbo.build style) ───────────────────── */
+
+@property --cobrother-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes cobrother-spin {
+  to {
+    --cobrother-angle: 360deg;
+  }
+}
+
+.cobrother-border-shell {
+  --cobrother-angle: 0deg;
+  --cobrother-bg: conic-gradient(
+    from var(--cobrother-angle),
+    #213,
+    #112 5%,
+    #112 60%,
+    #213 95%
+  );
+  --cobrother-border: conic-gradient(
+    from var(--cobrother-angle),
+    transparent 25%,
+    #08f,
+    #892eff,
+    #f03 99%,
+    transparent
+  );
+
+  position: relative;
+  display: inline-block;
+  padding: 3px;
+  border-radius: 9999px;
+  border: solid 3px transparent;
+  background:
+    var(--cobrother-bg) padding-box,
+    var(--cobrother-border) border-box,
+    var(--cobrother-bg) border-box;
+  background-origin: padding-box, border-box, border-box;
+  animation: cobrother-spin 3s linear infinite;
+}
+
+.cobrother-border-shell:hover {
+  animation-play-state: paused;
 }
 
 /* ─── Custom Gradient Scrollbar ─────────────────────────────────────────── */

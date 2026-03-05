@@ -16,7 +16,7 @@ const DomainCardSkeleton = () => {
       <div className="h-[380px] rounded-2xl border border-white/10 bg-[#0A0A0A] flex flex-col">
         {/* Image Area */}
         <div className="h-36 rounded-t-2xl bg-white/5 animate-pulse w-full" />
-        
+
         <div className="p-4 flex flex-col flex-1">
           {/* Title */}
           <div className="h-6 w-3/4 bg-white/10 rounded animate-pulse" />
@@ -38,7 +38,7 @@ const DomainCardSkeleton = () => {
 // Domain Card (Bigger Size, No Gaps)
 const DomainCard = ({ domain, imageErrors, handleImageError }) => {
   const navigate = useNavigate();
-  
+
   const displayName = domain.domainName || "Domain";
   const displayExt = domain.domainExtension || ".com";
   const displayPrice = domain.askingPrice
@@ -99,7 +99,7 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
               <div className="flex items-center gap-1.5 text-zinc-400 text-[10px] font-medium uppercase tracking-wider">
                 <Tag className="w-3 h-3" /> Price
               </div>
-              <div 
+              <div
                 className="text-white font-bold text-base mt-1 whitespace-nowrap overflow-hidden text-ellipsis"
                 title={displayPrice}
               >
@@ -151,12 +151,12 @@ const BrandingHero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-7xl font-bold tracking-tight"
+          className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight font-display"
         >
-          <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-display">
             Find Premium
           </span>{" "}
-          <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent font-display">
             Domain Names
           </span>
         </motion.h1>
@@ -208,7 +208,7 @@ const Branding = () => {
         const nextSticky = !entry.isIntersecting;
         setIsSticky((prev) => (prev === nextSticky ? prev : nextSticky));
       },
-      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" }
+      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" },
     );
     if (heroRef.current) {
       observer.observe(heroRef.current);
@@ -236,7 +236,7 @@ const Branding = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllDomains"
+          "https://cobrother-api.onrender.com/api/ListAllDomains",
         );
         const data = await response.json();
         setDomains(data || []);
@@ -273,7 +273,11 @@ const Branding = () => {
     if (filters.length && filters.length !== "") {
       const domainLength = domain.domainName.length;
       if (filters.length === "short" && domainLength > 5) return false;
-      if (filters.length === "medium" && (domainLength < 6 || domainLength > 10)) return false;
+      if (
+        filters.length === "medium" &&
+        (domainLength < 6 || domainLength > 10)
+      )
+        return false;
       if (filters.length === "long" && domainLength < 11) return false;
     }
     return true;
@@ -293,7 +297,7 @@ const Branding = () => {
   const totalPages = Math.ceil(sortedDomains.length / itemsPerPage);
   const paginatedDomains = sortedDomains.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   // Get unique extensions
@@ -307,11 +311,15 @@ const Branding = () => {
     { label: ".co", value: ".co" },
     { label: ".biz", value: ".biz" },
   ];
-  const apiExtensions = Array.from(new Set(domains.map((d) => d.domainExtension)))
+  const apiExtensions = Array.from(
+    new Set(domains.map((d) => d.domainExtension)),
+  )
     .filter((ext) => ext && ext.trim() !== "")
     .map((ext) => ({ label: ext, value: ext }));
   const uniqueExtensions = Array.from(
-    new Map([...defaultExtensions, ...apiExtensions].map((x) => [x.value, x])).values()
+    new Map(
+      [...defaultExtensions, ...apiExtensions].map((x) => [x.value, x]),
+    ).values(),
   );
 
   const ctaButton = (
@@ -342,7 +350,10 @@ const Branding = () => {
   };
 
   const hasActiveFilters =
-    searchQuery?.trim().length > 0 || filters.extension || filters.length || sort;
+    searchQuery?.trim().length > 0 ||
+    filters.extension ||
+    filters.length ||
+    sort;
 
   return (
     <main className="min-h-screen bg-[#09090b]">
@@ -490,7 +501,9 @@ const Branding = () => {
                       Clear Filters
                     </button>
                   )}
-                  {ctaButton && <div className="flex-shrink-0">{ctaButton}</div>}
+                  {ctaButton && (
+                    <div className="flex-shrink-0">{ctaButton}</div>
+                  )}
                 </div>
               </div>
             </div>

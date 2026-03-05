@@ -43,7 +43,7 @@ export default function Compliance() {
             Filing and Compliance
           </p>
 
-          <h1 className="mt-2 text-4xl sm:text-5xl font-bold tracking-tighter">
+          <h1 className="mt-2 text-4xl sm:text-5xl font-bold tracking-tighter font-display">
             Compliance made for CoBrother
           </h1>
 

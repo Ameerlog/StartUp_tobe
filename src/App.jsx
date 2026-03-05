@@ -29,6 +29,7 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
 import GetVentureForm from "./pages/GetVentureform";
+import Bethecobrother from "./pages/BeTheCobrother";
 const App = () => {
   return (
     <BrowserRouter>
@@ -38,6 +39,7 @@ const App = () => {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/bethecobrother" element={<Bethecobrother />} />
             <Route path="/marketing" element={<Marketing />} />
             <Route path="/branding" element={<Branding />} />
             <Route path="/compliance" element={<Compliance />} />

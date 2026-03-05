@@ -29,7 +29,7 @@ const Marketing = () => {
             className="w-20 h-20 object-contain mb-6 scale-250"
           />
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight max-w-4xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight max-w-4xl font-display">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               AI-Powered operations
             </span>
@@ -90,7 +90,7 @@ const Marketing = () => {
 
       <section className="relative z-10 mt-14 sm:mt-16 pb-10 sm:pb-14 px-4 sm:px-6">
         <div className="mx-auto max-w-6xl text-center mb-10 sm:mb-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight font-display">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Get started with brands
             </span>

@@ -22,7 +22,7 @@ export default function AIRoboticsPage() {
 
       {/* HERO */}
       <section className="relative px-4 pt-32 pb-14 text-center max-w-4xl mx-auto z-10">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter font-display">
           <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Co-Operation
           </span>
