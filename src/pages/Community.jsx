@@ -22,7 +22,7 @@ const CommunityHero = () => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl sm:text-4xl md:text-7xl font-bold tracking-tight"
+        className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight"
       >
         <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
           Join Our

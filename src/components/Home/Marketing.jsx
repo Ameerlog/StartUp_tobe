@@ -148,8 +148,9 @@ export default function Marketing() {
           onClick={() =>
             window.open("https://aultum.com/", "_blank", "noopener,noreferrer")
           }
-          className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98]"
+          className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4"
         >
+          <span className="absolute w-20 h-20 rounded-full bg-white/30 animate-community-ripple z-20"></span>
           <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500" />
           <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="relative cursor-pointer">Get Aultum Automation</span>
@@ -171,27 +172,39 @@ export default function Marketing() {
         {/* Navigation */}
         {!loading && Market.length > 0 && (
           <>
-            <button
-              onClick={() => handleScroll("left")}
-              className="absolute left-2 sm:left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
-              aria-label="Scroll left"
-            >
-              <ChevronsLeft
-                className="w-5 h-5 sm:w-6 sm:h-6"
-                strokeWidth={2.5}
-              />
-            </button>
+            <div className="absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+              {/* ripple */}
+              <span className="absolute w-14 h-14 rounded-full border border-white/60 animate-ripple"></span>
+              <span className="absolute w-14 h-14 rounded-full border border-violet-600/20 animate-ripple delay-00"></span>
 
-            <button
-              onClick={() => handleScroll("right")}
-              className="absolute right-2 sm:right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
-              aria-label="Scroll right"
-            >
-              <ChevronsRight
-                className="w-5 h-5 sm:w-6 sm:h-6"
-                strokeWidth={2.5}
-              />
-            </button>
+              <button
+                onClick={() => handleScroll("left")}
+                className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+                aria-label="Scroll left"
+              >
+                <ChevronsLeft
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                  strokeWidth={2.5}
+                />
+              </button>
+            </div>
+
+            <div className="absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+              {/* ripple */}
+              <span className="absolute w-14 h-14 rounded-full border border-white animate-ripple"></span>
+              <span className="absolute w-14 h-14 rounded-full border border-violet-500/30 animate-ripple delay-400"></span>
+
+              <button
+                onClick={() => handleScroll("right")}
+                className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+                aria-label="Scroll right"
+              >
+                <ChevronsRight
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                  strokeWidth={2.5}
+                />
+              </button>
+            </div>
           </>
         )}
 
