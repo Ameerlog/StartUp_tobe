@@ -30,15 +30,18 @@ import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
 import GetVentureForm from "./pages/GetVentureform";
 import Bethecobrother from "./pages/BeTheCobrother";
+import SignIn from "./pages/SignIn";
 const App = () => {
   return (
     <BrowserRouter>
       <ScrolltoTop />
       <div className="min-h-screen flex flex-col bg-black">
         <Navbar />
+
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="/bethecobrother" element={<Bethecobrother />} />
             <Route path="/marketing" element={<Marketing />} />
             <Route path="/branding" element={<Branding />} />
