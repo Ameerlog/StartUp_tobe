@@ -450,7 +450,6 @@ main {
   }
 }
 
-
 /* Arrow ripple (left/right buttons) */
 @keyframes ripple {
   0% {
@@ -471,7 +470,10 @@ main {
   animation: ripple 2.5s infinite ease-out;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 476e7eec1d69c65fe4981c83e380025779eadfe3
 /* Join community button ripple */
 @keyframes communityRipple {
   0% {
@@ -490,4 +492,8 @@ main {
 
 .animate-community-ripple {
   animation: communityRipple 2.5s infinite ease-in-out;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 476e7eec1d69c65fe4981c83e380025779eadfe3
