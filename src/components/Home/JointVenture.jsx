@@ -150,7 +150,7 @@ export default function JointVenture() {
     <section className="w-full py-12 relative overflow-hidden bg-[#09090b]">
       {/* ================= Header ================= */}
       <div className="text-center px-4 flex flex-col items-center gap-4 mb-8 relative z-20">
-        <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-white font-display">
+        <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-white">
           Co-Venture
         </h2>
 
