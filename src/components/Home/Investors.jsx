@@ -3,8 +3,8 @@ import { investorCards } from "../../data/investors";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Linkedin,
   Sparkles,
 } from "lucide-react";
@@ -155,7 +155,7 @@ const ProfileCard = ({ profile }) => {
       <div className="group relative min-w-0 overflow-hidden bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 sm:p-5 hover:border-neutral-700/50 transition-all duration-300">
         <div className="mb-4 sm:mb-5 flex flex-col items-center">
           <div
-            className={`relative w-full max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-square rounded-full p-[12px] sm:p-[14px] md:p-[16px] bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
+            className={`relative w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] md:w-[210px] md:h-[210px] rounded-full p-[12px] sm:p-[14px] md:p-[16px] flex-shrink-0 bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
           >
             <svg
               viewBox="0 0 200 200"
@@ -164,7 +164,7 @@ const ProfileCard = ({ profile }) => {
             >
               <defs>
                 <path id={topArcId} d="M 10 100 A 90 90 0 0 1 190 100" />
-                <path id={bottomArcId} d="M 10 100 A 90 90 0 0 0 190 100" />
+                <path id={bottomArcId} d="M 10 106 A 90 90 0 0 0 190 106" />
               </defs>
               <text
                 className="fill-white text-[8.5px] sm:text-[9.5px] md:text-[10.5px] font-black tracking-[1.9px] sm:tracking-[2.2px] md:tracking-[2.4px]"
@@ -383,13 +383,13 @@ export default function Investors() {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     idleTimerRef.current = setTimeout(() => {
       setIsPaused(false);
-    }, 5000);
+    }, 1000);
   };
 
   const handleMouseEnter = () => {
     if (loading) return;
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     setIsPaused(true);
-    resetIdleTimer();
   };
 
   const handleMouseLeave = () => {
@@ -431,18 +431,26 @@ export default function Investors() {
   return (
     <section className="w-full py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
       <div className="text-center px-0 flex flex-col items-center gap-4">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold ">
           Co-Working
         </h2>
 
         <button
-          onClick={() => {
-            navigate("/coworker-form");
-          }}
-          className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/20 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white backdrop-blur-xl transition-all duration-300 hover:bg-gray-800 active:scale-[0.98] mt-4"
-        >
-          Join our community
-        </button>
+  onClick={() => {
+    navigate("/coworker-form");
+  }}
+  className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4"
+>
+ 
+ <span className="absolute w-20 h-20 rounded-full bg-white/30 animate-community-ripple z-20"></span>
+  {/* GRADIENT */}
+  <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500 z-10" />
+  <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+
+  <span className="relative z-20 cursor-pointer">
+    Join our community
+  </span>
+</button>
       </div>
 
       <div
@@ -470,21 +478,35 @@ export default function Investors() {
 
         {!loading && dataToDisplay.length > 0 && (
           <>
-            <button
-              onClick={() => handleScroll("left")}
-              className="absolute left-1 sm:left-2 md:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border backdrop-blur-xl p-1.5 sm:p-2 md:p-3 transition-all duration-300 border-white/20 bg-white/10 text-white hover:bg-white/20 opacity-80 hover:opacity-100 active:scale-95"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
+           <div className="absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+  
+  {/* ripple */}
+  <span className="absolute w-14 h-14 rounded-full border border-white/60 animate-ripple"></span>
+  <span className="absolute w-14 h-14 rounded-full border border-violet-600/20 animate-ripple delay-00"></span>
 
-            <button
-              onClick={() => handleScroll("right")}
-              className="absolute right-1 sm:right-2 md:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border backdrop-blur-xl p-1.5 sm:p-2 md:p-3 transition-all duration-300 border-white/20 bg-white/10 text-white hover:bg-white/20 opacity-80 hover:opacity-100 active:scale-95"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
+  <button
+    onClick={() => handleScroll("left")}
+    className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+    aria-label="Scroll left"
+  >
+    <ChevronsLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
+  </button>
+</div>
+
+           <div className="absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+  
+  {/* ripple */}
+  <span className="absolute w-14 h-14 rounded-full border border-white animate-ripple"></span>
+  <span className="absolute w-14 h-14 rounded-full border border-violet-500/30 animate-ripple delay-400"></span>
+
+  <button
+    onClick={() => handleScroll("right")}
+    className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+    aria-label="Scroll right"
+  >
+    <ChevronsRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
+  </button>
+</div>
           </>
         )}
 
@@ -519,10 +541,11 @@ export default function Investors() {
         <div className="mt-10 flex justify-center">
           <button
             onClick={() => navigate("/community")}
-            className="flex items-center gap-2 rounded-full border border-white bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-xl transition hover:bg-gray-800"
+            className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-purple-500/40 bg-purple-500/5 px-8 py-2.5 text-sm font-bold text-purple-300 backdrop-blur-md shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 hover:border-blue-400/60 hover:text-white hover:shadow-[0_0_26px_rgba(96,165,250,0.4)] active:scale-[0.97]"
           >
-            View All
-            <ArrowRight className="w-4 h-4" />
+            <span className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-blue-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:via-blue-600/20 group-hover:to-pink-600/20 transition-all duration-300" />
+            <span className="relative cursor-pointer">View All</span>
+            <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
       )}

@@ -676,7 +676,7 @@ const DomainListingForm = () => {
               Domain Marketplace
             </span>
           </motion.div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 font-display">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               List Your
             </span>{" "}

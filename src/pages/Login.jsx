@@ -63,7 +63,7 @@
 //           transition={{ delay: 0.2 }}
 //           className="text-center"
 //         >
-//           <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-2">
+//           <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-2 font-display">
 //             Welcome to CoBrother
 //           </h1>
 //           <p className="text-neutral-400 text-sm">

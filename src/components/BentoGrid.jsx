@@ -55,12 +55,18 @@ function Card({ children, className = "" }) {
 
 function Title({ children }) {
   return (
-    <h3 className="text-lg font-semibold tracking-tight text-white">{children}</h3>
+    <h3 className="text-lg font-semibold tracking-tight text-white">
+      {children}
+    </h3>
   );
 }
 
 function Muted({ children, className = "" }) {
-  return <p className={`text-sm leading-relaxed text-zinc-400 ${className}`}>{children}</p>;
+  return (
+    <p className={`text-sm leading-relaxed text-zinc-400 ${className}`}>
+      {children}
+    </p>
+  );
 }
 
 function CheckRow({ children }) {
@@ -89,7 +95,7 @@ export default function BentoGrid() {
     <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-12 sm:mb-14 text-center">
-          <h2 className="text-balance text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-6xl">
+          <h2 className="text-balance text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-6xl font-display ">
             AULTUM - All-in-One CRM &amp; Automation Platform
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-sm sm:text-base text-zinc-400">

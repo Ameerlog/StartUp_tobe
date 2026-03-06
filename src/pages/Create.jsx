@@ -100,7 +100,7 @@ export default function CoCreation() {
         transition={{ duration: 0.8 }}
         className="relative max-w-6xl mx-auto px-6 pt-36 pb-24 text-center z-10"
       >
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 font-display">
           <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Build Something Together
           </span>

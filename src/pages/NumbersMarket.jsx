@@ -21,7 +21,7 @@
 //       <section className="border-b border-slate-200 bg-transparent">
 //         <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
 //           <div className="text-center">
-//             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
+//             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 font-display">
 //           Business Numbers
 //             </h1>
 //             <p className="mt-2 text-sm sm:text-base text-slate-500">

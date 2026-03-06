@@ -14,20 +14,13 @@ const DomainCardSkeleton = () => {
   return (
     <div className="w-full">
       <div className="h-[380px] rounded-2xl border border-white/10 bg-[#0A0A0A] flex flex-col">
-        {/* Image Area */}
         <div className="h-36 rounded-t-2xl bg-white/5 animate-pulse w-full" />
-        
         <div className="p-4 flex flex-col flex-1">
-          {/* Title */}
           <div className="h-6 w-3/4 bg-white/10 rounded animate-pulse" />
-
-          {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-3 mt-4">
             <div className="h-16 bg-white/5 rounded-xl animate-pulse" />
             <div className="h-16 bg-white/5 rounded-xl animate-pulse" />
           </div>
-
-          {/* Button */}
           <div className="mt-auto h-11 w-full bg-white/10 rounded-xl animate-pulse" />
         </div>
       </div>
@@ -38,7 +31,7 @@ const DomainCardSkeleton = () => {
 // Domain Card (Bigger Size, No Gaps)
 const DomainCard = ({ domain, imageErrors, handleImageError }) => {
   const navigate = useNavigate();
-  
+
   const displayName = domain.domainName || "Domain";
   const displayExt = domain.domainExtension || ".com";
   const displayPrice = domain.askingPrice
@@ -64,7 +57,6 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
           cursor-pointer
         "
       >
-        {/* Top: Image/Logo Area */}
         <div className="relative h-36 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-6 border-b border-white/5">
           {domain.logo && !imageErrors?.[domainId] ? (
             <img
@@ -79,7 +71,6 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
               {displayName.slice(0, 2).toUpperCase()}
             </div>
           )}
-          {/* Badge */}
           <div className="absolute top-3 right-3 bg-black/40 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-lg">
             <p className="text-[9px] font-bold text-emerald-400 tracking-wider uppercase">
               Verified
@@ -87,19 +78,17 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
           </div>
         </div>
 
-        {/* Body Content */}
         <div className="p-4 flex flex-col flex-1">
           <h3 className="text-lg font-bold text-white truncate">
             {displayName}
           </h3>
 
-          {/* Stats Grid - No gaps below values */}
           <div className="grid grid-cols-2 gap-3 mt-4 flex-1">
             <div className="bg-white/5 rounded-xl p-3 border border-white/5 flex flex-col justify-center">
               <div className="flex items-center gap-1.5 text-zinc-400 text-[10px] font-medium uppercase tracking-wider">
                 <Tag className="w-3 h-3" /> Price
               </div>
-              <div 
+              <div
                 className="text-white font-bold text-base mt-1 whitespace-nowrap overflow-hidden text-ellipsis"
                 title={displayPrice}
               >
@@ -116,7 +105,6 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
             </div>
           </div>
 
-          {/* Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -140,7 +128,7 @@ const DomainCard = ({ domain, imageErrors, handleImageError }) => {
 
 const BrandingHero = () => {
   return (
-    <section className="relative w-full min-h-[28vh] bg-black overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
+    <section className="relative w-full min-h-[24vh] bg-black overflow-hidden pt-14 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-size-[32px_32px]" />
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-black/90" />
@@ -151,12 +139,13 @@ const BrandingHero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-7xl font-bold tracking-tight"
+          className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight"
         >
-          <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <span className="font-display bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Find Premium
-          </span>{" "}
-          <span className="bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
+          </span>
+          <span className="ml-2" />
+          <span className="font-display bg-linear-to-r from-purple-400 via-blue-400 to-pink-400 bg-clip-text text-transparent">
             Domain Names
           </span>
         </motion.h1>
@@ -208,11 +197,9 @@ const Branding = () => {
         const nextSticky = !entry.isIntersecting;
         setIsSticky((prev) => (prev === nextSticky ? prev : nextSticky));
       },
-      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" }
+      { root: null, threshold: [0, 1], rootMargin: "-80px 0px 0px 0px" },
     );
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
-    }
+    if (heroRef.current) observer.observe(heroRef.current);
     return () => {
       if (heroRef.current) observer.unobserve(heroRef.current);
     };
@@ -236,7 +223,7 @@ const Branding = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllDomains"
+          "https://cobrother-api.onrender.com/api/ListAllDomains",
         );
         const data = await response.json();
         setDomains(data || []);
@@ -273,7 +260,11 @@ const Branding = () => {
     if (filters.length && filters.length !== "") {
       const domainLength = domain.domainName.length;
       if (filters.length === "short" && domainLength > 5) return false;
-      if (filters.length === "medium" && (domainLength < 6 || domainLength > 10)) return false;
+      if (
+        filters.length === "medium" &&
+        (domainLength < 6 || domainLength > 10)
+      )
+        return false;
       if (filters.length === "long" && domainLength < 11) return false;
     }
     return true;
@@ -293,7 +284,7 @@ const Branding = () => {
   const totalPages = Math.ceil(sortedDomains.length / itemsPerPage);
   const paginatedDomains = sortedDomains.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   // Get unique extensions
@@ -307,11 +298,15 @@ const Branding = () => {
     { label: ".co", value: ".co" },
     { label: ".biz", value: ".biz" },
   ];
-  const apiExtensions = Array.from(new Set(domains.map((d) => d.domainExtension)))
+  const apiExtensions = Array.from(
+    new Set(domains.map((d) => d.domainExtension)),
+  )
     .filter((ext) => ext && ext.trim() !== "")
     .map((ext) => ({ label: ext, value: ext }));
   const uniqueExtensions = Array.from(
-    new Map([...defaultExtensions, ...apiExtensions].map((x) => [x.value, x])).values()
+    new Map(
+      [...defaultExtensions, ...apiExtensions].map((x) => [x.value, x]),
+    ).values(),
   );
 
   const ctaButton = (
@@ -342,10 +337,13 @@ const Branding = () => {
   };
 
   const hasActiveFilters =
-    searchQuery?.trim().length > 0 || filters.extension || filters.length || sort;
+    searchQuery?.trim().length > 0 ||
+    filters.extension ||
+    filters.length ||
+    sort;
 
   return (
-    <main className="min-h-screen bg-[#09090b]">
+    <main className="min-h-screen bg-black">
       {/* Navbar + Hero */}
       <div className="relative">
         <div ref={heroRef}>
@@ -356,7 +354,7 @@ const Branding = () => {
         <div style={isSticky ? { height: toolbarHeight } : undefined}>
           <div
             ref={toolbarRef}
-            className={`relative z-[200] w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${
+            className={`w-full overflow-visible will-change-transform transition-[background-color,box-shadow,border-color,transform] duration-500 ease-out ${
               isSticky
                 ? "fixed top-0 left-0 z-50 bg-black/95 border-b border-neutral-800/50 shadow-lg backdrop-blur-md translate-y-0"
                 : "relative z-10 bg-transparent border-b border-transparent shadow-none translate-y-0"
@@ -387,19 +385,9 @@ const Branding = () => {
                 </div>
 
                 {/* Search Bar */}
-                <div
-                  className={`flex-1 mx-auto transition-all duration-300 ${
-                    isSticky ? "max-w-4xl" : "max-w-5xl"
-                  }`}
-                >
+                <div className="flex-1 max-w-2xl mx-auto">
                   <div className="relative group">
-                    <div
-                      className={`relative flex items-center rounded-2xl border border-neutral-700/60 bg-neutral-900/95 transition-all duration-300 ${
-                        isSticky
-                          ? "p-1 shadow-[0_8px_22px_rgba(0,0,0,0.35)]"
-                          : "p-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
-                      }`}
-                    >
+                    <div className="relative flex items-center">
                       <Search
                         className={`absolute top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none transition-all duration-300 ${
                           isSticky
@@ -413,7 +401,7 @@ const Branding = () => {
                         onChange={(e) => handleSearch(e.target.value)}
                         placeholder="Search for domain names..."
                         disabled={loading}
-                        className={`w-full bg-neutral-950/40 border border-transparent rounded-xl text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-purple-500/35 transition-all duration-300 disabled:opacity-50 ${
+                        className={`w-full bg-neutral-950/40 border border-white/30  rounded-xl text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-purple-500/35 transition-all duration-300 disabled:opacity-50 ${
                           isSticky
                             ? "h-11 sm:h-12 pl-11 sm:pl-12 pr-10 sm:pr-12 text-sm sm:text-base"
                             : "h-14 sm:h-16 pl-14 sm:pl-16 pr-12 sm:pr-14 text-base sm:text-[1.08rem]"
@@ -426,18 +414,10 @@ const Branding = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             onClick={() => handleSearch("")}
-                            className={`absolute top-1/2 -translate-y-1/2 hover:bg-neutral-800/80 rounded-md transition-all duration-300 ${
-                              isSticky
-                                ? "right-3 sm:right-4 p-1"
-                                : "right-4 sm:right-5 p-1.5"
-                            }`}
+                            className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-neutral-800/50 rounded-md transition-colors"
                             disabled={loading}
                           >
-                            <X
-                              className={`text-neutral-400 hover:text-white transition-all duration-300 ${
-                                isSticky ? "w-4 h-4" : "w-5 h-5"
-                              }`}
-                            />
+                            <X className="w-4 h-4 text-neutral-400 hover:text-white" />
                           </motion.button>
                         )}
                       </AnimatePresence>
@@ -490,7 +470,9 @@ const Branding = () => {
                       Clear Filters
                     </button>
                   )}
-                  {ctaButton && <div className="flex-shrink-0">{ctaButton}</div>}
+                  {ctaButton && (
+                    <div className="flex-shrink-0">{ctaButton}</div>
+                  )}
                 </div>
               </div>
             </div>

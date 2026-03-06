@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Market } from "../../data/marketing";
-import { ArrowRight, ChevronLeft, ChevronRight, Tag } from "lucide-react";
+import { ArrowRight, ChevronsLeft, ChevronsRight, Tag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Skeleton Card
@@ -18,6 +18,26 @@ const MarketingCardSkeleton = () => {
           <div className="mt-auto h-10 w-full bg-white/10 rounded-lg animate-pulse" />
         </div>
       </div>
+    </div>
+  );
+};
+
+/* ================= Glow Card Wrapper ================= */
+const GlowCard = ({ children, className }) => {
+  const ref = React.useRef(null);
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const { left, top } = ref.current.getBoundingClientRect();
+    ref.current.style.setProperty("--gx", `${e.clientX - left}px`);
+    ref.current.style.setProperty("--gy", `${e.clientY - top}px`);
+  };
+  return (
+    <div
+      ref={ref}
+      className={`relative group/glow ${className}`}
+      onMouseMove={handleMouseMove}
+    >
+      {children}
     </div>
   );
 };
@@ -68,13 +88,13 @@ export default function Marketing() {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     idleTimerRef.current = setTimeout(() => {
       setIsPaused(false);
-    }, 5000);
+    }, 1000);
   };
 
   const handleMouseEnter = () => {
     if (loading) return;
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     setIsPaused(true);
-    resetIdleTimer();
   };
 
   const handleMouseLeave = () => {
@@ -128,9 +148,12 @@ export default function Marketing() {
           onClick={() =>
             window.open("https://aultum.com/", "_blank", "noopener,noreferrer")
           }
-          className="group flex items-center gap-2 rounded-full border border-white bg-white/10 px-6 py-2.5 text-sm font-bold text-white backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-white/20 active:scale-[0.98]"
+          className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4"
         >
-          Get Aultum Automation
+           <span className="absolute w-20 h-20 rounded-full bg-white/30 animate-community-ripple z-20"></span>
+          <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500" />
+          <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <span className="relative cursor-pointer">Get Aultum Automation</span>
         </button>
       </div>
 
@@ -149,20 +172,36 @@ export default function Marketing() {
         {/* Navigation */}
         {!loading && Market.length > 0 && (
           <>
+                     <div className="absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+            
+            {/* ripple */}
+            <span className="absolute w-14 h-14 rounded-full border border-white/60 animate-ripple"></span>
+            <span className="absolute w-14 h-14 rounded-full border border-violet-600/20 animate-ripple delay-00"></span>
+          
             <button
               onClick={() => handleScroll("left")}
-              className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black hover:scale-110 active:scale-95"
+              className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+              aria-label="Scroll left"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronsLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
             </button>
-
+          </div>
+          
+                     <div className="absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+            
+            {/* ripple */}
+            <span className="absolute w-14 h-14 rounded-full border border-white animate-ripple"></span>
+            <span className="absolute w-14 h-14 rounded-full border border-violet-500/30 animate-ripple delay-400"></span>
+          
             <button
               onClick={() => handleScroll("right")}
-              className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 text-white backdrop-blur-xl transition-all hover:bg-white hover:text-black hover:scale-110 active:scale-95"
+              className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+              aria-label="Scroll right"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronsRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
             </button>
-          </>
+          </div>
+                    </>
         )}
 
         {/* Scroll Track */}
@@ -186,12 +225,11 @@ export default function Marketing() {
               const Icon = card.icon;
 
               return (
-                <div
+                <GlowCard
                   key={`${card.id}-${index}`}
                   className="shrink-0 w-64 sm:w-72 px-2"
                 >
-                  <div className="group relative h-[320px] rounded-2xl border border-white/10 bg-[#111] bg-opacity-60 backdrop-blur-md flex flex-col overflow-hidden transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1">
-                    
+                  <div className="group relative h-[320px] rounded-2xl border border-white/10 bg-[#111] bg-opacity-60 backdrop-blur-md flex flex-col overflow-hidden transition-all duration-300 hover:border-white/40 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1">
                     {/* Icon Section */}
                     <div className="relative h-32 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-4 border-b border-white/5">
                       <div className="w-16 h-16 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/50 group-hover:bg-white/20 transition-all duration-300">
@@ -213,7 +251,7 @@ export default function Marketing() {
                         {card.title}
                       </h3>
 
-                      <div className="bg-white/5 rounded-lg p-3 border border-white/5 mb-4">
+                      <div className="bg-white/5 rounded-lg p-3 border border-white/5 mb-4 group-hover:border-white/20 transition-colors duration-300">
                         <div className="flex items-center justify-center gap-1 text-zinc-400 text-[9px] uppercase tracking-wider mb-1">
                           <Tag className="w-3 h-3" /> Price
                         </div>
@@ -225,16 +263,15 @@ export default function Marketing() {
                       <div className="mt-auto">
                         <button
                           onClick={() => navigate("/contact")}
-                          className="w-full flex items-center justify-center gap-2 rounded-full bg-gray-600 text-white py-2.5 text-xs font-bold uppercase tracking-wider transition-transform active:scale-[0.98] hover:bg-gray-500"
+                          className="cursor-pointer w-full flex items-center justify-center gap-2 rounded-full bg-gray-600 text-white py-2.5 text-xs font-bold uppercase tracking-wider transition-transform active:scale-[0.98] hover:bg-gray-500"
                         >
                           Book a CoBrother
                           <ArrowRight className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
-
                   </div>
-                </div>
+                </GlowCard>
               );
             })
           )}
@@ -245,10 +282,11 @@ export default function Marketing() {
       <div className="mt-10 flex justify-center">
         <button
           onClick={() => navigate("/marketing")}
-          className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3 text-sm font-bold text-white backdrop-blur-xl transition-all duration-300 hover:bg-gray-800 hover:border-white/40 active:scale-[0.98]"
+          className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-purple-500/40 bg-purple-500/5 px-8 py-2.5 text-sm font-bold text-purple-300 backdrop-blur-md shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 hover:border-blue-400/60 hover:text-white hover:shadow-[0_0_26px_rgba(96,165,250,0.4)] active:scale-[0.97]"
         >
-          View All Services
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          <span className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-blue-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:via-blue-600/20 group-hover:to-pink-600/20 transition-all duration-300" />
+          <span className="relative cursor-pointer">View All Services</span>
+          <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>
     </section>

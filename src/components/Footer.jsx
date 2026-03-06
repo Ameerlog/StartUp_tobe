@@ -91,10 +91,10 @@ const footerColumns = [
 ];
 
 const linkPaths = {
-   "Co-Venture": "/venture",
-      "Co-Marketing": "/marketing",
-      "Co-Branding": "/branding",
-      "Co-Working": "/community",
+  "Co-Venture": "/venture",
+  "Co-Marketing": "/marketing",
+  "Co-Branding": "/branding",
+  "Co-Working": "/community",
   "Co-Creation Challenges": "/co-creation",
   "Co-Operation Setup": "/ai",
   "Co-Marketing Solutions": "/marketing",
@@ -294,7 +294,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
             <button
               onClick={() => navigate("/contact")}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500"
+              className="cursor-pointer px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500"
             >
               Book a Cobrother Visit →
             </button>

@@ -1,12 +1,11 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   PieChart,
   Wallet,
   FileText,
-  ChevronLeft,
-  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -49,14 +48,14 @@ export default function JointVenture() {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://cobrother-api.onrender.com/api/ListAllBrands"
+          "https://cobrother-api.onrender.com/api/ListAllBrands",
         );
 
         if (response.ok) {
           const data = await response.json();
 
           const validBrands = data.filter(
-            (brand) => brand.brandDetails?.brandName
+            (brand) => brand.brandDetails?.brandName,
           );
 
           const ratioMap = {
@@ -69,8 +68,7 @@ export default function JointVenture() {
           };
 
           const mapped = validBrands.map((brand) => {
-            const rawType =
-              brand.brandDetails?.ventureType || "NEGOTIABLE";
+            const rawType = brand.brandDetails?.ventureType || "NEGOTIABLE";
 
             return {
               id: brand.id,
@@ -81,8 +79,7 @@ export default function JointVenture() {
               ).toLocaleString("en-IN")}`,
               ventureType: ratioMap[rawType] || rawType,
               desc:
-                brand.brandDetails?.description ||
-                "No description available",
+                brand.brandDetails?.description || "No description available",
             };
           });
 
@@ -146,7 +143,7 @@ export default function JointVenture() {
 
     resumeTimer.current = setTimeout(() => {
       setIsPaused(false);
-    }, 4000);
+    }, 1000);
   };
 
   return (
@@ -159,9 +156,12 @@ export default function JointVenture() {
 
         <button
           onClick={() => navigate("/coventure-form")}
-          className="flex items-center gap-2 rounded-full border border-white/20 px-8 py-2 text-sm font-bold bg-white/10 text-white hover:bg-gray-800 hover:border-white transition"
+          className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4"
         >
-          List Your Venture
+           <span className="absolute w-20 h-20 rounded-full bg-white/30 animate-community-ripple z-20"></span>
+          <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500" />
+          <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <span className="relative cursor-pointer">List Your Venture</span>
         </button>
       </div>
 
@@ -170,32 +170,45 @@ export default function JointVenture() {
         className="relative"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => {
-          if (resumeTimer.current)
-            clearTimeout(resumeTimer.current);
-          resumeTimer.current = setTimeout(
-            () => setIsPaused(false),
-            2000
-          );
+          if (resumeTimer.current) clearTimeout(resumeTimer.current);
+          resumeTimer.current = setTimeout(() => setIsPaused(false), 1000);
         }}
       >
         {/* Left Button */}
         {!loading && brands.length > 0 && (
-          <button
-            onClick={() => scrollByAmount("left")}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 rounded-full bg-black/60 border border-white/20 p-2 text-white hover:bg-black transition"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+         <div className="absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+           
+           {/* ripple */}
+           <span className="absolute w-14 h-14 rounded-full border border-white/60 animate-ripple"></span>
+           <span className="absolute w-14 h-14 rounded-full border border-violet-600/20 animate-ripple delay-00"></span>
+         
+           <button
+             onClick={() => scrollByAmount("left")}
+             className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+             aria-label="Scroll left"
+           >
+             <ChevronsLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
+           </button>
+         </div>
+         
         )}
 
         {/* Right Button */}
         {!loading && brands.length > 0 && (
-          <button
-            onClick={() => scrollByAmount("right")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 rounded-full bg-black/60 border border-white/20 p-2 text-white hover:bg-black transition"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+         <div className="absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+           
+           {/* ripple */}
+           <span className="absolute w-14 h-14 rounded-full border border-white animate-ripple"></span>
+           <span className="absolute w-14 h-14 rounded-full border border-violet-500/30 animate-ripple delay-400"></span>
+         
+           <button
+             onClick={() => scrollByAmount("right")}
+             className="relative z-10 rounded-full bg-violet-600/20 border border-violet-500/40 backdrop-blur-md p-2 sm:p-2.5 text-violet-400 shadow-[0_0_14px_rgba(139,92,246,0.35)] transition-all duration-300 hover:bg-violet-600/40 hover:text-violet-200 hover:scale-110 hover:shadow-[0_0_22px_rgba(139,92,246,0.65)] active:scale-95"
+             aria-label="Scroll right"
+           >
+             <ChevronsRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
+           </button>
+         </div>
         )}
 
         {/* Edge Fades */}
@@ -207,87 +220,80 @@ export default function JointVenture() {
           className="flex overflow-x-hidden px-8 py-4"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {loading ? (
-            [...Array(5)].map((_, index) => (
-              <JointVentureCardSkeleton key={index} />
-            ))
-          ) : (
-            duplicatedBrands.map((card, index) => (
-              <div
-                key={`${card.id}-${index}`}
-                className="shrink-0 w-64 sm:w-72 px-3"
-              >
-                <div className="h-[380px] rounded-2xl border border-white/10 bg-[#111] backdrop-blur-md flex flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
-                  <div className="h-32 flex items-center justify-center border-b border-white/5 p-4">
-                    {card.logo &&
-                    !imageErrors[`${card.id}-${index}`] ? (
-                      <img
-                        src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
-                        alt={card.brandName}
-                        className="max-h-full object-contain"
-                        onError={() =>
-                          handleImageError(
-                            `${card.id}-${index}`
-                          )
-                        }
-                      />
-                    ) : (
-                      <span className="text-4xl font-black text-white/10">
-                        {card.brandName
-                          .slice(0, 2)
-                          .toUpperCase()}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="p-4 flex flex-col flex-1">
-                    <h3 className="text-lg font-bold text-white mb-2 truncate">
-                      {card.brandName}
-                    </h3>
-
-                    <div className="grid grid-cols-2 gap-2 mb-3">
-                      <div className="bg-white/5 rounded-lg p-2 border border-white/5">
-                        <div className="text-xs text-zinc-400 flex items-center gap-1">
-                          <Wallet className="w-3 h-3" />
-                          Deal
-                        </div>
-                        <div className="text-white font-bold text-sm truncate">
-                          {card.dealValue}
-                        </div>
-                      </div>
-
-                      <div className="bg-white/5 rounded-lg p-2 border border-white/5">
-                        <div className="text-xs text-zinc-400 flex items-center gap-1">
-                          <PieChart className="w-3 h-3" />
-                          Equity
-                        </div>
-                        <div className="text-white font-bold text-sm truncate">
-                          {card.ventureType}
-                        </div>
-                      </div>
+          {loading
+            ? [...Array(5)].map((_, index) => (
+                <JointVentureCardSkeleton key={index} />
+              ))
+            : duplicatedBrands.map((card, index) => (
+                <div
+                  key={`${card.id}-${index}`}
+                  className="shrink-0 w-64 sm:w-72 px-3"
+                >
+                  <div className="group h-[380px] rounded-2xl border border-white/10 bg-[#111] backdrop-blur-md flex flex-col overflow-hidden transition hover:-translate-y-1 hover:border-white/30 hover:shadow-xl">
+                    <div className="h-32 flex items-center justify-center border-b border-white/5 p-4 hover:border-white/10">
+                      {card.logo && !imageErrors[`${card.id}-${index}`] ? (
+                        <img
+                          src={`https://cobrother-api.onrender.com/api/images/${card.logo}`}
+                          alt={card.brandName}
+                          className="max-h-full object-contain"
+                          onError={() =>
+                            handleImageError(`${card.id}-${index}`)
+                          }
+                        />
+                      ) : (
+                        <span className="text-4xl font-black text-white/10">
+                          {card.brandName.slice(0, 2).toUpperCase()}
+                        </span>
+                      )}
                     </div>
 
-                    <div className="bg-white/5 rounded-lg p-2 border border-white/5 flex-1 mb-3">
-                      <div className="text-xs text-zinc-400 flex items-center gap-1">
-                        <FileText className="w-3 h-3" />
-                        Description
-                      </div>
-                      <p className="text-xs text-zinc-300 line-clamp-2">
-                        {card.desc}
-                      </p>
-                    </div>
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold text-white mb-2 truncate">
+                        {card.brandName}
+                      </h3>
 
-                    <button
-                      onClick={() => navigate("/get-ventures")}
-                      className="mt-auto w-full bg-gray-600 text-white rounded-full py-2 text-xs font-bold hover:bg-gray-500 transition"
-                    >
-                      Get Coventure
-                    </button>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        <div className="bg-white/5 rounded-lg p-2 border border-white/5 group-hover:border-white/20 transition-colors duration-300">
+                          <div className="text-xs text-zinc-400 flex items-center gap-1">
+                            <Wallet className="w-3 h-3" />
+                            Deal
+                          </div>
+                          <div className="text-white font-bold text-sm truncate">
+                            {card.dealValue}
+                          </div>
+                        </div>
+
+                        <div className="bg-white/5 rounded-lg p-2 border border-white/5 group-hover:border-white/20 transition-colors duration-300">
+                          <div className="text-xs text-zinc-400 flex items-center gap-1">
+                            <PieChart className="w-3 h-3" />
+                            Equity
+                          </div>
+                          <div className="text-white font-bold text-sm truncate">
+                            {card.ventureType}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white/5 rounded-lg p-2 border border-white/5 flex-1 mb-3 group-hover:border-white/20 transition-colors duration-300">
+                        <div className="text-xs text-zinc-400 flex items-center gap-1">
+                          <FileText className="w-3 h-3" />
+                          Description
+                        </div>
+                        <p className="text-xs text-zinc-300 line-clamp-2">
+                          {card.desc}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => navigate("/get-ventures")}
+                        className=" cursor-pointer mt-auto w-full bg-gray-600 text-white rounded-full py-2 text-xs font-bold hover:bg-gray-500 transition"
+                      >
+                        Get Coventure
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          )}
+              ))}
         </div>
       </div>
 
@@ -295,10 +301,11 @@ export default function JointVenture() {
       <div className="mt-10 flex justify-center">
         <button
           onClick={() => navigate("/venture")}
-          className="flex items-center gap-2 rounded-full border border-white/20 px-8 py-2 text-sm font-bold bg-white/10 text-white hover:bg-gray-800 hover:border-white transition"
+          className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-purple-500/40 bg-purple-500/5 px-8 py-2.5 text-sm font-bold text-purple-300 backdrop-blur-md shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 hover:border-blue-400/60 hover:text-white hover:shadow-[0_0_26px_rgba(96,165,250,0.4)] active:scale-[0.97]"
         >
-          View All Ventures
-          <ArrowRight className="w-4 h-4" />
+          <span className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-blue-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:via-blue-600/20 group-hover:to-pink-600/20 transition-all duration-300" />
+          <span className="relative cursor-pointer">View All Ventures</span>
+          <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>
     </section>

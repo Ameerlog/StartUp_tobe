@@ -188,7 +188,7 @@ const Careers = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 font-display">
             Join{" "}
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 font-medium hover:from-purple-500 bg-clip-text text-transparent">
               CoBrother
