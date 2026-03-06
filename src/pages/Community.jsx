@@ -203,8 +203,6 @@ const ProfileCard = ({ profile }) => {
             viewBox="0 0 200 200"
             className="absolute inset-0 h-full w-full pointer-events-none"
             aria-hidden="true"
-            preserveAspectRatio="xMidYMid meet"
-            style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none' }}
           >
             <defs>
               <path id={topArcId} d="M 10 100 A 90 90 0 0 1 190 100" />
@@ -244,15 +242,14 @@ const ProfileCard = ({ profile }) => {
             </text>
           </svg>
           {/* Inner circle with image */}
-          <div className="h-full w-full rounded-full overflow-hidden flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
+          <div className="h-full w-full rounded-full overflow-hidden flex-shrink-0">
             {imageUrl && !imageFailed ? (
               <img
                 src={imageUrl}
                 alt={displayName || "Profile"}
-                className="w-full h-full rounded-full object-cover flex-shrink-0"
+                className="w-full h-full rounded-full object-cover"
                 loading="lazy"
                 onError={() => setImageFailed(true)}
-                style={{ width: '100%', height: '100%', display: 'block' }}
               />
             ) : (
               <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
@@ -496,7 +493,7 @@ const Community = () => {
       className="group relative overflow-hidden rounded-full w-full sm:w-auto"
     >
       <div className="absolute inset-0 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-500" />
-      <span className=" cursor-pointerrelative px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base flex items-center justify-center gap-2">
+      <span className=" cursor-pointer relative px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base flex items-center justify-center gap-2">
         Join Our Community <ArrowRight className="w-4 h-4" />
       </span>
     </motion.button>

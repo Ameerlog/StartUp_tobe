@@ -155,7 +155,7 @@ const ProfileCard = ({ profile }) => {
       <div className="group relative min-w-0 overflow-hidden bg-gradient-to-br from-neutral-900/95 to-neutral-950/95 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 sm:p-5 hover:border-neutral-700/50 transition-all duration-300">
         <div className="mb-4 sm:mb-5 flex flex-col items-center">
           <div
-            className={`relative w-full max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-square rounded-full p-[12px] sm:p-[14px] md:p-[16px] bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
+            className={`relative w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] md:w-[210px] md:h-[210px] rounded-full p-[12px] sm:p-[14px] md:p-[16px] flex-shrink-0 bg-gradient-to-br ${roleTheme.ring} shadow-[0_16px_34px_rgba(0,0,0,0.5)]`}
           >
             <svg
               viewBox="0 0 200 200"
@@ -164,7 +164,7 @@ const ProfileCard = ({ profile }) => {
             >
               <defs>
                 <path id={topArcId} d="M 10 100 A 90 90 0 0 1 190 100" />
-                <path id={bottomArcId} d="M 10 100 A 90 90 0 0 0 190 100" />
+                <path id={bottomArcId} d="M 10 106 A 90 90 0 0 0 190 106" />
               </defs>
               <text
                 className="fill-white text-[8.5px] sm:text-[9.5px] md:text-[10.5px] font-black tracking-[1.9px] sm:tracking-[2.2px] md:tracking-[2.4px]"
