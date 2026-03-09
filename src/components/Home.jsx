@@ -555,7 +555,7 @@ const Home = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="text-md sm:text-sm text-neutral-500 mt-4"
+              className="text-md sm:text-sm text-neutral-500 mt-4 inset-0"
             >
               <div className="relative flex w-full items-center justify-center mt-8 sm:mt-10 lg:mt-10">
                 {[0, 1, 2].map((i) => (
@@ -612,7 +612,7 @@ const Home = () => {
                     </motion.button>
 
                     {/* Shine sweep */}
-                    <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px w-0 opacity-0 transition-all duration-700 origin-left group-hover:w-full group-hover:opacity-100 top-1/2 -translate-y-1/2" />
+                    <div className="absolute inset-0 -skew-x-12  h-px w-0 opacity-0 transition-all duration-700 origin-left group-hover:w-full group-hover:opacity-100 top-1/2 -translate-y-1/2" />
                   </motion.div>
                 </div>
               </div>
