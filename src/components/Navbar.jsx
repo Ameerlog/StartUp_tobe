@@ -183,6 +183,7 @@ const Navbar = () => {
                 </motion.button>
               </div>
 
+              {/* Mobile/Tablet: Menu toggle only — Sign In is inside the hamburger menu */}
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 whileTap={{ scale: 0.95 }}
@@ -310,13 +311,31 @@ const Navbar = () => {
                   </div>
                 ))}
 
+                {/* Sign In — visible in mobile/tablet menu */}
                 <motion.button
-                  onClick={() => navigate("")}
+                  onClick={() => {
+                    navigate("/signin");
+                    setIsMobileMenuOpen(false);
+                  }}
                   whileTap={{ scale: 0.95 }}
                   className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-4 sm:mt-6 group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 group-active:from-purple-500 group-active:to-blue-500 transition-all duration-300" />
-                  <span className="relative block px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base">
+                  <span className="relative block px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base text-center">
+                    Sign In →
+                  </span>
+                </motion.button>
+
+                <motion.button
+                  onClick={() => {
+                    navigate("/");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative w-full overflow-hidden rounded-lg sm:rounded-xl mt-3 group border border-white/20"
+                >
+                  <div className="absolute inset-0 bg-white/5 group-active:bg-white/10 transition-all duration-300" />
+                  <span className="relative block px-6 py-2.5 sm:py-3 font-semibold text-white text-sm sm:text-base text-center">
                     Get Started →
                   </span>
                 </motion.button>

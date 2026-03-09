@@ -29,6 +29,21 @@ const GoogleIcon = () => (
   </svg>
 );
 
+// ── LinkedIn SVG Icon ────────────────────────────────────────────
+const LinkedInIcon = () => (
+  <svg
+    viewBox="0 0 48 48"
+    className="w-5 h-5"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="48" height="48" rx="4" fill="#0A66C2" />
+    <path
+      fill="#fff"
+      d="M12.5 19.5h5V36h-5V19.5zM15 17.5a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5zM35.5 36h-5v-8.25c0-1.97-.04-4.5-2.75-4.5-2.75 0-3.17 2.15-3.17 4.36V36h-5V19.5h4.8v2.32h.07c.67-1.27 2.3-2.6 4.73-2.6 5.06 0 5.99 3.33 5.99 7.66V36z"
+    />
+  </svg>
+);
+
 // ── Main Component ───────────────────────────────────────────────
 const SignIn = () => {
   const [mode, setMode] = useState("main"); // "main" | "phone"
@@ -41,6 +56,11 @@ const SignIn = () => {
   // ── Handlers ────────────────────────────────────────────────────
   const handleGoogleSignIn = () => {
     // TODO: wire up Google OAuth redirect
+  };
+
+  const handleLinkedInSignIn = () => {
+    // TODO: wire up LinkedIn OAuth redirect
+    // Example: window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=openid%20profile%20email`;
   };
 
   const handleSendOtp = (e) => {
@@ -128,7 +148,7 @@ const SignIn = () => {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-2xl blur opacity-60" />
           <div className="relative bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8">
             <AnimatePresence mode="wait">
-              {/* ══ MAIN — two options ══════════════════════════ */}
+              {/* ══ MAIN — three options ════════════════════════ */}
               {mode === "main" && (
                 <motion.div
                   key="main"
@@ -136,7 +156,7 @@ const SignIn = () => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
-                  className="space-y-4"
+                  className="space-y-3"
                 >
                   {/* Google */}
                   <motion.button
@@ -149,8 +169,19 @@ const SignIn = () => {
                     Continue with Google
                   </motion.button>
 
+                  {/* LinkedIn */}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleLinkedInSignIn}
+                    className="w-full flex items-center justify-center gap-3 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#0A66C2]/40 hover:bg-[#0A66C2]/10 rounded-xl text-white font-semibold text-sm transition-all duration-200"
+                  >
+                    <LinkedInIcon />
+                    Continue with LinkedIn
+                  </motion.button>
+
                   {/* Divider */}
-                  <div className="flex items-center gap-3 my-2">
+                  <div className="flex items-center gap-3 py-1">
                     <div className="flex-1 h-px bg-white/10" />
                     <span className="text-xs text-white/30 font-medium">
                       OR
