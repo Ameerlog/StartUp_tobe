@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Target, Eye, Lightbulb, Users, TrendingUp, Zap } from "lucide-react";
-
+import { Navigate, Usereact } from "react-router-dom";
 export default function AboutUs() {
   const pillars = [
     {

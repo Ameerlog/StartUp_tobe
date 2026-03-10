@@ -80,7 +80,7 @@ const footerColumns = [
   {
     title: "Company & Support",
     links: [
-      "About Cobrother",
+      "About CoBrother",
       "How It Works",
       "Careers",
       "Contact Us",
@@ -105,7 +105,7 @@ const linkPaths = {
   "Coventure / JV Opportunities": "/venture",
   "Premium Brands for Partnership": "/branding",
 
-  "About CoBrother": "/about",
+  "About CoBrother": "/aboutus",
   "How It Works": "/how-it-works",
   Careers: "/careers",
   "Contact Us": "/contact",

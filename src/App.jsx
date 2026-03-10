@@ -70,7 +70,7 @@ const App = () => {
 
             {/* Footer */}
             <Route path="/community" element={<Community />} />
-            <Route path="/about" element={<AboutUs />} />
+            <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsAndConditions />} />
