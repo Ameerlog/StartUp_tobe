@@ -102,7 +102,7 @@ const linkPaths = {
   "Co-Working / Virtual Workspace": "/community",
 
   "Domain Marketplace": "/marketplace",
-  "Coventure / JV Opportunities": "/venture",
+  "Coventure / Coventure Opportunities": "/venture",
   "Premium Brands for Partnership": "/branding",
 
   "About CoBrother": "/aboutus",
