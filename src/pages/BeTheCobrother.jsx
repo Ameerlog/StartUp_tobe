@@ -159,7 +159,7 @@ const MarqueeRow = ({ reverse = false, items = [], opacity = 0.22 }) => (
       {[...items, ...items].map((t, i) => (
         <div
           key={`${t}-${i}`}
-          className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[11px] uppercase tracking-[0.28em] text-slate-200/90"
+          className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[11px]  tracking-[0.28em] text-slate-200/90"
         >
           {t}
         </div>
@@ -222,7 +222,7 @@ const WelcomeModal = ({ onClose }) => (
 
       <div className="relative p-8">
         {/* badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#892eff]/10 border border-[#892eff]/20 text-[#892eff] text-[10px] font-black uppercase tracking-[0.22em] mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#892eff]/10 border border-[#892eff]/20 text-[#892eff] text-[10px] font-black  tracking-[0.22em] mb-6">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#892eff] opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#892eff]" />
@@ -230,7 +230,7 @@ const WelcomeModal = ({ onClose }) => (
           Now open · India
         </div>
 
-        <h2 className="text-white text-3xl font-black uppercase tracking-tight leading-[1.05]">
+        <h2 className="text-white text-3xl font-black tracking-tight leading-[1.05]">
           Welcome to{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#892eff] to-[#00C3FF]">
             CoBrother Elite.
@@ -258,7 +258,7 @@ const WelcomeModal = ({ onClose }) => (
               className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center"
             >
               <p className="text-white text-xl font-black">{val}</p>
-              <p className="text-slate-400 text-[10px] uppercase tracking-[0.22em] mt-0.5">
+              <p className="text-slate-400 text-[10px]  tracking-[0.22em] mt-0.5">
                 {label}
               </p>
             </div>
@@ -270,7 +270,7 @@ const WelcomeModal = ({ onClose }) => (
           onClick={onClose}
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.98 }}
-          className="relative overflow-hidden mt-6 w-full h-12 rounded-2xl bg-gradient-to-r from-[#892eff] to-[#00C3FF] text-white font-black uppercase tracking-widest shadow-[0_0_28px_rgba(137,46,255,0.5)]"
+          className="relative overflow-hidden mt-6 w-full h-12 rounded-2xl bg-gradient-to-r from-[#892eff] to-[#00C3FF] text-white font-black  tracking-widest shadow-[0_0_28px_rgba(137,46,255,0.5)]"
         >
           <Shine />
           Claim my territory →
@@ -293,10 +293,10 @@ const SectionLabel = ({ icon, kicker, title, desc }) => (
       <Icon name={icon} size={18} className="text-[#00C3FF]" />
     </div>
     <div className="min-w-0">
-      <p className="text-slate-400 text-[11px] font-black uppercase tracking-[0.28em]">
+      <p className="text-slate-400 text-[11px] font-black  tracking-[0.28em]">
         {kicker}
       </p>
-      <p className="text-white text-xl sm:text-2xl font-black uppercase tracking-tight">
+      <p className="text-white text-xl sm:text-2xl font-black  tracking-tight">
         {title}
       </p>
       {desc && (
@@ -426,9 +426,7 @@ const DetailsSection = () => {
           <div className="w-10 h-10 rounded-2xl bg-[#892eff]/12 border border-[#892eff]/20 flex items-center justify-center">
             <Icon name="shield-check" size={17} className="text-[#892eff]" />
           </div>
-          <p className="text-white font-black uppercase tracking-tight">
-            Requirements
-          </p>
+          <p className="text-white font-black  tracking-tight">Requirements</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {requirements.map((r) => (
@@ -475,7 +473,7 @@ const DetailsSection = () => {
                   >
                     <Icon name={s.icon} size={18} style={{ color: s.color }} />
                   </div>
-                  <p className="text-white text-xs font-black uppercase tracking-tight leading-snug">
+                  <p className="text-white text-xs font-black  tracking-tight leading-snug">
                     {s.title}
                   </p>
                   <div
@@ -675,17 +673,17 @@ const BeTheCobrother = () => {
                 <Icon name="network" color="white" size={22} />
               </div>
               <div className="min-w-0">
-                <p className="text-white font-black tracking-tight uppercase leading-none truncate">
+                <p className="text-white font-black tracking-tight  leading-none truncate">
                   CoBrother Elite
                 </p>
-                <p className="text-slate-400 text-xs uppercase tracking-[0.22em] truncate">
+                <p className="text-slate-400 text-xs  tracking-[0.22em] truncate">
                   Setup • Deploy • Get paid
                 </p>
               </div>
             </div>
             <a
               href="/"
-              className="text-slate-300 hover:text-white text-xs sm:text-sm font-semibold uppercase tracking-widest transition-colors"
+              className="text-slate-300 hover:text-white text-xs sm:text-sm font-semibold  tracking-widest transition-colors"
             >
               ← Home
             </a>
@@ -697,7 +695,7 @@ const BeTheCobrother = () => {
             <div className="lg:col-span-7 flex flex-col gap-6">
               <motion.div
                 variants={fadeUp}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#892eff]/10 border border-[#892eff]/20 text-[#892eff] text-[10px] font-black uppercase tracking-[0.2em] w-fit"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#892eff]/10 border border-[#892eff]/20 text-[#892eff] text-[10px] font-black  tracking-[0.2em] w-fit"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#892eff] opacity-75" />
@@ -708,7 +706,7 @@ const BeTheCobrother = () => {
 
               <motion.h1
                 variants={fadeUp}
-                className="text-white text-4xl sm:text-5xl md:text-[58px] font-black leading-[1.02] tracking-tighter uppercase"
+                className="text-white text-4xl sm:text-5xl md:text-[58px] font-black leading-[1.02] tracking-tighter"
                 style={{ textShadow: "0 0 40px rgba(137,46,255,0.28)" }}
               >
                 Join the{" "}
@@ -749,7 +747,7 @@ const BeTheCobrother = () => {
                     className="rounded-2xl border border-white/10 bg-white/5 py-4 text-center"
                   >
                     <p className="text-white text-2xl font-black">{val}</p>
-                    <p className="text-slate-400 text-[10px] uppercase tracking-[0.22em] mt-0.5">
+                    <p className="text-slate-400 text-[10px]  tracking-[0.22em] mt-0.5">
                       {label}
                     </p>
                   </div>
@@ -768,9 +766,9 @@ const BeTheCobrother = () => {
                   }
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="relative h-12 px-6 rounded-full bg-gradient-to-r from-[#892eff] to-[#00C3FF] text-white font-black uppercase tracking-widest"
+                  className="relative h-12 px-6 rounded-full bg-gradient-to-r from-[#892eff] to-[#00C3FF] text-white font-black  tracking-widest"
                 >
-                  APPLY TO BE A COBROTHER →
+                  APPLY TO BE A CoBROTHER →
                 </motion.button>
               </div>
 
@@ -779,7 +777,7 @@ const BeTheCobrother = () => {
                 variants={softIn}
                 className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-md p-6"
               >
-                <p className="text-white font-black uppercase tracking-widest text-xs mb-6">
+                <p className="text-white font-black  tracking-widest text-xs mb-6">
                   The <span className="text-[#00C3FF]">"CoBrother"</span>{" "}
                   Workflow
                 </p>
@@ -842,7 +840,7 @@ const BeTheCobrother = () => {
                         className={`pt-1 min-w-0 ${i < arr.length - 1 ? "pb-4" : "pb-0"}`}
                       >
                         <p
-                          className="text-[10px] font-black tracking-[0.2em] uppercase"
+                          className="text-[10px] font-black tracking-[0.2em] "
                           style={{ color: c.color }}
                         >
                           Step {c.step}
@@ -872,7 +870,7 @@ const BeTheCobrother = () => {
                   <div className="h-1 bg-gradient-to-r from-[#892eff] via-[#6366f1] to-[#00C3FF]" />
 
                   <div className="p-6 border-b border-white/8">
-                    <p className="text-white font-black uppercase tracking-widest text-sm">
+                    <p className="text-white font-black  tracking-widest text-sm">
                       Claim your territory
                     </p>
                     <p className="text-slate-400 text-xs mt-1 leading-relaxed">
@@ -987,7 +985,7 @@ const BeTheCobrother = () => {
                         }
                         whileHover={{ y: -2, scale: 1.01 }}
                         whileTap={{ scale: 0.985 }}
-                        className="relative overflow-hidden w-full h-12 rounded-2xl bg-gradient-to-r from-[#892eff] to-[#00C3FF] text-white font-black uppercase tracking-widest shadow-[0_0_34px_rgba(137,46,255,0.4)] disabled:opacity-60 disabled:cursor-not-allowed"
+                        className="relative overflow-hidden w-full h-12 rounded-2xl bg-gradient-to-r from-[#892eff] to-[#00C3FF] text-white font-black  tracking-widest shadow-[0_0_34px_rgba(137,46,255,0.4)] disabled:opacity-60 disabled:cursor-not-allowed"
                       >
                         <Shine />
                         {submitState.status === "loading"
@@ -1014,7 +1012,7 @@ const BeTheCobrother = () => {
                                     className="mt-0.5 shrink-0"
                                   />
                                   <div>
-                                    <p className="font-black text-xs uppercase tracking-wide">
+                                    <p className="font-black text-xs  tracking-wide">
                                       Territory Claimed!
                                     </p>
                                     <p className="opacity-90 text-xs mt-0.5">
@@ -1031,7 +1029,7 @@ const BeTheCobrother = () => {
                                     className="mt-0.5 shrink-0"
                                   />
                                   <div>
-                                    <p className="font-black text-xs uppercase tracking-wide">
+                                    <p className="font-black text-xs  tracking-wide">
                                       Error
                                     </p>
                                     <p className="opacity-90 text-xs mt-0.5">
@@ -1109,9 +1107,7 @@ const DetailCard = ({ icon, title, items }) => (
         <Icon name={icon} size={18} className="text-[#892eff]" />
       </div>
       <div className="min-w-0">
-        <p className="text-white font-black uppercase tracking-tight">
-          {title}
-        </p>
+        <p className="text-white font-black  tracking-tight">{title}</p>
         <div className="mt-3 space-y-2">
           {items.map((p) => (
             <div key={p} className="flex items-start gap-2">

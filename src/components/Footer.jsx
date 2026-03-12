@@ -80,7 +80,7 @@ const footerColumns = [
   {
     title: "Company & Support",
     links: [
-      "About Cobrother",
+      "About CoBrother",
       "How It Works",
       "Careers",
       "Contact Us",
@@ -105,7 +105,7 @@ const linkPaths = {
   "Coventure / JV Opportunities": "/venture",
   "Premium Brands for Partnership": "/branding",
 
-  "About CoBrother": "/about",
+  "About CoBrother": "/aboutUs",
   "How It Works": "/how-it-works",
   Careers: "/careers",
   "Contact Us": "/contact",
@@ -298,7 +298,7 @@ export default function Footer() {
             >
               Book a Cobrother Visit →
             </button>
-            <button
+            {/* <button
               onClick={() =>
                 window.open(
                   "https://aultum.com/",
@@ -309,7 +309,7 @@ export default function Footer() {
               className="px-6 py-3 rounded-xl border border-neutral-700 hover:border-neutral-500 transition"
             >
               Get Aultum SaaS →
-            </button>
+            </button> */}
           </div>
 
           {/* BOTTOM — only change: ❤️ → <AnimatedHeart /> */}

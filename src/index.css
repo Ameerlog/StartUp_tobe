@@ -4,7 +4,7 @@
 @theme {
   --font-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Syne", sans-serif;
+  --font-display: sans-serif;
 }
 
 body {
@@ -470,10 +470,6 @@ main {
   animation: ripple 2.5s infinite ease-out;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 476e7eec1d69c65fe4981c83e380025779eadfe3
 /* Join community button ripple */
 @keyframes communityRipple {
   0% {
@@ -492,8 +488,4 @@ main {
 
 .animate-community-ripple {
   animation: communityRipple 2.5s infinite ease-in-out;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 476e7eec1d69c65fe4981c83e380025779eadfe3

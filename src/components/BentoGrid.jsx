@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import {
   Layers,
   IndianRupee,
@@ -9,238 +8,268 @@ import {
   Check,
 } from "lucide-react";
 
-function useIsSmall() {
-  const [isSmall, setIsSmall] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 640px)");
-    const sync = () => setIsSmall(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  return isSmall;
-}
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+const containerVar = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.08,
+    },
+  },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+const itemVar = {
+  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0)",
+    filter: "blur(0px)",
     transition: { duration: 0.45, ease: "easeOut" },
   },
 };
 
-function Card({ children, className = "" }) {
-  return (
-    <div
-      className={[
-        "relative rounded-3xl border border-zinc-700/70 bg-zinc-900/65 backdrop-blur-xl",
-        "shadow-[0_20px_60px_rgba(0,0,0,0.45)]",
-        "transition-all duration-300 hover:-translate-y-1 hover:border-zinc-500/60 hover:shadow-[0_30px_80px_rgba(0,0,0,0.58)]",
-        className,
-      ].join(" ")}
-    >
-      {children}
-    </div>
-  );
-}
-
-function Title({ children }) {
-  return (
-    <h3 className="text-lg font-semibold tracking-tight text-white">
-      {children}
-    </h3>
-  );
-}
-
-function Muted({ children, className = "" }) {
-  return (
-    <p className={`text-sm leading-relaxed text-zinc-400 ${className}`}>
-      {children}
-    </p>
-  );
-}
-
-function CheckRow({ children }) {
-  return (
-    <div className="flex items-start gap-2.5 text-sm text-zinc-300">
-      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white">
-        <Check className="h-3.5 w-3.5" />
-      </span>
-      <span>{children}</span>
-    </div>
-  );
-}
-
-function Badge({ children }) {
-  return (
-    <span className="rounded-full border border-zinc-700/70 bg-zinc-900/75 px-3 py-1 text-xs font-medium text-zinc-300">
-      {children}
+const CheckRow = ({ children }) => (
+  <div className="flex items-start gap-2.5 text-sm text-zinc-300">
+    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/20 to-blue-500/20 text-blue-200 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]">
+      <Check className="h-3 w-3" />
     </span>
+    <span className="leading-relaxed text-zinc-300/90">{children}</span>
+  </div>
+);
+
+const Badge = ({ children }) => (
+  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium text-zinc-300 shadow-[inset_0_1px_4px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-colors hover:bg-white/10 hover:text-white cursor-default">
+    {children}
+  </span>
+);
+
+const Price = ({ amount }) => (
+  <div className="mt-auto pt-5 sm:pt-6 text-left sm:text-right">
+    <span className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-blue-100 transition-colors">
+      ₹{amount.toLocaleString()}
+    </span>
+    <span className="ml-1 text-[11px] sm:text-xs font-medium uppercase tracking-wide text-zinc-500">
+      / month
+    </span>
+  </div>
+);
+
+const InsetCard = ({ children, className = "", isHoverable = true }) => {
+  return (
+    <motion.div
+      variants={itemVar}
+      whileHover={isHoverable ? { y: -4, scale: 1.01 } : {}}
+      className={`group relative flex flex-col overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-zinc-900/60 p-5 sm:p-6 lg:p-8 backdrop-blur-xl transition-all duration-500 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-900/20 ${className}`}
+      style={{
+        boxShadow:
+          "inset 0 0 20px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1)",
+        willChange: "transform, opacity",
+      }}
+    >
+      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-violet-600/10 via-blue-600/5 to-transparent opacity-60" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-violet-600/20 via-blue-500/20 to-purple-500/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
+      <div className="relative z-10 flex h-full flex-col">{children}</div>
+    </motion.div>
   );
-}
+};
 
 export default function BentoGrid() {
-  const isSmall = useIsSmall();
-
   return (
-    <section className="bg-transparent">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mb-12 sm:mb-14 text-center">
-          <h2 className="text-balance text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-6xl font-display ">
-            AULTUM - All-in-One CRM &amp; Automation Platform
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-sm sm:text-base text-zinc-400">
+    <section className="relative overflow-hidden bg-transparent py-14 sm:py-20 lg:py-24 text-zinc-200 selection:bg-blue-500/30 selection:text-white">
+     
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-10 sm:mb-14 lg:mb-16 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-balance text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight"
+          >
+            AULTUM - All-in-One CRM & Automation Platform
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="mx-auto mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base text-zinc-400 leading-relaxed"
+          >
             Replace scattered tools with one unified platform for sales,
             marketing, automation, and growth.
-          </p>
+          </motion.p>
         </div>
 
         <motion.div
-          variants={container}
+          variants={containerVar}
           initial="hidden"
-          animate={isSmall ? "show" : undefined}
-          whileInView={isSmall ? undefined : "show"}
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-12 gap-5 lg:gap-6"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+          className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-6"
         >
-          <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6 sm:p-7">
-              <Title>What is AULTUM?</Title>
-              <Muted className="mt-3">
-                A centralized CRM and automation engine built for startups,
-                agencies, and high-performance sales teams.
-              </Muted>
+          <div className="col-span-1 md:col-span-2 xl:col-span-4">
+            <InsetCard className="h-full">
+              <div className="flex flex-col gap-6 lg:gap-8 xl:flex-row xl:items-start xl:justify-between">
+                <div className="w-full xl:max-w-xl">
+                  <div className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium text-blue-100 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">
+                    <Layers className="h-3 w-3 shrink-0 text-blue-400" />
+                    <span className="truncate">Platform Overview</span>
+                  </div>
 
-              <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
-                <CheckRow>Centralized CRM</CheckRow>
-                <CheckRow>Marketing automation</CheckRow>
-                <CheckRow>WhatsApp, Email and SMS</CheckRow>
-                <CheckRow>AI-ready workflows</CheckRow>
-                <CheckRow>White-label setup</CheckRow>
-                <CheckRow>Scalable access</CheckRow>
-              </div>
+                  <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white group-hover:text-blue-100 transition-colors">
+                    What is AULTUM?
+                  </h3>
 
-              <div className="mt-6 rounded-2xl border border-zinc-700/70 bg-zinc-900/60 p-4">
-                <div className="flex flex-wrap justify-center gap-2">
-                  {["Startups", "Agencies", "Sales Teams", "Services"].map(
-                    (b) => (
-                      <Badge key={b}>{b}</Badge>
-                    ),
-                  )}
+                  <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-colors">
+                    A centralized CRM and automation engine built for startups,
+                    agencies, and high-performance sales teams.
+                  </p>
+
+                  <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
+                    {["Startups", "Agencies", "Sales Teams", "Services"].map(
+                      (b) => (
+                        <Badge key={b}>{b}</Badge>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid w-full gap-x-6 gap-y-3 sm:grid-cols-2 xl:max-w-2xl xl:flex-1">
+                  {[
+                    "Centralized CRM",
+                    "Marketing automation",
+                    "WhatsApp, Email and SMS",
+                    "AI-ready workflows",
+                    "White-label setup",
+                    "Scalable access",
+                  ].map((feat) => (
+                    <CheckRow key={feat}>{feat}</CheckRow>
+                  ))}
                 </div>
               </div>
-            </Card>
-          </motion.div>
+            </InsetCard>
+          </div>
 
-          <motion.div variants={item} className="col-span-12 lg:col-span-3">
-            <Card className="p-6 sm:p-7 h-full">
-              <Title>Core CRM and Automation</Title>
-              <Muted className="mt-2">
-                Track leads, pipelines, and follow-ups effortlessly.
-              </Muted>
+          <InsetCard>
+            <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-blue-100 transition-colors">
+              Core CRM and Automation
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-colors">
+              Track leads, pipelines, and follow-ups effortlessly.
+            </p>
 
-              <div className="mt-4 space-y-2.5">
-                <CheckRow>Lead management</CheckRow>
-                <CheckRow>Custom pipelines</CheckRow>
-                <CheckRow>Tasks and reminders</CheckRow>
-                <CheckRow>Basic automation</CheckRow>
-                <CheckRow>Role-based access</CheckRow>
-              </div>
+            <div className="mt-5 sm:mt-6 space-y-3">
+              {[
+                "Lead management",
+                "Custom pipelines",
+                "Tasks and reminders",
+                "Basic automation",
+                "Role-based access",
+              ].map((f) => (
+                <CheckRow key={f}>{f}</CheckRow>
+              ))}
+            </div>
 
-              <div className="mt-4 rounded-xl border border-zinc-700/70 bg-zinc-900/60 p-3 text-xs text-zinc-400">
-                Never lose leads again.
-              </div>
+            <div className="mt-5 sm:mt-6 rounded-xl border border-white/10 bg-gradient-to-r from-violet-500/10 to-blue-500/10 p-3 text-center text-xs font-medium text-blue-100 shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]">
+              Never lose leads again.
+            </div>
+            <Price amount={9999} />
+          </InsetCard>
 
-              <div className="mt-4 text-right text-sm font-semibold text-white">
-                {"\u20B9"}9,999 / month
-              </div>
-            </Card>
-          </motion.div>
+          <InsetCard>
+            <div className="absolute -right-10 -top-10 h-28 w-28 sm:h-40 sm:w-40 rounded-full bg-blue-500/20 blur-[40px] sm:blur-[50px]" />
 
-          <motion.div variants={item} className="col-span-12 lg:col-span-3">
-            <Card className="p-6 sm:p-7 h-full">
-              <Title>Marketing and Communication</Title>
-              <Muted className="mt-2">
-                Capture and nurture leads without switching tools.
-              </Muted>
+            <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-blue-100 transition-colors pr-6">
+              Marketing and Communication
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-colors">
+              Capture and nurture leads without switching tools.
+            </p>
 
-              <div className="mt-4 space-y-2.5">
-                <CheckRow>Landing pages</CheckRow>
-                <CheckRow>Email automation</CheckRow>
-                <CheckRow>WhatsApp and SMS</CheckRow>
-                <CheckRow>Unified inbox</CheckRow>
-                <CheckRow>Campaign tracking</CheckRow>
-              </div>
+            <div className="mt-5 sm:mt-6 space-y-3">
+              {[
+                "Landing pages",
+                "Email automation",
+                "WhatsApp and SMS",
+                "Unified inbox",
+                "Campaign tracking",
+              ].map((f) => (
+                <CheckRow key={f}>{f}</CheckRow>
+              ))}
+            </div>
 
-              <div className="mt-4 rounded-xl border border-zinc-700/70 bg-zinc-900/60 p-3 text-xs text-zinc-400">
-                Replace multiple marketing tools.
-              </div>
+            <div className="mt-5 sm:mt-6 rounded-xl border border-white/10 bg-gradient-to-r from-violet-500/10 to-blue-500/10 p-3 text-center text-xs font-medium text-blue-100 shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]">
+              Replace multiple marketing tools.
+            </div>
+            <Price amount={14999} />
+          </InsetCard>
 
-              <div className="mt-4 text-right text-sm font-semibold text-white">
-                {"\u20B9"}14,999 / month
-              </div>
-            </Card>
-          </motion.div>
+          <InsetCard>
+            <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-blue-100 transition-colors">
+              Advanced Automation and AI
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-colors">
+              Designed for scale with advanced workflows.
+            </p>
 
-          <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6 sm:p-7 h-full">
-              <Title>Advanced Automation and AI</Title>
-              <Muted className="mt-2">
-                Designed for scale with advanced workflows.
-              </Muted>
+            <div className="mt-5 sm:mt-6 space-y-3">
+              {[
+                "Multi-step workflows",
+                "AI-ready logic",
+                "Lead scoring",
+                "Advanced dashboards",
+                "API access",
+                "Integrations",
+              ].map((f) => (
+                <CheckRow key={f}>{f}</CheckRow>
+              ))}
+            </div>
 
-              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
-                <CheckRow>Multi-step workflows</CheckRow>
-                <CheckRow>AI-ready logic</CheckRow>
-                <CheckRow>Lead scoring</CheckRow>
-                <CheckRow>Advanced dashboards</CheckRow>
-                <CheckRow>API access</CheckRow>
-                <CheckRow>Integrations</CheckRow>
-              </div>
+            <Price amount={24999} />
+          </InsetCard>
 
-              <div className="mt-4 text-right text-sm font-semibold text-white">
-                {"\u20B9"}24,999 / month
-              </div>
-            </Card>
-          </motion.div>
+          <InsetCard>
+            <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-blue-100 transition-colors">
+              White-Label and Branding
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-colors">
+              Launch AULTUM under your own brand.
+            </p>
 
-          <motion.div variants={item} className="col-span-12 lg:col-span-6">
-            <Card className="p-6 sm:p-7 h-full">
-              <Title>White-Label and Branding</Title>
-              <Muted className="mt-2">
-                Launch AULTUM under your own brand.
-              </Muted>
-
-              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
-                <CheckRow>Custom domain</CheckRow>
-                <CheckRow>Your branding</CheckRow>
-                <CheckRow>Branded login</CheckRow>
-                <CheckRow>Client access</CheckRow>
-                <CheckRow>Reseller ready</CheckRow>
-                <CheckRow>Agency friendly</CheckRow>
-              </div>
-            </Card>
-          </motion.div>
+            <div className="mt-5 sm:mt-6 space-y-3">
+              {[
+                "Custom domain",
+                "Your branding",
+                "Branded login",
+                "Client access",
+                "Reseller ready",
+                "Agency friendly",
+              ].map((f) => (
+                <CheckRow key={f}>{f}</CheckRow>
+              ))}
+            </div>
+            <div className="flex-1" />
+          </InsetCard>
         </motion.div>
 
-        <motion.section variants={item} className="mt-16 sm:mt-20 text-center">
-          <h3 className="text-xl sm:text-2xl font-medium text-white">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-14 sm:mt-20 lg:mt-24 text-center"
+        >
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-medium text-white">
             Why Choose AULTUM?
           </h3>
           <p className="mt-2 text-sm sm:text-base text-zinc-400">
             One platform to reduce cost, simplify operations, and scale faster.
           </p>
 
-          <div className="mx-auto mt-7 flex max-w-6xl flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="mx-auto mt-6 sm:mt-8 flex max-w-5xl flex-wrap justify-center gap-2.5 sm:gap-4">
             {[
               { text: "Replace multiple tools", icon: Layers },
               { text: "Lower operational cost", icon: IndianRupee },
@@ -250,17 +279,17 @@ export default function BentoGrid() {
             ].map(({ text, icon: Icon }) => (
               <motion.div
                 key={text}
-                whileHover={{ y: -2 }}
-                className="flex items-center gap-3 rounded-full border border-zinc-700/70 bg-zinc-900/65 backdrop-blur-xl px-5 py-3 text-sm text-zinc-300"
+                whileHover={{ scale: 1.04 }}
+                className="flex cursor-default items-center gap-2.5 sm:gap-3 rounded-full border border-white/10 bg-gradient-to-r from-violet-900/20 to-blue-900/20 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm text-zinc-300 shadow-[inset_0_1px_4px_rgba(0,0,0,0.3)] backdrop-blur-md transition-all hover:bg-white/10 hover:text-white"
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
-                  <Icon className="h-3.5 w-3.5 text-white" />
+                <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/10 text-blue-200">
+                  <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 </span>
-                {text}
+                <span className="whitespace-nowrap">{text}</span>
               </motion.div>
             ))}
           </div>
-        </motion.section>
+        </motion.div>
       </div>
     </section>
   );

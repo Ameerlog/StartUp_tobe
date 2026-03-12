@@ -1,91 +1,107 @@
-import React from "react";
+import React, { Suspense, lazy, memo } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Marketing from "./pages/Marketing";
-import Branding from "./pages/Branding";
-import Compliance from "./pages/Compliance";
-import Community from "./pages/Community";
-import Venture from "./pages/Venture";
-import Footer from "./components/Footer";
-import Home from "./components/Home";
-import Funding from "./pages/Funding";
-import MarketPlace from "./pages/MarketPlace";
-import DomainDetailsLayout from "./pages/DetailsPage";
-import ReserveDomainPage from "./pages/ReserveDomain";
-import Success from "./pages/Success";
-import ReserveDomainForm from "./components/Form";
 import Navbar from "./components/Navbar";
-import AIRoboticsPage from "./pages/AiRobotics";
+import Footer from "./components/Footer";
 import ScrolltoTop from "./components/ScrolltoTop";
-import Investors from "../src/components/Home/Investors";
-import CoventureForm from "../src/pages/CoventureForm";
-import AboutUs from "./pages/AboutUs";
-import ContactUs from "./pages/ContactUs";
-import Cocreation from "./pages/Create";
-import DomainlistingForm from "./pages/DomainlistingForm";
-import CoworkingForm from "./pages/Coworker";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsAndConditions from "./pages/TermsAndConditions";
-import HowItWorks from "./pages/HowItWorks";
-import Careers from "./pages/Careers";
-import GetVentureForm from "./pages/GetVentureform";
-import Bethecobrother from "./pages/BeTheCobrother";
+import Loader from "./components/Loaders";
+
+// memoized versions of static layout components to avoid needless re-renders
+const MemoNavbar = memo(Navbar);
+const MemoFooter = memo(Footer);
+
+// helper that adds a `.preload` method to a lazy component
+function lazyWithPreload(factory) {
+  const Component = lazy(factory);
+  Component.preload = factory;
+  return Component;
+}
+
+// Lazy loaded pages (prefetchable via `.preload`)
+const Home = lazyWithPreload(() => import("./components/Home"));
+const SignIn = lazyWithPreload(() => import("./pages/SignIn"));
+const Marketing = lazyWithPreload(() => import("./pages/Marketing"));
+const Branding = lazyWithPreload(() => import("./pages/Branding"));
+const Compliance = lazyWithPreload(() => import("./pages/Compliance"));
+const Community = lazyWithPreload(() => import("./pages/Community"));
+const Venture = lazyWithPreload(() => import("./pages/Venture"));
+const AIRoboticsPage = lazyWithPreload(() => import("./pages/AiRobotics"));
+const MarketPlace = lazyWithPreload(() => import("./pages/MarketPlace"));
+const DomainDetailsLayout = lazyWithPreload(() => import("./pages/DetailsPage"));
+const ReserveDomainPage = lazyWithPreload(() => import("./pages/ReserveDomain"));
+const Success = lazyWithPreload(() => import("./pages/Success"));
+const ReserveDomainForm = lazyWithPreload(() => import("./components/Form"));
+const CoventureForm = lazyWithPreload(() => import("./pages/CoventureForm"));
+const AboutUs = lazyWithPreload(() => import("./pages/AboutUs"));
+const ContactUs = lazyWithPreload(() => import("./pages/ContactUs"));
+const Cocreation = lazyWithPreload(() => import("./pages/Create"));
+const DomainlistingForm = lazyWithPreload(() => import("./pages/DomainlistingForm"));
+const CoworkingForm = lazyWithPreload(() => import("./pages/Coworker"));
+const PrivacyPolicy = lazyWithPreload(() => import("./pages/PrivacyPolicy"));
+const TermsAndConditions = lazyWithPreload(() => import("./pages/TermsAndConditions"));
+const HowItWorks = lazyWithPreload(() => import("./pages/HowItWorks"));
+const Careers = lazyWithPreload(() => import("./pages/Careers"));
+const GetVentureForm = lazyWithPreload(() => import("./pages/GetVentureform"));
+const Bethecobrother = lazyWithPreload(() => import("./pages/BeTheCobrother"));
+
+// central route configuration kept outside the component so it isn't re-created on every render
+const routesConfig = [
+  { path: "/", element: <Home /> },
+  { path: "/signin", element: <SignIn /> },
+  { path: "/bethecobrother", element: <Bethecobrother /> },
+  { path: "/marketing", element: <Marketing /> },
+  { path: "/branding", element: <Branding /> },
+  { path: "/compliance", element: <Compliance /> },
+  { path: "/ai", element: <AIRoboticsPage /> },
+  { path: "/co-creation", element: <Cocreation /> },
+  { path: "/venture", element: <Venture /> },
+  { path: "/apply", element: <ReserveDomainForm /> },
+  { path: "/marketplace", element: <MarketPlace /> },
+  { path: "/marketplace/domain/:id", element: <DomainDetailsLayout /> },
+  { path: "/marketplace/:slug/payment", element: <ReserveDomainPage /> },
+  { path: "/marketplace/:slug/payment/success", element: <Success /> },
+  { path: "/community", element: <Community /> },
+  { path: "/aboutUs", element: <AboutUs /> },
+  { path: "/contact", element: <ContactUs /> },
+  { path: "/privacy-policy", element: <PrivacyPolicy /> },
+  { path: "/terms-of-service", element: <TermsAndConditions /> },
+  { path: "/how-it-works", element: <HowItWorks /> },
+  { path: "/careers", element: <Careers /> },
+  { path: "/get-ventures", element: <GetVentureForm /> },
+  { path: "/coventure-form", element: <CoventureForm /> },
+  { path: "/domain-form", element: <DomainlistingForm /> },
+  { path: "/coworker-form", element: <CoworkingForm /> },
+];
+
 const App = () => {
+  // as soon as App mounts we can prefetch a couple of heavy routes
+  // (homepage is fetched immediately anyway, but marketplace gets a head start)
+  React.useEffect(() => {
+    MarketPlace.preload?.();
+    // add others that make sense, e.g. SignIn.preload?.();
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrolltoTop />
+
       <div className="min-h-screen flex flex-col bg-black">
-        <Navbar />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/bethecobrother" element={<Bethecobrother />} />
-            <Route path="/marketing" element={<Marketing />} />
-            <Route path="/branding" element={<Branding />} />
-            <Route path="/compliance" element={<Compliance />} />
-            <Route path="/ai" element={<AIRoboticsPage />} />
-            <Route path="/co-creation" element={<Cocreation />} />
-            {/* <Route path='/community' element={<Community/>}/> */}
-            <Route path="/venture" element={<Venture />} />
-            {/* joint venture apply button */}
-            <Route path="/apply" element={<ReserveDomainForm />} />
-            {/*  */}
-            <Route path="/marketplace" element={<MarketPlace />} />
+        <MemoNavbar />
 
-            <Route
-              path="/marketplace/domain/:id"
-              element={<DomainDetailsLayout />}
-            />
-            <Route
-              path="/marketplace/:slug/payment"
-              element={<ReserveDomainPage />}
-            />
-            <Route
-              path="/marketplace/:slug/payment/success"
-              element={<Success />}
-            />
+        <main className="flex-1">
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              {routesConfig.map(({ path, element }) => (
+                <Route key={path} path={path} element={element} />
+              ))}
+            </Routes>
+          </Suspense>
+        </main>
 
-            {/* Footer */}
-            <Route path="/community" element={<Community />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsAndConditions />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/careers" element={<Careers />} />
-            {/* Forms */}
-            {/* Coventure listing form  */}
-
-            <Route path="/get-ventures" element={<GetVentureForm />} />
-            <Route path="/coventure-form" element={<CoventureForm />} />
-            <Route path="/domain-form" element={<DomainlistingForm />} />
-            <Route path="/coworker-form" element={<CoworkingForm />} />
-          </Routes>
-        </div>
-        <Footer />
+        <MemoFooter />
       </div>
     </BrowserRouter>
   );
 };
 
-export default App;
+export default memo(App);
