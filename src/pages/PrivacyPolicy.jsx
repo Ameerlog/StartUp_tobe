@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-black text-white">
+    <section className="relative min-h-screen w-full overflow-hidden bg-black text-white pt-3">
       {/* Background glow */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
@@ -302,10 +302,12 @@ export default function PrivacyPolicy() {
                       </div>
                       <p className="text-sm text-neutral-300">
                         Email:{" "}
-                        <span className="text-white">[Support Email]</span>
+                        <span className="text-white">
+                          cobrother.com@gmail.com
+                        </span>
                       </p>
-                      <p className="text-xs text-neutral-500 mt-2">
-                        Example: privacy@cobrother.in
+                      <p className="text-sm text-neutral-300 mt-1">
+                        Phone: <span className="text-white">080 8575 8575</span>
                       </p>
                     </div>
 
@@ -315,11 +317,16 @@ export default function PrivacyPolicy() {
                       </h3>
                       <p className="text-sm text-neutral-300">
                         Legal name:{" "}
-                        <span className="text-white">[Company Legal Name]</span>
+                        <span className="text-white">
+                          AULTUM INTERNATIONAL (Proprietor: Neminath Surendra
+                          Akkole)
+                        </span>
                       </p>
-                      <p className="text-sm text-neutral-300">
+                      <p className="text-sm text-neutral-300 mt-1">
                         Address:{" "}
-                        <span className="text-white">[Company Address]</span>
+                        <span className="text-white">
+                          Dharwad, Hubballi Karnataka, India
+                        </span>
                       </p>
                     </div>
                   </div>

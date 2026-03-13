@@ -465,7 +465,7 @@ const ContactUs = () => {
             <InfoCard
               icon={Mail}
               title="Email"
-              value="join@cobrother.com"
+              value="cobrother.com@gmail.com"
               description="We'll respond within a moments"
               gradient="from-purple-500/20 to-purple-600/20"
               iconBg="from-purple-500/20 to-purple-600/20"

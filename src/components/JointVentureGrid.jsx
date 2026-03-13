@@ -129,13 +129,13 @@ export default function JointVentureGrid() {
   }
 
   return (
-    <main className="relative bg-black text-white overflow-hidden">
+    <main className="relative  text-white overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[24px_24px]" />
         <div className="absolute inset-0 bg-linear-to-b from-black/50 via-transparent to-black/90" />
       </div>
 
-      <section className="relative z-10 mx-auto max-w-6xl px-4 pt-0 sm:pt-16 lg:pt-20 pb-8 sm:pb-0 text-center">
+      <section className="relative z-10 mx-auto max-w-6xl px-4 pt-0 sm:pt-16 lg:pt-20 pb-8 sm:pb-0 text-center bg-red">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

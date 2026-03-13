@@ -82,7 +82,7 @@ const Home = () => {
       {/* MAIN HERO SECTION */}
       <section className="min-h-screen w-full relative overflow-hidden bg-black">
         {/* ── ANIMATED GRADIENT ORBS ── */}
-        <div
+        {/* <div
           className="fixed inset-0 overflow-hidden pointer-events-none"
           style={{ zIndex: 3 }}
         >
@@ -123,7 +123,7 @@ const Home = () => {
               ease: "easeInOut",
             }}
           />
-        </div>
+        </div> */}
 
         {/* ── MAIN CONTENT ── */}
         <div

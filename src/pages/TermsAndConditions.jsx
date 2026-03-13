@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 export default function TermsAndConditions() {
-  const lastUpdated = "Feb 7, 2026"; // change anytime
+  const lastUpdated = "13 March 2026";
 
   const sections = [
     { id: "acceptance", title: "1. Acceptance of terms" },
@@ -38,7 +38,7 @@ export default function TermsAndConditions() {
       {/* Background glow */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-pink-500/20 blur-3xl"
+          className="absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl"
           animate={{
             x: [0, -40, 20, 0],
             y: [0, 20, -20, 0],
@@ -71,9 +71,9 @@ export default function TermsAndConditions() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center mb-10 sm:mb-14"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-pink-500/20 bg-gradient-to-r from-pink-500/10 to-purple-500/10 px-4 py-2 mb-5">
-            <FileCheck className="h-4 w-4 text-pink-400" />
-            <span className="text-sm font-medium bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-gradient-to-r from-purple-500/10 to-blue-500/10 px-4 py-2 mb-5">
+            <FileCheck className="h-4 w-4 text-purple-400" />
+            <span className="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               Terms & Conditions
             </span>
           </div>
@@ -82,14 +82,14 @@ export default function TermsAndConditions() {
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Simple rules,
             </span>{" "}
-            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
               clear partnership
             </span>
           </h1>
 
           <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
             These Terms & Conditions govern your use of{" "}
-            <span className="text-white font-semibold">CoBrother™</span>{" "}
+            <span className="text-white font-semibold">CoBrother™ </span>{" "}
             services. By using our platform, you agree to these terms.
           </p>
 
@@ -111,7 +111,7 @@ export default function TermsAndConditions() {
           <div className="hidden lg:block lg:col-span-4">
             <div className="sticky top-8">
               <div className="relative group">
-                <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-pink-600/30 to-purple-600/30 blur opacity-40 group-hover:opacity-60 transition duration-500" />
+                <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-purple-600/30 to-blue-600/30 blur opacity-40 group-hover:opacity-60 transition duration-500" />
                 <div className="relative rounded-2xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 backdrop-blur-xl p-6">
                   <h2 className="text-sm font-semibold text-white/90 mb-4">
                     On this page
@@ -149,7 +149,7 @@ export default function TermsAndConditions() {
           {/* Content */}
           <div className="lg:col-span-8">
             <div className="relative group">
-              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-pink-600/30 to-purple-600/30 blur opacity-30 group-hover:opacity-50 transition duration-500" />
+              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-purple-600/30 to-blue-600/30 blur opacity-30 group-hover:opacity-50 transition duration-500" />
               <div className="relative rounded-2xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 backdrop-blur-xl p-6 sm:p-8">
                 {/* Mobile TOC */}
                 <div className="lg:hidden mb-8">
@@ -180,7 +180,10 @@ export default function TermsAndConditions() {
                   <p className="text-neutral-400 leading-relaxed text-sm sm:text-base mt-3">
                     These terms constitute a legally binding agreement between
                     you and{" "}
-                    <span className="text-white">[Company Legal Name]</span>{" "}
+                    <span className="text-white">
+                      AULTUM INTERNATIONAL (Proprietor: Neminath Surendra
+                      Akkole)
+                    </span>{" "}
                     ("CoBrother", "we", "us").
                   </p>
                 </TermsSection>
@@ -259,7 +262,12 @@ export default function TermsAndConditions() {
                   </ul>
                   <p className="text-neutral-400 text-sm sm:text-base mt-3 leading-relaxed">
                     For refund requests, contact us at{" "}
-                    <span className="text-white">[Support Email]</span>.
+                    <a
+                      href="mailto:cobrother.com@gmail.com"
+                      className="text-white hover:text-purple-400 transition"
+                    >
+                      cobrother.com@gmail.com
+                    </a>
                   </p>
                 </TermsSection>
 
@@ -337,11 +345,11 @@ export default function TermsAndConditions() {
                   <p className="text-neutral-300 leading-relaxed text-sm sm:text-base">
                     These Terms are governed by the laws of India. Any disputes
                     shall be subject to the exclusive jurisdiction of the courts
-                    in <span className="text-white">[Your City, State]</span>,
-                    India.
-                  </p>
-                  <p className="text-neutral-400 text-sm sm:text-base mt-3 leading-relaxed">
-                    Example: "Hubballi, Karnataka" or "Bangalore, Karnataka"
+                    in{" "}
+                    <span className="text-white">
+                      Dharwad, Hubballi Karnataka
+                    </span>
+                    , India.
                   </p>
                 </TermsSection>
 
@@ -362,17 +370,25 @@ export default function TermsAndConditions() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
                     <div className="rounded-2xl border border-neutral-800/50 bg-neutral-950/30 p-5">
                       <div className="flex items-center gap-2 mb-2">
-                        <Mail className="h-4 w-4 text-pink-400" />
+                        <Mail className="h-4 w-4 text-purple-400" />
                         <h3 className="text-sm font-semibold text-white/90">
                           Support contact
                         </h3>
                       </div>
+
                       <p className="text-sm text-neutral-300">
-                        Email:{" "}
-                        <span className="text-white">[Support Email]</span>
+                        Email:
+                        <a
+                          href="mailto:cobrother.com@gmail.com"
+                          className="text-white hover:text-purple-400 transition"
+                        >
+                          cobrother.com@gmail.com
+                        </a>
                       </p>
-                      <p className="text-xs text-neutral-500 mt-2">
-                        Example: support@cobrother.in
+
+                      <p className="text-sm text-neutral-300 mt-1">
+                        Phone:
+                        <span className="text-white"> 080 8575 8575</span>
                       </p>
                     </div>
 
@@ -380,33 +396,33 @@ export default function TermsAndConditions() {
                       <h3 className="text-sm font-semibold text-white/90 mb-2">
                         Company details
                       </h3>
+
                       <p className="text-sm text-neutral-300">
-                        Legal name:{" "}
-                        <span className="text-white">[Company Legal Name]</span>
+                        Legal name:
+                        <span className="text-white">
+                          {" "}
+                          AULTUM INTERNATIONAL (Proprietor: Neminath Surendra
+                          Akkole)
+                        </span>
                       </p>
-                      <p className="text-sm text-neutral-300">
-                        Address:{" "}
-                        <span className="text-white">[Company Address]</span>
+
+                      <p className="text-sm text-neutral-300 mt-1">
+                        Address:
+                        <span className="text-white">
+                          {" "}
+                          Dharwad, Hubballi Karnataka, India
+                        </span>
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-4 rounded-xl border border-neutral-800/50 bg-neutral-950/30 p-4">
                     <p className="text-sm text-neutral-300 leading-relaxed">
-                      For questions about these Terms & Conditions, please reach
-                      out to us. We're here to help!
+                      For questions regarding these Terms & Conditions, please
+                      contact us using the details above.
                     </p>
                   </div>
                 </TermsSection>
-
-                {/* Bottom note */}
-                <div className="mt-10 rounded-2xl border border-neutral-800/50 bg-neutral-950/30 p-5">
-                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                    Draft note: This is a starter template. Tailor the payment
-                    terms, refund policy, and governing law clauses to match
-                    your actual business operations.
-                  </p>
-                </div>
               </div>
             </div>
 

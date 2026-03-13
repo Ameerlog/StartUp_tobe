@@ -26,6 +26,7 @@ import DomainlistingForm from "./pages/DomainlistingForm";
 import CoworkingForm from "./pages/Coworker";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
+import CancellationRefundPolicy from "./pages/CancellationRefundPolicy";
 import HowItWorks from "./pages/HowItWorks";
 import Careers from "./pages/Careers";
 import GetVentureForm from "./pages/GetVentureform";
@@ -73,6 +74,10 @@ const App = () => {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route
+              path="/cancellation-refund-policy"
+              element={<CancellationRefundPolicy />}
+            />
             <Route path="/terms-of-service" element={<TermsAndConditions />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/careers" element={<Careers />} />

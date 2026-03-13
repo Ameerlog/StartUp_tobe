@@ -85,6 +85,7 @@ const footerColumns = [
       "Careers",
       "Contact Us",
       "Privacy Policy",
+      "Cancellation & Refund Policy",
       "Terms of Service",
     ],
   },
@@ -110,6 +111,7 @@ const linkPaths = {
   Careers: "/careers",
   "Contact Us": "/contact",
   "Privacy Policy": "/privacy-policy",
+  "Cancellation & Refund Policy": "/cancellation-refund-policy",
   "Terms of Service": "/terms-of-service",
 };
 
@@ -314,8 +316,27 @@ export default function Footer() {
 
           {/* BOTTOM — only change: ❤️ → <AnimatedHeart /> */}
           <div className="pt-6 border-t border-neutral-800 text-center text-sm text-neutral-500">
-            © 2026 <span className="font-semibold text-white">Cobrother™</span>.
-            All rights reserved. Made with <AnimatedHeart /> in India.
+            © 2026{" "}
+            <span
+              className="font-semibold text-neutral-500 hover:text-white transition cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              Cobrother™ Aultum International
+            </span>
+            . All rights reserved. Made with <AnimatedHeart /> in India.
+            <div className="mt-2 text-neutral-400">
+              Email:{" "}
+              <a
+                href="mailto:cobrother.com@gmail.com"
+                className="hover:text-white transition"
+              >
+                cobrother.com@gmail.com
+              </a>{" "}
+              | Phone:{" "}
+              <a href="tel:08085758575" className="hover:text-white transition">
+                080 8575 8575
+              </a>
+            </div>
           </div>
         </div>
       </section>
