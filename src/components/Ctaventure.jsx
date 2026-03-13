@@ -49,7 +49,7 @@ const CtaVenture = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition duration-500" />
 
             <a
-              href="https://aultum.com/"
+              href=""
               className="relative px-8 py-4 text-base sm:text-lg font-semibold text-white flex items-center gap-2"
             >
               Get Aultum Automation

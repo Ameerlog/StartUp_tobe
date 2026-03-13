@@ -93,16 +93,7 @@ export default function AIRoboticsPage() {
                 </div>
 
                 <div className="relative mt-6 pt-5 border-t border-neutral-800">
-                  <button
-                    onClick={() =>
-                      window.open(
-                        "https://aultum.com/",
-                        "_blank",
-                        "noopener,noreferrer",
-                      )
-                    }
-                    className="w-full flex items-center justify-between text-sm font-bold text-neutral-400 group-hover:text-white transition"
-                  >
+                  <button className="w-full flex items-center justify-between text-sm font-bold text-neutral-400 group-hover:text-white transition">
                     Get Aultum Automation
                     <span className="bg-neutral-800 p-1.5 rounded-full">
                       <ArrowRight className="w-4 h-4" />
@@ -161,13 +152,6 @@ export default function AIRoboticsPage() {
               </ul>
 
               <button
-                onClick={() =>
-                  window.open(
-                    "https://aultum.com/",
-                    "_blank",
-                    "noopener,noreferrer",
-                  )
-                }
                 className="mt-8 w-full rounded-full py-3 text-sm font-bold
                 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 transition"
               >

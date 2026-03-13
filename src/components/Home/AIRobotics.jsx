@@ -28,9 +28,6 @@ export default function AIRobotics() {
         </div>
 
         <button
-          onClick={() =>
-            window.open("https://aultum.com/", "_blank", "noopener,noreferrer")
-          }
           className="
             group
             flex items-center gap-2

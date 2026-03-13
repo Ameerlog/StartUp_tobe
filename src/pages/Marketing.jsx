@@ -46,7 +46,7 @@ const Marketing = () => {
 
           <div className="mt-8">
             <Link
-              to="https://aultum.com/"
+              to=""
               className="relative inline-flex items-center overflow-hidden rounded-full"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500" />

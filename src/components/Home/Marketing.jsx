@@ -144,12 +144,7 @@ export default function Marketing() {
           Co-Marketing
         </h2>
 
-        <button
-          onClick={() =>
-            window.open("https://aultum.com/", "_blank", "noopener,noreferrer")
-          }
-          className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4"
-        >
+        <button className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4">
           <span className="absolute w-20 h-20 rounded-full bg-white/30 animate-community-ripple z-20"></span>
           <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500" />
           <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
