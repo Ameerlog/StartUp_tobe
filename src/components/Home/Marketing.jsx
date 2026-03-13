@@ -141,14 +141,14 @@ export default function Marketing() {
       {/* Header */}
       <div className="text-center px-4 flex flex-col items-center gap-4 mb-8 relative z-20">
         <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-white">
-          Co-Marketing
+          Co-Creation
         </h2>
 
         <button className="community-btn group relative flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 px-7 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.45)] transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:shadow-[0_0_28px_rgba(139,92,246,0.7)] active:scale-[0.98] mt-4">
           <span className="absolute w-20 h-20 rounded-full bg-white/30 animate-community-ripple z-20"></span>
           <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500" />
           <span className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="relative cursor-pointer">Get Aultum Automation</span>
+          <span className="relative cursor-pointer">List Your Creation</span>
         </button>
       </div>
 
@@ -284,7 +284,7 @@ export default function Marketing() {
           className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-purple-500/40 bg-purple-500/5 px-8 py-2.5 text-sm font-bold text-purple-300 backdrop-blur-md shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 hover:border-blue-400/60 hover:text-white hover:shadow-[0_0_26px_rgba(96,165,250,0.4)] active:scale-[0.97]"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-blue-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:via-blue-600/20 group-hover:to-pink-600/20 transition-all duration-300" />
-          <span className="relative cursor-pointer">View All Services</span>
+          <span className="relative cursor-pointer">View All Creation</span>
           <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>

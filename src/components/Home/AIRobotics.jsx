@@ -47,7 +47,7 @@ export default function AIRobotics() {
             mt-4
           "
         >
-          Get Aultum Automation
+          List Your Creation
         </button>
       </div>
 

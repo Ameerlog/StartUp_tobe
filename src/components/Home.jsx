@@ -1,215 +1,13 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Search,
-  ArrowRight,
-  Check,
-  X,
-  Loader2,
-  AlertCircle,
-} from "lucide-react";
+import { Search, Check, X, Loader2, AlertCircle } from "lucide-react";
 import axios from "axios";
 import betheBro from "../assets/domain/bethebro1.png";
-import BackgroundImage from "../assets/domain/bg1.svg";
-import Joint from "../assets/domain/venture1.svg";
-import Branding from "../assets/domain/brand.svg";
-import Marketing from "../assets/domain/market.svg";
-import Community from "../assets/domain/community.svg";
 import JointVenture from "./Home/JointVenture";
 import Domains from "./Home/Domians";
 import Market from "./Home/Marketing";
 import Investors from "./Home/Investors";
-
-// ─────────────────────────────────────────────
-// HEXAGON BACKGROUND  — canvas-based, full screen
-// ─────────────────────────────────────────────
-const HEX_R = 18;
-const HEX_PAD = 4;
-const GLOW_R = 130;
-
-const HexagonBackground = () => {
-  const wrapRef = useRef(null);
-  const canvasRef = useRef(null);
-  const mouseRef = useRef({ x: -9999, y: -9999 });
-  const rafRef = useRef(null);
-  const cellsRef = useRef([]);
-
-  const buildGrid = useCallback(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-    const W = wrap.offsetWidth;
-    const H = wrap.offsetHeight;
-
-    const hexW = Math.sqrt(3) * HEX_R;
-    const hexH = 2 * HEX_R;
-    const colStep = hexW + HEX_PAD;
-    const rowStep = hexH * 0.75 + HEX_PAD;
-
-    const cols = Math.ceil(W / colStep) + 2;
-    const rows = Math.ceil(H / rowStep) + 2;
-
-    const cells = [];
-    for (let row = -1; row < rows; row++) {
-      for (let col = -1; col < cols; col++) {
-        const offsetX = row % 2 === 1 ? colStep / 2 : 0;
-        cells.push({
-          cx: col * colStep + offsetX + hexW / 2,
-          cy: row * rowStep + hexH / 2,
-          r: HEX_R,
-        });
-      }
-    }
-    cellsRef.current = cells;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + "px";
-    canvas.style.height = H + "px";
-    const ctx = canvas.getContext("2d");
-    ctx.scale(dpr, dpr);
-  }, []);
-
-  useEffect(() => {
-    buildGrid();
-    const ro = new ResizeObserver(buildGrid);
-    if (wrapRef.current) ro.observe(wrapRef.current);
-    return () => ro.disconnect();
-  }, [buildGrid]);
-
-  useEffect(() => {
-    const onMove = (e) => {
-      const wrap = wrapRef.current;
-      if (!wrap) return;
-      const rect = wrap.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      };
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  useEffect(() => {
-    const hexPath = (ctx, cx, cy, r) => {
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 3) * i - Math.PI / 6;
-        const px = cx + r * Math.cos(angle);
-        const py = cy + r * Math.sin(angle);
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
-      }
-      ctx.closePath();
-    };
-
-    const tick = () => {
-      rafRef.current = requestAnimationFrame(tick);
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const dpr = window.devicePixelRatio || 1;
-      const W = canvas.width / dpr;
-      const H = canvas.height / dpr;
-      const ctx = canvas.getContext("2d");
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, W, H);
-
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
-      const cells = cellsRef.current;
-
-      cells.forEach(({ cx, cy, r }) => {
-        const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
-        const ratio = Math.max(0, 1 - dist / GLOW_R);
-
-        hexPath(ctx, cx, cy, r - 1);
-
-        if (ratio > 0.01) {
-          ctx.fillStyle = `rgba(139, 32, 246, ${0.04 + ratio * 0.18})`;
-          ctx.fill();
-
-          ctx.strokeStyle = `rgba(167, 30, 255, ${0.4 + ratio * 0.72})`;
-          ctx.lineWidth = 1.2;
-
-          if (ratio > 0.35) {
-            ctx.shadowColor = `rgba(167, 139, 250, ${ratio * 0.55})`;
-            ctx.shadowBlur = 10 * ratio;
-          }
-          ctx.stroke();
-          ctx.shadowBlur = 0;
-          ctx.shadowColor = "transparent";
-        } else {
-          ctx.fillStyle = "rgba(14, 12, 20, 0.9)";
-          ctx.fill();
-          ctx.strokeStyle = "rgba(139, 92, 246, 0.35)";
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-
-        // ── CENTER DOT ──
-        // Dim base opacity when far, brighter when hovered
-        const dotOpacity =
-          ratio > 0.01
-            ? 0.35 + ratio * 0.65 // 0.35 → 1.0 as ratio increases
-            : 0.12; // always-visible faint dot when far
-
-        ctx.beginPath();
-        ctx.arc(cx, cy, 1.6, 0, Math.PI * 2);
-
-        if (ratio > 0.01) {
-          // Glowing dot near cursor — add soft halo
-          ctx.shadowColor = `rgba(192, 132, 252, ${ratio * 0.9})`;
-          ctx.shadowBlur = 6 * ratio;
-        }
-
-        ctx.fillStyle = `rgba(216, 180, 254, ${dotOpacity})`;
-        ctx.fill();
-
-        // Reset shadow so it doesn't bleed into next hexagon
-        ctx.shadowBlur = 0;
-        ctx.shadowColor = "transparent";
-        // ── END CENTER DOT ──
-      });
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={wrapRef}
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 1,
-        pointerEvents: "none",
-        overflow: "hidden",
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        style={{ position: "absolute", top: 0, left: 0 }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.97) 100%)",
-          zIndex: 2,
-          pointerEvents: "none",
-        }}
-      />
-    </div>
-  );
-};
 
 // ─────────────────────────────────────────────
 // HOME
@@ -278,52 +76,11 @@ const Home = () => {
     setSearchStatus("idle");
     setErrorMessage("");
   };
-  const iconData = [
-    {
-      Icon: Joint,
-      title: "Co-Venture",
-      subtitle: "Strategic Partnerships",
-      path: "/venture",
-      gradient: "from-purple-400/20 to-indigo-500/20",
-      glowColor: "from-purple-600/30 to-indigo-600/30",
-      iconColor: "text-purple-400",
-    },
-    {
-      Icon: Branding,
-      title: "Co-Branding",
-      subtitle: "Identify your brands",
-      path: "/branding",
-      gradient: "from-blue-500/20 to-cyan-500/20",
-      glowColor: "from-blue-600/30 to-cyan-600/30",
-      iconColor: "text-blue-400",
-    },
-    {
-      Icon: Marketing,
-      title: "Co-Marketing",
-      subtitle: "Growth Strategies",
-      path: "/marketing",
-      gradient: "from-pink-500/20 to-rose-500/20",
-      glowColor: "from-pink-600/30 to-rose-600/30",
-      iconColor: "text-pink-400",
-    },
-    {
-      Icon: Community,
-      title: "Co-Workinɡ",
-      subtitle: "Network Building",
-      path: "/community",
-      gradient: "from-violet-500/20 to-purple-500/20",
-      glowColor: "from-violet-600/30 to-purple-600/30",
-      iconColor: "text-violet-400",
-    },
-  ];
 
   return (
     <>
       {/* MAIN HERO SECTION */}
       <section className="min-h-screen w-full relative overflow-hidden bg-black">
-        {/* ── HEXAGON BACKGROUND (bottom layer) ── */}
-        <HexagonBackground />
-
         {/* ── ANIMATED GRADIENT ORBS ── */}
         <div
           className="fixed inset-0 overflow-hidden pointer-events-none"
@@ -413,8 +170,8 @@ const Home = () => {
                 transition={{ delay: 0.2 }}
                 className="relative text-2xl sm:text-4xl md:text-3xl lg:text-3xl font-bold tracking-tight mb-3 sm:mb-4 font-display"
               >
-                <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                  Discover Your Brand Name Here
+                <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] ">
+                  Let's Begin With Your Brand Name
                 </span>
               </motion.h2>
             </div>
@@ -618,25 +375,6 @@ const Home = () => {
               </div>
             </motion.div>
           </motion.div>
-
-          {/* 2. SERVICES GRID */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0 }}
-            className="w-full max-w-7xl px-2 sm:px-4 "
-          >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-              {iconData.map((item, index) => (
-                <ServiceCard
-                  key={index}
-                  item={item}
-                  index={index}
-                  navigate={navigate}
-                />
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -646,93 +384,6 @@ const Home = () => {
       <Market />
       <Investors />
     </>
-  );
-};
-
-// ─────────────────────────────────────────────
-// SERVICE CARD
-// ─────────────────────────────────────────────
-const ServiceCard = ({ item, index, navigate }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.1 + index * 0.1 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => item.path && navigate(item.path)}
-      className="relative group cursor-pointer"
-    >
-      <div
-        className={`absolute -inset-0.5 bg-gradient-to-r ${item.glowColor} rounded-xl sm:rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition duration-500`}
-      />
-
-      <div
-        className="relative rounded-xl sm:rounded-2xl hover:border-neutral-700/50 transition-all duration-300 h-full flex flex-col items-center text-center
-        p-4 sm:p-5 md:p-6 lg:p-8
-      "
-      >
-        <div
-          className={`
-            relative mb-3 sm:mb-4 lg:mb-5
-            w-16 h-16
-            sm:w-20 sm:h-20
-            md:w-24 md:h-24
-            lg:w-28 lg:h-28
-            bg-gradient-to-br ${item.gradient}
-            rounded-xl sm:rounded-2xl
-            flex items-center justify-center
-            transition-transform duration-300
-            group-hover:scale-110 group-hover:rotate-6
-          `}
-        >
-          <img
-            src={item.Icon}
-            alt={item.title}
-            className="w-full h-full scale-[1.5] object-contain drop-shadow-xl"
-          />
-        </div>
-
-        <h3
-          className={`
-            font-bold mb-1 sm:mb-2
-            text-xs sm:text-sm md:text-base lg:text-lg
-            transition-colors duration-300
-            ${isHovered ? item.iconColor : "text-white"}
-          `}
-        >
-          {item.title}
-        </h3>
-
-        <p
-          className="
-          text-neutral-400 group-hover:text-neutral-300
-          transition-colors duration-300
-          line-clamp-2
-          text-[10px] sm:text-xs md:text-sm
-          mb-2 sm:mb-3 lg:mb-4
-        "
-        >
-          {item.subtitle}
-        </p>
-
-        <motion.div
-          initial={{ x: 0 }}
-          animate={{ x: isHovered ? 5 : 0 }}
-          transition={{ duration: 0.3 }}
-          className={`
-            mt-auto ${item.iconColor}
-            opacity-0 group-hover:opacity-100
-            transition-opacity duration-300
-            hidden sm:block
-          `}
-        >
-          <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
-        </motion.div>
-      </div>
-    </motion.div>
   );
 };
 

@@ -52,7 +52,7 @@ const CtaVenture = () => {
               href=""
               className="relative px-8 py-4 text-base sm:text-lg font-semibold text-white flex items-center gap-2"
             >
-              Get Aultum Automation
+              List Your Creation
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </a>
           </motion.button>

@@ -432,7 +432,7 @@ export default function Investors() {
     <section className="w-full bg-[#09090b] py-6 sm:py-8 md:py-10 lg:py-12 relative overflow-hidden">
       <div className="text-center px-0 flex flex-col items-center gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white font-bold ">
-          Co-Working
+          Co-Space
         </h2>
 
         <button
