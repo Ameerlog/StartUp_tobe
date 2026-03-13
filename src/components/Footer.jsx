@@ -73,7 +73,7 @@ const footerColumns = [
     title: "Marketplace & Ventures",
     links: [
       "Domain Marketplace",
-      "Coventure / JV Opportunities",
+      "Co-Venture Opportunities",
       "Premium Brands for Partnership",
     ],
   },
